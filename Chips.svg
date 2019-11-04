@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+    "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd" [
+    <!-- Entities definieren -->
+    <!ENTITY root2 "1.4142">
+    <!ENTITY root2Inv "0.7071">
+    <!ENTITY r "1">
+    <!ENTITY r2 "0.75"> <!-- Ein zweiter Radius für den kleineren Kreis -->
+    <!ENTITY r3 "0.65"> <!-- Ein dritter Radius für den gestrichelten Kreis -->
+    <!ENTITY d "2">
+    <!ENTITY a "&root2Inv;">
+
+    <!ENTITY p0X "0">
+    <!ENTITY p0Y "-&r;">
+    <!ENTITY p4X "0">
+    <!ENTITY p4Y "&r;">
+    <!ENTITY p2X "&r;">
+    <!ENTITY p2Y "0">
+    <!ENTITY p6X "-&r;">
+    <!ENTITY p6Y "0">
+    <!ENTITY p1X "&a;">
+    <!ENTITY p1Y "-&a;">
+    <!ENTITY p5X "-&a;">
+    <!ENTITY p5Y "&a;">
+    <!ENTITY p3X "&a;">
+    <!ENTITY p3Y "&a;">
+    <!ENTITY p7X "-&a;">
+    <!ENTITY p7Y "-&a;">
+    <!ENTITY cX "0">
+    <!ENTITY cY "0">
+
+
+    <!ENTITY rPlus "1.1">
+    <!ENTITY dPlus "2.2">
+
+    <!ENTITY coordBox "-&rPlus; -&rPlus; &dPlus; &dPlus;">
+
+    <!ENTITY outlineStyle "fill:none; stroke:white; stroke-width:0.2">
+    <!ENTITY outlineStyle_white "fill:none; stroke:blue; stroke-width:0.2">
+
+]>
+
+<svg xmlns = "http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="100%" height="100%">
+
+    <symbol id = "chip_rot" viewBox="&coordBox;">
+       <circle cx="0" cy="0" r="&r;" fill= "red"/>
+        <line x1="&p0X;" y1="&p0Y;" x2="&p4X;" y2="&p4Y;" style="&outlineStyle;"/>
+        <line x1="&p2X;" y1="&p2Y;" x2="&p6X;" y2="&p6Y;" style="&outlineStyle;"/>
+        <line x1="&p1X;" y1="&p1Y;" x2="&p5X;" y2="&p5Y;" style="&outlineStyle;"/>
+        <line x1="&p3X;" y1="&p3Y;" x2="&p7X;" y2="&p7Y;" style="&outlineStyle;"/>
+    </symbol>
+
+    <symbol id="chip_rot2" viewBox="&coordBox;">
+        <use x="-&rPlus;" y="-&rPlus;" width="100%" height="100%" xlink:href="#chip_rot"/>
+        <circle cx="0" cy="0" r="&r2;" fill= "red"/>
+    </symbol>
+
+    <!-- Leider müssen hier einige "magische Konstanten" verwendet werden-->
+    <!-- alignment-baseline funktioniert leider noch nicht-->
+    <symbol id="chip_5" viewBox="&coordBox;" preserveAspectRatio="xMidYMid meet" >
+        <use x="-&rPlus;" y="-&rPlus;" width="100%" height="100%" xlink:href="#chip_rot2"/>
+        <circle cx="0" cy="0" r="&r3;" fill= "none" stroke="white" stroke-width="0.05" stroke-dasharray="0.2,0.2"/>
+        <text x="&cX;" y="-0.175" fill="white" font-size="1" text-anchor="middle" alignment-baseline="central">
+            5
+        </text>
+    </symbol>
+
+
+    <symbol id = "chip_blue" viewBox="&coordBox;">
+        <circle cx="0" cy="0" r="&r;" fill= "blue"/>
+        <line x1="&p0X;" y1="&p0Y;" x2="&p4X;" y2="&p4Y;" style="&outlineStyle;"/>
+        <line x1="&p2X;" y1="&p2Y;" x2="&p6X;" y2="&p6Y;" style="&outlineStyle;"/>
+        <line x1="&p1X;" y1="&p1Y;" x2="&p5X;" y2="&p5Y;" style="&outlineStyle;"/>
+        <line x1="&p3X;" y1="&p3Y;" x2="&p7X;" y2="&p7Y;" style="&outlineStyle;"/>
+    </symbol>
+
+    <symbol id="chip_blue2" viewBox="&coordBox;">
+        <use x="-&rPlus;" y="-&rPlus;" width="100%" height="100%" xlink:href="#chip_blue"/>
+        <circle cx="0" cy="0" r="&r2;" fill= "blue"/>
+    </symbol>
+
+    <!-- Leider müssen hier einige "magische Konstanten" verwendet werden-->
+    <!-- alignment-baseline funktioniert leider noch nicht-->
+    <symbol id="chip_10" viewBox="&coordBox;" preserveAspectRatio="xMidYMid meet" >
+        <use x="-&rPlus;" y="-&rPlus;" width="100%" height="100%" xlink:href="#chip_blue2"/>
+        <circle cx="0" cy="0" r="&r3;" fill= "none" stroke="white" stroke-width="0.05" stroke-dasharray="0.2,0.2"/>
+        <text x="&cX;" y="-0.175" fill="white" font-size="1" text-anchor="middle" alignment-baseline="central">
+            10
+        </text>
+    </symbol>
+
+    <symbol id = "chip_green" viewBox="&coordBox;">
+        <circle cx="0" cy="0" r="&r;" fill= "green"/>
+        <line x1="&p0X;" y1="&p0Y;" x2="&p4X;" y2="&p4Y;" style="&outlineStyle;"/>
+        <line x1="&p2X;" y1="&p2Y;" x2="&p6X;" y2="&p6Y;" style="&outlineStyle;"/>
+        <line x1="&p1X;" y1="&p1Y;" x2="&p5X;" y2="&p5Y;" style="&outlineStyle;"/>
+        <line x1="&p3X;" y1="&p3Y;" x2="&p7X;" y2="&p7Y;" style="&outlineStyle;"/>
+    </symbol>
+
+    <symbol id="chip_green2" viewBox="&coordBox;">
+        <use x="-&rPlus;" y="-&rPlus;" width="100%" height="100%" xlink:href="#chip_green"/>
+        <circle cx="0" cy="0" r="&r2;" fill= "green"/>
+    </symbol>
+
+    <!-- Leider müssen hier einige "magische Konstanten" verwendet werden-->
+    <!-- alignment-baseline funktioniert leider noch nicht-->
+    <symbol id="chip_25" viewBox="&coordBox;" preserveAspectRatio="xMidYMid meet" >
+        <use x="-&rPlus;" y="-&rPlus;" width="100%" height="100%" xlink:href="#chip_green2"/>
+        <circle cx="0" cy="0" r="&r3;" fill= "none" stroke="white" stroke-width="0.05" stroke-dasharray="0.2,0.2"/>
+        <text x="&cX;" y="-0.175" fill="white" font-size="1" text-anchor="middle" alignment-baseline="central">
+            25
+        </text>
+    </symbol>
+
+    <symbol id = "chip_black" viewBox="&coordBox;">
+        <circle cx="0" cy="0" r="&r;" fill= "black"/>
+        <line x1="&p0X;" y1="&p0Y;" x2="&p4X;" y2="&p4Y;" style="&outlineStyle;"/>
+        <line x1="&p2X;" y1="&p2Y;" x2="&p6X;" y2="&p6Y;" style="&outlineStyle;"/>
+        <line x1="&p1X;" y1="&p1Y;" x2="&p5X;" y2="&p5Y;" style="&outlineStyle;"/>
+        <line x1="&p3X;" y1="&p3Y;" x2="&p7X;" y2="&p7Y;" style="&outlineStyle;"/>
+    </symbol>
+
+    <symbol id="chip_black2" viewBox="&coordBox;">
+        <use x="-&rPlus;" y="-&rPlus;" width="100%" height="100%" xlink:href="#chip_black"/>
+        <circle cx="0" cy="0" r="&r2;" fill= "black"/>
+    </symbol>
+
+    <!-- Leider müssen hier einige "magische Konstanten" verwendet werden-->
+    <!-- alignment-baseline funktioniert leider noch nicht-->
+    <symbol id="chip_50" viewBox="&coordBox;" preserveAspectRatio="xMidYMid meet" >
+        <use x="-&rPlus;" y="-&rPlus;" width="100%" height="100%" xlink:href="#chip_black2"/>
+        <circle cx="0" cy="0" r="&r3;" fill= "none" stroke="white" stroke-width="0.05" stroke-dasharray="0.2,0.2"/>
+        <text x="&cX;" y="-0.175" fill="white" font-size="1" text-anchor="middle" alignment-baseline="central">
+            50
+        </text>
+    </symbol>
+
+    <symbol id = "chip_white" viewBox="&coordBox;">
+        <circle cx="0" cy="0" r="&r;" fill= "white"/>
+        <line x1="&p0X;" y1="&p0Y;" x2="&p4X;" y2="&p4Y;" style="&outlineStyle_white;"/>
+        <line x1="&p2X;" y1="&p2Y;" x2="&p6X;" y2="&p6Y;" style="&outlineStyle_white;"/>
+        <line x1="&p1X;" y1="&p1Y;" x2="&p5X;" y2="&p5Y;" style="&outlineStyle_white;"/>
+        <line x1="&p3X;" y1="&p3Y;" x2="&p7X;" y2="&p7Y;" style="&outlineStyle_white;"/>
+    </symbol>
+
+    <symbol id="chip_white2" viewBox="&coordBox;">
+        <use x="-&rPlus;" y="-&rPlus;" width="100%" height="100%" xlink:href="#chip_white"/>
+        <circle cx="0" cy="0" r="&r2;" fill= "white"/>
+    </symbol>
+
+    <!-- Leider müssen hier einige "magische Konstanten" verwendet werden-->
+    <!-- alignment-baseline funktioniert leider noch nicht-->
+    <symbol id="chip_1" viewBox="&coordBox;" preserveAspectRatio="xMidYMid meet" >
+        <use x="-&rPlus;" y="-&rPlus;" width="100%" height="100%" xlink:href="#chip_white2"/>
+        <circle cx="0" cy="0" r="&r3;" fill= "none" stroke="blue" stroke-width="0.05" stroke-dasharray="0.2,0.2"/>
+        <text x="&cX;" y="-0.175" fill="blue" font-size="1" font-family="helvetica" text-anchor="middle" alignment-baseline="central">
+            1
+        </text>
+    </symbol>
+
+    <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+    <rect x="4" y="4" width="92" height="92" fill="darkgreen"
+              opacity="1"/>
+    <use x="40" y="0" width="20" height="50" xlink:href="#chip_1"/>
+    <use x="10" y="20" width="20" height="50" xlink:href="#chip_5"/>
+    <use x="30" y="20" width="20" height="50" xlink:href="#chip_10"/>
+    <use x="50" y="20" width="20" height="50" xlink:href="#chip_25"/>
+    <use x="70" y="20" width="20" height="50" xlink:href="#chip_50"/>
+    </svg>
+
+</svg>
+
