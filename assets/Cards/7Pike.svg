@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+        "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd" [
+        <!ENTITY strokeWidth "0.03">
+
+        <!ENTITY cardX "0">
+        <!ENTITY cardY "0">
+
+        <!ENTITY cardWidth "5">
+        <!ENTITY cardHeight "7">
+
+        <!ENTITY edgeRadius "0.25">
+
+        <!ENTITY smallIconX "0.3">
+        <!ENTITY smallIconY "5.3">
+
+        <!ENTITY textX "0.3">
+        <!ENTITY textY "1.5">
+
+        <!ENTITY fontSize "1.5">
+        <!ENTITY smallImageSize "1.5">
+        <!ENTITY bigImageSize "3">
+
+        <!ENTITY bigIconX "1.7">
+        <!ENTITY bigIconY "2">
+
+        <!ENTITY cardColor "black">
+        ]>
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="100%" height="100%" viewBox="0 0 &cardWidth; &cardHeight;">
+
+    <rect x="&cardX;" y="&cardY;"
+          width="&cardWidth;" height="&cardHeight;"
+          rx="&edgeRadius;" ry="&edgeRadius;"
+          style="fill:white;stroke:black;stroke-width:&strokeWidth;"/>
+
+    <text x="&textX;" y="&textY;" font-size="&fontSize;" font-family="serif" fill="&cardColor;">7</text>
+
+    <image x="&smallIconX;" y="&smallIconY;" width="&smallImageSize;" height="&smallImageSize;" xlink:href="Pike.svg" />
+
+    <image x="&bigIconX;" y="&bigIconY;" width="&bigImageSize;" height="&bigImageSize;" xlink:href="Pike.svg" />
+</svg>
