@@ -9,7 +9,7 @@
         ]>
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     width="4" height="5" viewBox="0 0 4 5">
+     width="100%" height="100%" viewBox="0 0 4 5">
 
     <polygon points="&left; &top; &right; &bottom;" style="fill:red"/>
 
