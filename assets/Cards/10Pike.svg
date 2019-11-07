@@ -15,7 +15,7 @@
         <!ENTITY smallIconX "0.2">
         <!ENTITY smallIconY "1.2">
 
-        <!ENTITY textX "0.3">
+        <!ENTITY textX "0.1">
         <!ENTITY textY "1">
 
         <!ENTITY fontSize "0.9">
@@ -43,17 +43,20 @@
 
     <!-- Die magischen Konstanten müssen noch raus -->
     <!-- Wie finde ich das Zentrum vom Image oder Text? -->
-    <text x="&textX;" y="&textY;" font-size="&fontSize;" font-family="serif" fill="&cardColor;">7</text>
-    <text x="4.4" y="6.6" font-size="&fontSize;" font-family="serif" fill="&cardColor;" transform= "rotate(180,4.6,6.3)">7</text>
+    <text x="&textX;" y="&textY;" font-size="&fontSize;" font-family="serif" fill="&cardColor;">10</text>
+    <text x="4.2" y="6.6" font-size="&fontSize;" font-family="serif" fill="&cardColor;" transform= "rotate(180,4.6,6.3)">10</text>
 
     <image x="&smallIconX;" y="&smallIconY;" width="&smallImageSize;" height="&smallImageSize;" xlink:href="Pike.svg" />
     <image x="4.1" y="5.2" width="&smallImageSize;" height="&smallImageSize;" transform= "rotate(180,4.5,5.5)" xlink:href="Pike.svg" />
 
-    <image x="1" y="0.8" width="&bigImageSize;" height="&bigImageSize;" xlink:href="Pike.svg" />
-    <image x="3" y="0.8" width="&bigImageSize;" height="&bigImageSize;" xlink:href="Pike.svg" />
-    <image x="2" y="1.9" width="&bigImageSize;" height="&bigImageSize;" xlink:href="Pike.svg" />
-    <image x="1" y="2.7" width="&bigImageSize;" height="&bigImageSize;" xlink:href="Pike.svg" />
-    <image x="3" y="2.7" width="&bigImageSize;" height="&bigImageSize;" xlink:href="Pike.svg" />
-    <image x="1" y="5.7" width="&bigImageSize;" height="&bigImageSize;" transform="rotate(180,1.63,5.9)" xlink:href="Pike.svg" />
-    <image x="3" y="5.7" width="&bigImageSize;" height="&bigImageSize;" transform="rotate(180,3.63,5.9)" xlink:href="Pike.svg" />
+    <image x="1" y="0.5" width="&bigImageSize;" height="&bigImageSize;" xlink:href="Pike.svg" />
+    <image x="3" y="0.5" width="&bigImageSize;" height="&bigImageSize;" xlink:href="Pike.svg" />
+    <image x="2" y="1.5" width="&bigImageSize;" height="&bigImageSize;" xlink:href="Pike.svg" />
+    <image x="1" y="2.1" width="&bigImageSize;" height="&bigImageSize;" xlink:href="Pike.svg" />
+    <image x="3" y="2.1" width="&bigImageSize;" height="&bigImageSize;" xlink:href="Pike.svg" />
+    <image x="1" y="5.2" width="&bigImageSize;" height="&bigImageSize;" transform="rotate(180,1.63,5.9)" xlink:href="Pike.svg" />
+    <image x="3" y="5.2" width="&bigImageSize;" height="&bigImageSize;" transform="rotate(180,3.63,5.9)" xlink:href="Pike.svg" />
+    <image x="1" y="3.7" width="&bigImageSize;" height="&bigImageSize;" transform="rotate(180,1.63,4.4)" xlink:href="Pike.svg" />
+    <image x="3" y="3.7" width="&bigImageSize;" height="&bigImageSize;" transform="rotate(180,3.63,4.4)" xlink:href="Pike.svg" />
+    <image x="2" y="4.5" width="&bigImageSize;" height="&bigImageSize;" transform="rotate(180,2.62,5.2)" xlink:href="Pike.svg" />
 </svg>
