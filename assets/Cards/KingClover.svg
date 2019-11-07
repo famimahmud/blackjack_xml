@@ -12,7 +12,7 @@
 
         <!ENTITY edgeRadius "0.25">
 
-        <!ENTITY icon "Heart.svg">
+        <!ENTITY icon "Clover.svg">
 
         <!ENTITY leftIconX "0.2">
         <!ENTITY leftIconY "1.2">
@@ -32,9 +32,9 @@
 
         <!ENTITY smallImageSize "0.6">
 
-        <!ENTITY cardColor "red">
+        <!ENTITY cardColor "black">
 
-        <!ENTITY middleImage "KingRed.svg">
+        <!ENTITY middleImage "KingBlack.svg">
         <!ENTITY middleImageX "0.3">
         <!ENTITY middleImageY "0.3">
         <!ENTITY middleImageWidth "4.5">
