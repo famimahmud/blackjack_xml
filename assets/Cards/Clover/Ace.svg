@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+        "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd" [
+        <!ENTITY strokeWidth "0.03">
+
+        <!ENTITY cardX "0">
+        <!ENTITY cardY "0">
+
+        <!ENTITY cardWidth "5">
+        <!ENTITY cardHeight "7">
+
+        <!ENTITY edgeRadius "0.25">
+
+        <!ENTITY icon "Clover.svg">
+
+        <!ENTITY middleIconX "2">
+        <!ENTITY middleIconY "3">
+
+        <!ENTITY middleIconSize "1">
+
+        <!ENTITY leftIconX "0.2">
+        <!ENTITY leftIconY "1.2">
+
+        <!ENTITY rightIconX "4.1">
+        <!ENTITY rightIconY "5.2">
+
+        <!ENTITY text "A">
+
+        <!ENTITY leftTextX "0.2">
+        <!ENTITY leftTextY "1">
+
+        <!ENTITY rightTextX "4.3">
+        <!ENTITY rightTextY "6.6">
+
+        <!ENTITY fontSize "0.9">
+
+        <!ENTITY smallImageSize "0.6">
+
+        <!ENTITY cardColor "black">
+        ]>
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="100%" height="100%" viewBox="0 0 &cardWidth; &cardHeight;">
+
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1"/>
+        <stop offset="100%" style="stop-color:#ffffe6;stop-opacity:1"/>
+    </linearGradient>
+
+    <rect x="&cardX;" y="&cardY;"
+          width="&cardWidth;" height="&cardHeight;"
+          rx="&edgeRadius;" ry="&edgeRadius;" fill="url(#gradient)"
+          style="stroke:black;stroke-width:&strokeWidth;"/>
+
+    <!-- Die magischen Konstanten müssen noch raus -->
+    <!-- Wie finde ich das Zentrum vom Image oder Text? -->
+    <text x="&leftTextX;" y="&leftTextY;" font-size="&fontSize;" font-family="serif" fill="&cardColor;">&text;</text>
+    <text x="&rightTextX;" y="&rightTextY;" font-size="&fontSize;" font-family="serif" fill="&cardColor;" transform= "rotate(180,4.6,6.3)">&text;</text>
+
+    <image x="&leftIconX;" y="&leftIconY;" width="&smallImageSize;" height="&smallImageSize;" xlink:href="&icon;" />
+    <image x="&rightIconX;" y="&rightIconY;" width="&smallImageSize;" height="&smallImageSize;" transform= "rotate(180,4.5,5.5)" xlink:href="&icon;" />
+
+    <image x="&middleIconX;" y="&middleIconY;" width="&middleIconSize;" height="&middleIconSize;" xlink:href="&icon;" />
+</svg>

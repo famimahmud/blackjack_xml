@@ -2,7 +2,8 @@
 
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
         "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd" [
-        <!ENTITY strokeWidth "0.03">
+        <!ENTITY outerStrokeWidth "0.03">
+        <!ENTITY innerStrokeWidth "0.15">
 
         <!ENTITY cardX "0">
         <!ENTITY cardY "0">
@@ -33,11 +34,11 @@
     <rect x="&cardX;" y="&cardY;"
           width="&cardWidth;" height="&cardHeight;"
           rx="&edgeRadius;" ry="&edgeRadius;" fill="url(#gradient)"
-          style="stroke:black;stroke-width:&strokeWidth;"/>
+          style="stroke:black;stroke-width:&outerStrokeWidth;"/>
 
     <rect x="&patternX;" y="&patternY;"
           rx="&edgeRadius;" ry="&edgeRadius;"
           height="&patternHeight;" width="&patternWidth;"
-          style="fill:&materialBlue;;stroke:&materialLightBlue;;stroke-width:0.15"/>
+          style="fill:&materialBlue;;stroke:&materialLightBlue;;stroke-width:&innerStrokeWidth;"/>
 
 </svg>
