@@ -31,14 +31,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      width="100%" height="100%" viewBox="0 0 &cardWidth; &cardHeight;">
 
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:1"/>
+        <stop offset="100%" style="stop-color:rgb(255,255,230);stop-opacity:1"/>
+    </linearGradient>
+
     <rect x="&cardX;" y="&cardY;"
           width="&cardWidth;" height="&cardHeight;"
-          rx="&edgeRadius;" ry="&edgeRadius;"
-          style="fill:white;stroke:black;stroke-width:&strokeWidth;"/>
+          rx="&edgeRadius;" ry="&edgeRadius;" fill="url(#gradient)"
+          style="stroke:black;stroke-width:&strokeWidth;"/>
 
     <text x="&textX;" y="&textY;" font-size="&fontSize;" font-family="serif" fill="&cardColor;">7</text>
 
-    <image x="&smallIconX;" y="&smallIconY;" width="&smallImageSize;" height="&smallImageSize;" xlink:href="Pike.svg" />
+    <image x="&smallIconX;" y="&smallIconY;" width="&smallImageSize;" height="&smallImageSize;" xlink:href="Pike.svg"/>
 
-    <image x="&bigIconX;" y="&bigIconY;" width="&bigImageSize;" height="&bigImageSize;" xlink:href="Pike.svg" />
+    <image x="&bigIconX;" y="&bigIconY;" width="&bigImageSize;" height="&bigImageSize;" xlink:href="Pike.svg"/>
 </svg>
