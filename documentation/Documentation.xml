@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+        "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<article>
+    <articleinfo>
+        <title>Blackjack-Implementierung mit XML-Technologien</title>
+        <author>
+            <firstname>Patryk</firstname>
+            <surname>Brzoza</surname>
+        </author>
+        <author>
+            <firstname>Moritz</firstname>
+            <surname>Issig</surname>
+        </author>
+        <author>
+            <firstname>Fami</firstname>
+            <surname>Mahmud</surname>
+        </author>
+    </articleinfo>
+    <para>Einleitung blablabalbalbalablabalbalablablab</para>
+    <sect1>
+        <title>Erstes Kapitel</title>
+        <para>blablablbalballbabalbalbalbaalbla</para>
+        <sect2>
+            <title>Unterkapitel</title>
+            <para>blablablablablabablablalbalbal</para>
+        </sect2>
+    </sect1>
+</article>
