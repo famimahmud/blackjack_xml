@@ -43,18 +43,6 @@
         <!ENTITY aceX "2">
         <!ENTITY aceY "3">
 
-        <!ENTITY 1.1X "2"> <!ENTITY 1.1Y "1">
-        <!ENTITY 1.2X "3"> <!ENTITY 1.2Y "6"> <!--rotated-->
-
-        <!ENTITY 2.1X "2"> <!ENTITY 2.1Y "1">
-        <!ENTITY 2.2X "2"> <!ENTITY 2.1Y "1">
-        <!ENTITY 2.2X "3"> <!ENTITY 2.2Y "6"> <!--rotated-->
-        <!ENTITY 2.2X "3"> <!ENTITY 2.2Y "6"> <!--rotated-->
-
-
-
-
-
         ]>
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
