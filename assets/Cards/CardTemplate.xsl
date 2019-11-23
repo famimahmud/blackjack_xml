@@ -6,6 +6,7 @@
         <xsl:variable name="cardHeight" select="7"/>
         <xsl:variable name="edgeRadius" select="0.25"/>
         <xsl:variable name="strokeWidth" select="0.03"/>
+        <xsl:variable name="values" select="document('Values.xml')"/>
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              width="75%" height="100%" viewBox="0 0 {$cardWidth} {$cardHeight}">
@@ -82,7 +83,21 @@
 
                         <!-- Otherwise generate asset from number count -->
                         <xsl:otherwise>
-
+                            <svg x="0.5" y="1" width="4" height="5" viewBox="0 0 5 7" preserveAspectRatio="none">
+                                <xsl:for-each select="$values/*/value[@character=$cardValue]/child::point">
+                                    <xsl:variable name="currentX" select="x"/>
+                                    <xsl:variable name="currentY" select="y"/>
+                                    <xsl:choose>
+                                        <xsl:when test="@rotate = 'true'">
+                                            <image x="{$currentX}" y="{$currentY}" width="1" height="1"
+                                                   xlink:href="icons/{$cardType}.svg" transform="rotate(180 {$currentX + 0.5} {$currentY + 0.5})"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <image x="{$currentX}" y="{$currentY}" width="1" height="1" xlink:href="icons/{$cardType}.svg"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:for-each>
+                            </svg>
                         </xsl:otherwise>
                     </xsl:choose>
 

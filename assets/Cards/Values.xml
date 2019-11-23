@@ -13,7 +13,7 @@
             <y>1.5</y>
         </point>
         <point rotate="true">
-            <x>3</x>
+            <x>2</x>
             <y>5.5</y>
         </point>
     </value>
@@ -27,218 +27,218 @@
             <y>3</y>
         </point>
         <point rotate="true">
-            <x>3</x>
-            <y>6</y>
+            <x>2</x>
+            <y>5</y>
         </point>
     </value>
     <value character="4">
         <point>
-            <x>0</x>
-            <y>0</y>
+            <x>1</x>
+            <y>1</y>
         </point>
         <point>
-            <x>4</x>
-            <y>0</y>
+            <x>3</x>
+            <y>1</y>
         </point>
         <point rotate="true">
             <x>1</x>
-            <y>7</y>
+            <y>5</y>
         </point>
         <point rotate="true">
-            <x>5</x>
-            <y>7</y>
+            <x>3</x>
+            <y>5</y>
         </point>
     </value>
     <value character="5">
         <point>
-            <x>0</x>
-            <y>0</y>
+            <x>1</x>
+            <y>1</y>
         </point>
         <point>
-            <x>4</x>
-            <y>0</y>
+            <x>3</x>
+            <y>1</y>
+        </point>
+        <point rotate="true">
+            <x>1</x>
+            <y>5</y>
+        </point>
+        <point rotate="true">
+            <x>3</x>
+            <y>5</y>
         </point>
         <point>
             <x>2</x>
             <y>3</y>
-        </point>
-        <point rotate="true">
-            <x>1</x>
-            <y>7</y>
-        </point>
-        <point rotate="true">
-            <x>5</x>
-            <y>7</y>
         </point>
     </value>
     <value character="6">
         <point>
-            <x>0</x>
-            <y>0</y>
+            <x>1</x>
+            <y>1</y>
         </point>
         <point>
-            <x>4</x>
-            <y>0</y>
-        </point>
-        <point>
-            <x>0</x>
-            <y>3</y>
-        </point>
-        <point>
-            <x>4</x>
-            <y>3</y>
+            <x>3</x>
+            <y>1</y>
         </point>
         <point rotate="true">
             <x>1</x>
-            <y>7</y>
+            <y>5</y>
         </point>
         <point rotate="true">
-            <x>5</x>
-            <y>7</y>
+            <x>3</x>
+            <y>5</y>
+        </point>
+        <point>
+            <x>1</x>
+            <y>3</y>
+        </point>
+        <point>
+            <x>3</x>
+            <y>3</y>
         </point>
     </value>
     <value character="7">
         <point>
-            <x>0</x>
-            <y>0</y>
+            <x>1</x>
+            <y>1</y>
         </point>
         <point>
-            <x>4</x>
-            <y>0</y>
-        </point>
-        <point>
-            <x>2</x>
-            <y>1.5</y>
-        </point>
-        <point>
-            <x>0</x>
-            <y>3</y>
-        </point>
-        <point>
-            <x>4</x>
-            <y>3</y>
+            <x>3</x>
+            <y>1</y>
         </point>
         <point rotate="true">
             <x>1</x>
-            <y>7</y>
+            <y>5</y>
         </point>
         <point rotate="true">
-            <x>5</x>
-            <y>7</y>
+            <x>3</x>
+            <y>5</y>
+        </point>
+        <point>
+            <x>1</x>
+            <y>3</y>
+        </point>
+        <point>
+            <x>3</x>
+            <y>3</y>
+        </point>
+        <point>
+            <x>2</x>
+            <y>2</y>
         </point>
     </value>
     <value character="8">
         <point>
-            <x>0</x>
-            <y>0</y>
+            <x>1</x>
+            <y>1</y>
         </point>
         <point>
-            <x>4</x>
-            <y>0</y>
-        </point>
-        <point>
-            <x>2</x>
-            <y>1.5</y>
-        </point>
-        <point>
-            <x>0</x>
-            <y>3</y>
-        </point>
-        <point>
-            <x>4</x>
-            <y>3</y>
-        </point>
-        <point rotate="true">
             <x>3</x>
-            <y>5.5</y>
+            <y>1</y>
         </point>
         <point rotate="true">
             <x>1</x>
-            <y>7</y>
+            <y>5</y>
         </point>
         <point rotate="true">
-            <x>5</x>
-            <y>7</y>
+            <x>3</x>
+            <y>5</y>
+        </point>
+        <point>
+            <x>1</x>
+            <y>3</y>
+        </point>
+        <point>
+            <x>3</x>
+            <y>3</y>
+        </point>
+        <point>
+            <x>2</x>
+            <y>2</y>
+        </point>
+        <point rotate="true">
+            <x>2</x>
+            <y>4</y>
         </point>
     </value>
     <value character="9">
         <point>
-            <x>0</x>
+            <x>1</x>
             <y>0</y>
         </point>
         <point>
-            <x>4</x>
+            <x>3</x>
             <y>0</y>
-        </point>
-        <point>
-            <x>0</x>
-            <y>2</y>
-        </point>
-        <point>
-            <x>4</x>
-            <y>2</y>
-        </point>
-        <point>
-            <x>2</x>
-            <y>3</y>
         </point>
         <point rotate="true">
             <x>1</x>
-            <y>5</y>
+            <y>4</y>
         </point>
         <point rotate="true">
-            <x>5</x>
-            <y>5</y>
+            <x>3</x>
+            <y>4</y>
         </point>
         <point rotate="true">
             <x>1</x>
-            <y>7</y>
+            <y>6</y>
         </point>
         <point rotate="true">
-            <x>5</x>
-            <y>7</y>
-        </point>
-    </value>
-    <value character="10">
-        <point>
-            <x>0</x>
-            <y>0</y>
+            <x>3</x>
+            <y>6</y>
         </point>
         <point>
-            <x>4</x>
-            <y>0</y>
+            <x>1</x>
+            <y>2</y>
+        </point>
+        <point>
+            <x>3</x>
+            <y>2</y>
         </point>
         <point>
             <x>2</x>
             <y>1</y>
         </point>
+    </value>
+    <value character="10">
         <point>
-            <x>0</x>
-            <y>2</y>
+            <x>1</x>
+            <y>0</y>
         </point>
         <point>
-            <x>4</x>
-            <y>2</y>
+            <x>3</x>
+            <y>0</y>
         </point>
         <point rotate="true">
             <x>1</x>
-            <y>5</y>
+            <y>4</y>
         </point>
         <point rotate="true">
-            <x>5</x>
-            <y>5</y>
+            <x>3</x>
+            <y>4</y>
+        </point>
+        <point rotate="true">
+            <x>1</x>
+            <y>6</y>
         </point>
         <point rotate="true">
             <x>3</x>
             <y>6</y>
         </point>
-        <point rotate="true">
+        <point>
             <x>1</x>
-            <y>7</y>
+            <y>2</y>
+        </point>
+        <point>
+            <x>3</x>
+            <y>2</y>
+        </point>
+        <point>
+            <x>2</x>
+            <y>1</y>
         </point>
         <point rotate="true">
-            <x>5</x>
-            <y>7</y>
+            <x>2</x>
+            <y>5</y>
         </point>
     </value>
 </values>
