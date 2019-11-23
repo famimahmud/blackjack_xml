@@ -57,7 +57,7 @@
     <symbol id="chip5" viewBox="&coordBox;" preserveAspectRatio="xMidYMid meet" >
         <use x="-&rPlus;" y="-&rPlus;" width="100%" height="100%" xlink:href="#chip2"/>
         <circle cx="0" cy="0" r="&r3;" fill= "none" stroke="white" stroke-width="0.05" stroke-dasharray="0.2,0.2"/>
-        <text x="&cX;" y="0.25" fill="white" font-size="0.75" font-family="serif" text-anchor="middle" alignment-baseline="central">
+        <text x="&cX;" y="-0.25" fill="white" font-size="0.75" font-family="serif" text-anchor="middle" alignment-baseline="central">
             100
         </text>
     </symbol>
