@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl "href="CardTemplate.xsl" ?>
 
-<card hidden="false">
-    <type>Heart</type>
-    <value>7</value>
+<card hidden="true">
+    <type>Clover</type>
+    <value>3</value>
 </card>

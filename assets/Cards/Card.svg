@@ -16,67 +16,30 @@
          ry="0.25"
          fill="url(#gradient)"
          style="stroke:black;stroke-width:0.03"/>
-   <symbol id="valueBox">
-      <svg height="2" width="1" viewBox="0 0 1 2">
-         <text x="0.1"
-               y="0.8"
-               font-size="0.8"
-               font-family="serif"
-               fill="red">7</text>
-         <image x="0"
-                y="1"
-                width="0.6"
-                height="0.6"
-                xlink:href="icons/Heart.svg"/>
-      </svg>
-   </symbol>
-   <use xlink:href="#valueBox" x="0.2" y="0"/>
-   <use xlink:href="#valueBox"
-        x="0.2"
-        y="0"
-        transform="rotate(180 2.5 3.5)"/>
-   <svg x="0.5"
-        y="1"
-        width="4"
-        height="5"
-        viewBox="0 0 5 7"
-        preserveAspectRatio="none">
-      <image x="1"
-             y="1"
-             width="1"
-             height="1"
-             xlink:href="icons/Heart.svg"/>
-      <image x="3"
-             y="1"
-             width="1"
-             height="1"
-             xlink:href="icons/Heart.svg"/>
-      <image x="1"
-             y="5"
-             width="1"
-             height="1"
-             xlink:href="icons/Heart.svg"
-             transform="rotate(180 1.5 5.5)"/>
-      <image x="3"
-             y="5"
-             width="1"
-             height="1"
-             xlink:href="icons/Heart.svg"
-             transform="rotate(180 3.5 5.5)"/>
-      <image x="1"
-             y="3"
-             width="1"
-             height="1"
-             xlink:href="icons/Heart.svg"/>
-      <image x="3"
-             y="3"
-             width="1"
-             height="1"
-             xlink:href="icons/Heart.svg"/>
-      <image x="2"
-             y="2"
-             width="1"
-             height="1"
-             xlink:href="icons/Heart.svg"/>
-   </svg>
+   <pattern id="pattern"
+            patternUnits="userSpaceOnUse"
+            width="0.5"
+            height="0.5"
+            fill="red"
+            viewBox="0 0 0.5 0.5"
+            preserveAspectRatio="none">
+      <rect x="0" y="0" width="0.5" height="0.5" style="fill:red"/>
+      <line x1="-0.1"
+            y1="-0.1"
+            x2="0.6"
+            y2="0.6"
+            style="stroke:white;stroke-width:0.05"/>
+      <line x1="-0.1"
+            y1="0.6"
+            x2="0.6"
+            y2="-0.1"
+            style="stroke:white;stroke-width:0.05"/>
+   </pattern>
+   <rect x="0.5"
+         y="0.5"
+         rx="0.25"
+         ry="0.25"
+         height="6"
+         width="4"
+         style="fill:url(#pattern);stroke:red;stroke-width:0.1"/>
 </svg>

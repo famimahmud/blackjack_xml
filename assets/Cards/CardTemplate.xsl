@@ -24,10 +24,26 @@
             <xsl:choose>
                 <xsl:when test="/*/@hidden = 'true'">
                     <!-- Card is hidden: only show reverse -->
+
+                    <xsl:variable name="patternSize" select="0.5"/>
+                    <xsl:variable name="lineWidth" select="0.05"/>
+
+                    <pattern id="pattern"
+                             patternUnits="userSpaceOnUse"
+                             width="{$patternSize}"
+                             height="{$patternSize}"
+                             fill="red"
+                             viewBox="0 0 {$patternSize} {$patternSize}" preserveAspectRatio="none">
+
+                        <rect x="0" y="0" width="{$patternSize}" height="{$patternSize}" style="fill:red"/>
+                        <line x1="-0.1" y1="-0.1" x2="{$patternSize + 0.1}" y2="{$patternSize + 0.1}" style="stroke:white;stroke-width:{$lineWidth}" />
+                        <line x1="-0.1" y1="{$patternSize + 0.1}" x2="{$patternSize + 0.1}" y2="-0.1" style="stroke:white;stroke-width:{$lineWidth}" />
+                    </pattern>
+
                     <rect x="0.5" y="0.5"
                           rx="0.25" ry="0.25"
                           height="6" width="4"
-                          style="fill:#2196F3;stroke:#03a9f4;stroke-width:0.15"/>
+                          style="fill:url(#pattern);stroke:red;stroke-width:0.1"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- Generate card front -->

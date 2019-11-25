@@ -2,5 +2,5 @@
 <?xml-stylesheet type="text/xsl "href="ChipTemplate.xsl" ?>
 
 <chip>
-    <value>1000</value>
+    <value>500</value>
 </chip>
