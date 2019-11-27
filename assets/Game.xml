@@ -25,7 +25,7 @@
         </card>
     </deck>
 
-    <dealer>
+    <dealer turn="false">
         <hand>
             <card hidden="true">
                 <type>Pike</type>

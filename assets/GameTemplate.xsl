@@ -1,47 +1,88 @@
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xls="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes"/>
 
     <xsl:template match="/">
+        <xsl:variable name="width" select="150"/>
+        <xsl:variable name="height" select="100"/>
+        <xsl:variable name="fieldWidth" select="20"/>
+        <xsl:variable name="fieldHeight" select="15"/>
+        <xsl:variable name="deckX" select="110"/>
+        <xsl:variable name="deckY" select="7"/>
+        <xsl:variable name="dealerY" select="5"/>
+        <xsl:variable name="playerY" select="65"/>
+        <xsl:variable name="textColor" select="'white'"/>
+        <xsl:variable name="onTurnColor" select="'gold'"/>
+        <xsl:variable name="strokeWidth" select="0.3"/>
+        <xsl:variable name="cornerRadius" select="2"/>
+        <xsl:variable name="fieldRotation" select="10"/>
+        <xsl:variable name="fontSize" select="4"/>
+        <xsl:variable name="maxPlayers" select="count(/*/players/*)"/>
+
+        <xsl:variable name="cardHeight" select="7"/>
+        <xsl:variable name="edgeRadius" select="0.25"/>
+
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-             width="100%" height="100%" viewBox="0 0 1500 1000" stroke="white"
-             font-family="Helvetica, Arial, sans-serif" font-size="40" style="background: url(TableBackground.svg); background-size: 100% 100%">
+             width="100%" height="100%" viewBox="0 0 {$width} {$height}" stroke="{$textColor}"
+             font-family="Helvetica, Arial, sans-serif" font-size="{$fontSize}"
+             style="background: url(TableBackground.svg); background-size: 100% 100%">
 
-            <!--<rect fill="url(#gradient)" width="100%" height="100%"/>-->
+            <path id="infoBow" d="M30 40  Q75 50, 120 40" stroke-width="{$strokeWidth}" fill="none"/>
+            <path d="M30 50 Q75 60, 120 50" stroke-width="{$strokeWidth}" fill="none"/>
+            <path d="M30 40 L30 50" stroke-width="{$strokeWidth}"/>
+            <path d="M120 40 L120 50" stroke-width="{$strokeWidth}"/>
 
-            <path id="infoBow" d="M300 400 Q750 500, 1200 400" stroke-width="3px" fill="none"/>
-            <path d="M300 500 Q750 600, 1200 500" stroke-width="3px" fill="none"/>
-            <path d="M300 400 L300 500" stroke-width="3px"/>
-            <path d="M1200 400 L1200 500" stroke-width="3px"/>
-
-            <text dy="-40" fill="white" stroke="none" text-anchor="middle" alignment-baseline="central">
-                <textPath xlink:href="#infoBow" fill="white" startOffset="450"> It's Alice's turn! </textPath>
+            <text dy="-4" stroke="none" text-anchor="middle" alignment-baseline="central">
+                <textPath xlink:href="#infoBow" fill="{$textColor}" startOffset="45">It's Alice's turn!</textPath>
             </text>
 
-            <rect x="1100" y="70" width="110" height="150" rx="20" ry="20" fill="none" stroke-width="3px"/>
+            <rect x="{$deckX}" y="{$deckY}" width="{$fieldWidth div 2}" height="{$fieldHeight}" rx="{$cornerRadius}"
+                  ry="{$cornerRadius}" fill="none" stroke-width="{$strokeWidth}"/>
 
-            <text x="750" y="60" text-anchor="middle" alignment-baseline="central" fill="white" stroke="none">
-                Dealer
-            </text>
-            <rect x="650" y="100" width="200" height="150" rx="20" ry="20" fill="none" stroke-width="3px"/>
-
-            <text x="750" y="840" text-anchor="middle" alignment-baseline="central" fill="white" stroke="none">
-                Bob
-            </text>
-            <rect x="650" y="650" width="200" height="150" rx="20" ry="20" fill="none" stroke-width="3px"/>
-
-            <svg stroke="gold">
-                <text x="280" y="840" text-anchor="middle" alignment-baseline="central" fill="gold" stroke="none"
-                      transform="rotate(9, 500 820)">Alice
+            <xsl:variable name="color">
+                <xsl:choose>
+                    <xsl:when test="/*/dealer/@turn = 'true'">
+                        <xsl:value-of select="$onTurnColor"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$textColor"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <svg x="{($width - $fieldWidth) div 2}" y="{$dealerY}">
+                <text x="{$fieldWidth div 2}" y="{$fontSize div 2}" text-anchor="middle" alignment-baseline="central"
+                      fill="{$color}" stroke="none">
+                    Dealer
                 </text>
-                <rect x="200" y="650" width="200" height="150" rx="20" ry="20" fill="none" stroke-width="3px"
-                      transform="rotate(10, 500, 750)"/>
+                <rect y="{$fieldHeight div 3}" width="{$fieldWidth}" height="{$fieldHeight}" rx="{$cornerRadius}"
+                      ry="{$cornerRadius}" stroke="{$color}" fill="none" stroke-width="{$strokeWidth}"/>
             </svg>
-            <text x="1220" y="840" text-anchor="middle" alignment-baseline="central" fill="white" stroke="none"
-                  transform="rotate(-9, 1000 820)">You
-            </text>
-            <rect x="1100" y="650" width="200" height="150" rx="20" ry="20" fill="none" stroke-width="3px"
-                  transform="rotate(-10, 1000, 750)"/>
+
+            <xsl:for-each select="*/players/child::node()">
+                <xsl:variable name="name" select="@name"/>
+                <xsl:variable name="position" select="position()"/>
+                <xsl:variable name="playerColor">
+                    <xsl:choose>
+                        <xsl:when test="/*/@turn = 'true'">
+                            <xsl:value-of select="$onTurnColor"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$textColor"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <svg x="{(($width * ($position div ($maxPlayers + 1))) - ($fieldWidth div 2))}" y="{$playerY}">
+                    <rect width="{$fieldWidth}" height="{$fieldHeight}" rx="{$cornerRadius}"
+                          ry="{$cornerRadius}" stroke="{$playerColor}" fill="none" stroke-width="{$strokeWidth}"/>
+                    <text x="{$fieldWidth div 2}" y="{$fieldHeight + ($fontSize div 2)}" text-anchor="middle"
+                          alignment-baseline="central"
+                          fill="{$playerColor}" stroke="none">
+                        <xsl:value-of select="$name"/>
+                    </text>
+                </svg>
+            </xsl:for-each>
+
         </svg>
 
     </xsl:template>

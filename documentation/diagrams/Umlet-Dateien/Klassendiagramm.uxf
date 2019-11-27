@@ -28,6 +28,7 @@
 - highscore: int
 - name: String
 - id: int
+- turn: boolean
 --
 + stand()
 + hit(): Card
@@ -61,10 +62,11 @@ id: int
       <x>330</x>
       <y>230</y>
       <w>140</w>
-      <h>70</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>Dealer
 --
+- turn: boolean
 --
 + stand()
 + hit(): Card
