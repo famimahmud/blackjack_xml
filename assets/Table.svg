@@ -13,24 +13,19 @@
                 </text>
         <rect y="5" width="20" height="15" rx="2" ry="2" stroke="white" fill="none" stroke-width="0.3"/>
     </svg>
-    <svg x="40" y="65">
-        <rect width="20" height="15" rx="2" ry="2" stroke="white" fill="none" stroke-width="0.3"/>
-        <text x="10" y="17" text-anchor="middle" alignment-baseline="central" fill="white" stroke="none"/>
-    </svg>
-    <svg x="90" y="65">
-        <rect width="20" height="15" rx="2" ry="2" stroke="white" fill="none" stroke-width="0.3"/>
-        <text x="10" y="17" text-anchor="middle" alignment-baseline="central" fill="white" stroke="none">Angela</text>
-    </svg>
-    <svg x="140" y="65">
-        <rect width="20" height="15" rx="2" ry="2" stroke="white" fill="none" stroke-width="0.3"/>
-        <text x="10" y="17" text-anchor="middle" alignment-baseline="central" fill="white" stroke="none"/>
-    </svg>
-    <svg x="190" y="65">
+    <symbol id="playerBox1">
+        <rect width="20" height="15" rx="2" ry="2" stroke="gold" fill="none" stroke-width="0.3"/>
+        <text x="10" y="17" text-anchor="middle" alignment-baseline="central" fill="gold" stroke="none">Angela</text>
+    </symbol>
+    <use xlink:href="#playerBox1" x="27.5" y="65" transform="rotate(10,47.5, 65)"/>
+    <symbol id="playerBox2">
         <rect width="20" height="15" rx="2" ry="2" stroke="white" fill="none" stroke-width="0.3"/>
         <text x="10" y="17" text-anchor="middle" alignment-baseline="central" fill="white" stroke="none">Donald</text>
-    </svg>
-    <svg x="240" y="65">
+    </symbol>
+    <use xlink:href="#playerBox2" x="65" y="65"/>
+    <symbol id="playerBox3">
         <rect width="20" height="15" rx="2" ry="2" stroke="white" fill="none" stroke-width="0.3"/>
-        <text x="10" y="17" text-anchor="middle" alignment-baseline="central" fill="white" stroke="none"/>
-    </svg>
+        <text x="10" y="17" text-anchor="middle" alignment-baseline="central" fill="white" stroke="none">Boris</text>
+    </symbol>
+    <use xlink:href="#playerBox3" x="102.5" y="65" transform="rotate(-10,102.5, 65)"/>
 </svg>

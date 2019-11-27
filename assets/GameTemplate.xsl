@@ -59,12 +59,13 @@
                       ry="{$cornerRadius}" stroke="{$color}" fill="none" stroke-width="{$strokeWidth}"/>
             </svg>
 
-            <xsl:for-each select="*/players/child::node()">
+            <xsl:for-each select="*/players/player">
                 <xsl:variable name="name" select="@name"/>
                 <xsl:variable name="position" select="position()"/>
+                <xsl:variable name="fieldPos" select="(($width * ($position div ($maxPlayers + 1))) - ($fieldWidth div 2))"/>
                 <xsl:variable name="playerColor">
                     <xsl:choose>
-                        <xsl:when test="/*/@turn = 'true'">
+                        <xsl:when test="@turn = 'true'">
                             <xsl:value-of select="$onTurnColor"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -72,7 +73,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
-                <svg x="{(($width * ($position div ($maxPlayers + 1))) - ($fieldWidth div 2))}" y="{$playerY}">
+                <symbol id="playerBox{$position}">
                     <rect width="{$fieldWidth}" height="{$fieldHeight}" rx="{$cornerRadius}"
                           ry="{$cornerRadius}" stroke="{$playerColor}" fill="none" stroke-width="{$strokeWidth}"/>
                     <text x="{$fieldWidth div 2}" y="{$fieldHeight + ($fontSize div 2)}" text-anchor="middle"
@@ -80,9 +81,19 @@
                           fill="{$playerColor}" stroke="none">
                         <xsl:value-of select="$name"/>
                     </text>
-                </svg>
+                </symbol>
+                <xsl:choose>
+                    <xsl:when test="($maxPlayers) > 1 and $position = 1">
+                        <use xlink:href="#playerBox{$position}" x="{$fieldPos}" y="{$playerY}" transform="rotate({$fieldRotation},{$fieldPos + $fieldWidth}, {$playerY})"/>
+                    </xsl:when>
+                    <xsl:when test="($maxPlayers) > 1 and $position = $maxPlayers">
+                    <use xlink:href="#playerBox{$position}" x="{$fieldPos}" y="{$playerY}" transform="rotate({$fieldRotation * -1},{$fieldPos}, {$playerY})"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <use xlink:href="#playerBox{$position}" x="{$fieldPos}" y="{$playerY}"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:for-each>
-
         </svg>
 
     </xsl:template>

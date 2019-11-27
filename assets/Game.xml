@@ -92,5 +92,29 @@
                 </chip>
             </pool>
         </player>
+
+        <player id="52813" name="Boris" highscore="200" turn="false">
+            <hand>
+                <card hidden="true">
+                    <type>Pik</type>
+                    <value>7</value>
+                </card>
+                <card hidden="true">
+                    <type>Heart</type>
+                    <value>4</value>
+                </card>
+            </hand>
+            <wallet>
+                0
+            </wallet>
+            <pool>
+                <chip>
+                    <value>50</value>
+                </chip>
+                <chip>
+                    <value>10</value>
+                </chip>
+            </pool>
+        </player>
     </players>
 </game>
