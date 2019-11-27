@@ -96,7 +96,7 @@
         <player id="52813" name="Boris" highscore="200" turn="false">
             <hand>
                 <card hidden="true">
-                    <type>Pik</type>
+                    <type>Pike</type>
                     <value>7</value>
                 </card>
                 <card hidden="true">
@@ -116,5 +116,30 @@
                 </chip>
             </pool>
         </player>
+
+        <player id="39602" name="Kim" highscore="200" turn="false">
+            <hand>
+                <card hidden="true">
+                    <type>Pike</type>
+                    <value>2</value>
+                </card>
+                <card hidden="true">
+                    <type>Heart</type>
+                    <value>J</value>
+                </card>
+            </hand>
+            <wallet>
+                666
+            </wallet>
+            <pool>
+                <chip>
+                    <value>500</value>
+                </chip>
+                <chip>
+                    <value>1000</value>
+                </chip>
+            </pool>
+        </player>
+
     </players>
 </game>

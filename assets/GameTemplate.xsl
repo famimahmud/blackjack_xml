@@ -1,4 +1,4 @@
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xls="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes"/>
 
@@ -17,7 +17,7 @@
         <xsl:variable name="cornerRadius" select="2"/>
         <xsl:variable name="fieldRotation" select="10"/>
         <xsl:variable name="fontSize" select="4"/>
-        <xsl:variable name="maxPlayers" select="count(/*/players/*)"/>
+        <xsl:variable name="playerCount" select="count(/*/players/*)"/>
 
         <xsl:variable name="cardHeight" select="7"/>
         <xsl:variable name="edgeRadius" select="0.25"/>
@@ -62,7 +62,7 @@
             <xsl:for-each select="*/players/player">
                 <xsl:variable name="name" select="@name"/>
                 <xsl:variable name="position" select="position()"/>
-                <xsl:variable name="fieldPos" select="(($width * ($position div ($maxPlayers + 1))) - ($fieldWidth div 2))"/>
+                <xsl:variable name="fieldPos" select="(($width * ($position div ($playerCount + 1))) - ($fieldWidth div 2))"/>
                 <xsl:variable name="playerColor">
                     <xsl:choose>
                         <xsl:when test="@turn = 'true'">
@@ -82,17 +82,24 @@
                         <xsl:value-of select="$name"/>
                     </text>
                 </symbol>
+                <!--
                 <xsl:choose>
-                    <xsl:when test="($maxPlayers) > 1 and $position = 1">
+                    <xsl:when test="($playerCount) > 1 and $position = 1">
                         <use xlink:href="#playerBox{$position}" x="{$fieldPos}" y="{$playerY}" transform="rotate({$fieldRotation},{$fieldPos + $fieldWidth}, {$playerY})"/>
                     </xsl:when>
-                    <xsl:when test="($maxPlayers) > 1 and $position = $maxPlayers">
-                    <use xlink:href="#playerBox{$position}" x="{$fieldPos}" y="{$playerY}" transform="rotate({$fieldRotation * -1},{$fieldPos}, {$playerY})"/>
+                    <xsl:when test="($playerCount) > 1 and $position = $playerCount">
+                        <use xlink:href="#playerBox{$position}" x="{$fieldPos}" y="{$playerY}" transform="rotate({$fieldRotation * -1},{$fieldPos}, {$playerY})"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <use xlink:href="#playerBox{$position}" x="{$fieldPos}" y="{$playerY}"/>
                     </xsl:otherwise>
                 </xsl:choose>
+                -->
+                <!-- Curve function: 10 * (count - 2*pos + 1) / (count - 1) -->
+                <xsl:variable name="curveFactor" select = "10 * ($playerCount - 2*$position + 1) div ($playerCount - 1)"/>
+                <!-- Shift function: 10 * (pos - count + (count - 1) / 2) -->
+                <xsl:variable name="shiftFactor" select = "7 div $playerCount * ($position - $playerCount + ($playerCount - 1) div 2) * ($position - $playerCount + ($playerCount - 1) div 2)"/>
+                <use xlink:href="#playerBox{$position}" x="{$fieldPos}" y="{$playerY - $shiftFactor}" transform="rotate({$curveFactor} {$fieldPos + $fieldWidth div 2} {$playerY + $fieldHeight div 2})"/>
             </xsl:for-each>
         </svg>
 

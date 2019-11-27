@@ -1,31 +1,126 @@
-<?xml version="1.0" encoding="UTF-8"?><svg width="100%" height="100%" viewBox="0 0 150 100" stroke="white" font-family="Helvetica, Arial, sans-serif" font-size="4" style="background: url(TableBackground.svg); background-size: 100% 100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <path id="infoBow" d="M30 40  Q75 50, 120 40" stroke-width="0.3" fill="none"/>
-    <path d="M30 50 Q75 60, 120 50" stroke-width="0.3" fill="none"/>
-    <path d="M30 40 L30 50" stroke-width="0.3"/>
-    <path d="M120 40 L120 50" stroke-width="0.3"/>
-    <text dy="-4" stroke="none" text-anchor="middle" alignment-baseline="central">
-        <textPath xlink:href="#infoBow" fill="white" startOffset="45">It's Alice's turn!</textPath>
-    </text>
-    <rect x="110" y="7" width="10" height="15" rx="2" ry="2" fill="none" stroke-width="0.3"/>
-    <svg x="65" y="5">
-        <text x="10" y="2" text-anchor="middle" alignment-baseline="central" fill="white" stroke="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="100%"
+     height="100%"
+     viewBox="0 0 150 100"
+     stroke="white"
+     font-family="Helvetica, Arial, sans-serif"
+     font-size="4"
+     style="background: url(TableBackground.svg); background-size: 100% 100%">
+   <path id="infoBow"
+         d="M30 40  Q75 50, 120 40"
+         stroke-width="0.3"
+         fill="none"/>
+   <path d="M30 50 Q75 60, 120 50" stroke-width="0.3" fill="none"/>
+   <path d="M30 40 L30 50" stroke-width="0.3"/>
+   <path d="M120 40 L120 50" stroke-width="0.3"/>
+   <text dy="-4"
+         stroke="none"
+         text-anchor="middle"
+         alignment-baseline="central">
+      <textPath xlink:href="#infoBow" fill="white" startOffset="45">It's Alice's turn!</textPath>
+   </text>
+   <rect x="110"
+         y="7"
+         width="10"
+         height="15"
+         rx="2"
+         ry="2"
+         fill="none"
+         stroke-width="0.3"/>
+   <svg x="65" y="5">
+      <text x="10"
+            y="2"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="white"
+            stroke="none">
                     Dealer
                 </text>
-        <rect y="5" width="20" height="15" rx="2" ry="2" stroke="white" fill="none" stroke-width="0.3"/>
-    </svg>
-    <symbol id="playerBox1">
-        <rect width="20" height="15" rx="2" ry="2" stroke="gold" fill="none" stroke-width="0.3"/>
-        <text x="10" y="17" text-anchor="middle" alignment-baseline="central" fill="gold" stroke="none">Angela</text>
-    </symbol>
-    <use xlink:href="#playerBox1" x="27.5" y="65" transform="rotate(10,47.5, 65)"/>
-    <symbol id="playerBox2">
-        <rect width="20" height="15" rx="2" ry="2" stroke="white" fill="none" stroke-width="0.3"/>
-        <text x="10" y="17" text-anchor="middle" alignment-baseline="central" fill="white" stroke="none">Donald</text>
-    </symbol>
-    <use xlink:href="#playerBox2" x="65" y="65"/>
-    <symbol id="playerBox3">
-        <rect width="20" height="15" rx="2" ry="2" stroke="white" fill="none" stroke-width="0.3"/>
-        <text x="10" y="17" text-anchor="middle" alignment-baseline="central" fill="white" stroke="none">Boris</text>
-    </symbol>
-    <use xlink:href="#playerBox3" x="102.5" y="65" transform="rotate(-10,102.5, 65)"/>
+      <rect y="5"
+            width="20"
+            height="15"
+            rx="2"
+            ry="2"
+            stroke="white"
+            fill="none"
+            stroke-width="0.3"/>
+   </svg>
+   <symbol id="playerBox1">
+      <rect width="20"
+            height="15"
+            rx="2"
+            ry="2"
+            stroke="gold"
+            fill="none"
+            stroke-width="0.3"/>
+      <text x="10"
+            y="17"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="gold"
+            stroke="none">Angela</text>
+   </symbol>
+   <use xlink:href="#playerBox1"
+        x="20"
+        y="61.0625"
+        transform="rotate(10 30 72.5)"/>
+   <symbol id="playerBox2">
+      <rect width="20"
+            height="15"
+            rx="2"
+            ry="2"
+            stroke="white"
+            fill="none"
+            stroke-width="0.3"/>
+      <text x="10"
+            y="17"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="white"
+            stroke="none">Donald</text>
+   </symbol>
+   <use xlink:href="#playerBox2"
+        x="50"
+        y="64.5625"
+        transform="rotate(3.333333333333333333 60 72.5)"/>
+   <symbol id="playerBox3">
+      <rect width="20"
+            height="15"
+            rx="2"
+            ry="2"
+            stroke="white"
+            fill="none"
+            stroke-width="0.3"/>
+      <text x="10"
+            y="17"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="white"
+            stroke="none">Boris</text>
+   </symbol>
+   <use xlink:href="#playerBox3"
+        x="80"
+        y="64.5625"
+        transform="rotate(-3.333333333333333333 90 72.5)"/>
+   <symbol id="playerBox4">
+      <rect width="20"
+            height="15"
+            rx="2"
+            ry="2"
+            stroke="white"
+            fill="none"
+            stroke-width="0.3"/>
+      <text x="10"
+            y="17"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="white"
+            stroke="none">Kim</text>
+   </symbol>
+   <use xlink:href="#playerBox4"
+        x="110"
+        y="61.0625"
+        transform="rotate(-10 120 72.5)"/>
 </svg>
