@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl "href="GameTemplate.xsl" ?>
+
+<game id="53602" round="1">
+    <deck>
+        <card hidden="true">
+            <type>Heart</type>
+            <value>K</value>
+        </card>
+        <card hidden="true">
+            <type>Clover</type>
+            <value>3</value>
+        </card>
+        <card hidden="true">
+            <type>Diamond</type>
+            <value>Q</value>
+        </card>
+        <card hidden="true">
+            <type>Pike</type>
+            <value>10</value>
+        </card>
+        <card hidden="true">
+            <type>Clover</type>
+            <value>8</value>
+        </card>
+    </deck>
+
+    <dealer>
+        <hand>
+            <card hidden="true">
+                <type>Pike</type>
+                <value>7</value>
+            </card>
+            <card hidden="true">
+                <type>Diamond</type>
+                <value>10</value>
+            </card>
+        </hand>
+    </dealer>
+
+    <players>
+        <player id="18593" name="Angela" highscore="5150" turn="true">
+            <hand>
+                <card hidden="false">
+                    <type>Heart</type>
+                    <value>K</value>
+                </card>
+                <card hidden="false">
+                    <type>Clover</type>
+                    <value>A</value>
+                </card>
+            </hand>
+            <wallet>
+                5150
+            </wallet>
+            <pool>
+                <chip>
+                    <value>100</value>
+                </chip>
+                <chip>
+                    <value>500</value>
+                </chip>
+                <chip>
+                    <value>50</value>
+                </chip>
+            </pool>
+        </player>
+
+        <player id="29603" name="Donald" highscore="500" turn="false">
+            <hand>
+                <card hidden="true">
+                    <type>Heart</type>
+                    <value>J</value>
+                </card>
+                <card hidden="true">
+                    <type>Clover</type>
+                    <value>J</value>
+                </card>
+            </hand>
+            <wallet>
+                200
+            </wallet>
+            <pool>
+                <chip>
+                    <value>100</value>
+                </chip>
+                <chip>
+                    <value>500</value>
+                </chip>
+                <chip>
+                    <value>50</value>
+                </chip>
+            </pool>
+        </player>
+    </players>
+</game>

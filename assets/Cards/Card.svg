@@ -20,7 +20,7 @@
             patternUnits="userSpaceOnUse"
             width="0.5"
             height="0.5"
-            fill="red"
+            fill="blue"
             viewBox="0 0 0.5 0.5"
             preserveAspectRatio="none">
       <rect x="0" y="0" width="0.5" height="0.5" style="fill:red"/>
