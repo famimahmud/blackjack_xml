@@ -63,8 +63,19 @@
             </text>
 
             <!-- Generate card deck -->
-            <rect x="{$deckX}" y="{$deckY}" width="{$fieldWidth div 2}" height="{$fieldHeight}" rx="{$cornerRadius}"
+            <rect x="{$deckX}" y="{$deckY}" width="{$cardWidth}" height="{$cardHeight}" rx="{$cornerRadius}"
                   ry="{$cornerRadius}" fill="none" stroke="{$strokeColor}" stroke-width="{$strokeWidth}"/>
+            <xsl:for-each select="*/deck/*">
+                <svg width="{$cardWidth}" height="{$cardHeight}"
+                     x="{$deckX + 1.5}"
+                     y="{$deckY}" viewBox="0 0 5 7">
+                    <xsl:call-template name="CardTemplate">
+                        <xsl:with-param name="cardType" select="type"/>
+                        <xsl:with-param name="cardValue" select="value"/>
+                        <xsl:with-param name="id" select="-position()"/>
+                    </xsl:call-template>
+                </svg>
+            </xsl:for-each>
 
             <!-- Generate Dealer card box -->
             <!-- Choose box color -->
