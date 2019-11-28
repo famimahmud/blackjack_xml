@@ -27,11 +27,11 @@
 
     <dealer onTurn="false">
         <hand>
-            <card hidden="true">
+            <card hidden="false">
                 <type>Pike</type>
                 <value>7</value>
             </card>
-            <card hidden="true">
+            <card hidden="false">
                 <type>Diamond</type>
                 <value>10</value>
             </card>

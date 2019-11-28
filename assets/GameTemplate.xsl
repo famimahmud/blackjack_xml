@@ -17,6 +17,7 @@
         <xsl:variable name="cardHeight" select="$fieldHeight"/>
         <xsl:variable name="deckX" select="110"/>
         <xsl:variable name="deckY" select="7"/>
+        <xsl:variable name="dealerX" select="($width - $fieldWidth) div 2"/>
         <xsl:variable name="dealerY" select="5"/>
         <xsl:variable name="playerY" select="67"/>
         <xsl:variable name="textColor" select="'white'"/>
@@ -61,28 +62,48 @@
                 </textPath>
             </text>
 
+            <!-- Generate card deck -->
             <rect x="{$deckX}" y="{$deckY}" width="{$fieldWidth div 2}" height="{$fieldHeight}" rx="{$cornerRadius}"
                   ry="{$cornerRadius}" fill="none" stroke="{$strokeColor}" stroke-width="{$strokeWidth}"/>
 
-            <xsl:variable name="color">
-                <xsl:choose>
-                    <xsl:when test="/*/dealer/@onTurn = 'true'">
-                        <xsl:value-of select="$onTurnColor"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="$textColor"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-            <svg x="{($width - $fieldWidth) div 2}" y="{$dealerY}">
-                <text x="{$fieldWidth div 2}" y="{$fontSize div 2}" text-anchor="middle" alignment-baseline="central"
+            <!-- Generate Dealer card box -->
+            <!-- Choose box color -->
+            <symbol id="dealerBox">
+                <xsl:variable name="color">
+                    <xsl:choose>
+                        <xsl:when test="/*/dealer/@onTurn = 'true'">
+                            <xsl:value-of select="$onTurnColor"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$textColor"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <!-- Generate box -->
+                <text x="{$fieldWidth div 2}" y="{$fontSize div 2}" text-anchor="middle"
+                      alignment-baseline="central"
                       fill="{$color}" stroke="none">
                     Dealer
                 </text>
                 <rect y="{$fieldHeight div 3}" width="{$fieldWidth}" height="{$fieldHeight}" rx="{$cornerRadius}"
                       ry="{$cornerRadius}" stroke="{$color}" fill="none" stroke-width="{$strokeWidth}"/>
-            </svg>
 
+                <!-- Add cards -->
+                <xsl:for-each select="*/dealer/hand/*">
+                    <svg width="{$cardWidth}" height="{$cardHeight}"
+                         x="{(position() div count(parent::hand/*)) * ($fieldWidth - $cardWidth - (1.5 div position()))}"
+                         y="{$dealerY + 1}" viewBox="0 0 5 7">
+                        <xsl:call-template name="CardTemplate">
+                            <xsl:with-param name="cardType" select="type"/>
+                            <xsl:with-param name="cardValue" select="value"/>
+                            <xsl:with-param name="id" select="-position()"/>
+                        </xsl:call-template>
+                    </svg>
+                </xsl:for-each>
+            </symbol>
+            <use xlink:href="#dealerBox" x="{$dealerX}" y="{$dealerY}"/>
+
+            <!-- Generate player card boxes -->
             <xsl:for-each select="*/players/player">
                 <xsl:variable name="name" select="@name"/>
                 <xsl:variable name="position" select="position()"/>
@@ -109,7 +130,7 @@
 
                     <xsl:for-each select="hand/*">
                         <svg width="{$cardWidth}" height="{$cardHeight}"
-                             x="{((position()) div count(parent::hand/*)) * ($fieldWidth - $cardWidth)}"
+                             x="{((position()) div count(parent::hand/*)) * ($fieldWidth - $cardWidth - (1.5 div position()))}"
                              y="0" viewBox="0 0 5 7">
                             <xsl:call-template name="CardTemplate">
                                 <xsl:with-param name="cardType" select="type"/>
@@ -117,7 +138,6 @@
                                 <xsl:with-param name="id" select="$position + position()"/>
                             </xsl:call-template>
                         </svg>
-
                     </xsl:for-each>
                 </symbol>
 

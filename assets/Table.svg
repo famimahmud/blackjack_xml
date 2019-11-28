@@ -36,7 +36,7 @@
          fill="none"
          stroke="white"
          stroke-width="0.3"/>
-   <svg x="63.5" y="5">
+   <symbol id="dealerBox">
       <text x="11.5"
             y="2"
             text-anchor="middle"
@@ -53,7 +53,190 @@
             stroke="white"
             fill="none"
             stroke-width="0.3"/>
-   </svg>
+      <svg width="13" height="18" x="4.25" y="6" viewBox="0 0 5 7">
+         <svg font-family="sans-serif"
+              width="75%"
+              height="100%"
+              viewBox="0 0 5 7">
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+               <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1"/>
+               <stop offset="100%" style="stop-color:#ffffe6;stop-opacity:1"/>
+            </linearGradient>
+            <rect x="0"
+                  y="0"
+                  width="5"
+                  height="7"
+                  rx="0.25"
+                  ry="0.25"
+                  fill="url(#gradient)"
+                  style="stroke:black;stroke-width:0.03"/>
+            <symbol id="valueBox-1">
+               <svg height="2" width="1" viewBox="0 0 1 2">
+                  <text x="0.1"
+                        y="0.8"
+                        font-size="0.8"
+                        font-family="sans-serif"
+                        fill="black">7</text>
+                  <image x="0"
+                         y="1"
+                         width="0.6"
+                         height="0.6"
+                         xlink:href="Cards/icons/Pike.svg"/>
+               </svg>
+            </symbol>
+            <use xlink:href="#valueBox-1" x="0.2" y="0"/>
+            <use xlink:href="#valueBox-1"
+                 x="0.2"
+                 y="0"
+                 transform="rotate(180 2.5 3.5)"/>
+            <svg x="0.5"
+                 y="1"
+                 width="4"
+                 height="5"
+                 viewBox="0 0 5 7"
+                 preserveAspectRatio="none">
+               <image x="1"
+                      y="1"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Pike.svg"/>
+               <image x="3"
+                      y="1"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Pike.svg"/>
+               <image x="1"
+                      y="5"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Pike.svg"
+                      transform="rotate(180 1.5 5.5)"/>
+               <image x="3"
+                      y="5"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Pike.svg"
+                      transform="rotate(180 3.5 5.5)"/>
+               <image x="1"
+                      y="3"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Pike.svg"/>
+               <image x="3"
+                      y="3"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Pike.svg"/>
+               <image x="2"
+                      y="2"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Pike.svg"/>
+            </svg>
+         </svg>
+      </svg>
+      <svg width="13" height="18" x="9.25" y="6" viewBox="0 0 5 7">
+         <svg font-family="sans-serif"
+              width="75%"
+              height="100%"
+              viewBox="0 0 5 7">
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+               <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1"/>
+               <stop offset="100%" style="stop-color:#ffffe6;stop-opacity:1"/>
+            </linearGradient>
+            <rect x="0"
+                  y="0"
+                  width="5"
+                  height="7"
+                  rx="0.25"
+                  ry="0.25"
+                  fill="url(#gradient)"
+                  style="stroke:black;stroke-width:0.03"/>
+            <symbol id="valueBox-2">
+               <svg height="2" width="1" viewBox="0 0 1 2">
+                  <text x="-0.1"
+                        y="0.8"
+                        font-size="0.8"
+                        font-family="sans-serif"
+                        fill="red">10</text>
+                  <image x="0"
+                         y="1"
+                         width="0.6"
+                         height="0.6"
+                         xlink:href="Cards/icons/Diamond.svg"/>
+               </svg>
+            </symbol>
+            <use xlink:href="#valueBox-2" x="0.2" y="0"/>
+            <use xlink:href="#valueBox-2"
+                 x="0.2"
+                 y="0"
+                 transform="rotate(180 2.5 3.5)"/>
+            <svg x="0.5"
+                 y="1"
+                 width="4"
+                 height="5"
+                 viewBox="0 0 5 7"
+                 preserveAspectRatio="none">
+               <image x="1"
+                      y="0"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Diamond.svg"/>
+               <image x="3"
+                      y="0"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Diamond.svg"/>
+               <image x="1"
+                      y="4"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Diamond.svg"
+                      transform="rotate(180 1.5 4.5)"/>
+               <image x="3"
+                      y="4"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Diamond.svg"
+                      transform="rotate(180 3.5 4.5)"/>
+               <image x="1"
+                      y="6"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Diamond.svg"
+                      transform="rotate(180 1.5 6.5)"/>
+               <image x="3"
+                      y="6"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Diamond.svg"
+                      transform="rotate(180 3.5 6.5)"/>
+               <image x="1"
+                      y="2"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Diamond.svg"/>
+               <image x="3"
+                      y="2"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Diamond.svg"/>
+               <image x="2"
+                      y="1"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Diamond.svg"/>
+               <image x="2"
+                      y="5"
+                      width="1"
+                      height="1"
+                      xlink:href="Cards/icons/Diamond.svg"
+                      transform="rotate(180 2.5 5.5)"/>
+            </svg>
+         </svg>
+      </svg>
+   </symbol>
+   <use xlink:href="#dealerBox" x="63.5" y="5"/>
    <symbol id="playerBox1">
       <rect width="23"
             height="18"
@@ -68,7 +251,7 @@
             alignment-baseline="central"
             fill="white"
             stroke="none">Angela</text>
-      <svg width="13" height="18" x="5" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="4.25" y="0" viewBox="0 0 5 7">
          <svg font-family="sans-serif"
               width="75%"
               height="100%"
@@ -111,7 +294,7 @@
                    xlink:href="Cards/icons/red/King.svg"/>
          </svg>
       </svg>
-      <svg width="13" height="18" x="10" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="9.25" y="0" viewBox="0 0 5 7">
          <svg font-family="sans-serif"
               width="75%"
               height="100%"
@@ -180,7 +363,7 @@
             alignment-baseline="central"
             fill="gold"
             stroke="none">Donald</text>
-      <svg width="13" height="18" x="5" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="4.25" y="0" viewBox="0 0 5 7">
          <svg font-family="sans-serif"
               width="75%"
               height="100%"
@@ -225,7 +408,7 @@
                   style="fill:url(#pattern);stroke:red;stroke-width:0.1"/>
          </svg>
       </svg>
-      <svg width="13" height="18" x="10" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="9.25" y="0" viewBox="0 0 5 7">
          <svg font-family="sans-serif"
               width="75%"
               height="100%"
@@ -291,7 +474,7 @@
             stroke="none">Boris</text>
       <svg width="13"
            height="18"
-           x="3.33333333333333333"
+           x="2.8333333333333333305"
            y="0"
            viewBox="0 0 5 7">
          <svg font-family="sans-serif"
@@ -377,7 +560,7 @@
       </svg>
       <svg width="13"
            height="18"
-           x="6.66666666666666667"
+           x="6.16666666666666666975"
            y="0"
            viewBox="0 0 5 7">
          <svg font-family="sans-serif"
@@ -446,7 +629,7 @@
             </svg>
          </svg>
       </svg>
-      <svg width="13" height="18" x="10" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="9.5" y="0" viewBox="0 0 5 7">
          <svg font-family="sans-serif"
               width="75%"
               height="100%"
@@ -508,7 +691,7 @@
             alignment-baseline="central"
             fill="white"
             stroke="none">Kim</text>
-      <svg width="13" height="18" x="2.5" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="2.125" y="0" viewBox="0 0 5 7">
          <svg font-family="sans-serif"
               width="75%"
               height="100%"
@@ -553,7 +736,7 @@
                   style="fill:url(#pattern);stroke:red;stroke-width:0.1"/>
          </svg>
       </svg>
-      <svg width="13" height="18" x="5" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="4.625" y="0" viewBox="0 0 5 7">
          <svg font-family="sans-serif"
               width="75%"
               height="100%"
@@ -598,7 +781,7 @@
                   style="fill:url(#pattern);stroke:red;stroke-width:0.1"/>
          </svg>
       </svg>
-      <svg width="13" height="18" x="7.5" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="7.125" y="0" viewBox="0 0 5 7">
          <svg font-family="sans-serif"
               width="75%"
               height="100%"
@@ -643,7 +826,7 @@
                   style="fill:url(#pattern);stroke:red;stroke-width:0.1"/>
          </svg>
       </svg>
-      <svg width="13" height="18" x="10" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="9.625" y="0" viewBox="0 0 5 7">
          <svg font-family="sans-serif"
               width="75%"
               height="100%"
