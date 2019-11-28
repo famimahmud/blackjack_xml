@@ -25,7 +25,7 @@
         </card>
     </deck>
 
-    <dealer turn="false">
+    <dealer onTurn="false">
         <hand>
             <card hidden="true">
                 <type>Pike</type>
@@ -39,7 +39,7 @@
     </dealer>
 
     <players>
-        <player id="18593" name="Angela" highscore="5150" turn="true">
+        <player id="18593" name="Angela" highscore="5150" onTurn="false">
             <hand>
                 <card hidden="false">
                     <type>Heart</type>
@@ -66,7 +66,7 @@
             </pool>
         </player>
 
-        <player id="29603" name="Donald" highscore="500" turn="false">
+        <player id="29603" name="Donald" highscore="500" onTurn="true">
             <hand>
                 <card hidden="true">
                     <type>Heart</type>
@@ -93,15 +93,19 @@
             </pool>
         </player>
 
-        <player id="52813" name="Boris" highscore="200" turn="false">
+        <player id="52813" name="Boris" highscore="200" onTurn="false">
             <hand>
-                <card hidden="true">
+                <card hidden="false">
                     <type>Pike</type>
                     <value>7</value>
                 </card>
-                <card hidden="true">
+                <card hidden="false">
                     <type>Heart</type>
                     <value>4</value>
+                </card>
+                <card hidden="false">
+                    <type>Heart</type>
+                    <value>J</value>
                 </card>
             </hand>
             <wallet>
@@ -117,7 +121,7 @@
             </pool>
         </player>
 
-        <player id="39602" name="Kim" highscore="200" turn="false">
+        <player id="39602" name="Kim" highscore="200" onTurn="false">
             <hand>
                 <card hidden="true">
                     <type>Pike</type>
@@ -126,6 +130,14 @@
                 <card hidden="true">
                     <type>Heart</type>
                     <value>J</value>
+                </card>
+                <card hidden="true">
+                    <type>Pike</type>
+                    <value>8</value>
+                </card>
+                <card hidden="true">
+                    <type>Clover</type>
+                    <value>10</value>
                 </card>
             </hand>
             <wallet>

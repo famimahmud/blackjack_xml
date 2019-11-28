@@ -1,7 +1,7 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes"/>
 
-    <xsl:template match="/">
+    <xsl:template name="ChipTemplate">
         <xsl:variable name="chipValue" select="/*/value"/>
         
         <xsl:variable name="root2" select="1.4142"/>
@@ -52,6 +52,7 @@
             </xsl:choose>
         </xsl:variable>
 
+        <xsl:variable name="fonts" select="'Playfair Display, serif'"/>
         <xsl:variable name="fontSize">
             <xsl:choose>
                 <xsl:when test="$chipValue = 1000">0.5</xsl:when>
@@ -68,7 +69,7 @@
 
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-             width="100%" height="100%">
+             width="100%" height="100%" font-family="{$fonts}">
 
             <symbol id = "outerChip" viewBox="-{$rPlus} -{$rPlus} {$dPlus} {$dPlus}">
                 <circle cx="0" cy="0" r="{$r}" fill= "{$chipColor}"/>
@@ -86,7 +87,7 @@
             <symbol id="chip" viewBox="-{$rPlus} -{$rPlus} {$dPlus} {$dPlus}" preserveAspectRatio="xMidYMid meet" >
                 <use x="-{$rPlus}" y="-{$rPlus}" width="100%" height="100%" xlink:href="#innerChip"/>
                 <circle cx="0" cy="0" r="{$r3}" fill= "none" stroke="{$strokeColor}" stroke-width="0.05" stroke-dasharray="0.2,0.2"/>
-                <text x="{$cX}" y="{$textY}" fill="{$strokeColor}" font-size="{$fontSize}" font-family="serif" text-anchor="middle" alignment-baseline="central">
+                <text x="{$cX}" y="{$textY}" fill="{$strokeColor}" font-size="{$fontSize}" text-anchor="middle" alignment-baseline="central">
                     <xsl:value-of select="$chipValue"/>
                 </text>
             </symbol>

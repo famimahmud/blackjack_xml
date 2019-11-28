@@ -10,10 +10,11 @@
         <xsl:variable name="cardHeight" select="7"/>
         <xsl:variable name="edgeRadius" select="0.25"/>
         <xsl:variable name="strokeWidth" select="0.03"/>
+        <xsl:variable name="fonts" select="'sans-serif'"/>
         <xsl:variable name="values" select="document('Values.xml')"/>
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-             width="75%" height="100%" viewBox="0 0 {$cardWidth} {$cardHeight}">
+             font-family="{$fonts}" width="75%" height="100%" viewBox="0 0 {$cardWidth} {$cardHeight}">
 
             <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1"/>
@@ -73,7 +74,7 @@
 
                     <symbol id="valueBox{$id}">
                         <svg height="2" width="1" viewBox="0 0 1 2">
-                            <text x="{$textX}" y="0.8" font-size="0.8" font-family="serif" fill="{$cardColor}">
+                            <text x="{$textX}" y="0.8" font-size="0.8" font-family="{$fonts}" fill="{$cardColor}">
                                 <xsl:value-of select="$cardValue"/>
                             </text>
                             <image x="0" y="1" width="0.6" height="0.6" xlink:href="Cards/icons/{$cardType}.svg"/>
