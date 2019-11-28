@@ -2,7 +2,12 @@
                 xmlns:xls="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes"/>
 
+    <!-- Imports -->
+    <xsl:include href="Cards/CardTemplate.xsl"/>
+
     <xsl:template match="/">
+
+        <!-- Variables -->
         <xsl:variable name="width" select="150"/>
         <xsl:variable name="height" select="100"/>
         <xsl:variable name="fieldWidth" select="20"/>
@@ -24,8 +29,8 @@
 
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-             width="100%" height="100%" viewBox="0 0 {$width} {$height}" stroke="{$textColor}"
-             font-family="Helvetica, Arial, sans-serif" font-size="{$fontSize}"
+             width="100%" height="100%" viewBox="0 0 {$width} {$height}"
+             font-family="serif" font-size="{$fontSize}"
              style="background: url(TableBackground.svg); background-size: 100% 100%">
 
             <path id="infoBow" d="M30 40  Q75 50, 120 40" stroke-width="{$strokeWidth}" fill="none"/>
@@ -62,7 +67,8 @@
             <xsl:for-each select="*/players/player">
                 <xsl:variable name="name" select="@name"/>
                 <xsl:variable name="position" select="position()"/>
-                <xsl:variable name="fieldPos" select="(($width * ($position div ($playerCount + 1))) - ($fieldWidth div 2))"/>
+                <xsl:variable name="fieldPos"
+                              select="(($width * ($position div ($playerCount + 1))) - ($fieldWidth div 2))"/>
                 <xsl:variable name="playerColor">
                     <xsl:choose>
                         <xsl:when test="@turn = 'true'">
@@ -81,8 +87,19 @@
                           fill="{$playerColor}" stroke="none">
                         <xsl:value-of select="$name"/>
                     </text>
+
+                    <xsl:for-each select="hand/*">
+                        <svg width="10" height="14" x="{1.5 + ((position() - 1) * 10)}" y="0" viewBox="0 0 5 7">
+                            <xsl:call-template name="CardTemplate">
+                                <xsl:with-param name="cardType" select="type"/>
+                                <xsl:with-param name="cardValue" select="value"/>
+                                <xsl:with-param name="id" select="$position + position()"/>
+                            </xsl:call-template>
+                        </svg>
+
+                    </xsl:for-each>
                 </symbol>
-                
+
                 <!--
                 <xsl:choose>
                     <xsl:when test="($playerCount) > 1 and $position = 1">
@@ -98,10 +115,12 @@
                 -->
 
                 <!-- Curve function: 10 * (count - 2*pos + 1) / (count - 1) -->
-                <xsl:variable name="curveFactor" select = "10 * ($playerCount - 2*$position + 1) div ($playerCount - 1)"/>
+                <xsl:variable name="curveFactor" select="10 * ($playerCount - 2*$position + 1) div ($playerCount - 1)"/>
                 <!-- Shift function: 10 * (pos - count + (count - 1) / 2) -->
-                <xsl:variable name="shiftFactor" select = "7 div $playerCount * ($position - $playerCount + ($playerCount - 1) div 2) * ($position - $playerCount + ($playerCount - 1) div 2)"/>
-                <use xlink:href="#playerBox{$position}" x="{$fieldPos}" y="{$playerY - $shiftFactor}" transform="rotate({$curveFactor} {$fieldPos + $fieldWidth div 2} {$playerY + $fieldHeight div 2})"/>
+                <xsl:variable name="shiftFactor"
+                              select="7 div $playerCount * ($position - $playerCount + ($playerCount - 1) div 2) * ($position - $playerCount + ($playerCount - 1) div 2)"/>
+                <use xlink:href="#playerBox{$position}" x="{$fieldPos}" y="{$playerY - $shiftFactor}"
+                     transform="rotate({$curveFactor} {$fieldPos + $fieldWidth div 2} {$playerY + $fieldHeight div 2})"/>
             </xsl:for-each>
         </svg>
 

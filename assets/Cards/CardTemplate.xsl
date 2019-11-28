@@ -1,7 +1,11 @@
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes"/>
 
-    <xsl:template match="/">
+    <xsl:template name="CardTemplate">
+        <xsl:param name="cardValue"/>
+        <xsl:param name="cardType"/>
+        <xsl:param name="id"/>
+
         <xsl:variable name="cardWidth" select="5"/>
         <xsl:variable name="cardHeight" select="7"/>
         <xsl:variable name="edgeRadius" select="0.25"/>
@@ -22,7 +26,7 @@
                   style="stroke:black;stroke-width:{$strokeWidth}"/>
 
             <xsl:choose>
-                <xsl:when test="/*/@hidden = 'true'">
+                <xsl:when test="@hidden = 'true'">
                     <!-- Card is hidden: only show reverse -->
 
                     <xsl:variable name="patternSize" select="0.5"/>
@@ -48,10 +52,6 @@
                 <xsl:otherwise>
                     <!-- Generate card front -->
 
-                    <!-- Get card value -->
-                    <xsl:variable name="cardValue" select="/*/value"/>
-                    <!-- Get card type -->
-                    <xsl:variable name="cardType" select="/*/type"/>
                     <!-- Choose card color from type -->
                     <xsl:variable name="cardColor">
                         <xsl:choose>
@@ -71,30 +71,30 @@
                         </xsl:choose>
                     </xsl:variable>
 
-                    <symbol id="valueBox">
+                    <symbol id="valueBox{$id}">
                         <svg height="2" width="1" viewBox="0 0 1 2">
                             <text x="{$textX}" y="0.8" font-size="0.8" font-family="serif" fill="{$cardColor}">
                                 <xsl:value-of select="$cardValue"/>
                             </text>
-                            <image x="0" y="1" width="0.6" height="0.6" xlink:href="icons/{$cardType}.svg"/>
+                            <image x="0" y="1" width="0.6" height="0.6" xlink:href="Cards/icons/{$cardType}.svg"/>
                         </svg>
                     </symbol>
 
                     <!-- Upper left corner -->
-                    <use xlink:href="#valueBox" x="0.2" y="0"/>
+                    <use xlink:href="#valueBox{$id}" x="0.2" y="0"/>
                     <!-- Bottom right corner -->
-                    <use xlink:href="#valueBox" x="0.2" y="0" transform="rotate(180 2.5 3.5)"/>
+                    <use xlink:href="#valueBox{$id}" x="0.2" y="0" transform="rotate(180 2.5 3.5)"/>
 
                     <xsl:choose>
                         <!-- Use King, Queen or Jack asset -->
                         <xsl:when test="$cardValue = 'K'">
-                            <image x="0.1" y="1" width="4.9" height="5" xlink:href="icons/{$cardColor}/King.svg"/>
+                            <image x="0.1" y="1" width="4.9" height="5" xlink:href="Cards/icons/{$cardColor}/King.svg"/>
                         </xsl:when>
                         <xsl:when test="$cardValue = 'Q'">
-                            <image x="0.1" y="1" width="4.9" height="5" xlink:href="icons/{$cardColor}/Queen.svg"/>
+                            <image x="0.1" y="1" width="4.9" height="5" xlink:href="Cards/icons/{$cardColor}/Queen.svg"/>
                         </xsl:when>
                         <xsl:when test="$cardValue = 'J'">
-                            <image x="0.1" y="1" width="4.9" height="5" xlink:href="icons/{$cardColor}/Jack.svg"/>
+                            <image x="0.1" y="1" width="4.9" height="5" xlink:href="Cards/icons/{$cardColor}/Jack.svg"/>
                         </xsl:when>
 
                         <!-- Otherwise generate asset from number count -->
@@ -106,10 +106,10 @@
                                     <xsl:choose>
                                         <xsl:when test="@rotate = 'true'">
                                             <image x="{$currentX}" y="{$currentY}" width="1" height="1"
-                                                   xlink:href="icons/{$cardType}.svg" transform="rotate(180 {$currentX + 0.5} {$currentY + 0.5})"/>
+                                                   xlink:href="Cards/icons/{$cardType}.svg" transform="rotate(180 {$currentX + 0.5} {$currentY + 0.5})"/>
                                         </xsl:when>
                                         <xsl:otherwise>
-                                            <image x="{$currentX}" y="{$currentY}" width="1" height="1" xlink:href="icons/{$cardType}.svg"/>
+                                            <image x="{$currentX}" y="{$currentY}" width="1" height="1" xlink:href="Cards/icons/{$cardType}.svg"/>
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:for-each>
