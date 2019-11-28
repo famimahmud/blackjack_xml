@@ -2,7 +2,8 @@
     <xsl:output indent="yes"/>
 
     <xsl:template name="ChipTemplate">
-        <xsl:variable name="chipValue" select="/*/value"/>
+        <xsl:param name="chipValue"/>
+        <!-- <xsl:variable name="chipValue" select="/*/value"/> -->
         
         <xsl:variable name="root2" select="1.4142"/>
         <xsl:variable name="root2Inv" select="0.7071"/>
@@ -52,7 +53,7 @@
             </xsl:choose>
         </xsl:variable>
 
-        <xsl:variable name="fonts" select="'Playfair Display, serif'"/>
+        <xsl:variable name="fonts" select="'Raleway, serif'"/>
         <xsl:variable name="fontSize">
             <xsl:choose>
                 <xsl:when test="$chipValue = 1000">0.5</xsl:when>

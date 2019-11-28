@@ -10,7 +10,7 @@
         <xsl:variable name="cardHeight" select="7"/>
         <xsl:variable name="edgeRadius" select="0.25"/>
         <xsl:variable name="strokeWidth" select="0.03"/>
-        <xsl:variable name="fonts" select="'sans-serif'"/>
+        <xsl:variable name="fonts" select="'Raleway, sans-serif'"/>
         <xsl:variable name="values" select="document('Values.xml')"/>
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

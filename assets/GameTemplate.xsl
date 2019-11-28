@@ -26,7 +26,7 @@
         <xsl:variable name="cornerRadius" select="2"/>
         <xsl:variable name="fontSize" select="4"/>
         <xsl:variable name="strokeColor" select="'white'"/>
-        <xsl:variable name="fonts" select="'Playfair Display, serif'"/>
+        <xsl:variable name="fonts" select="'Raleway, sans-serif'"/>
         <xsl:variable name="playerCount" select="count(/*/players/*)"/>
 
         <xsl:variable name="currentPlayer">
@@ -47,9 +47,10 @@
 
             <!-- Import online fonts -->
             <defs>
-                <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Playfair+Display');</style>
+                <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Raleway');</style>
             </defs>
 
+            <!-- Draw paths -->
             <path id="infoBow" d="M30 40  Q75 50, 120 40" stroke="{$strokeColor}" stroke-width="{$strokeWidth}"
                   fill="none"/>
             <path d="M30 50 Q75 60, 120 50" stroke="{$strokeColor}" stroke-width="{$strokeWidth}" fill="none"/>
@@ -63,11 +64,13 @@
             </text>
 
             <!-- Generate card deck -->
+            <!-- Print Box -->
             <rect x="{$deckX}" y="{$deckY}" width="{$cardWidth}" height="{$cardHeight}" rx="{$cornerRadius}"
                   ry="{$cornerRadius}" fill="none" stroke="{$strokeColor}" stroke-width="{$strokeWidth}"/>
+            <!-- Print Cards -->
             <xsl:for-each select="*/deck/*">
                 <svg width="{$cardWidth}" height="{$cardHeight}"
-                     x="{$deckX + 1.5}"
+                     x="{$deckX + 1.6}"
                      y="{$deckY}" viewBox="0 0 5 7">
                     <xsl:call-template name="CardTemplate">
                         <xsl:with-param name="cardType" select="type"/>
@@ -112,6 +115,7 @@
                     </svg>
                 </xsl:for-each>
             </symbol>
+            <!-- Print box -->
             <use xlink:href="#dealerBox" x="{$dealerX}" y="{$dealerY}"/>
 
             <!-- Generate player card boxes -->
