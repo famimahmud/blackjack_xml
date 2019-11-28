@@ -82,6 +82,7 @@
                         <xsl:value-of select="$name"/>
                     </text>
                 </symbol>
+                
                 <!--
                 <xsl:choose>
                     <xsl:when test="($playerCount) > 1 and $position = 1">
@@ -95,6 +96,7 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 -->
+
                 <!-- Curve function: 10 * (count - 2*pos + 1) / (count - 1) -->
                 <xsl:variable name="curveFactor" select = "10 * ($playerCount - 2*$position + 1) div ($playerCount - 1)"/>
                 <!-- Shift function: 10 * (pos - count + (count - 1) / 2) -->

@@ -8,12 +8,19 @@
      width="100%" height="100%" viewBox="0 0 1500 1000" stroke="white"
      font-family="Helvetica, Arial, sans-serif" font-size="40" preserveAspectRatio="none">
 
-    <radialGradient id="gradient">
+    <radialGradient id="radialgradient">
         <stop offset="10%" style="stop-color:green;stop-opacity:1"/>
         <stop offset="100%" style="stop-color:darkgreen;stop-opacity:1"/>
     </radialGradient>
 
-<rect height="100%" width="100%" fill="green"/>
-<path d="M0 0 L0 500 Q750 700 1500 500 L1500 0" stroke="none" fill="url(#gradient)"/>
+    <linearGradient id="lineargradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:saddlebrown;stop-opacity:1"/>
+        <stop offset="100%" style="stop-color:maroon;stop-opacity:1"/>
+    </linearGradient>
+
+    <rect height="100%" width="100%" fill="green"/>
+    <path d="M0 0 L0 500 Q750 700 1500 500 L1500 0" stroke="none" fill="url(#radialgradient)"/>
+
+    <rect x="0" y="910" height="90" width="100%" fill="url(#lineargradient)" stroke="none"/>
 
 </svg>
