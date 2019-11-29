@@ -139,6 +139,10 @@
                     <type>Clover</type>
                     <value>10</value>
                 </card>
+                <card hidden="true">
+                    <type>Clover</type>
+                    <value>10</value>
+                </card>
             </hand>
             <wallet>
                 666

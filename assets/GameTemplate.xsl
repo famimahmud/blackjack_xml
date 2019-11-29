@@ -15,7 +15,7 @@
         <xsl:variable name="fieldHeight" select="26"/>
         <xsl:variable name="cardWidth" select="$fieldWidth - 10"/>
         <xsl:variable name="cardHeight" select="18"/>
-        <xsl:variable name="chipSize" select = "5"/>
+        <xsl:variable name="chipSize" select="5"/>
         <xsl:variable name="deckX" select="110"/>
         <xsl:variable name="deckY" select="7"/>
         <xsl:variable name="dealerX" select="($width - $fieldWidth) div 2"/>
@@ -51,9 +51,10 @@
                 <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Raleway');</style>
             </defs>
 
-            <text x="{$width div 2}" y="{$height - 4}" stroke="none" text-anchor="middle" alignment-baseline="middle" fill="white">
+            <text x="{$width div 2}" y="{$height - 4}" stroke="none" text-anchor="middle" alignment-baseline="middle"
+                  fill="white">
                 <!--<textPath xlink:href="#infoBow" fill="{$textColor}" startOffset="45">-->
-                    <xsl:value-of select="concat('It''s ', $currentPlayer, '''s turn!')"/>
+                <xsl:value-of select="concat('It''s ', $currentPlayer, '''s turn!')"/>
                 <!--</textPath>-->
             </text>
 
@@ -99,7 +100,7 @@
                 <!-- Add cards -->
                 <xsl:for-each select="*/dealer/hand/*">
                     <svg width="{$cardWidth}" height="{$cardHeight}"
-                         x="{(position() div count(parent::hand/*)) * ($fieldWidth - $cardWidth - (1.5 div position()))}"
+                         x="{((position()) div (count(parent::hand/*) + 1)) * ($fieldWidth - 5) - (0.5 * 5)}"
                          y="{$dealerY}" viewBox="0 0 5 7">
                         <xsl:call-template name="CardTemplate">
                             <xsl:with-param name="cardType" select="type"/>
@@ -143,15 +144,17 @@
                         Bet: 0 $
                     </text>
 
-                    <line x1="0" x2="{$fieldWidth}" y1="6" y2="6" stroke="{$playerColor}" stroke-width="{$strokeWidth}"/>
+                    <line x1="0" x2="{$fieldWidth}" y1="6" y2="6" stroke="{$playerColor}"
+                          stroke-width="{$strokeWidth}"/>
 
                     <!-- Insert chips -->
 
                     <xsl:for-each select="pool/*">
                         <xsl:if test="count(*) != 0">
                             <svg width="{$chipSize}" height="{$chipSize}"
-                                 x="{((position()) div count(parent::pool/*)) * ($fieldWidth - $chipSize) - (0.5 * $chipSize)}"
+                                 x="{((position()) div (count(parent::pool/*) + 1)) * ($fieldWidth) - (0.5 * $chipSize)}"
                                  y="0.5">
+                                <!-- x="{((position()) div count(parent::pool/*)) * ($fieldWidth - $chipSize) - (0.5 * $chipSize)}" -->
                                 <xsl:call-template name="ChipTemplate">
                                     <xsl:with-param name="chipValue" select="value"/>
                                     <xsl:with-param name="id" select="concat($position, position())"/>
@@ -165,7 +168,7 @@
 
                     <xsl:for-each select="hand/*">
                         <svg width="{$cardWidth}" height="{$cardHeight}"
-                             x="{((position()) div count(parent::hand/*)) * ($fieldWidth - $cardWidth - (1.5 div position()))}"
+                             x="{((position()) div (count(parent::hand/*) + 1)) * ($fieldWidth - 5) - (0.5 * 5)}"
                              y="7" viewBox="0 0 5 7">
                             <xsl:call-template name="CardTemplate">
                                 <xsl:with-param name="cardType" select="type"/>
