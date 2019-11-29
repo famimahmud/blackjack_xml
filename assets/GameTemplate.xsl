@@ -138,18 +138,19 @@
                         <xsl:value-of select="$name"/>
                     </text>
 
-                    <text x="{$fieldWidth div 2}" y="{-2}" text-anchor="middle"
-                          alignment-baseline="central"
-                          fill="{$playerColor}" stroke="none" font-size="2">
-                        Bet: 0 $
-                    </text>
-
                     <line x1="0" x2="{$fieldWidth}" y1="6" y2="6" stroke="{$playerColor}"
                           stroke-width="{$strokeWidth}"/>
 
-                    <!-- Insert chips -->
+                    <!-- Show bet count -->
+                    <text x="{$fieldWidth div 2}" y="{-2}" text-anchor="middle"
+                          alignment-baseline="central"
+                          fill="{$playerColor}" stroke="none" font-size="2">
+                        <xsl:value-of select="concat('Bet: ', sum(pool/chip/value), ' $')"/>
+                    </text>
 
+                    <!-- Insert chips -->
                     <xsl:for-each select="pool/*">
+
                         <xsl:if test="count(*) != 0">
                             <svg width="{$chipSize}" height="{$chipSize}"
                                  x="{((position()) div (count(parent::pool/*) + 1)) * ($fieldWidth) - (0.5 * $chipSize)}"
@@ -180,7 +181,15 @@
                 </symbol>
 
                 <!-- Curve function: 10 * (count - 2*pos + 1) / (count - 1) -->
-                <xsl:variable name="curveFactor" select="10 * ($playerCount - 2*$position + 1) div ($playerCount - 1)"/>
+                <xsl:variable name="curveFactor">
+                    <xsl:choose>
+                        <xsl:when test="$playerCount = 1">0</xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="10 * ($playerCount - 2*$position + 1) div ($playerCount - 1)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+
                 <!-- Shift function: 10 * (pos - count + (count - 1) / 2) -->
                 <xsl:variable name="shiftFactor"
                               select="7 div $playerCount * ($position - $playerCount + ($playerCount - 1) div 2) * ($position - $playerCount + ($playerCount - 1) div 2)"/>

@@ -473,21 +473,19 @@
             alignment-baseline="central"
             fill="white"
             stroke="none">Angela</text>
-      <text x="11.5"
-            y="-2"
-            text-anchor="middle"
-            alignment-baseline="central"
-            fill="white"
-            stroke="none"
-            font-size="2">
-                        Bet: 0 $
-                    </text>
       <line x1="0"
             x2="23"
             y1="6"
             y2="6"
             stroke="white"
             stroke-width="0.3"/>
+      <text x="11.5"
+            y="-2"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="white"
+            stroke="none"
+            font-size="2">Bet: 650 $</text>
       <svg width="5" height="5" x="3.25" y="0.5">
          <svg width="100%" height="100%" font-family="Raleway, serif">
             <symbol id="outerChip11" viewBox="-1.1 -1.1 2.2 2.2">
@@ -788,21 +786,19 @@
             alignment-baseline="central"
             fill="gold"
             stroke="none">Donald</text>
-      <text x="11.5"
-            y="-2"
-            text-anchor="middle"
-            alignment-baseline="central"
-            fill="gold"
-            stroke="none"
-            font-size="2">
-                        Bet: 0 $
-                    </text>
       <line x1="0"
             x2="23"
             y1="6"
             y2="6"
             stroke="gold"
             stroke-width="0.3"/>
+      <text x="11.5"
+            y="-2"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="gold"
+            stroke="none"
+            font-size="2">Bet: 650 $</text>
       <svg width="5" height="5" x="3.25" y="0.5">
          <svg width="100%" height="100%" font-family="Raleway, serif">
             <symbol id="outerChip21" viewBox="-1.1 -1.1 2.2 2.2">
@@ -1083,7 +1079,7 @@
       </svg>
    </symbol>
    <use xlink:href="#playerBox2"
-        x="41.833333333333333334"
+        x="41.833333333333336"
         y="56.5625"
         transform="rotate(3.333333333333333333 60 80)"/>
    <symbol id="playerBox3" overflow="visible">
@@ -1100,21 +1096,19 @@
             alignment-baseline="central"
             fill="white"
             stroke="none">Boris</text>
-      <text x="11.5"
-            y="-2"
-            text-anchor="middle"
-            alignment-baseline="central"
-            fill="white"
-            stroke="none"
-            font-size="2">
-                        Bet: 0 $
-                    </text>
       <line x1="0"
             x2="23"
             y1="6"
             y2="6"
             stroke="white"
             stroke-width="0.3"/>
+      <text x="11.5"
+            y="-2"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="white"
+            stroke="none"
+            font-size="2">Bet: 60 $</text>
       <svg width="5" height="5" x="5.166666666666666659" y="0.5">
          <svg width="100%" height="100%" font-family="Raleway, serif">
             <symbol id="outerChip31" viewBox="-1.1 -1.1 2.2 2.2">
@@ -1429,7 +1423,7 @@
       </svg>
    </symbol>
    <use xlink:href="#playerBox3"
-        x="85.166666666666666666"
+        x="85.16666666666667"
         y="56.5625"
         transform="rotate(-3.333333333333333333 90 80)"/>
    <symbol id="playerBox4" overflow="visible">
@@ -1446,21 +1440,19 @@
             alignment-baseline="central"
             fill="white"
             stroke="none">Kim</text>
-      <text x="11.5"
-            y="-2"
-            text-anchor="middle"
-            alignment-baseline="central"
-            fill="white"
-            stroke="none"
-            font-size="2">
-                        Bet: 0 $
-                    </text>
       <line x1="0"
             x2="23"
             y1="6"
             y2="6"
             stroke="white"
             stroke-width="0.3"/>
+      <text x="11.5"
+            y="-2"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="white"
+            stroke="none"
+            font-size="2">Bet: 910 $</text>
       <svg width="5" height="5" x="1.333333333333333341" y="0.5">
          <svg width="100%" height="100%" font-family="Raleway, serif">
             <symbol id="outerChip41" viewBox="-1.1 -1.1 2.2 2.2">
