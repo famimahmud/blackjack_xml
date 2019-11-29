@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<highscores>
+    <highscore>
+        <position>1.</position>
+        <name>Ali1234</name>
+        <score>9990$</score>
+    </highscore>
+    <highscore>
+        <position>2.</position>
+        <name>Roberto2341</name>
+        <score>19230$</score>
+    </highscore>
+    <highscore>
+        <position>3.</position>
+        <name>Bob5421</name>
+        <score>2340$</score>
+    </highscore>
+    <highscore>
+        <position>4.</position>
+        <name>David2319</name>
+        <score>34688$</score>
+    </highscore>
+</highscores>

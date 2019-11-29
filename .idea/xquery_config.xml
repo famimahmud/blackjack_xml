@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="XQueryProjectSettings">
+    <option name="XQuery10Dialect" />
+    <option name="XQuery30Dialect" value="basex" />
+    <option name="XQuery31Dialect" value="basex" />
+    <option name="implementationVersion" value="basex/v6.1" />
+  </component>
+</project>
