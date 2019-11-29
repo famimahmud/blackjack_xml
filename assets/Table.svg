@@ -489,7 +489,7 @@
       <svg width="5" height="5" x="3.25" y="0.5">
          <svg width="100%" height="100%" font-family="Raleway, serif">
             <symbol id="outerChip11" viewBox="-1.1 -1.1 2.2 2.2">
-               <circle cx="0" cy="0" r="1" fill="green"/>
+               <circle cx="0" cy="0" r="1" fill="darkgreen"/>
                <line x1="0"
                      y1="-1"
                      x2="0"
@@ -517,7 +517,7 @@
                     width="100%"
                     height="100%"
                     xlink:href="#outerChip11"/>
-               <circle cx="0" cy="0" r="0.75" fill="green"/>
+               <circle cx="0" cy="0" r="0.75" fill="darkgreen"/>
             </symbol>
             <symbol id="chip11"
                     viewBox="-1.1 -1.1 2.2 2.2"
@@ -802,7 +802,7 @@
       <svg width="5" height="5" x="3.25" y="0.5">
          <svg width="100%" height="100%" font-family="Raleway, serif">
             <symbol id="outerChip21" viewBox="-1.1 -1.1 2.2 2.2">
-               <circle cx="0" cy="0" r="1" fill="green"/>
+               <circle cx="0" cy="0" r="1" fill="darkgreen"/>
                <line x1="0"
                      y1="-1"
                      x2="0"
@@ -830,7 +830,7 @@
                     width="100%"
                     height="100%"
                     xlink:href="#outerChip21"/>
-               <circle cx="0" cy="0" r="0.75" fill="green"/>
+               <circle cx="0" cy="0" r="0.75" fill="darkgreen"/>
             </symbol>
             <symbol id="chip21"
                     viewBox="-1.1 -1.1 2.2 2.2"
@@ -1576,7 +1576,7 @@
       <svg width="5" height="5" x="9" y="0.5">
          <svg width="100%" height="100%" font-family="Raleway, serif">
             <symbol id="outerChip43" viewBox="-1.1 -1.1 2.2 2.2">
-               <circle cx="0" cy="0" r="1" fill="green"/>
+               <circle cx="0" cy="0" r="1" fill="darkgreen"/>
                <line x1="0"
                      y1="-1"
                      x2="0"
@@ -1604,7 +1604,7 @@
                     width="100%"
                     height="100%"
                     xlink:href="#outerChip43"/>
-               <circle cx="0" cy="0" r="0.75" fill="green"/>
+               <circle cx="0" cy="0" r="0.75" fill="darkgreen"/>
             </symbol>
             <symbol id="chip43"
                     viewBox="-1.1 -1.1 2.2 2.2"

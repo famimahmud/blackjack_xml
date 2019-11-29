@@ -40,7 +40,7 @@
             <xsl:choose>
                 <xsl:when test="$chipValue = 10">white</xsl:when>
                 <xsl:when test="$chipValue = 50">red</xsl:when>
-                <xsl:when test="$chipValue = 100">green</xsl:when>
+                <xsl:when test="$chipValue = 100">darkgreen</xsl:when>
                 <xsl:when test="$chipValue = 250">darkorange</xsl:when>
                 <xsl:when test="$chipValue = 500">darkorchid</xsl:when>
                 <xsl:when test="$chipValue = 1000">black</xsl:when>
