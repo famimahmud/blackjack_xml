@@ -10,23 +10,12 @@
    <defs>
       <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Raleway');</style>
    </defs>
-   <path id="infoBow"
-         d="M30 40  Q75 50, 120 40"
-         stroke="white"
-         stroke-width="0.3"
-         fill="none"/>
-   <path d="M30 50 Q75 60, 120 50"
-         stroke="white"
-         stroke-width="0.3"
-         fill="none"/>
-   <path d="M30 40 L30 50" stroke="white" stroke-width="0.3"/>
-   <path d="M120 40 L120 50" stroke="white" stroke-width="0.3"/>
-   <text dy="-4"
+   <text x="75"
+         y="96"
          stroke="none"
          text-anchor="middle"
-         alignment-baseline="central">
-      <textPath xlink:href="#infoBow" fill="white" startOffset="45">It's Donald's turn!</textPath>
-   </text>
+         alignment-baseline="middle"
+         fill="white">It's Donald's turn!</text>
    <rect x="110"
          y="7"
          width="13"
@@ -263,14 +252,14 @@
    </svg>
    <symbol id="dealerBox">
       <text x="11.5"
-            y="2"
+            y="3"
             text-anchor="middle"
             alignment-baseline="central"
             fill="white"
             stroke="none">
                     Dealer
                 </text>
-      <rect y="6"
+      <rect y="7"
             width="23"
             height="18"
             rx="2"
@@ -278,7 +267,7 @@
             stroke="white"
             fill="none"
             stroke-width="0.3"/>
-      <svg width="13" height="18" x="4.25" y="6" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="4.25" y="7" viewBox="0 0 5 7">
          <svg font-family="Raleway, sans-serif"
               width="75%"
               height="100%"
@@ -360,7 +349,7 @@
             </svg>
          </svg>
       </svg>
-      <svg width="13" height="18" x="9.25" y="6" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="9.25" y="7" viewBox="0 0 5 7">
          <svg font-family="Raleway, sans-serif"
               width="75%"
               height="100%"
@@ -461,22 +450,217 @@
          </svg>
       </svg>
    </symbol>
-   <use xlink:href="#dealerBox" x="63.5" y="5"/>
-   <symbol id="playerBox1">
+   <use xlink:href="#dealerBox" x="63.5" y="7"/>
+   <symbol id="playerBox1" overflow="visible">
       <rect width="23"
-            height="18"
+            height="26"
             rx="2"
             ry="2"
             stroke="white"
             fill="none"
             stroke-width="0.3"/>
       <text x="11.5"
-            y="21"
+            y="29"
             text-anchor="middle"
             alignment-baseline="central"
             fill="white"
             stroke="none">Angela</text>
-      <svg width="13" height="18" x="4.25" y="0" viewBox="0 0 5 7">
+      <text x="11.5"
+            y="-2"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="white"
+            stroke="none"
+            font-size="2">
+                        Bet: 0 $
+                    </text>
+      <line x1="0"
+            x2="23"
+            y1="6"
+            y2="6"
+            stroke="white"
+            stroke-width="0.3"/>
+      <svg width="5" height="5" x="3.499999999999999994" y="0.5">
+         <svg width="100%" height="100%" font-family="Raleway, serif">
+            <symbol id="outerChip11" viewBox="-1.1 -1.1 2.2 2.2">
+               <circle cx="0" cy="0" r="1" fill="green"/>
+               <line x1="0"
+                     y1="-1"
+                     x2="0"
+                     y2="1"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="1"
+                     y1="0"
+                     x2="-1"
+                     y2="0"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="-0.7071"
+                     x2="-0.7071"
+                     y2="0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="0.7071"
+                     x2="-0.7071"
+                     y2="-0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+            </symbol>
+            <symbol id="innerChip11" viewBox="-1.1 -1.1 2.2 2.2">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#outerChip11"/>
+               <circle cx="0" cy="0" r="0.75" fill="green"/>
+            </symbol>
+            <symbol id="chip11"
+                    viewBox="-1.1 -1.1 2.2 2.2"
+                    preserveAspectRatio="xMidYMid meet">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#innerChip11"/>
+               <circle cx="0"
+                       cy="0"
+                       r="0.65"
+                       fill="none"
+                       stroke="white"
+                       stroke-width="0.05"
+                       stroke-dasharray="0.2,0.2"/>
+               <text x="0"
+                     y="-0.25"
+                     fill="white"
+                     font-size="0.75"
+                     text-anchor="middle"
+                     alignment-baseline="central">100</text>
+            </symbol>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+               <use x="0" y="0" width="100" height="100" xlink:href="#chip11"/>
+            </svg>
+         </svg>
+      </svg>
+      <svg width="5" height="5" x="9.500000000000000006" y="0.5">
+         <svg width="100%" height="100%" font-family="Raleway, serif">
+            <symbol id="outerChip12" viewBox="-1.1 -1.1 2.2 2.2">
+               <circle cx="0" cy="0" r="1" fill="darkorchid"/>
+               <line x1="0"
+                     y1="-1"
+                     x2="0"
+                     y2="1"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="1"
+                     y1="0"
+                     x2="-1"
+                     y2="0"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="-0.7071"
+                     x2="-0.7071"
+                     y2="0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="0.7071"
+                     x2="-0.7071"
+                     y2="-0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+            </symbol>
+            <symbol id="innerChip12" viewBox="-1.1 -1.1 2.2 2.2">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#outerChip12"/>
+               <circle cx="0" cy="0" r="0.75" fill="darkorchid"/>
+            </symbol>
+            <symbol id="chip12"
+                    viewBox="-1.1 -1.1 2.2 2.2"
+                    preserveAspectRatio="xMidYMid meet">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#innerChip12"/>
+               <circle cx="0"
+                       cy="0"
+                       r="0.65"
+                       fill="none"
+                       stroke="white"
+                       stroke-width="0.05"
+                       stroke-dasharray="0.2,0.2"/>
+               <text x="0"
+                     y="-0.25"
+                     fill="white"
+                     font-size="0.75"
+                     text-anchor="middle"
+                     alignment-baseline="central">500</text>
+            </symbol>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+               <use x="0" y="0" width="100" height="100" xlink:href="#chip12"/>
+            </svg>
+         </svg>
+      </svg>
+      <svg width="5" height="5" x="15.5" y="0.5">
+         <svg width="100%" height="100%" font-family="Raleway, serif">
+            <symbol id="outerChip13" viewBox="-1.1 -1.1 2.2 2.2">
+               <circle cx="0" cy="0" r="1" fill="red"/>
+               <line x1="0"
+                     y1="-1"
+                     x2="0"
+                     y2="1"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="1"
+                     y1="0"
+                     x2="-1"
+                     y2="0"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="-0.7071"
+                     x2="-0.7071"
+                     y2="0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="0.7071"
+                     x2="-0.7071"
+                     y2="-0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+            </symbol>
+            <symbol id="innerChip13" viewBox="-1.1 -1.1 2.2 2.2">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#outerChip13"/>
+               <circle cx="0" cy="0" r="0.75" fill="red"/>
+            </symbol>
+            <symbol id="chip13"
+                    viewBox="-1.1 -1.1 2.2 2.2"
+                    preserveAspectRatio="xMidYMid meet">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#innerChip13"/>
+               <circle cx="0"
+                       cy="0"
+                       r="0.65"
+                       fill="none"
+                       stroke="white"
+                       stroke-width="0.05"
+                       stroke-dasharray="0.2,0.2"/>
+               <text x="0"
+                     y="-0.25"
+                     fill="white"
+                     font-size="0.75"
+                     text-anchor="middle"
+                     alignment-baseline="central">50</text>
+            </symbol>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+               <use x="0" y="0" width="100" height="100" xlink:href="#chip13"/>
+            </svg>
+         </svg>
+      </svg>
+      <svg width="13" height="18" x="4.25" y="7" viewBox="0 0 5 7">
          <svg font-family="Raleway, sans-serif"
               width="75%"
               height="100%"
@@ -493,7 +677,7 @@
                   ry="0.25"
                   fill="url(#gradient)"
                   style="stroke:black;stroke-width:0.03"/>
-            <symbol id="valueBox2">
+            <symbol id="valueBox11">
                <svg height="2" width="1" viewBox="0 0 1 2">
                   <text x="0.05"
                         y="0.8"
@@ -507,8 +691,8 @@
                          xlink:href="Cards/icons/Heart.svg"/>
                </svg>
             </symbol>
-            <use xlink:href="#valueBox2" x="0.2" y="0"/>
-            <use xlink:href="#valueBox2"
+            <use xlink:href="#valueBox11" x="0.2" y="0"/>
+            <use xlink:href="#valueBox11"
                  x="0.2"
                  y="0"
                  transform="rotate(180 2.5 3.5)"/>
@@ -519,7 +703,7 @@
                    xlink:href="Cards/icons/red/King.svg"/>
          </svg>
       </svg>
-      <svg width="13" height="18" x="9.25" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="9.25" y="7" viewBox="0 0 5 7">
          <svg font-family="Raleway, sans-serif"
               width="75%"
               height="100%"
@@ -536,7 +720,7 @@
                   ry="0.25"
                   fill="url(#gradient)"
                   style="stroke:black;stroke-width:0.03"/>
-            <symbol id="valueBox3">
+            <symbol id="valueBox12">
                <svg height="2" width="1" viewBox="0 0 1 2">
                   <text x="0.05"
                         y="0.8"
@@ -550,8 +734,8 @@
                          xlink:href="Cards/icons/Clover.svg"/>
                </svg>
             </symbol>
-            <use xlink:href="#valueBox3" x="0.2" y="0"/>
-            <use xlink:href="#valueBox3"
+            <use xlink:href="#valueBox12" x="0.2" y="0"/>
+            <use xlink:href="#valueBox12"
                  x="0.2"
                  y="0"
                  transform="rotate(180 2.5 3.5)"/>
@@ -572,23 +756,218 @@
    </symbol>
    <use xlink:href="#playerBox1"
         x="-1.5"
-        y="63.0625"
-        transform="rotate(10 30 76)"/>
-   <symbol id="playerBox2">
+        y="53.0625"
+        transform="rotate(10 30 80)"/>
+   <symbol id="playerBox2" overflow="visible">
       <rect width="23"
-            height="18"
+            height="26"
             rx="2"
             ry="2"
             stroke="gold"
             fill="none"
             stroke-width="0.3"/>
       <text x="11.5"
-            y="21"
+            y="29"
             text-anchor="middle"
             alignment-baseline="central"
             fill="gold"
             stroke="none">Donald</text>
-      <svg width="13" height="18" x="4.25" y="0" viewBox="0 0 5 7">
+      <text x="11.5"
+            y="-2"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="gold"
+            stroke="none"
+            font-size="2">
+                        Bet: 0 $
+                    </text>
+      <line x1="0"
+            x2="23"
+            y1="6"
+            y2="6"
+            stroke="gold"
+            stroke-width="0.3"/>
+      <svg width="5" height="5" x="3.499999999999999994" y="0.5">
+         <svg width="100%" height="100%" font-family="Raleway, serif">
+            <symbol id="outerChip21" viewBox="-1.1 -1.1 2.2 2.2">
+               <circle cx="0" cy="0" r="1" fill="green"/>
+               <line x1="0"
+                     y1="-1"
+                     x2="0"
+                     y2="1"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="1"
+                     y1="0"
+                     x2="-1"
+                     y2="0"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="-0.7071"
+                     x2="-0.7071"
+                     y2="0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="0.7071"
+                     x2="-0.7071"
+                     y2="-0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+            </symbol>
+            <symbol id="innerChip21" viewBox="-1.1 -1.1 2.2 2.2">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#outerChip21"/>
+               <circle cx="0" cy="0" r="0.75" fill="green"/>
+            </symbol>
+            <symbol id="chip21"
+                    viewBox="-1.1 -1.1 2.2 2.2"
+                    preserveAspectRatio="xMidYMid meet">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#innerChip21"/>
+               <circle cx="0"
+                       cy="0"
+                       r="0.65"
+                       fill="none"
+                       stroke="white"
+                       stroke-width="0.05"
+                       stroke-dasharray="0.2,0.2"/>
+               <text x="0"
+                     y="-0.25"
+                     fill="white"
+                     font-size="0.75"
+                     text-anchor="middle"
+                     alignment-baseline="central">100</text>
+            </symbol>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+               <use x="0" y="0" width="100" height="100" xlink:href="#chip21"/>
+            </svg>
+         </svg>
+      </svg>
+      <svg width="5" height="5" x="9.500000000000000006" y="0.5">
+         <svg width="100%" height="100%" font-family="Raleway, serif">
+            <symbol id="outerChip22" viewBox="-1.1 -1.1 2.2 2.2">
+               <circle cx="0" cy="0" r="1" fill="darkorchid"/>
+               <line x1="0"
+                     y1="-1"
+                     x2="0"
+                     y2="1"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="1"
+                     y1="0"
+                     x2="-1"
+                     y2="0"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="-0.7071"
+                     x2="-0.7071"
+                     y2="0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="0.7071"
+                     x2="-0.7071"
+                     y2="-0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+            </symbol>
+            <symbol id="innerChip22" viewBox="-1.1 -1.1 2.2 2.2">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#outerChip22"/>
+               <circle cx="0" cy="0" r="0.75" fill="darkorchid"/>
+            </symbol>
+            <symbol id="chip22"
+                    viewBox="-1.1 -1.1 2.2 2.2"
+                    preserveAspectRatio="xMidYMid meet">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#innerChip22"/>
+               <circle cx="0"
+                       cy="0"
+                       r="0.65"
+                       fill="none"
+                       stroke="white"
+                       stroke-width="0.05"
+                       stroke-dasharray="0.2,0.2"/>
+               <text x="0"
+                     y="-0.25"
+                     fill="white"
+                     font-size="0.75"
+                     text-anchor="middle"
+                     alignment-baseline="central">500</text>
+            </symbol>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+               <use x="0" y="0" width="100" height="100" xlink:href="#chip22"/>
+            </svg>
+         </svg>
+      </svg>
+      <svg width="5" height="5" x="15.5" y="0.5">
+         <svg width="100%" height="100%" font-family="Raleway, serif">
+            <symbol id="outerChip23" viewBox="-1.1 -1.1 2.2 2.2">
+               <circle cx="0" cy="0" r="1" fill="red"/>
+               <line x1="0"
+                     y1="-1"
+                     x2="0"
+                     y2="1"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="1"
+                     y1="0"
+                     x2="-1"
+                     y2="0"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="-0.7071"
+                     x2="-0.7071"
+                     y2="0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="0.7071"
+                     x2="-0.7071"
+                     y2="-0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+            </symbol>
+            <symbol id="innerChip23" viewBox="-1.1 -1.1 2.2 2.2">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#outerChip23"/>
+               <circle cx="0" cy="0" r="0.75" fill="red"/>
+            </symbol>
+            <symbol id="chip23"
+                    viewBox="-1.1 -1.1 2.2 2.2"
+                    preserveAspectRatio="xMidYMid meet">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#innerChip23"/>
+               <circle cx="0"
+                       cy="0"
+                       r="0.65"
+                       fill="none"
+                       stroke="white"
+                       stroke-width="0.05"
+                       stroke-dasharray="0.2,0.2"/>
+               <text x="0"
+                     y="-0.25"
+                     fill="white"
+                     font-size="0.75"
+                     text-anchor="middle"
+                     alignment-baseline="central">50</text>
+            </symbol>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+               <use x="0" y="0" width="100" height="100" xlink:href="#chip23"/>
+            </svg>
+         </svg>
+      </svg>
+      <svg width="13" height="18" x="4.25" y="7" viewBox="0 0 5 7">
          <svg font-family="Raleway, sans-serif"
               width="75%"
               height="100%"
@@ -633,7 +1012,7 @@
                   style="fill:url(#pattern);stroke:red;stroke-width:0.1"/>
          </svg>
       </svg>
-      <svg width="13" height="18" x="9.25" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="9.25" y="7" viewBox="0 0 5 7">
          <svg font-family="Raleway, sans-serif"
               width="75%"
               height="100%"
@@ -681,26 +1060,161 @@
    </symbol>
    <use xlink:href="#playerBox2"
         x="41.833333333333333334"
-        y="66.5625"
-        transform="rotate(3.333333333333333333 60 76)"/>
-   <symbol id="playerBox3">
+        y="56.5625"
+        transform="rotate(3.333333333333333333 60 80)"/>
+   <symbol id="playerBox3" overflow="visible">
       <rect width="23"
-            height="18"
+            height="26"
             rx="2"
             ry="2"
             stroke="white"
             fill="none"
             stroke-width="0.3"/>
       <text x="11.5"
-            y="21"
+            y="29"
             text-anchor="middle"
             alignment-baseline="central"
             fill="white"
             stroke="none">Boris</text>
+      <text x="11.5"
+            y="-2"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="white"
+            stroke="none"
+            font-size="2">
+                        Bet: 0 $
+                    </text>
+      <line x1="0"
+            x2="23"
+            y1="6"
+            y2="6"
+            stroke="white"
+            stroke-width="0.3"/>
+      <svg width="5" height="5" x="6.5" y="0.5">
+         <svg width="100%" height="100%" font-family="Raleway, serif">
+            <symbol id="outerChip31" viewBox="-1.1 -1.1 2.2 2.2">
+               <circle cx="0" cy="0" r="1" fill="red"/>
+               <line x1="0"
+                     y1="-1"
+                     x2="0"
+                     y2="1"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="1"
+                     y1="0"
+                     x2="-1"
+                     y2="0"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="-0.7071"
+                     x2="-0.7071"
+                     y2="0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="0.7071"
+                     x2="-0.7071"
+                     y2="-0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+            </symbol>
+            <symbol id="innerChip31" viewBox="-1.1 -1.1 2.2 2.2">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#outerChip31"/>
+               <circle cx="0" cy="0" r="0.75" fill="red"/>
+            </symbol>
+            <symbol id="chip31"
+                    viewBox="-1.1 -1.1 2.2 2.2"
+                    preserveAspectRatio="xMidYMid meet">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#innerChip31"/>
+               <circle cx="0"
+                       cy="0"
+                       r="0.65"
+                       fill="none"
+                       stroke="white"
+                       stroke-width="0.05"
+                       stroke-dasharray="0.2,0.2"/>
+               <text x="0"
+                     y="-0.25"
+                     fill="white"
+                     font-size="0.75"
+                     text-anchor="middle"
+                     alignment-baseline="central">50</text>
+            </symbol>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+               <use x="0" y="0" width="100" height="100" xlink:href="#chip31"/>
+            </svg>
+         </svg>
+      </svg>
+      <svg width="5" height="5" x="15.5" y="0.5">
+         <svg width="100%" height="100%" font-family="Raleway, serif">
+            <symbol id="outerChip32" viewBox="-1.1 -1.1 2.2 2.2">
+               <circle cx="0" cy="0" r="1" fill="white"/>
+               <line x1="0"
+                     y1="-1"
+                     x2="0"
+                     y2="1"
+                     style="fill:none; stroke:blue; stroke-width:0.2"/>
+               <line x1="1"
+                     y1="0"
+                     x2="-1"
+                     y2="0"
+                     style="fill:none; stroke:blue; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="-0.7071"
+                     x2="-0.7071"
+                     y2="0.7071"
+                     style="fill:none; stroke:blue; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="0.7071"
+                     x2="-0.7071"
+                     y2="-0.7071"
+                     style="fill:none; stroke:blue; stroke-width:0.2"/>
+            </symbol>
+            <symbol id="innerChip32" viewBox="-1.1 -1.1 2.2 2.2">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#outerChip32"/>
+               <circle cx="0" cy="0" r="0.75" fill="white"/>
+            </symbol>
+            <symbol id="chip32"
+                    viewBox="-1.1 -1.1 2.2 2.2"
+                    preserveAspectRatio="xMidYMid meet">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#innerChip32"/>
+               <circle cx="0"
+                       cy="0"
+                       r="0.65"
+                       fill="none"
+                       stroke="blue"
+                       stroke-width="0.05"
+                       stroke-dasharray="0.2,0.2"/>
+               <text x="0"
+                     y="-0.25"
+                     fill="blue"
+                     font-size="0.75"
+                     text-anchor="middle"
+                     alignment-baseline="central">10</text>
+            </symbol>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+               <use x="0" y="0" width="100" height="100" xlink:href="#chip32"/>
+            </svg>
+         </svg>
+      </svg>
       <svg width="13"
            height="18"
            x="2.8333333333333333305"
-           y="0"
+           y="7"
            viewBox="0 0 5 7">
          <svg font-family="Raleway, sans-serif"
               width="75%"
@@ -718,7 +1232,7 @@
                   ry="0.25"
                   fill="url(#gradient)"
                   style="stroke:black;stroke-width:0.03"/>
-            <symbol id="valueBox4">
+            <symbol id="valueBox31">
                <svg height="2" width="1" viewBox="0 0 1 2">
                   <text x="0.1"
                         y="0.8"
@@ -732,8 +1246,8 @@
                          xlink:href="Cards/icons/Pike.svg"/>
                </svg>
             </symbol>
-            <use xlink:href="#valueBox4" x="0.2" y="0"/>
-            <use xlink:href="#valueBox4"
+            <use xlink:href="#valueBox31" x="0.2" y="0"/>
+            <use xlink:href="#valueBox31"
                  x="0.2"
                  y="0"
                  transform="rotate(180 2.5 3.5)"/>
@@ -786,7 +1300,7 @@
       <svg width="13"
            height="18"
            x="6.16666666666666666975"
-           y="0"
+           y="7"
            viewBox="0 0 5 7">
          <svg font-family="Raleway, sans-serif"
               width="75%"
@@ -804,7 +1318,7 @@
                   ry="0.25"
                   fill="url(#gradient)"
                   style="stroke:black;stroke-width:0.03"/>
-            <symbol id="valueBox5">
+            <symbol id="valueBox32">
                <svg height="2" width="1" viewBox="0 0 1 2">
                   <text x="0.1"
                         y="0.8"
@@ -818,8 +1332,8 @@
                          xlink:href="Cards/icons/Heart.svg"/>
                </svg>
             </symbol>
-            <use xlink:href="#valueBox5" x="0.2" y="0"/>
-            <use xlink:href="#valueBox5"
+            <use xlink:href="#valueBox32" x="0.2" y="0"/>
+            <use xlink:href="#valueBox32"
                  x="0.2"
                  y="0"
                  transform="rotate(180 2.5 3.5)"/>
@@ -854,7 +1368,7 @@
             </svg>
          </svg>
       </svg>
-      <svg width="13" height="18" x="9.5" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="9.5" y="7" viewBox="0 0 5 7">
          <svg font-family="Raleway, sans-serif"
               width="75%"
               height="100%"
@@ -871,7 +1385,7 @@
                   ry="0.25"
                   fill="url(#gradient)"
                   style="stroke:black;stroke-width:0.03"/>
-            <symbol id="valueBox6">
+            <symbol id="valueBox33">
                <svg height="2" width="1" viewBox="0 0 1 2">
                   <text x="0.15"
                         y="0.8"
@@ -885,8 +1399,8 @@
                          xlink:href="Cards/icons/Heart.svg"/>
                </svg>
             </symbol>
-            <use xlink:href="#valueBox6" x="0.2" y="0"/>
-            <use xlink:href="#valueBox6"
+            <use xlink:href="#valueBox33" x="0.2" y="0"/>
+            <use xlink:href="#valueBox33"
                  x="0.2"
                  y="0"
                  transform="rotate(180 2.5 3.5)"/>
@@ -900,23 +1414,338 @@
    </symbol>
    <use xlink:href="#playerBox3"
         x="85.166666666666666666"
-        y="66.5625"
-        transform="rotate(-3.333333333333333333 90 76)"/>
-   <symbol id="playerBox4">
+        y="56.5625"
+        transform="rotate(-3.333333333333333333 90 80)"/>
+   <symbol id="playerBox4" overflow="visible">
       <rect width="23"
-            height="18"
+            height="26"
             rx="2"
             ry="2"
             stroke="white"
             fill="none"
             stroke-width="0.3"/>
       <text x="11.5"
-            y="21"
+            y="29"
             text-anchor="middle"
             alignment-baseline="central"
             fill="white"
             stroke="none">Kim</text>
-      <svg width="13" height="18" x="2.125" y="0" viewBox="0 0 5 7">
+      <text x="11.5"
+            y="-2"
+            text-anchor="middle"
+            alignment-baseline="central"
+            fill="white"
+            stroke="none"
+            font-size="2">
+                        Bet: 0 $
+                    </text>
+      <line x1="0"
+            x2="23"
+            y1="6"
+            y2="6"
+            stroke="white"
+            stroke-width="0.3"/>
+      <svg width="5" height="5" x="1.1" y="0.5">
+         <svg width="100%" height="100%" font-family="Raleway, serif">
+            <symbol id="outerChip41" viewBox="-1.1 -1.1 2.2 2.2">
+               <circle cx="0" cy="0" r="1" fill="white"/>
+               <line x1="0"
+                     y1="-1"
+                     x2="0"
+                     y2="1"
+                     style="fill:none; stroke:blue; stroke-width:0.2"/>
+               <line x1="1"
+                     y1="0"
+                     x2="-1"
+                     y2="0"
+                     style="fill:none; stroke:blue; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="-0.7071"
+                     x2="-0.7071"
+                     y2="0.7071"
+                     style="fill:none; stroke:blue; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="0.7071"
+                     x2="-0.7071"
+                     y2="-0.7071"
+                     style="fill:none; stroke:blue; stroke-width:0.2"/>
+            </symbol>
+            <symbol id="innerChip41" viewBox="-1.1 -1.1 2.2 2.2">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#outerChip41"/>
+               <circle cx="0" cy="0" r="0.75" fill="white"/>
+            </symbol>
+            <symbol id="chip41"
+                    viewBox="-1.1 -1.1 2.2 2.2"
+                    preserveAspectRatio="xMidYMid meet">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#innerChip41"/>
+               <circle cx="0"
+                       cy="0"
+                       r="0.65"
+                       fill="none"
+                       stroke="blue"
+                       stroke-width="0.05"
+                       stroke-dasharray="0.2,0.2"/>
+               <text x="0"
+                     y="-0.25"
+                     fill="blue"
+                     font-size="0.75"
+                     text-anchor="middle"
+                     alignment-baseline="central">10</text>
+            </symbol>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+               <use x="0" y="0" width="100" height="100" xlink:href="#chip41"/>
+            </svg>
+         </svg>
+      </svg>
+      <svg width="5" height="5" x="4.7" y="0.5">
+         <svg width="100%" height="100%" font-family="Raleway, serif">
+            <symbol id="outerChip42" viewBox="-1.1 -1.1 2.2 2.2">
+               <circle cx="0" cy="0" r="1" fill="red"/>
+               <line x1="0"
+                     y1="-1"
+                     x2="0"
+                     y2="1"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="1"
+                     y1="0"
+                     x2="-1"
+                     y2="0"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="-0.7071"
+                     x2="-0.7071"
+                     y2="0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="0.7071"
+                     x2="-0.7071"
+                     y2="-0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+            </symbol>
+            <symbol id="innerChip42" viewBox="-1.1 -1.1 2.2 2.2">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#outerChip42"/>
+               <circle cx="0" cy="0" r="0.75" fill="red"/>
+            </symbol>
+            <symbol id="chip42"
+                    viewBox="-1.1 -1.1 2.2 2.2"
+                    preserveAspectRatio="xMidYMid meet">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#innerChip42"/>
+               <circle cx="0"
+                       cy="0"
+                       r="0.65"
+                       fill="none"
+                       stroke="white"
+                       stroke-width="0.05"
+                       stroke-dasharray="0.2,0.2"/>
+               <text x="0"
+                     y="-0.25"
+                     fill="white"
+                     font-size="0.75"
+                     text-anchor="middle"
+                     alignment-baseline="central">50</text>
+            </symbol>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+               <use x="0" y="0" width="100" height="100" xlink:href="#chip42"/>
+            </svg>
+         </svg>
+      </svg>
+      <svg width="5" height="5" x="8.3" y="0.5">
+         <svg width="100%" height="100%" font-family="Raleway, serif">
+            <symbol id="outerChip43" viewBox="-1.1 -1.1 2.2 2.2">
+               <circle cx="0" cy="0" r="1" fill="green"/>
+               <line x1="0"
+                     y1="-1"
+                     x2="0"
+                     y2="1"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="1"
+                     y1="0"
+                     x2="-1"
+                     y2="0"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="-0.7071"
+                     x2="-0.7071"
+                     y2="0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="0.7071"
+                     x2="-0.7071"
+                     y2="-0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+            </symbol>
+            <symbol id="innerChip43" viewBox="-1.1 -1.1 2.2 2.2">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#outerChip43"/>
+               <circle cx="0" cy="0" r="0.75" fill="green"/>
+            </symbol>
+            <symbol id="chip43"
+                    viewBox="-1.1 -1.1 2.2 2.2"
+                    preserveAspectRatio="xMidYMid meet">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#innerChip43"/>
+               <circle cx="0"
+                       cy="0"
+                       r="0.65"
+                       fill="none"
+                       stroke="white"
+                       stroke-width="0.05"
+                       stroke-dasharray="0.2,0.2"/>
+               <text x="0"
+                     y="-0.25"
+                     fill="white"
+                     font-size="0.75"
+                     text-anchor="middle"
+                     alignment-baseline="central">100</text>
+            </symbol>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+               <use x="0" y="0" width="100" height="100" xlink:href="#chip43"/>
+            </svg>
+         </svg>
+      </svg>
+      <svg width="5" height="5" x="11.9" y="0.5">
+         <svg width="100%" height="100%" font-family="Raleway, serif">
+            <symbol id="outerChip44" viewBox="-1.1 -1.1 2.2 2.2">
+               <circle cx="0" cy="0" r="1" fill="darkorange"/>
+               <line x1="0"
+                     y1="-1"
+                     x2="0"
+                     y2="1"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="1"
+                     y1="0"
+                     x2="-1"
+                     y2="0"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="-0.7071"
+                     x2="-0.7071"
+                     y2="0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="0.7071"
+                     x2="-0.7071"
+                     y2="-0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+            </symbol>
+            <symbol id="innerChip44" viewBox="-1.1 -1.1 2.2 2.2">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#outerChip44"/>
+               <circle cx="0" cy="0" r="0.75" fill="darkorange"/>
+            </symbol>
+            <symbol id="chip44"
+                    viewBox="-1.1 -1.1 2.2 2.2"
+                    preserveAspectRatio="xMidYMid meet">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#innerChip44"/>
+               <circle cx="0"
+                       cy="0"
+                       r="0.65"
+                       fill="none"
+                       stroke="white"
+                       stroke-width="0.05"
+                       stroke-dasharray="0.2,0.2"/>
+               <text x="0"
+                     y="-0.25"
+                     fill="white"
+                     font-size="0.75"
+                     text-anchor="middle"
+                     alignment-baseline="central">250</text>
+            </symbol>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+               <use x="0" y="0" width="100" height="100" xlink:href="#chip44"/>
+            </svg>
+         </svg>
+      </svg>
+      <svg width="5" height="5" x="15.5" y="0.5">
+         <svg width="100%" height="100%" font-family="Raleway, serif">
+            <symbol id="outerChip45" viewBox="-1.1 -1.1 2.2 2.2">
+               <circle cx="0" cy="0" r="1" fill="darkorchid"/>
+               <line x1="0"
+                     y1="-1"
+                     x2="0"
+                     y2="1"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="1"
+                     y1="0"
+                     x2="-1"
+                     y2="0"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="-0.7071"
+                     x2="-0.7071"
+                     y2="0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+               <line x1="0.7071"
+                     y1="0.7071"
+                     x2="-0.7071"
+                     y2="-0.7071"
+                     style="fill:none; stroke:white; stroke-width:0.2"/>
+            </symbol>
+            <symbol id="innerChip45" viewBox="-1.1 -1.1 2.2 2.2">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#outerChip45"/>
+               <circle cx="0" cy="0" r="0.75" fill="darkorchid"/>
+            </symbol>
+            <symbol id="chip45"
+                    viewBox="-1.1 -1.1 2.2 2.2"
+                    preserveAspectRatio="xMidYMid meet">
+               <use x="-1.1"
+                    y="-1.1"
+                    width="100%"
+                    height="100%"
+                    xlink:href="#innerChip45"/>
+               <circle cx="0"
+                       cy="0"
+                       r="0.65"
+                       fill="none"
+                       stroke="white"
+                       stroke-width="0.05"
+                       stroke-dasharray="0.2,0.2"/>
+               <text x="0"
+                     y="-0.25"
+                     fill="white"
+                     font-size="0.75"
+                     text-anchor="middle"
+                     alignment-baseline="central">500</text>
+            </symbol>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+               <use x="0" y="0" width="100" height="100" xlink:href="#chip45"/>
+            </svg>
+         </svg>
+      </svg>
+      <svg width="13" height="18" x="2.125" y="7" viewBox="0 0 5 7">
          <svg font-family="Raleway, sans-serif"
               width="75%"
               height="100%"
@@ -961,7 +1790,7 @@
                   style="fill:url(#pattern);stroke:red;stroke-width:0.1"/>
          </svg>
       </svg>
-      <svg width="13" height="18" x="4.625" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="4.625" y="7" viewBox="0 0 5 7">
          <svg font-family="Raleway, sans-serif"
               width="75%"
               height="100%"
@@ -1006,7 +1835,7 @@
                   style="fill:url(#pattern);stroke:red;stroke-width:0.1"/>
          </svg>
       </svg>
-      <svg width="13" height="18" x="7.125" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="7.125" y="7" viewBox="0 0 5 7">
          <svg font-family="Raleway, sans-serif"
               width="75%"
               height="100%"
@@ -1051,7 +1880,7 @@
                   style="fill:url(#pattern);stroke:red;stroke-width:0.1"/>
          </svg>
       </svg>
-      <svg width="13" height="18" x="9.625" y="0" viewBox="0 0 5 7">
+      <svg width="13" height="18" x="9.625" y="7" viewBox="0 0 5 7">
          <svg font-family="Raleway, sans-serif"
               width="75%"
               height="100%"
@@ -1099,6 +1928,6 @@
    </symbol>
    <use xlink:href="#playerBox4"
         x="128.5"
-        y="63.0625"
-        transform="rotate(-10 120 76)"/>
+        y="53.0625"
+        transform="rotate(-10 120 80)"/>
 </svg>

@@ -3,6 +3,7 @@
 
     <xsl:template name="ChipTemplate">
         <xsl:param name="chipValue"/>
+        <xsl:param name="id"/>
         <!-- <xsl:variable name="chipValue" select="/*/value"/> -->
         
         <xsl:variable name="root2" select="1.4142"/>
@@ -72,7 +73,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              width="100%" height="100%" font-family="{$fonts}">
 
-            <symbol id = "outerChip" viewBox="-{$rPlus} -{$rPlus} {$dPlus} {$dPlus}">
+            <symbol id = "outerChip{$id}" viewBox="-{$rPlus} -{$rPlus} {$dPlus} {$dPlus}">
                 <circle cx="0" cy="0" r="{$r}" fill= "{$chipColor}"/>
                 <line x1="{$p0X}" y1="{$p0Y}" x2="{$p4X}" y2="{$p4Y}" style="fill:none; stroke:{$strokeColor}; stroke-width:0.2"/>
                 <line x1="{$p2X}" y1="{$p2Y}" x2="{$p6X}" y2="{$p6Y}" style="fill:none; stroke:{$strokeColor}; stroke-width:0.2"/>
@@ -80,13 +81,13 @@
                 <line x1="{$p3X}" y1="{$p3Y}" x2="{$p7X}" y2="{$p7Y}" style="fill:none; stroke:{$strokeColor}; stroke-width:0.2"/>
             </symbol>
 
-            <symbol id="innerChip" viewBox="-{$rPlus} -{$rPlus} {$dPlus} {$dPlus}">
-                <use x="-{$rPlus}" y="-{$rPlus}" width="100%" height="100%" xlink:href="#outerChip"/>
+            <symbol id="innerChip{$id}" viewBox="-{$rPlus} -{$rPlus} {$dPlus} {$dPlus}">
+                <use x="-{$rPlus}" y="-{$rPlus}" width="100%" height="100%" xlink:href="#outerChip{$id}"/>
                 <circle cx="0" cy="0" r="{$r2}" fill= "{$chipColor}"/>
             </symbol>
 
-            <symbol id="chip" viewBox="-{$rPlus} -{$rPlus} {$dPlus} {$dPlus}" preserveAspectRatio="xMidYMid meet" >
-                <use x="-{$rPlus}" y="-{$rPlus}" width="100%" height="100%" xlink:href="#innerChip"/>
+            <symbol id="chip{$id}" viewBox="-{$rPlus} -{$rPlus} {$dPlus} {$dPlus}" preserveAspectRatio="xMidYMid meet" >
+                <use x="-{$rPlus}" y="-{$rPlus}" width="100%" height="100%" xlink:href="#innerChip{$id}"/>
                 <circle cx="0" cy="0" r="{$r3}" fill= "none" stroke="{$strokeColor}" stroke-width="0.05" stroke-dasharray="0.2,0.2"/>
                 <text x="{$cX}" y="{$textY}" fill="{$strokeColor}" font-size="{$fontSize}" text-anchor="middle" alignment-baseline="central">
                     <xsl:value-of select="$chipValue"/>
@@ -94,7 +95,7 @@
             </symbol>
 
             <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-                <use x="0" y="0" width="100" height="100" xlink:href="#chip"/>
+                <use x="0" y="0" width="100" height="100" xlink:href="#chip{$id}"/>
             </svg>
 
         </svg>

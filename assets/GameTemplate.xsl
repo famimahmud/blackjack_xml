@@ -12,13 +12,14 @@
         <xsl:variable name="width" select="150"/>
         <xsl:variable name="height" select="100"/>
         <xsl:variable name="fieldWidth" select="23"/>
-        <xsl:variable name="fieldHeight" select="18"/>
+        <xsl:variable name="fieldHeight" select="26"/>
         <xsl:variable name="cardWidth" select="$fieldWidth - 10"/>
-        <xsl:variable name="cardHeight" select="$fieldHeight"/>
+        <xsl:variable name="cardHeight" select="18"/>
+        <xsl:variable name="chipSize" select = "5"/>
         <xsl:variable name="deckX" select="110"/>
         <xsl:variable name="deckY" select="7"/>
         <xsl:variable name="dealerX" select="($width - $fieldWidth) div 2"/>
-        <xsl:variable name="dealerY" select="5"/>
+        <xsl:variable name="dealerY" select="7"/>
         <xsl:variable name="playerY" select="67"/>
         <xsl:variable name="textColor" select="'white'"/>
         <xsl:variable name="onTurnColor" select="'gold'"/>
@@ -50,17 +51,10 @@
                 <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Raleway');</style>
             </defs>
 
-            <!-- Draw paths -->
-            <path id="infoBow" d="M30 40  Q75 50, 120 40" stroke="{$strokeColor}" stroke-width="{$strokeWidth}"
-                  fill="none"/>
-            <path d="M30 50 Q75 60, 120 50" stroke="{$strokeColor}" stroke-width="{$strokeWidth}" fill="none"/>
-            <path d="M30 40 L30 50" stroke="{$strokeColor}" stroke-width="{$strokeWidth}"/>
-            <path d="M120 40 L120 50" stroke="{$strokeColor}" stroke-width="{$strokeWidth}"/>
-
-            <text dy="-4" stroke="none" text-anchor="middle" alignment-baseline="central">
-                <textPath xlink:href="#infoBow" fill="{$textColor}" startOffset="45">
+            <text x="{$width div 2}" y="{$height - 4}" stroke="none" text-anchor="middle" alignment-baseline="middle" fill="white">
+                <!--<textPath xlink:href="#infoBow" fill="{$textColor}" startOffset="45">-->
                     <xsl:value-of select="concat('It''s ', $currentPlayer, '''s turn!')"/>
-                </textPath>
+                <!--</textPath>-->
             </text>
 
             <!-- Generate card deck -->
@@ -94,19 +88,19 @@
                     </xsl:choose>
                 </xsl:variable>
                 <!-- Generate box -->
-                <text x="{$fieldWidth div 2}" y="{$fontSize div 2}" text-anchor="middle"
+                <text x="{$fieldWidth div 2}" y="{$dealerY - 4}" text-anchor="middle"
                       alignment-baseline="central"
                       fill="{$color}" stroke="none">
                     Dealer
                 </text>
-                <rect y="{$fieldHeight div 3}" width="{$fieldWidth}" height="{$fieldHeight}" rx="{$cornerRadius}"
+                <rect y="{$dealerY}" width="{$fieldWidth}" height="{$cardHeight}" rx="{$cornerRadius}"
                       ry="{$cornerRadius}" stroke="{$color}" fill="none" stroke-width="{$strokeWidth}"/>
 
                 <!-- Add cards -->
                 <xsl:for-each select="*/dealer/hand/*">
                     <svg width="{$cardWidth}" height="{$cardHeight}"
                          x="{(position() div count(parent::hand/*)) * ($fieldWidth - $cardWidth - (1.5 div position()))}"
-                         y="{$dealerY + 1}" viewBox="0 0 5 7">
+                         y="{$dealerY}" viewBox="0 0 5 7">
                         <xsl:call-template name="CardTemplate">
                             <xsl:with-param name="cardType" select="type"/>
                             <xsl:with-param name="cardValue" select="value"/>
@@ -134,7 +128,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
-                <symbol id="playerBox{$position}">
+                <symbol id="playerBox{$position}" overflow="visible">
                     <rect width="{$fieldWidth}" height="{$fieldHeight}" rx="{$cornerRadius}"
                           ry="{$cornerRadius}" stroke="{$playerColor}" fill="none" stroke-width="{$strokeWidth}"/>
                     <text x="{$fieldWidth div 2}" y="{$fieldHeight + ($fontSize div 2) + 1}" text-anchor="middle"
@@ -143,14 +137,40 @@
                         <xsl:value-of select="$name"/>
                     </text>
 
+                    <text x="{$fieldWidth div 2}" y="{-2}" text-anchor="middle"
+                          alignment-baseline="central"
+                          fill="{$playerColor}" stroke="none" font-size="2">
+                        Bet: 0 $
+                    </text>
+
+                    <line x1="0" x2="{$fieldWidth}" y1="6" y2="6" stroke="{$playerColor}" stroke-width="{$strokeWidth}"/>
+
+                    <!-- Insert chips -->
+
+                    <xsl:for-each select="pool/*">
+                        <xsl:if test="count(*) != 0">
+                            <svg width="{$chipSize}" height="{$chipSize}"
+                                 x="{((position()) div count(parent::pool/*)) * ($fieldWidth - $chipSize) - (0.5 * $chipSize)}"
+                                 y="0.5">
+                                <xsl:call-template name="ChipTemplate">
+                                    <xsl:with-param name="chipValue" select="value"/>
+                                    <xsl:with-param name="id" select="concat($position, position())"/>
+                                </xsl:call-template>
+                            </svg>
+                        </xsl:if>
+                    </xsl:for-each>
+
+
+                    <!-- Insert cards -->
+
                     <xsl:for-each select="hand/*">
                         <svg width="{$cardWidth}" height="{$cardHeight}"
                              x="{((position()) div count(parent::hand/*)) * ($fieldWidth - $cardWidth - (1.5 div position()))}"
-                             y="0" viewBox="0 0 5 7">
+                             y="7" viewBox="0 0 5 7">
                             <xsl:call-template name="CardTemplate">
                                 <xsl:with-param name="cardType" select="type"/>
                                 <xsl:with-param name="cardValue" select="value"/>
-                                <xsl:with-param name="id" select="$position + position()"/>
+                                <xsl:with-param name="id" select="concat($position, position())"/>
                             </xsl:call-template>
                         </svg>
                     </xsl:for-each>
@@ -164,7 +184,7 @@
 
                 <!-- Render player box -->
                 <use xlink:href="#playerBox{$position}" x="{$fieldPos - ($curveFactor * 2)}"
-                     y="{$playerY - $shiftFactor}"
+                     y="{$playerY - $shiftFactor - 10}"
                      transform="rotate({$curveFactor} {$fieldPos + $fieldWidth div 2} {$playerY + $fieldHeight div 2})"/>
             </xsl:for-each>
         </svg>

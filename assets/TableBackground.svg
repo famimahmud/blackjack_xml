@@ -19,7 +19,7 @@
     </linearGradient>
 
     <rect height="100%" width="100%" fill="green"/>
-    <path d="M0 0 L0 500 Q750 700 1500 500 L1500 0" stroke="none" fill="url(#radialgradient)"/>
+    <path d="M0 0 L0 350 Q750 550 1500 350 L1500 0" stroke="none" fill="url(#radialgradient)"/>
 
     <rect x="0" y="910" height="90" width="100%" fill="url(#lineargradient)" stroke="none"/>
 

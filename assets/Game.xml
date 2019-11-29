@@ -145,10 +145,19 @@
             </wallet>
             <pool>
                 <chip>
-                    <value>500</value>
+                    <value>10</value>
                 </chip>
                 <chip>
-                    <value>1000</value>
+                    <value>50</value>
+                </chip>
+                <chip>
+                    <value>100</value>
+                </chip>
+                <chip>
+                    <value>250</value>
+                </chip>
+                <chip>
+                    <value>500</value>
                 </chip>
             </pool>
         </player>
