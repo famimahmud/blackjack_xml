@@ -8,7 +8,7 @@
             <value>K</value>
         </card>
         <card hidden="true">
-            <type>Clover</type>
+            <type>Club</type>
             <value>3</value>
         </card>
         <card hidden="true">
@@ -16,11 +16,11 @@
             <value>Q</value>
         </card>
         <card hidden="true">
-            <type>Pike</type>
+            <type>Spade</type>
             <value>10</value>
         </card>
         <card hidden="true">
-            <type>Clover</type>
+            <type>Club</type>
             <value>8</value>
         </card>
     </deck>
@@ -28,7 +28,7 @@
     <dealer onTurn="false">
         <hand>
             <card hidden="false">
-                <type>Pike</type>
+                <type>Spade</type>
                 <value>7</value>
             </card>
             <card hidden="false">
@@ -46,7 +46,7 @@
                     <value>K</value>
                 </card>
                 <card hidden="false">
-                    <type>Clover</type>
+                    <type>Club</type>
                     <value>A</value>
                 </card>
             </hand>
@@ -73,7 +73,7 @@
                     <value>J</value>
                 </card>
                 <card hidden="true">
-                    <type>Clover</type>
+                    <type>Club</type>
                     <value>J</value>
                 </card>
             </hand>
@@ -96,7 +96,7 @@
         <player id="52813" name="Boris" highscore="200" onTurn="false">
             <hand>
                 <card hidden="false">
-                    <type>Pike</type>
+                    <type>Spade</type>
                     <value>7</value>
                 </card>
                 <card hidden="false">
@@ -124,7 +124,7 @@
         <player id="39602" name="Kim" highscore="200" onTurn="false">
             <hand>
                 <card hidden="true">
-                    <type>Pike</type>
+                    <type>Spade</type>
                     <value>2</value>
                 </card>
                 <card hidden="true">
@@ -132,15 +132,15 @@
                     <value>J</value>
                 </card>
                 <card hidden="true">
-                    <type>Pike</type>
+                    <type>Spade</type>
                     <value>8</value>
                 </card>
                 <card hidden="true">
-                    <type>Clover</type>
+                    <type>Club</type>
                     <value>10</value>
                 </card>
                 <card hidden="true">
-                    <type>Clover</type>
+                    <type>Club</type>
                     <value>10</value>
                 </card>
             </hand>
