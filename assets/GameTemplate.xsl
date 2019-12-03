@@ -116,6 +116,7 @@
             <!-- Generate player card boxes -->
             <xsl:for-each select="*/players/player">
                 <xsl:variable name="name" select="@name"/>
+                <xsl:variable name="wallet" select="wallet"/>
                 <xsl:variable name="position" select="position()"/>
                 <xsl:variable name="fieldPos"
                               select="(($width * ($position div ($playerCount + 1))) - ($fieldWidth div 2))"/>
@@ -136,6 +137,11 @@
                           alignment-baseline="central"
                           fill="{$playerColor}" stroke="none">
                         <xsl:value-of select="$name"/>
+                    </text>
+                    <text x="{$fieldWidth div 2}" y="{$fieldHeight + ($fontSize div 2) + 4}" text-anchor="middle"
+                          alignment-baseline="central" font-size="2"
+                          fill="{$playerColor}" stroke="none">
+                        <xsl:value-of select="concat($wallet, ' $')"/>
                     </text>
 
                     <line x1="0" x2="{$fieldWidth}" y1="6" y2="6" stroke="{$playerColor}"
