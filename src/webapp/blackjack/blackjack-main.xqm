@@ -13,7 +13,7 @@ function blackjack-main:shuffleDeck() {
 
 declare
 %updating
-function blackjack-main:startRound($player as element(player)) {
+function blackjack-main:newRound() { (:$player as element(player)) {:)
     let $shuffledDeck := blackjack-main:shuffleDeck()
     let $game :=
         <game>
@@ -32,4 +32,8 @@ function blackjack-main:startRound($player as element(player)) {
         </game>
 
     return (replace node $blackjack-main:game with $game)
+};
+
+declare function blackjack-main:getGame(){
+    $blackjack-main:game
 };

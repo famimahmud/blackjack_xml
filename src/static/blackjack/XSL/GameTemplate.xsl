@@ -3,8 +3,8 @@
     <xsl:output indent="yes"/>
 
     <!-- Imports -->
-    <xsl:include href="Cards/CardTemplate.xsl"/>
-    <xsl:include href="Chips/ChipTemplate.xsl"/>
+    <xsl:include href="CardTemplate.xsl"/>
+    <xsl:include href="ChipTemplate.xsl"/>
 
     <xsl:template match="/">
 
@@ -54,7 +54,7 @@
             <text x="{$width div 2}" y="{$height - 4}" stroke="none" text-anchor="middle" alignment-baseline="middle"
                   fill="white">
                 <!--<textPath xlink:href="#infoBow" fill="{$textColor}" startOffset="45">-->
-                <xsl:value-of select="concat('It''s ', $currentPlayer, '''s turn!')"/>
+                <!--<xsl:value-of select="concat('It''s ', $currentPlayer, '''s turn!')"/>-->
                 <!--</textPath>-->
             </text>
 
