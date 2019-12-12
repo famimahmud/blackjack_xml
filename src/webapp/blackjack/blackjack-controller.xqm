@@ -3,7 +3,7 @@ xquery version "3.0";
 module namespace blackjack-controller = "blackjack-controller.xqm";
 import module namespace blackjack-main = "Blackjack/Main" at "blackjack-main.xqm";
 
-declare variable $blackjack-controller:staticPath := "../static/blackjack";
+declare variable $blackjack-controller:staticPath := "../static/blackjack/";
 
 declare
 %rest:path("blackjack/setup")
@@ -11,7 +11,7 @@ declare
 %updating
 %rest:GET
 function blackjack-controller:setup() {
-    let $model := doc("../static/blackjack/Game.xml")
+    let $model := doc(concat($blackjack-controller:staticPath, "Game.xml"))
     let $redirectLink := "/blackjack/start"
     return (db:create("Game", $model), update:output(web:redirect($redirectLink)))
 };
@@ -47,16 +47,25 @@ function blackjack-controller:drawGame(){
     return (blackjack-controller:genereratePage($game, $xslStylesheet, $title))
 };
 
+declare
+%rest:path("/blackjack/assets/TableBackground.svg")
+%output:method("xml")
+%rest:GET
+function blackjack-controller:getBackground(){
+    let $ret := doc(concat($blackjack-controller:staticPath, "assets/TableBackground.svg"))
+    return ($ret)
+};
+
 declare function blackjack-controller:genereratePage($game as element(game), $xslStylesheet as xs:string,
         $title as xs:string) {
-    let $stylesheet := doc(concat($blackjack-controller:staticPath, "/XSL/", $xslStylesheet))
+    let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/", $xslStylesheet))
     let $transformed := xslt:transform($game, $stylesheet)
     return
         <html>
             <head>
                 <title>{$title}</title>
             </head>
-            <body>
+            <body style="background-image: url('../blackjack/assets/TableBackground.svg');">
                 {$transformed}
             </body>
         </html>

@@ -44,7 +44,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              width="100%" height="100%" viewBox="0 0 {$width} {$height}"
              font-family="{$fonts}" font-size="{$fontSize}"
-             style="background: url(TableBackground.svg); background-size: 100% 100%">
+             style="background-size: 100% 100%">
 
             <!-- Import online fonts -->
             <defs>
