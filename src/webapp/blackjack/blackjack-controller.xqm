@@ -29,11 +29,13 @@ function blackjack-controller:lobby(){
 
 declare
 %rest:path("/blackjack/newRound")
+%rest:query-param("name", "{$name}")
+%rest:query-param("id", "{$id}")
 %rest:POST
 %updating
-function blackjack-controller:newRound(){
+function blackjack-controller:newRound($name as xs:string, $id as xs:integer){
     let $redirectLink := "/blackjack/draw"
-    return (blackjack-main:newRound(), update:output(web:redirect("/blackjack/draw")))
+    return (blackjack-main:newRound($name, $id), update:output(web:redirect("/blackjack/draw")))
 };
 
 declare
@@ -58,6 +60,7 @@ function blackjack-controller:getBackground(){
 
 declare function blackjack-controller:genereratePage($game as element(game), $xslStylesheet as xs:string,
         $title as xs:string) {
+    let $background := blackjack-controller:getBackground()
     let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/", $xslStylesheet))
     let $transformed := xslt:transform($game, $stylesheet)
     return
@@ -65,7 +68,7 @@ declare function blackjack-controller:genereratePage($game as element(game), $xs
             <head>
                 <title>{$title}</title>
             </head>
-            <body style="background-image: url('../blackjack/assets/TableBackground.svg');">
+            <body style="background: url(../blackjack/assets/TableBackground.svg">
                 {$transformed}
             </body>
         </html>

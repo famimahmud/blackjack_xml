@@ -13,7 +13,7 @@ function blackjack-main:shuffleDeck() {
 
 declare
 %updating
-function blackjack-main:newRound() { (:$player as element(player)) {:)
+function blackjack-main:newRound($playerName as xs:string, $playerID as xs:integer) { (:$player as element(player)) {:)
     let $shuffledDeck := blackjack-main:shuffleDeck()
     let $game :=
         <game>
@@ -27,7 +27,15 @@ function blackjack-main:newRound() { (:$player as element(player)) {:)
             </dealer>
 
             <players>
-                $player
+                <player id="{$playerID}" name="{$playerName}" onTurn="true">
+                            <hand>
+                            </hand>
+                            <wallet>
+                                500
+                            </wallet>
+                            <pool>
+                            </pool>
+                        </player>
             </players>
         </game>
 
