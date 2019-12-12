@@ -6,7 +6,7 @@
      viewBox="0 0 150 100"
      font-family="Raleway, sans-serif"
      font-size="4"
-     style="background: url(TableBackground.svg); background-size: 100% 100%">
+     style="background-size: 100% 100%">
    <defs>
       <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Raleway');</style>
    </defs>
@@ -15,7 +15,7 @@
          stroke="none"
          text-anchor="middle"
          alignment-baseline="middle"
-         fill="white">It's Donald's turn!</text>
+         fill="white"/>
    <rect x="110"
          y="7"
          width="13"
@@ -299,7 +299,7 @@
                          y="1"
                          width="0.6"
                          height="0.6"
-                         xlink:href="Cards/icons/Spade.svg"/>
+                         xlink:href="../src/static/blackjack/assets/icons/Spade.svg"/>
                </svg>
             </symbol>
             <use xlink:href="#valueBox-1" x="0.2" y="0"/>
@@ -317,39 +317,39 @@
                       y="1"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"/>
                <image x="3"
                       y="1"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"/>
                <image x="1"
                       y="5"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"
                       transform="rotate(180 1.5 5.5)"/>
                <image x="3"
                       y="5"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"
                       transform="rotate(180 3.5 5.5)"/>
                <image x="1"
                       y="3"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"/>
                <image x="3"
                       y="3"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"/>
                <image x="2"
                       y="2"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"/>
             </svg>
          </svg>
       </svg>
@@ -385,7 +385,7 @@
                          y="1"
                          width="0.6"
                          height="0.6"
-                         xlink:href="Cards/icons/Diamond.svg"/>
+                         xlink:href="../src/static/blackjack/assets/icons/Diamond.svg"/>
                </svg>
             </symbol>
             <use xlink:href="#valueBox-2" x="0.2" y="0"/>
@@ -403,56 +403,56 @@
                       y="0"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Diamond.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Diamond.svg"/>
                <image x="3"
                       y="0"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Diamond.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Diamond.svg"/>
                <image x="1"
                       y="4"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Diamond.svg"
+                      xlink:href="../src/static/blackjack/assets/icons/Diamond.svg"
                       transform="rotate(180 1.5 4.5)"/>
                <image x="3"
                       y="4"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Diamond.svg"
+                      xlink:href="../src/static/blackjack/assets/icons/Diamond.svg"
                       transform="rotate(180 3.5 4.5)"/>
                <image x="1"
                       y="6"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Diamond.svg"
+                      xlink:href="../src/static/blackjack/assets/icons/Diamond.svg"
                       transform="rotate(180 1.5 6.5)"/>
                <image x="3"
                       y="6"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Diamond.svg"
+                      xlink:href="../src/static/blackjack/assets/icons/Diamond.svg"
                       transform="rotate(180 3.5 6.5)"/>
                <image x="1"
                       y="2"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Diamond.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Diamond.svg"/>
                <image x="3"
                       y="2"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Diamond.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Diamond.svg"/>
                <image x="2"
                       y="1"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Diamond.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Diamond.svg"/>
                <image x="2"
                       y="5"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Diamond.svg"
+                      xlink:href="../src/static/blackjack/assets/icons/Diamond.svg"
                       transform="rotate(180 2.5 5.5)"/>
             </svg>
          </svg>
@@ -479,9 +479,7 @@
             alignment-baseline="central"
             font-size="2"
             fill="white"
-            stroke="none">
-                5150
-             $</text>
+            stroke="none">5150 $</text>
       <line x1="0"
             x2="23"
             y1="6"
@@ -707,7 +705,7 @@
                          y="1"
                          width="0.6"
                          height="0.6"
-                         xlink:href="Cards/icons/Heart.svg"/>
+                         xlink:href="../src/static/blackjack/assets/icons/Heart.svg"/>
                </svg>
             </symbol>
             <use xlink:href="#valueBox11" x="0.2" y="0"/>
@@ -719,7 +717,7 @@
                    y="1"
                    width="4.9"
                    height="5"
-                   xlink:href="Cards/icons/red/King.svg"/>
+                   xlink:href="../src/static/blackjack/assets/icons/red/King.svg"/>
          </svg>
       </svg>
       <svg width="13"
@@ -754,7 +752,7 @@
                          y="1"
                          width="0.6"
                          height="0.6"
-                         xlink:href="Cards/icons/Club.svg"/>
+                         xlink:href="../src/static/blackjack/assets/icons/Club.svg"/>
                </svg>
             </symbol>
             <use xlink:href="#valueBox12" x="0.2" y="0"/>
@@ -772,7 +770,7 @@
                       y="3"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Club.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Club.svg"/>
             </svg>
          </svg>
       </svg>
@@ -801,9 +799,7 @@
             alignment-baseline="central"
             font-size="2"
             fill="gold"
-            stroke="none">
-                0
-             $</text>
+            stroke="none">0 $</text>
       <line x1="0"
             x2="23"
             y1="6"
@@ -1120,9 +1116,7 @@
             alignment-baseline="central"
             font-size="2"
             fill="white"
-            stroke="none">
-                30
-             $</text>
+            stroke="none">30 $</text>
       <line x1="0"
             x2="23"
             y1="6"
@@ -1284,7 +1278,7 @@
                          y="1"
                          width="0.6"
                          height="0.6"
-                         xlink:href="Cards/icons/Spade.svg"/>
+                         xlink:href="../src/static/blackjack/assets/icons/Spade.svg"/>
                </svg>
             </symbol>
             <use xlink:href="#valueBox31" x="0.2" y="0"/>
@@ -1302,39 +1296,39 @@
                       y="1"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"/>
                <image x="3"
                       y="1"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"/>
                <image x="1"
                       y="5"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"
                       transform="rotate(180 1.5 5.5)"/>
                <image x="3"
                       y="5"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"
                       transform="rotate(180 3.5 5.5)"/>
                <image x="1"
                       y="3"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"/>
                <image x="3"
                       y="3"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"/>
                <image x="2"
                       y="2"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Spade.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Spade.svg"/>
             </svg>
          </svg>
       </svg>
@@ -1366,7 +1360,7 @@
                          y="1"
                          width="0.6"
                          height="0.6"
-                         xlink:href="Cards/icons/Heart.svg"/>
+                         xlink:href="../src/static/blackjack/assets/icons/Heart.svg"/>
                </svg>
             </symbol>
             <use xlink:href="#valueBox32" x="0.2" y="0"/>
@@ -1384,23 +1378,23 @@
                       y="1"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Heart.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Heart.svg"/>
                <image x="3"
                       y="1"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Heart.svg"/>
+                      xlink:href="../src/static/blackjack/assets/icons/Heart.svg"/>
                <image x="1"
                       y="5"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Heart.svg"
+                      xlink:href="../src/static/blackjack/assets/icons/Heart.svg"
                       transform="rotate(180 1.5 5.5)"/>
                <image x="3"
                       y="5"
                       width="1"
                       height="1"
-                      xlink:href="Cards/icons/Heart.svg"
+                      xlink:href="../src/static/blackjack/assets/icons/Heart.svg"
                       transform="rotate(180 3.5 5.5)"/>
             </svg>
          </svg>
@@ -1433,7 +1427,7 @@
                          y="1"
                          width="0.6"
                          height="0.6"
-                         xlink:href="Cards/icons/Heart.svg"/>
+                         xlink:href="../src/static/blackjack/assets/icons/Heart.svg"/>
                </svg>
             </symbol>
             <use xlink:href="#valueBox33" x="0.2" y="0"/>
@@ -1445,7 +1439,7 @@
                    y="1"
                    width="4.9"
                    height="5"
-                   xlink:href="Cards/icons/red/Jack.svg"/>
+                   xlink:href="../src/static/blackjack/assets/icons/red/Jack.svg"/>
          </svg>
       </svg>
    </symbol>
@@ -1473,9 +1467,7 @@
             alignment-baseline="central"
             font-size="2"
             fill="white"
-            stroke="none">
-                666
-             $</text>
+            stroke="none">666 $</text>
       <line x1="0"
             x2="23"
             y1="6"
