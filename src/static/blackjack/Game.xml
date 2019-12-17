@@ -9,7 +9,12 @@
         <hand>
         </hand>
     </dealer>
-
     <players>
+        <player id="1231">
+        </player>
+        <player id="4511">
+        </player>
+        <player id="3421">
+        </player>
     </players>
 </game>
