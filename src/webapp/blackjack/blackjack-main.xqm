@@ -57,3 +57,10 @@ function blackjack-main:newRound($playerName as xs:string, $playerID as xs:integ
 declare function blackjack-main:getGame(){
     $blackjack-main:game
 };
+
+declare
+%updating
+function blackjack-main:removePlayer($playerID as xs:string){
+    delete node $blackjack-main:game/players/player[@id = $playerID]
+};
+
