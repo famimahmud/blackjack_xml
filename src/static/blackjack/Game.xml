@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl "href="GameTemplate.xsl" ?>
 
-<game id="53602" round="1">
+<game id="53602" round="1" onTurn="4511">
     <deck>
     </deck>
 
-    <dealer onTurn="false">
+    <dealer>
         <hand>
         </hand>
     </dealer>

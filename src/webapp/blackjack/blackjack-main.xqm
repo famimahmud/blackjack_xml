@@ -27,7 +27,7 @@ function blackjack-main:newRound($playerName as xs:string, $playerID as xs:integ
             </dealer>
 
             <players>
-                <player id="{$playerID}" name="{$playerName}" onTurn="true">
+                <player id="{$playerID}" name="{$playerName}">
                             <hand>
                             </hand>
                             <wallet>

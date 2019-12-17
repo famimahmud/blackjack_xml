@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl "href="GameTemplate.xsl" ?>
 
-<game id="53602" round="1">
+<game id="53602" round="1" onTurn="52813">
     <deck>
         <card hidden="true">
             <type>Heart</type>
@@ -25,7 +25,7 @@
         </card>
     </deck>
 
-    <dealer onTurn="false">
+    <dealer>
         <hand>
             <card hidden="false">
                 <type>Spade</type>
@@ -39,7 +39,7 @@
     </dealer>
 
     <players>
-        <player id="18593" name="Angela" highscore="5150" onTurn="false">
+        <player id="18593" name="Angela" highscore="5150">
             <hand>
                 <card hidden="false">
                     <type>Heart</type>
@@ -66,7 +66,7 @@
             </pool>
         </player>
 
-        <player id="29603" name="Donald" highscore="500" onTurn="true">
+        <player id="29603" name="Donald" highscore="500">
             <hand>
                 <card hidden="true">
                     <type>Heart</type>
@@ -93,7 +93,7 @@
             </pool>
         </player>
 
-        <player id="52813" name="Boris" highscore="200" onTurn="false">
+        <player id="52813" name="Boris" highscore="200">
             <hand>
                 <card hidden="false">
                     <type>Spade</type>
@@ -121,7 +121,7 @@
             </pool>
         </player>
 
-        <player id="39602" name="Kim" highscore="200" onTurn="false">
+        <player id="39602" name="Kim" highscore="200">
             <hand>
                 <card hidden="true">
                     <type>Spade</type>
