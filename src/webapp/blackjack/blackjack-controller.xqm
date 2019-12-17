@@ -12,14 +12,14 @@ declare
 %rest:GET
 function blackjack-controller:setup() {
     let $model := doc(concat($blackjack-controller:staticPath, "Game.xml"))
-    let $redirectLink := "/blackjack"
+    let $redirectLink := "/blackjack/start"
     return (db:create("Game", $model), update:output(web:redirect($redirectLink)))
 };
 
 declare
 %rest:GET
 %output:method("html")
-%rest:path("/blackjack")
+%rest:path("/blackjack/start")
 function blackjack-controller:start(){
     let $game := blackjack-main:getGame()
         let $xslStylesheet := "GameTemplate.xsl"
