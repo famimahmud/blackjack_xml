@@ -12,7 +12,7 @@ declare
 %rest:GET
 function blackjack-controller:setup() {
     let $model := doc(concat($blackjack-controller:staticPath, "Game.xml"))
-    let $redirectLink := "/blackjack/start"
+    let $redirectLink := "/blackjack"
     return (db:create("Game", $model), update:output(web:redirect($redirectLink)))
 };
 

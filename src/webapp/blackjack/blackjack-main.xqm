@@ -42,6 +42,18 @@ function blackjack-main:newRound($playerName as xs:string, $playerID as xs:integ
     return (replace node $blackjack-main:game with $game)
 };
 
+(:~
+ : Return random number from given interval [0, max]
+ : @return  the calculated random integer
+ :)
+ declare function blackjack-main:generateDeck() as element(deck) {
+    let $deck :=
+        <deck>
+
+        </deck>
+    return ($deck)
+ };
+
 declare function blackjack-main:getGame(){
     $blackjack-main:game
 };
