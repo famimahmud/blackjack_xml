@@ -74,7 +74,7 @@ function blackjack-main:removePlayer($playerID as xs:string){
  :)
  declare
  %updating
- function blackjack-main:drawCard($playerID as xs:string,) {
+ function blackjack-main:drawCard($playerID as xs:string) {
     let $cardsInDeck := count($blackjack-main:game/deck/card)
     let $randomNumber := blackjack-helper:getRandomInt($cardsInDeck)
     let $card := count($blackjack-main:game/deck/card[position() = $randomNumber])
