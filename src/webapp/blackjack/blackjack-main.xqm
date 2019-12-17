@@ -85,3 +85,9 @@ function blackjack-main:removePlayer($playerID as xs:string){
     )
  };
 
+declare
+%updating
+function blackjack-main:moveTurn($playerOnTurn as xs:string){
+    let $newPlayerTurn := if($playerOnTurn = game/players/player[last()]/@id ) then "dealer" else game/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
+    return (replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn)
+};
