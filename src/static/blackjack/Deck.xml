@@ -55,165 +55,57 @@
         <value>K</value>
     </card>
 
-    <!-- Heart -->
+    <!-- Diamond -->
     <card hidden="true">
-        <type>Heart</type>
+        <type>Diamond</type>
         <value>A</value>
     </card>
     <card hidden="true">
-        <type>Heart</type>
+        <type>Diamond</type>
         <value>2</value>
     </card>
     <card hidden="true">
-        <type>Heart</type>
+        <type>Diamond</type>
         <value>3</value>
     </card>
     <card hidden="true">
-        <type>Heart</type>
+        <type>Diamond</type>
         <value>4</value>
     </card>
     <card hidden="true">
-        <type>Heart</type>
+        <type>Diamond</type>
         <value>5</value>
     </card>
     <card hidden="true">
-        <type>Heart</type>
+        <type>Diamond</type>
         <value>6</value>
     </card>
     <card hidden="true">
-        <type>Heart</type>
+        <type>Diamond</type>
         <value>7</value>
     </card>
     <card hidden="true">
-        <type>Heart</type>
+        <type>Diamond</type>
         <value>8</value>
     </card>
     <card hidden="true">
-        <type>Heart</type>
+        <type>Diamond</type>
         <value>9</value>
     </card>
     <card hidden="true">
-        <type>Heart</type>
+        <type>Diamond</type>
         <value>10</value>
     </card>
     <card hidden="true">
-        <type>Heart</type>
+        <type>Diamond</type>
         <value>J</value>
     </card>
     <card hidden="true">
-        <type>Heart</type>
+        <type>Diamond</type>
         <value>Q</value>
     </card>
     <card hidden="true">
-        <type>Heart</type>
-        <value>K</value>
-    </card>
-
-    <!-- Heart -->
-    <card hidden="true">
-        <type>Heart</type>
-        <value>A</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>2</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>3</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>4</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>5</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>6</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>7</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>8</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>9</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>10</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>J</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>Q</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>K</value>
-    </card>
-
-    <!-- Heart -->
-    <card hidden="true">
-        <type>Heart</type>
-        <value>A</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>2</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>3</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>4</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>5</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>6</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>7</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>8</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>9</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>10</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>J</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
-        <value>Q</value>
-    </card>
-    <card hidden="true">
-        <type>Heart</type>
+        <type>Diamond</type>
         <value>K</value>
     </card>
 
@@ -268,6 +160,60 @@
     </card>
     <card hidden="true">
         <type>Spade</type>
+        <value>K</value>
+    </card>
+
+    <!-- Heart -->
+    <card hidden="true">
+        <type>Heart</type>
+        <value>A</value>
+    </card>
+    <card hidden="true">
+        <type>Heart</type>
+        <value>2</value>
+    </card>
+    <card hidden="true">
+        <type>Heart</type>
+        <value>3</value>
+    </card>
+    <card hidden="true">
+        <type>Heart</type>
+        <value>4</value>
+    </card>
+    <card hidden="true">
+        <type>Heart</type>
+        <value>5</value>
+    </card>
+    <card hidden="true">
+        <type>Heart</type>
+        <value>6</value>
+    </card>
+    <card hidden="true">
+        <type>Heart</type>
+        <value>7</value>
+    </card>
+    <card hidden="true">
+        <type>Heart</type>
+        <value>8</value>
+    </card>
+    <card hidden="true">
+        <type>Heart</type>
+        <value>9</value>
+    </card>
+    <card hidden="true">
+        <type>Heart</type>
+        <value>10</value>
+    </card>
+    <card hidden="true">
+        <type>Heart</type>
+        <value>J</value>
+    </card>
+    <card hidden="true">
+        <type>Heart</type>
+        <value>Q</value>
+    </card>
+    <card hidden="true">
+        <type>Heart</type>
         <value>K</value>
     </card>
 </deck>
