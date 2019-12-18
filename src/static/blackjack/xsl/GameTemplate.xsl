@@ -31,11 +31,11 @@
         <xsl:variable name="playerCount" select="count(/*/players/*)"/>
 
         <xsl:variable name="currentPlayer">
-            <xsl:if test="/*/dealer/@onTurn = 'true'">
+            <xsl:if test="/*/@onTurn = 'dealer'">
                 the Dealer
             </xsl:if>
             <xsl:for-each select="/*/players/*">
-                <xsl:if test="@onTurn = 'true'">
+                <xsl:if test="@id = /*/@onTurn">
                     <xsl:value-of select="@name"/>
                 </xsl:if>
             </xsl:for-each>
@@ -80,7 +80,7 @@
             <symbol id="dealerBox">
                 <xsl:variable name="color">
                     <xsl:choose>
-                        <xsl:when test="/*/dealer/@onTurn = 'true'">
+                        <xsl:when test="/*/@onTurn = 'dealer'">
                             <xsl:value-of select="$onTurnColor"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -122,7 +122,7 @@
                               select="(($width * ($position div ($playerCount + 1))) - ($fieldWidth div 2))"/>
                 <xsl:variable name="playerColor">
                     <xsl:choose>
-                        <xsl:when test="@onTurn = 'true'">
+                        <xsl:when test="@id = /*/@onTurn">
                             <xsl:value-of select="$onTurnColor"/>
                         </xsl:when>
                         <xsl:otherwise>

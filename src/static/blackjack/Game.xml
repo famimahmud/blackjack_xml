@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl "href="GameTemplate.xsl" ?>
 
-<game id="53602" round="1">
+<game id="53602" round="1" onTurn="4511">
     <deck>
     </deck>
 
-    <dealer onTurn="false">
+    <dealer>
         <hand>
         </hand>
     </dealer>
     <players>
-        <player id="1231">
+        <player name="Martin" id="1231" >
         </player>
-        <player id="4511">
+        <player name="Julian" id="4511" >
         </player>
-        <player id="3421">
+        <player name="Helmut" id="3421" >
         </player>
     </players>
 </game>
