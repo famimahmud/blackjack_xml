@@ -5,7 +5,13 @@ import module namespace blackjack-helper = "Blackjack/Helper" at "blackjack-help
 
 declare variable $blackjack-main:game := db:open("Game")/game;
 declare variable $blackjack-main:deck := db:open("Deck")/deck;
+declare variable $blackjack-main:players := db:open("Players")/players;
 
+
+(:~
+ : Deck gets shuffled
+ : @return the shuffled deck
+ :)
 declare
 %private
 function blackjack-main:shuffleDeck() {
@@ -64,6 +70,11 @@ declare function blackjack-main:getGame(){
     $blackjack-main:game
 };
 
+(:~
+ : Remove given player from list of Players
+ : @playerID $playerID who will be deleted
+ : @return model change to remove player
+ :)
 declare
 %updating
 function blackjack-main:removePlayer($playerID as xs:string){
@@ -89,9 +100,26 @@ function blackjack-main:removePlayer($playerID as xs:string){
     )
  };
 
+(:~
+ : move the current turn to the given player
+ : @playerOnTurn $playerID whose turn it is next
+ : @return model change to move turn to next player
+ :)
 declare
 %updating
 function blackjack-main:moveTurn($playerOnTurn as xs:string){
     let $newPlayerTurn := if($playerOnTurn = game/players/player[last()]/@id ) then "dealer" else game/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
     return (replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn)
+};
+
+(:~
+ : adding a player to the game
+ : @playerID $playerID who will be added
+ : @return model change to insert Player to the current game
+ :)
+declare
+%updating
+function blackjack-main:addPlayer($playerID as xs:string){
+    let $newPlayer := $blackjack-main:players/player[@id=$playerID]
+    return(insert node $newPlayer as last into $blackjack-main:game/players)
 };
