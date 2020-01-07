@@ -69,7 +69,8 @@ declare
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
 %rest:POST
-function blackjack-controller:hit(){
+%updating
+function blackjack-controller:hit($playerId as xs:string){
     let $game := blackjack-main:getGame()
     return (
         if($game/@onTurn = $playerId)
@@ -86,7 +87,8 @@ declare
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
 %rest:POST
-function blackjack-controller:stand(){
+%updating
+function blackjack-controller:stand($playerId as xs:string){
     let $game := blackjack-main:getGame()
     return (
         if($game/@onTurn = $playerId)
