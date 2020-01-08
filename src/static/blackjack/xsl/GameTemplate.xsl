@@ -208,7 +208,9 @@
 
             <foreignObject width="100%" height="100%" x="140" y="10">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/ttt/setup" method="get" id="Exit">
-                    <button class = "textMediumStyle lobbyButton" type="submit" form="Exit" value="Submit">Exit</button>
+                    <button style=" display:table-cell; width:5px; height:10px; font-size:5px; text-align:  vertical-align: middle; border-radius:5px" form="Exit" value="Submit">
+                        Exit
+                    </button>
                 </form>
             </foreignObject>
         </svg>
