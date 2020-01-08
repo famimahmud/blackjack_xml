@@ -68,7 +68,7 @@ declare
 %rest:path("/blackjack/hit")
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
-%rest:GET
+%rest:POST
 %updating
 function blackjack-controller:hit($playerId as xs:string){
     let $game := blackjack-main:getGame()
@@ -86,7 +86,7 @@ declare
 %rest:path("/blackjack/stand")
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
-%rest:GET
+%rest:POST
 %updating
 function blackjack-controller:stand($playerId as xs:string){
     let $game := blackjack-main:getGame()

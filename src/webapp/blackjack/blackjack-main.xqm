@@ -92,11 +92,11 @@ function blackjack-main:removePlayer($playerID as xs:string){
  function blackjack-main:drawCard($playerID as xs:string) {
     let $cardsInDeck := count($blackjack-main:game/deck/card)
     let $randomNumber := blackjack-helper:getRandomInt($cardsInDeck)
-    let $card := count($blackjack-main:game/deck/card[position() = $randomNumber])
+    let $card := $blackjack-main:game/deck/card[position() = $randomNumber]
     return (
             delete node $blackjack-main:game/deck/card[position() = $randomNumber],
-            replace value of node $card/@hidden with "false",
-            insert node $card into $blackjack-main:game/players/player[@id = $playerID]/hand
+            insert node $card into $blackjack-main:game/players/player[@id = $playerID]/hand,
+            replace value of node $blackjack-main:game/players/player[@id = $playerID]/hand/card[last()] with 'false'
     )
  };
 
@@ -117,7 +117,7 @@ function blackjack-main:removePlayer($playerID as xs:string){
    : @return the maximal Value of the Hand (all Aces count 11)
    :)
   declare
-  function blackjack-main:calculateHandValueHelper($hand as element(hand)) as xs:integer {
+  function blackjack-main:calculateHandValueHelper($hand as element()+) as xs:integer {
      let $result :=  if (empty($hand/card)) then 0
         else ( if ($hand/card[position() = 1]/value = "J"
                 or $hand/card[position() = 1]/value = "Q"
@@ -125,7 +125,7 @@ function blackjack-main:removePlayer($playerID as xs:string){
             then (blackjack-main:calculateHandValueHelper($hand/card[position() > 1]) + 10)
             else (if ($hand/card[position() = 1]/value = "A") then (blackjack-main:calculateHandValueHelper($hand/card[position() > 1] + 11))
                 else (blackjack-main:calculateHandValueHelper($hand/card[position() > 1]) + $hand/card[position() = 1]/value)))
-    return $result
+    return xs:integer($result)
   };
 
   (:~
