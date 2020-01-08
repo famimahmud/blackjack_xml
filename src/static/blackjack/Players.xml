@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl "href="GameTemplate.xsl" ?>
+
+<players>
+    <player id="18593" name="Angela" highscore="5150">
+        <hand>
+            <card hidden="false">
+                <type>Heart</type>
+                <value>K</value>
+            </card>
+            <card hidden="false">
+                <type>Club</type>
+                <value>A</value>
+            </card>
+        </hand>
+        <wallet>
+            5150
+        </wallet>
+        <pool>
+            <chip>
+                <value>100</value>
+            </chip>
+            <chip>
+                <value>500</value>
+            </chip>
+            <chip>
+                <value>50</value>
+            </chip>
+        </pool>
+    </player>
+
+    <player id="29603" name="Donald" highscore="500">
+        <hand>
+            <card hidden="true">
+                <type>Heart</type>
+                <value>J</value>
+            </card>
+            <card hidden="true">
+                <type>Club</type>
+                <value>J</value>
+            </card>
+        </hand>
+        <wallet>
+            0
+        </wallet>
+        <pool>
+            <chip>
+                <value>100</value>
+            </chip>
+            <chip>
+                <value>500</value>
+            </chip>
+            <chip>
+                <value>50</value>
+            </chip>
+        </pool>
+    </player>
+
+    <player id="52813" name="Boris" highscore="200">
+        <hand>
+            <card hidden="false">
+                <type>Spade</type>
+                <value>7</value>
+            </card>
+            <card hidden="false">
+                <type>Heart</type>
+                <value>4</value>
+            </card>
+            <card hidden="false">
+                <type>Heart</type>
+                <value>J</value>
+            </card>
+        </hand>
+        <wallet>
+            30
+        </wallet>
+        <pool>
+            <chip>
+                <value>50</value>
+            </chip>
+            <chip>
+                <value>10</value>
+            </chip>
+        </pool>
+    </player>
+
+    <player id="39602" name="Kim" highscore="200">
+        <hand>
+            <card hidden="true">
+                <type>Spade</type>
+                <value>2</value>
+            </card>
+            <card hidden="true">
+                <type>Heart</type>
+                <value>J</value>
+            </card>
+            <card hidden="true">
+                <type>Spade</type>
+                <value>8</value>
+            </card>
+            <card hidden="true">
+                <type>Club</type>
+                <value>10</value>
+            </card>
+            <card hidden="true">
+                <type>Club</type>
+                <value>10</value>
+            </card>
+        </hand>
+        <wallet>
+            666
+        </wallet>
+        <pool>
+            <chip>
+                <value>10</value>
+            </chip>
+            <chip>
+                <value>50</value>
+            </chip>
+            <chip>
+                <value>100</value>
+            </chip>
+            <chip>
+                <value>250</value>
+            </chip>
+            <chip>
+                <value>500</value>
+            </chip>
+        </pool>
+    </player>
+
+    <player id="76234" name="Manuel" highscore="150">
+        <hand>
+            <card hidden="false">
+                <type>Diamond</type>
+                <value>10</value>
+            </card>
+            <card hidden="false">
+                <type>Heart</type>
+                <value>2</value>
+            </card>
+            <card hidden="false">
+                <type>Heart</type>
+                <value>5</value>
+            </card>
+        </hand>
+        <wallet>
+            30
+        </wallet>
+        <pool>
+            <chip>
+                <value>50</value>
+            </chip>
+            <chip>
+                <value>100</value>
+            </chip>
+        </pool>
+    </player>
+
+</players>

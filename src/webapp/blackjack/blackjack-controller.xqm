@@ -12,14 +12,14 @@ declare
 %rest:GET
 function blackjack-controller:setup() {
     let $model := doc(concat($blackjack-controller:staticPath, "Game.xml"))
-    let $redirectLink := "/blackjack"
+    let $redirectLink := "/blackjack/start"
     return (db:create("Game", $model), update:output(web:redirect($redirectLink)))
 };
 
 declare
 %rest:GET
 %output:method("html")
-%rest:path("/blackjack")
+%rest:path("/blackjack/start")
 function blackjack-controller:start(){
     let $game := blackjack-main:getGame()
         let $xslStylesheet := "GameTemplate.xsl"
@@ -31,7 +31,7 @@ declare
 %rest:path("/blackjack/newRound")
 %rest:query-param("name", "{$name}")
 %rest:query-param("id", "{$id}")
-%rest:POST
+%rest:GET
 %updating
 function blackjack-controller:newRound($name as xs:string, $id as xs:integer){
     let $redirectLink := "/blackjack/draw"
@@ -58,7 +58,7 @@ declare function blackjack-controller:genereratePage($game as element(game), $xs
             <head>
                 <title>{$title}</title>
             </head>
-            <body style="background: url(static/blackjack/assets/TableBackground.svg">
+            <body style="background: url(/static/blackjack/assets/TableBackground.svg">
                 {$transformed}
             </body>
         </html>
@@ -68,15 +68,16 @@ declare
 %rest:path("/blackjack/hit")
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
-%rest:POST
-function blackjack-controller:hit(){
+%rest:GET
+%updating
+function blackjack-controller:hit($playerId as xs:string){
     let $game := blackjack-main:getGame()
     return (
         if($game/@onTurn = $playerId)
         then (blackjack-main:drawCard($playerId),
                 (: TO-DO:
                 check if player is over 21 -> if true: moveTurn:)
-                update:output(web:redirect("/blackjack/draw")) (:redirect allways? (outside of if):)
+                update:output(web:redirect("/blackjack/draw")) (:redirect always? (outside of if):)
         )
     )
 };
@@ -85,8 +86,9 @@ declare
 %rest:path("/blackjack/stand")
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
-%rest:POST
-function blackjack-controller:stand(){
+%rest:GET
+%updating
+function blackjack-controller:stand($playerId as xs:string){
     let $game := blackjack-main:getGame()
     return (
         if($game/@onTurn = $playerId)
