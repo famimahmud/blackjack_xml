@@ -17,15 +17,112 @@
         <xsl:variable name="rectMidWidth" select="50"/>
         <xsl:variable name="strokeWidth" select="0.5"/>
         <xsl:variable name="edgeRadius" select="2"/>
-        <xsl:variable name="highscoreBoard" select="document('HighscoreBoard.xml')"/>
+        <xsl:variable name="highscoreBoard" select="document('../HighscoreBoard.xml')"/>
 
+        <xsl:variable name="cardX" select="2.5"/>
+        <xsl:variable name="cardY" select="1.5"/>
+        <xsl:variable name="cardWidth" select="5"/>
+        <xsl:variable name="cardHeight" select="7"/>
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              width="100%" height="100%" viewBox="0 0 {$width} {$height}"
-             style="background: url(LobbyBackground.svg); background-size: 100% 100%">
+             style="background: url(/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/LobbyBackground.svg); background-size: 100% 100%">
             <!-- Überschrift -->
-            <image x="{($width div 2)-35}" y="{$height div 20}" width="{$fontSize*3}" height="{$fontSize*4}"
-                   xlink:href="../Logo.svg"/>
+            <!-- Logo -->
+            <svg x="{($width div 2)-35}" y="{$height div 15}" width="{$fontSize*3}" height="{$fontSize*3}"
+                 viewBox="0 0 10 10">
+                <symbol id="leftCard" viewBox="0 0 {$cardWidth} {$cardHeight}">
+                    <linearGradient id="gradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:#ffffe6;stop-opacity:1"/>
+                    </linearGradient>
+                    <rect x="0"
+                          y="0"
+                          width="5"
+                          height="7"
+                          rx="0.25"
+                          ry="0.25"
+                          fill="url(#gradient1)"
+                          style="stroke:black;stroke-width:0.03"/>
+                    <symbol id="valueBox1">
+                        <svg height="2" width="1" viewBox="0 0 1 2">
+                            <text x="0.05"
+                                  y="0.8"
+                                  font-size="0.8"
+                                  font-family="serif"
+                                  fill="black">A
+                            </text>
+                            <image x="0"
+                                   y="1"
+                                   width="0.6"
+                                   height="0.6"
+                                   xlink:href="/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/icons/Club.svg"/>
+                        </svg>
+                    </symbol>
+                    <use xlink:href="#valueBox1" x="0.2" y="0"/>
+                    <use xlink:href="#valueBox1"
+                         x="0.2"
+                         y="0"
+                         transform="rotate(180 2.5 3.5)"/>
+                    <svg x="0.5"
+                         y="1"
+                         width="4"
+                         height="5"
+                         viewBox="0 0 5 7"
+                         preserveAspectRatio="none">
+                        <image x="2"
+                               y="3"
+                               width="1"
+                               height="1"
+                               xlink:href="/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/icons/Club.svg"/>
+                    </svg>
+                </symbol>
+
+                <symbol id="rightCard" viewBox="0 0 {$cardWidth} {$cardHeight}">
+                    <linearGradient id="gradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:#ffffe6;stop-opacity:1"/>
+                    </linearGradient>
+                    <rect x="0"
+                          y="0"
+                          width="5"
+                          height="7"
+                          rx="0.25"
+                          ry="0.25"
+                          fill="url(#gradient2)"
+                          style="stroke:black;stroke-width:0.03"/>
+                    <symbol id="valueBox2">
+                        <svg height="2" width="1" viewBox="0 0 1 2">
+                            <text x="0.05"
+                                  y="0.8"
+                                  font-size="0.8"
+                                  font-family="serif"
+                                  fill="red">K
+                            </text>
+                            <image x="0"
+                                   y="1"
+                                   width="0.6"
+                                   height="0.6"
+                                   xlink:href="/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/icons/Heart.svg"/>
+                        </svg>
+                    </symbol>
+                    <use xlink:href="#valueBox2" x="0.2" y="0"/>
+                    <use xlink:href="#valueBox2"
+                         x="0.2"
+                         y="0"
+                         transform="rotate(180 2.5 3.5)"/>
+                    <image x="0.1"
+                           y="1"
+                           width="4.9"
+                           height="5"
+                           xlink:href="/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/icons/red/King.svg"/>
+                </symbol>
+                <use xlink:href="#leftCard" x="{$cardX}" y="{$cardY}" width="{$cardWidth}" height="{$cardHeight}"
+                     transform="rotate(340,5,5)"/>
+                <use xlink:href="#rightCard" x="{$cardX}" y="{$cardY}" width="{$cardWidth}" height="{$cardHeight}"
+                     transform="rotate(20,5,5)"/>
+            </svg>
+
             <text x="{$width div 2}" y="{$height div 10}" fill="{$textColor}" font-size="{$fontSize * 2}"
                   font-family="helvetica" text-anchor="middle"
                   alignment-baseline="hanging">
@@ -69,7 +166,7 @@
                       alignment-baseline="hanging" fill="{$textColor}">round
                 </text>
 
-                <xsl:for-each select="/Lobby/games/game">
+                <xsl:for-each select="Lobby/games/game">
                     <xsl:variable name="currentRectY" select="($startY + 27.5) + (position() * 6)"/>
                     <xsl:variable name="gameID" select="@id"/>
                     <xsl:variable name="players" select="@players"/>
@@ -100,8 +197,8 @@
                       style="stroke:{$textColor};stroke-width:1"/>
 
                 <!-- Spielername -->
-                <xsl:variable name="name" select="/Lobby/player/@name"/>
-                <xsl:variable name="id" select="/Lobby/player/@id"/>
+                <xsl:variable name="name" select="Lobby/player/@name"/>
+                <xsl:variable name="id" select="Lobby/player/@id"/>
                 <text x="{$rectMidWidth div 2}" y="{$startY + 2.5}" fill="{$textColor}" font-size="{$fontSize+1}"
                       font-family="helvetica" text-anchor="middle"
                       alignment-baseline="hanging">
@@ -109,7 +206,7 @@
                 </text>
 
                 <!-- Highscore -->
-                <xsl:variable name="highscore" select="/Lobby/player/@highscore"/>
+                <xsl:variable name="highscore" select="Lobby/player/@highscore"/>
                 <text x="{$rectMidWidth div 2}" y="{$startY + 15}" fill="{$textColor}" font-size="{$fontSize}"
                       font-family="helvetica"
                       text-anchor="middle"
