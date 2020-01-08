@@ -106,7 +106,6 @@ function blackjack-main:removePlayer($playerID as xs:string){
   : @return interger with the closes value to 21
   :)
   declare
-  %updating
   function blackjack-main:calculateHandValue($playerID as xs:string) as xs:integer {
      let $hand := $blackjack-main:game/players/player[@id = $playerID]/hand
      return (blackjack-main:reduceHandValueWithAces(count($hand/card[value ="A"]), blackjack-main:calculateHandValueHelper($hand))
@@ -123,9 +122,9 @@ function blackjack-main:removePlayer($playerID as xs:string){
         else ( if ($hand/card[position() = 1]/value = "J"
                 or $hand/card[position() = 1]/value = "Q"
                 or $hand/card[position() = 1]/value = "K")
-            then ($blackjack-main:calculateHandValueHelper($hand/card[position() > 1] + 10))
-            else (if ($hand/card[position() = 1]/value = "A") then ($blackjack-main:calculateHandValueHelper($hand/card[position() > 1] + 11))
-                else ($blackjack-main:calculateHandValueHelper($hand/card[position() > 1] + $hand/card[position() = 1]/value))))
+            then (blackjack-main:calculateHandValueHelper($hand/card[position() > 1]) + 10)
+            else (if ($hand/card[position() = 1]/value = "A") then (blackjack-main:calculateHandValueHelper($hand/card[position() > 1] + 11))
+                else (blackjack-main:calculateHandValueHelper($hand/card[position() > 1]) + $hand/card[position() = 1]/value)))
     return $result
   };
 
@@ -150,8 +149,9 @@ function blackjack-main:removePlayer($playerID as xs:string){
 declare
 %updating
 function blackjack-main:moveTurn($playerOnTurn as xs:string){
-    let $newPlayerTurn := if($playerOnTurn = game/players/player[last()]/@id ) then "dealer" else game/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
-    return (replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn)
+    if ($playerOnTurn = $blackjack-main:game/@onTurn) then (
+        let $newPlayerTurn := if($blackjack-main:game/@onTurn = game/players/player[last()]/@id ) then "dealer" else game/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
+        return (replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn))
 };
 
 (:~
