@@ -58,7 +58,7 @@ declare function blackjack-controller:genereratePage($game as element(game), $xs
             <head>
                 <title>{$title}</title>
             </head>
-            <body style="background: url(static/blackjack/assets/TableBackground.svg">
+            <body style="background: url(/static/blackjack/assets/TableBackground.svg">
                 {$transformed}
             </body>
         </html>

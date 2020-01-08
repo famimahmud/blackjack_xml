@@ -205,6 +205,12 @@
                      y="{$playerY - $shiftFactor - 10}"
                      transform="rotate({$curveFactor} {$fieldPos + $fieldWidth div 2} {$playerY + $fieldHeight div 2})"/>
             </xsl:for-each>
+
+            <foreignObject width="100%" height="100%" x="140" y="10">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/ttt/setup" method="get" id="Exit">
+                    <button class = "textMediumStyle lobbyButton" type="submit" form="Exit" value="Submit">Exit</button>
+                </form>
+            </foreignObject>
         </svg>
 
     </xsl:template>
