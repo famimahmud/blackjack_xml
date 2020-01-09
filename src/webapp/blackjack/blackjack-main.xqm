@@ -93,10 +93,10 @@ function blackjack-main:removePlayer($playerID as xs:string){
     let $cardsInDeck := count($blackjack-main:game/deck/card)
     let $randomNumber := blackjack-helper:getRandomInt($cardsInDeck)
     let $card := $blackjack-main:game/deck/card[position() = $randomNumber]
+    let $revealedCard := <card hidden="false">{$card/type}{$card/value}</card>
     return (
             delete node $blackjack-main:game/deck/card[position() = $randomNumber],
-            insert node $card into $blackjack-main:game/players/player[@id = $playerID]/hand,
-            replace value of node $blackjack-main:game/players/player[@id = $playerID]/hand/card[last()] with 'false'
+            insert node $revealedCard into $blackjack-main:game/players/player[@id = $playerID]/hand
     )
  };
 
