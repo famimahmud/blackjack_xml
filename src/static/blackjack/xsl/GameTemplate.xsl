@@ -206,15 +206,16 @@
                      transform="rotate({$curveFactor} {$fieldPos + $fieldWidth div 2} {$playerY + $fieldHeight div 2})"/>
             </xsl:for-each>
 
-            <foreignObject width="100%" height="100%" x="140" y="10">
+            <foreignObject width="100%" height="100%" x="90%" y="0%">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/ttt/setup" method="get" id="Exit">
-                    <button style=" display:table-cell; width:5px; height:10px; font-size:5px; text-align:  vertical-align: middle; border-radius:5px" form="Exit" value="Submit">
-                        Exit
-                    </button>
-                </form>
-            </foreignObject>
-        </svg>
+                    <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                    form="Exit" value="Submit">
+                    Exit
+                </button>
+            </form>
+        </foreignObject>
+    </svg>
 
-    </xsl:template>
+</xsl:template>
 
-</xsl:stylesheet>
+        </xsl:stylesheet>
