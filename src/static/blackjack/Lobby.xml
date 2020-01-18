@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl "href="LobbyTemplate.xsl" ?>
 
-<Lobby>
-
+<lobby>
     <games>
         <game round="6" id="124" maxRounds="10" players="3"/>
         <game round="2" id="145" maxRounds="10" players="1"/>
@@ -10,5 +9,4 @@
     </games>
 
     <player id="5281" name="Boris" highscore="200" onTurn="false"/>
-
-</Lobby>
+</lobby>

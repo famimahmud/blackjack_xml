@@ -207,15 +207,15 @@
             </xsl:for-each>
 
             <foreignObject width="100%" height="100%" x="90%" y="0%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/ttt/setup" method="get" id="Exit">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/start" method="get" id="Exit">
                     <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
-                    form="Exit" value="Submit">
-                    Exit
-                </button>
-            </form>
-        </foreignObject>
-    </svg>
+                            form="Exit" value="Submit">
+                        Exit
+                    </button>
+                </form>
+            </foreignObject>
+        </svg>
 
-</xsl:template>
+    </xsl:template>
 
-        </xsl:stylesheet>
+</xsl:stylesheet>

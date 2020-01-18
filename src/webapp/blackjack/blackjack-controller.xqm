@@ -12,11 +12,12 @@ declare
 %rest:GET
 function blackjack-controller:setup() {
     let $model := doc(concat($blackjack-controller:staticPath, "Game.xml"))
+    let $lobby_model := doc(concat($blackjack-controller:staticPath, "Lobby.xml"))
     let $redirectLink := "/blackjack/start"
-    return (db:create("Game", $model), update:output(web:redirect($redirectLink)))
+    return (db:create("Game", $model), db:create("Lobby", $lobby_model), update:output(web:redirect($redirectLink)))
 };
 
-declare
+(:)declare
 %rest:GET
 %output:method("html")
 %rest:path("/blackjack/start")
@@ -25,6 +26,18 @@ function blackjack-controller:start(){
         let $xslStylesheet := "GameTemplate.xsl"
         let $title := "Blackjack"
         return (blackjack-controller:genereratePage($game, $xslStylesheet, $title))
+};:)
+
+
+declare
+%rest:GET
+%output:method("html")
+%rest:path("/blackjack/start")
+function blackjack-controller:start(){
+    let $lobby := blackjack-main:getLobby()
+        let $xslStylesheet := "LobbyTemplate.xsl"
+        let $title := "Blackjack Lobby"
+        return (blackjack-controller:genererateLobby($lobby, $xslStylesheet, $title))
 };
 
 declare
@@ -47,6 +60,21 @@ function blackjack-controller:drawGame(){
     let $xslStylesheet := "GameTemplate.xsl"
     let $title := "Blackjack"
     return (blackjack-controller:genereratePage($game, $xslStylesheet, $title))
+};
+
+declare function blackjack-controller:genererateLobby($lobby as element(lobby), $xslStylesheet as xs:string,
+        $title as xs:string) {
+    let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/", $xslStylesheet))
+    let $transformed := xslt:transform($lobby, $stylesheet)
+    return
+        <html>
+            <head>
+                <title>{$title}</title>
+            </head>
+            <body style="background: url(/static/blackjack/assets/LobbyBackground.svg">
+                {$transformed}
+            </body>
+        </html>
 };
 
 declare function blackjack-controller:genereratePage($game as element(game), $xslStylesheet as xs:string,

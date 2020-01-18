@@ -29,12 +29,13 @@
                      y="0.8"
                      font-size="0.8"
                      font-family="serif"
-                     fill="black">A</text>
+                     fill="black">A
+                            </text>
                <image x="0"
                       y="1"
                       width="0.6"
                       height="0.6"
-                      xlink:href="/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/icons/Club.svg"/>
+                      xlink:href="/static/blackjack/assets/icons/Club.svg"/>
             </svg>
          </symbol>
          <use xlink:href="#valueBox1" x="0.2" y="0"/>
@@ -52,7 +53,7 @@
                    y="3"
                    width="1"
                    height="1"
-                   xlink:href="/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/icons/Club.svg"/>
+                   xlink:href="/static/blackjack/assets/icons/Club.svg"/>
          </svg>
       </symbol>
       <symbol id="rightCard" viewBox="0 0 5 7">
@@ -74,12 +75,13 @@
                      y="0.8"
                      font-size="0.8"
                      font-family="serif"
-                     fill="red">K</text>
+                     fill="red">K
+                            </text>
                <image x="0"
                       y="1"
                       width="0.6"
                       height="0.6"
-                      xlink:href="/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/icons/Heart.svg"/>
+                      xlink:href="/static/blackjack/assets/icons/Heart.svg"/>
             </svg>
          </symbol>
          <use xlink:href="#valueBox2" x="0.2" y="0"/>
@@ -91,7 +93,7 @@
                 y="1"
                 width="4.9"
                 height="5"
-                xlink:href="/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/icons/red/King.svg"/>
+                xlink:href="/static/blackjack/assets/icons/red/King.svg"/>
       </symbol>
       <use xlink:href="#leftCard"
            x="2.5"
@@ -108,7 +110,7 @@
    </svg>
    <text x="75"
          y="10"
-         fill="black"
+         fill="white"
          font-size="10"
          font-family="helvetica"
          text-anchor="middle"
@@ -132,7 +134,7 @@
             style="stroke:black ;stroke-width:0.5"/>
       <text x="20"
             y="7.5"
-            fill="black"
+            fill="white"
             font-size="5"
             font-family="helvetica"
             text-anchor="middle"
@@ -149,40 +151,40 @@
             y="19"
             font-size="5"
             alignment-baseline="hanging"
-            fill="black">√
+            fill="white">√
                 </text>
       <text x="13"
             y="19"
             font-size="4"
             alignment-baseline="hanging"
-            fill="black">Single-Player?
+            fill="white">Single-Player?
                 </text>
       <text x="5"
             y="27"
             font-size="5"
             alignment-baseline="hanging"
-            fill="black">Spiele:
+            fill="white">Spiele:
                 </text>
       <line x1="5"
             y1="32"
             x2="19"
             y2="32"
-            fill="black"
-            stroke="black"
+            fill="white"
+            stroke="white"
             stroke-width="0.5"/>
       <text x="18"
             y="35"
             font-size="3"
             font-style="oblique"
             alignment-baseline="hanging"
-            fill="black">players
+            fill="white">players
                 </text>
       <text x="29"
             y="35"
             font-size="3"
             font-style="oblique"
             alignment-baseline="hanging"
-            fill="black">round
+            fill="white">round
                 </text>
       <rect x="5"
             y="38.5"
@@ -190,7 +192,7 @@
             height="4"
             fill="none"
             style="stroke:black;stroke-width:0.5"/>
-      <text y="40" fill="black" font-size="3" font-family="helvetica">
+      <text y="39.5" fill="white" font-size="3" font-family="helvetica">
          <tspan x="6" alignment-baseline="hanging">Game124</tspan>
          <tspan x="21" alignment-baseline="hanging">|  3</tspan>
          <tspan x="27" alignment-baseline="hanging">| 6/10</tspan>
@@ -201,7 +203,7 @@
             height="4"
             fill="none"
             style="stroke:black;stroke-width:0.5"/>
-      <text y="46" fill="black" font-size="3" font-family="helvetica">
+      <text y="45.5" fill="white" font-size="3" font-family="helvetica">
          <tspan x="6" alignment-baseline="hanging">Game145</tspan>
          <tspan x="21" alignment-baseline="hanging">|  1</tspan>
          <tspan x="27" alignment-baseline="hanging">| 2/10</tspan>
@@ -212,7 +214,7 @@
             height="4"
             fill="none"
             style="stroke:black;stroke-width:0.5"/>
-      <text y="52" fill="black" font-size="3" font-family="helvetica">
+      <text y="51.5" fill="white" font-size="3" font-family="helvetica">
          <tspan x="6" alignment-baseline="hanging">Game554</tspan>
          <tspan x="21" alignment-baseline="hanging">|  4</tspan>
          <tspan x="27" alignment-baseline="hanging">| 4/10</tspan>
@@ -229,14 +231,14 @@
             style="stroke:black;stroke-width:1"/>
       <text x="25"
             y="7.5"
-            fill="black"
+            fill="white"
             font-size="6"
             font-family="helvetica"
             text-anchor="middle"
             alignment-baseline="hanging">Boris 5281</text>
       <text x="25"
             y="20"
-            fill="black"
+            fill="white"
             font-size="5"
             font-family="helvetica"
             text-anchor="middle"
@@ -246,9 +248,9 @@
             x2="45"
             y2="30"
             fill="black"
-            stroke="black"
+            stroke="white"
             stroke-width="0.5"/>
-      <text fill="black"
+      <text fill="white"
             font-size="4"
             font-family="helvetica"
             alignment-baseline="hanging">
@@ -263,7 +265,7 @@
             style="stroke:black;stroke-width:0.5"/>
       <text x="6"
             y="47.5"
-            fill="black"
+            fill="white"
             font-size="4"
             font-family="helvetica"
             font-style="oblique"
@@ -278,7 +280,7 @@
             style="stroke:black;stroke-width:0.5"/>
       <text x="33"
             y="47.5"
-            fill="black"
+            fill="white"
             font-size="4"
             font-family="helvetica"
             font-style="oblique"
@@ -289,7 +291,7 @@
               cy="49.5"
               r="2.5"
               stroke-width="0.5"
-              stroke="black"
+              stroke="white"
               fill="none"/>
       <text x="46"
             y="48.5"
@@ -309,29 +311,29 @@
             fill="none"
             rx="2"
             ry="2"
-            style="stroke:black;stroke-width:1"/>
+            style="stroke:black; stroke-width:1"/>
       <text x="20"
             y="7.5"
-            fill="black"
+            fill="white"
             font-size="5"
             font-family="helvetica"
             text-anchor="middle"
             alignment-baseline="hanging">
                     Highscores
                 </text>
-      <text y="20" fill="black" font-size="3" font-family="helvetica">
+      <text y="20" fill="white" font-size="3" font-family="helvetica">
          <tspan x="2" alignment-baseline="hanging">1.Ali1234</tspan>
          <tspan x="25" alignment-baseline="hanging">9990$</tspan>
       </text>
-      <text y="26" fill="black" font-size="3" font-family="helvetica">
+      <text y="26" fill="white" font-size="3" font-family="helvetica">
          <tspan x="2" alignment-baseline="hanging">2.Roberto2341</tspan>
          <tspan x="25" alignment-baseline="hanging">19230$</tspan>
       </text>
-      <text y="32" fill="black" font-size="3" font-family="helvetica">
+      <text y="32" fill="white" font-size="3" font-family="helvetica">
          <tspan x="2" alignment-baseline="hanging">3.Bob5421</tspan>
          <tspan x="25" alignment-baseline="hanging">2340$</tspan>
       </text>
-      <text y="38" fill="black" font-size="3" font-family="helvetica">
+      <text y="38" fill="white" font-size="3" font-family="helvetica">
          <tspan x="2" alignment-baseline="hanging">4.David2319</tspan>
          <tspan x="25" alignment-baseline="hanging">34688$</tspan>
       </text>

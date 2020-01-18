@@ -6,6 +6,7 @@ import module namespace blackjack-helper = "Blackjack/Helper" at "blackjack-help
 declare variable $blackjack-main:game := db:open("Game")/game;
 declare variable $blackjack-main:deck := db:open("Deck")/deck;
 declare variable $blackjack-main:players := db:open("Players")/players;
+declare variable $blackjack-main:lobby := db:open("Lobby")/lobby;
 
 
 (:~
@@ -65,10 +66,6 @@ function blackjack-main:newRound($playerName as xs:string, $playerID as xs:integ
         </deck>
     return ($deck)
  };
-
-declare function blackjack-main:getGame(){
-    $blackjack-main:game
-};
 
 (:~
  : Remove given player from list of Players
@@ -164,4 +161,12 @@ declare
 function blackjack-main:addPlayer($playerID as xs:string){
     let $newPlayer := $blackjack-main:players/player[@id=$playerID]
     return(insert node $newPlayer as last into $blackjack-main:game/players)
+};
+
+declare function blackjack-main:getGame(){
+    $blackjack-main:game
+};
+
+declare function blackjack-main:getLobby(){
+    $blackjack-main:lobby
 };

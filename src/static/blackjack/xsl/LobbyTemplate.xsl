@@ -6,7 +6,8 @@
         <xsl:variable name="width" select="150"/>
         <xsl:variable name="height" select="100"/>
         <xsl:variable name="fontSize" select="5"/>
-        <xsl:variable name="textColor" select="'black'"/>
+        <xsl:variable name="textColor" select="'white'"/>
+        <xsl:variable name="rectColor" select="'black'"/>
         <xsl:variable name="startX" select="5"/>
         <xsl:variable name="startY" select="5"/>
         <xsl:variable name="rect2X" select="50"/>
@@ -56,7 +57,7 @@
                                    y="1"
                                    width="0.6"
                                    height="0.6"
-                                   xlink:href="/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/icons/Club.svg"/>
+                                   xlink:href="/static/blackjack/assets/icons/Club.svg"/>
                         </svg>
                     </symbol>
                     <use xlink:href="#valueBox1" x="0.2" y="0"/>
@@ -74,7 +75,7 @@
                                y="3"
                                width="1"
                                height="1"
-                               xlink:href="/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/icons/Club.svg"/>
+                               xlink:href="/static/blackjack/assets/icons/Club.svg"/>
                     </svg>
                 </symbol>
 
@@ -90,7 +91,7 @@
                           rx="0.25"
                           ry="0.25"
                           fill="url(#gradient2)"
-                          style="stroke:black;stroke-width:0.03"/>
+                          style="stroke:{$rectColor};stroke-width:0.03"/>
                     <symbol id="valueBox2">
                         <svg height="2" width="1" viewBox="0 0 1 2">
                             <text x="0.05"
@@ -103,7 +104,7 @@
                                    y="1"
                                    width="0.6"
                                    height="0.6"
-                                   xlink:href="/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/icons/Heart.svg"/>
+                                   xlink:href="/static/blackjack/assets/icons/Heart.svg"/>
                         </svg>
                     </symbol>
                     <use xlink:href="#valueBox2" x="0.2" y="0"/>
@@ -115,7 +116,7 @@
                            y="1"
                            width="4.9"
                            height="5"
-                           xlink:href="/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/icons/red/King.svg"/>
+                           xlink:href="/static/blackjack/assets/icons/red/King.svg"/>
                 </symbol>
                 <use xlink:href="#leftCard" x="{$cardX}" y="{$cardY}" width="{$cardWidth}" height="{$cardHeight}"
                      transform="rotate(340,5,5)"/>
@@ -134,18 +135,19 @@
                  viewBox="0 0 {$rectWidth} {$rectHeight}">
                 <rect x="0" y="0" width="{$rectWidth}" height="{$rectHeight}" fill="none" rx="{$edgeRadius}"
                       ry="{$edgeRadius}"
-                      style="stroke:{$textColor};stroke-width:1"/>
+                      style="stroke:{$rectColor};stroke-width:1"/>
                 <!-- Button für neues Spiel-->
-                <rect x="{$startX}" y="{$startY}" width="{$rectWidth - 10}" height="{$rectHeight div 6}" fill="none"
-                      style="stroke:{$textColor} ;stroke-width:{$strokeWidth}"/>
-                <text x="{$rectWidth div 2}" y="{$startY + 2.5}" fill="{$textColor}" font-size="{$fontSize}"
-                      font-family="helvetica" text-anchor="middle"
-                      alignment-baseline="hanging">
-                    Neues Spiel
-                </text>
+                <foreignObject width="100%" height="100%" x="{$startX}" y="{$startY - 1}">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/draw" method="get" id="Neues Spiel">
+                        <button style=" width:80%; height:20%; display:table-cell; font-size:{$fontSize - 1}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                                form="Neues Spiel" value="Submit">
+                            Neues Spiel
+                        </button>
+                    </form>
+                </foreignObject>
                 <!-- Einzelspiel Abfrage -->
                 <rect x="{$startX}" y="{$startY + 13}" width="{$rectWidth - 35}" height="{$rectHeight div 12}"
-                      fill="none" style="stroke:{$textColor} ;stroke-width:{$strokeWidth}"/>
+                      fill="none" style="stroke:{$rectColor} ;stroke-width:{$strokeWidth }"/>
                 <text x="{$startX + 1}" y="{$startY + 14}" font-size="{$fontSize}" alignment-baseline="hanging"
                       fill="{$textColor}">√
                 </text>
@@ -166,15 +168,15 @@
                       alignment-baseline="hanging" fill="{$textColor}">round
                 </text>
 
-                <xsl:for-each select="Lobby/games/game">
+                <xsl:for-each select="lobby/games/game">
                     <xsl:variable name="currentRectY" select="($startY + 27.5) + (position() * 6)"/>
                     <xsl:variable name="gameID" select="@id"/>
                     <xsl:variable name="players" select="@players"/>
                     <xsl:variable name="round" select="@round"/>
                     <xsl:variable name="maxRounds" select="@maxRounds"/>
                     <rect x="{$startX}" y="{$currentRectY}" width="{$rectWidth - 10}" height="{($rectHeight div 12)-1}"
-                          fill="none" style="stroke:{$textColor};stroke-width:{$strokeWidth}"/>
-                    <text y="{$currentRectY + 1.5}" fill="{$textColor}" font-size="{$fontSize - 2}"
+                          fill="none" style="stroke:{$rectColor};stroke-width:{$strokeWidth - 0.2}"/>
+                    <text y="{$currentRectY + 1}" fill="{$textColor}" font-size="{$fontSize - 2}"
                           font-family="helvetica">
                         <tspan x="{$startX + 1}" alignment-baseline="hanging">
                             <xsl:value-of select=" concat('Game',$gameID)"/>
@@ -194,11 +196,11 @@
                  viewBox="0 0 {$rectMidWidth} {$rectHeight}">
                 <rect x="0" y="0" width="{$rectMidWidth}" height="{$rectHeight}" fill="none" rx="{$edgeRadius}"
                       ry="{$edgeRadius}"
-                      style="stroke:{$textColor};stroke-width:1"/>
+                      style="stroke:{$rectColor};stroke-width:1"/>
 
                 <!-- Spielername -->
-                <xsl:variable name="name" select="Lobby/player/@name"/>
-                <xsl:variable name="id" select="Lobby/player/@id"/>
+                <xsl:variable name="name" select="lobby/player/@name"/>
+                <xsl:variable name="id" select="lobby/player/@id"/>
                 <text x="{$rectMidWidth div 2}" y="{$startY + 2.5}" fill="{$textColor}" font-size="{$fontSize+1}"
                       font-family="helvetica" text-anchor="middle"
                       alignment-baseline="hanging">
@@ -206,7 +208,7 @@
                 </text>
 
                 <!-- Highscore -->
-                <xsl:variable name="highscore" select="Lobby/player/@highscore"/>
+                <xsl:variable name="highscore" select="lobby/player/@highscore"/>
                 <text x="{$rectMidWidth div 2}" y="{$startY + 15}" fill="{$textColor}" font-size="{$fontSize}"
                       font-family="helvetica"
                       text-anchor="middle"
@@ -216,14 +218,14 @@
 
                 <!-- Spielstand wiederherstellen-->
                 <line x1="{$startX}" y1="{$startY + 25}" x2="{$rectMidWidth - 5}" y2="{$startY + 25}"
-                      fill="{$textColor}" stroke="{$textColor}" stroke-width="0.5"/>
+                      fill="{$rectColor}" stroke="{$textColor}" stroke-width="0.5"/>
                 <text fill="{$textColor}" font-size="{$fontSize - 1}" font-family="helvetica"
                       alignment-baseline="hanging">
                     <tspan x="{$startX}" y="{$startY + 34}">Spielstand</tspan>
                     <tspan x="{$startX}" y="{$startY + 39}">wiederherstellen:</tspan>
                 </text>
                 <rect x="{$startX}" y="{$startY + 42}" width="{$rectMidWidth - 25}" height="{$rectHeight div 12}"
-                      fill="none" style="stroke:{$textColor};stroke-width:{$strokeWidth}"/>
+                      fill="none" style="stroke:{$rectColor};stroke-width:{$strokeWidth - 0.2}"/>
                 <text x="{$startX + 1}" y="{$startY + 42.5}" fill="{$textColor}" font-size="{$fontSize - 1}"
                       font-family="helvetica"
                       font-style="oblique"
@@ -231,7 +233,7 @@
                     Name
                 </text>
                 <rect x="{$startX + 27}" y="{$startY + 42}" width="{$rectMidWidth - 40}" height="{$rectHeight div 12}"
-                      fill="none" style="stroke:{$textColor};stroke-width:{$strokeWidth}"/>
+                      fill="none" style="stroke:{$rectColor};stroke-width:{$strokeWidth - 0.2}"/>
                 <text x="{$startX + 28}" y="{$startY + 42.5}" fill="{$textColor}" font-size="{$fontSize - 1}"
                       font-family="helvetica"
                       font-style="oblique"
@@ -239,8 +241,8 @@
                     ID
                 </text>
                 <circle cx="{$rectMidWidth - 4}" cy="{$startY + 44.5}" r="{$fontSize div 2}"
-                        stroke-width="{$strokeWidth}" stroke="{$textColor}" fill="none"></circle>
-                <text x="{$rectMidWidth - 4}" y="{$startY + 43.5}" fill="lightblue" font-size="{$fontSize - 2}"
+                        stroke-width="{$strokeWidth}" stroke="{$rectColor}" fill="none"></circle>
+                <text x="{$rectMidWidth - 4}" y="{$startY + 43.4}" fill="lightblue" font-size="{$fontSize - 2}"
                       font-family="helvetica" text-anchor="middle"
                       alignment-baseline="hanging">
                     -->
@@ -252,7 +254,7 @@
                  viewBox="0 0 {$rectWidth} {$rectHeight}">
                 <rect x="0" y="0" width="{$rectWidth}" height="{$rectHeight}" fill="none" rx="{$edgeRadius}"
                       ry="{$edgeRadius}"
-                      style="stroke:{$textColor};stroke-width:1"/>
+                      style="stroke:{$rectColor}; stroke-width:1"/>
                 <text x="{$rectWidth div 2}" y="7.5" fill="{$textColor}" font-size="{$fontSize}" font-family="helvetica"
                       text-anchor="middle"
                       alignment-baseline="hanging">
