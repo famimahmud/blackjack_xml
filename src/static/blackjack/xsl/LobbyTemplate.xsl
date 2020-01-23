@@ -137,8 +137,12 @@
                       ry="{$edgeRadius}"
                       style="stroke:{$rectColor};stroke-width:1"/>
                 <!-- Button für neues Spiel-->
+                <xsl:variable name="name" select="lobby/player/@name"/>
+                <xsl:variable name="id" select="lobby/player/@id"/>
                 <foreignObject width="100%" height="100%" x="{$startX}" y="{$startY - 1}">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/draw" method="get" id="Neues Spiel">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/newRound" method="get" id="Neues Spiel">
+                        <input type="hidden" name="name" id="name" value="{$name}"/>
+                        <input type="hidden" name="id" id="id" value="{$id}"/>
                         <button style=" width:80%; height:20%; display:table-cell; font-size:{$fontSize - 1}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
                                 form="Neues Spiel" value="Submit">
                             Neues Spiel

@@ -214,6 +214,22 @@
                     </button>
                 </form>
             </foreignObject>
+            <foreignObject width="100%" height="100%" x="0%" y="93%">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/hit" method="get" id="Hit">
+                    <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                            form="Hit" value="Submit">
+                        Hit
+                    </button>
+                </form>
+            </foreignObject>
+            <foreignObject width="100%" height="100%" x="90%" y="93%">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/stand" method="get" id="Stand">
+                    <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                            form="Stand" value="Submit">
+                        Stand
+                    </button>
+                </form>
+            </foreignObject>
         </svg>
 
     </xsl:template>

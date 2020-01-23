@@ -11,23 +11,13 @@ declare
 %updating
 %rest:GET
 function blackjack-controller:setup() {
-    let $model := doc(concat($blackjack-controller:staticPath, "Game.xml"))
+    let $game_model := doc(concat($blackjack-controller:staticPath, "Game.xml"))
     let $lobby_model := doc(concat($blackjack-controller:staticPath, "Lobby.xml"))
+    let $deck_model := doc(concat($blackjack-controller:staticPath, "Deck.xml"))
+    let $players_model := doc(concat($blackjack-controller:staticPath, "Players.xml"))
     let $redirectLink := "/blackjack/start"
-    return (db:create("Game", $model), db:create("Lobby", $lobby_model), update:output(web:redirect($redirectLink)))
+    return (db:create("Game", $game_model), db:create("Lobby", $lobby_model), db:create("Deck", $deck_model), db:create("Players", $players_model), update:output(web:redirect($redirectLink)))
 };
-
-(:)declare
-%rest:GET
-%output:method("html")
-%rest:path("/blackjack/start")
-function blackjack-controller:start(){
-    let $game := blackjack-main:getGame()
-        let $xslStylesheet := "GameTemplate.xsl"
-        let $title := "Blackjack"
-        return (blackjack-controller:genereratePage($game, $xslStylesheet, $title))
-};:)
-
 
 declare
 %rest:GET

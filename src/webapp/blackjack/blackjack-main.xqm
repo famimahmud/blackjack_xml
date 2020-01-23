@@ -42,7 +42,7 @@ function blackjack-main:newRound($playerName as xs:string, $playerID as xs:integ
                             </wallet>
                             <pool>
                             </pool>
-                        </player>
+                 </player>
             </players>
         </game>
 
