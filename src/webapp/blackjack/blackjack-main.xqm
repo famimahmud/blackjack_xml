@@ -104,7 +104,8 @@ function blackjack-main:removePlayer($playerID as xs:string){
   :)
   declare
   function blackjack-main:calculateHandValue($playerID as xs:string) as xs:integer {
-     let $hand := $blackjack-main:game/players/player[@id = $playerID]/hand
+     let $hand := if ($playerID = "dealer") then game/dealer/hand
+                    else ($blackjack-main:game/players/player[@id = $playerID]/hand)
      return (blackjack-main:reduceHandValueWithAces(count($hand/card[value ="A"]), blackjack-main:calculateHandValueHelper($hand))
      )
   };
@@ -121,7 +122,7 @@ function blackjack-main:removePlayer($playerID as xs:string){
                 or $hand/card[position() = 1]/value = "K")
             then (blackjack-main:calculateHandValueHelper($hand/card[position() > 1]) + 10)
             else (if ($hand/card[position() = 1]/value = "A") then (blackjack-main:calculateHandValueHelper($hand/card[position() > 1] + 11))
-                else (blackjack-main:calculateHandValueHelper($hand/card[position() > 1]) + $hand/card[position() = 1]/value)))
+                else (blackjack-main:calculateHandValueHelper($hand/card[position() > 1]) + xs:integer($hand/card[position() = 1]/value/node()))))
     return xs:integer($result)
   };
 
@@ -139,7 +140,45 @@ function blackjack-main:removePlayer($playerID as xs:string){
   };
 
 (:~
+ : pay all players
+ : @return model change at player-wallets and player-pools
+ :)
+declare
+%updating
+function blackjack-main:payPhase(){
+    for $playerId in blackjack-main:game/players/player/@id
+    return (
+        blackjack-main:payPlayer($playerId)
+    )
+};
+(:~
  : move the current turn to the given player
+ : @playerID $playerID who will be paid
+ : @return model change at player wallet and player pool
+ :)
+declare
+%updating
+function blackjack-main:payPlayer($playerID as xs:string){
+    let $wallet := xs:integer(game/players/player[@id=$playerID]/wallet/node())
+    let $poolBet := sum(game/players/player[@id=$playerID]/pool/chip/value)
+    let $playerValue := blackjack-main:calculateHandValue($playerID)
+    let $dealerValue := blackjack-main:calculateHandValue("dealer")
+    return (
+        delete node $blackjack-main:game/players/player[@id=$playerID]/pool/chip,
+        (: check if playerhand is below 22 -> if not -> loss :)
+        if ($playerValue < 22) then (
+            (: check if playerhand = dealerhand  -> no gain :)
+            if ( $playerValue = $dealerValue)
+                then (replace node $blackjack-main:game/players/player[@id=$playerID]/wallet with ($wallet + $poolBet) )
+                        (: check if playerhand > dealerhand  -> profit :)
+                else (if ($playerValue > $dealerValue)
+                        then (replace node $blackjack-main:game/players/player[@id=$playerID]/wallet with ($wallet + (2*$poolBet))))
+        )
+    )
+};
+
+(:~
+ : pay player
  : @playerOnTurn $playerID whose turn it is next
  : @return model change to move turn to next player
  :)
