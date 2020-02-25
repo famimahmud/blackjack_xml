@@ -149,9 +149,9 @@ function blackjack-main:removePlayer($playerID as xs:string){
 declare
 %updating
 function blackjack-main:payPhase(){
-    for $playerId in blackjack-main:game/players/player/@id
+    for $playerID in blackjack-main:game/players/player/@id
     return (
-        blackjack-main:payPlayer($playerId),
+        blackjack-main:payPlayer($playerID),
         delete node $blackjack-main:game/dealer/hand/card,
         replace value of node $blackjack-main:game/@onTurn with "bet"
     )
@@ -191,7 +191,7 @@ function blackjack-main:payPlayer($playerID as xs:string){
  :)
 declare
 %updating
-function blackjack-main:bet($playerId as xs:string, $chipValue as xs:integer){
+function blackjack-main:bet($playerID as xs:string, $chipValue as xs:integer){
     let $wallet := xs:integer($blackjack-main:game/players/player[@id=$playerID]/wallet/node())
     let $poolBet := sum($blackjack-main:game/players/player[@id=$playerID]/pool/chip/value)
     let $newChip := <chip><value>{$chipValue}</value></chip>
@@ -199,8 +199,8 @@ function blackjack-main:bet($playerId as xs:string, $chipValue as xs:integer){
             or $chipValue = 250 or $chipValue = 500 or $chipValue = 1000)
             and $chipValue <= $wallet)
             then (
-                replace node $blackjack-main:game/players/player[@id=$playerId]/wallet with ($wallet - $chipValue),
-                insert node $newChip into $blackjack-main:game/players/player[@id=$playerId]/pool
+                replace node $blackjack-main:game/players/player[@id=$playerID]/wallet with ($wallet - $chipValue),
+                insert node $newChip into $blackjack-main:game/players/player[@id=$playerID]/pool
             )
 };
 
