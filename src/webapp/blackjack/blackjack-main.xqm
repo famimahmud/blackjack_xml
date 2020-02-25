@@ -161,12 +161,13 @@ function blackjack-main:payPhase(){
 declare
 %updating
 function blackjack-main:payPlayer($playerID as xs:string){
-    let $wallet := xs:integer(game/players/player[@id=$playerID]/wallet/node())
-    let $poolBet := sum(game/players/player[@id=$playerID]/pool/chip/value)
+    let $wallet := xs:integer($blackjack-main:game/players/player[@id=$playerID]/wallet/node())
+    let $poolBet := sum($blackjack-main:game/players/player[@id=$playerID]/pool/chip/value)
     let $playerValue := blackjack-main:calculateHandValue($playerID)
     let $dealerValue := blackjack-main:calculateHandValue("dealer")
     return (
-        delete node $blackjack-main:game/players/player[@id=$playerID]/pool/chip,
+        replace node $blackjack-main:game/players/player[@id=$playerID]/pool with <pool locked="false"></pool>,
+        delete node $blackjack-main:game/players/player[@id=$playerID]/hand/card,
         (: check if playerhand is below 22 -> if not -> loss :)
         if ($playerValue < 22) then (
             (: check if playerhand = dealerhand  -> no gain :)
