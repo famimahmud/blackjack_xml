@@ -90,7 +90,10 @@ function blackjack-main:removePlayer($playerID as xs:string){
     let $cardsInDeck := count($blackjack-main:game/deck/card)
     let $randomNumber := blackjack-helper:getRandomInt($cardsInDeck)
     let $card := $blackjack-main:game/deck/card[position() = $randomNumber]
-    let $revealedCard := <card hidden="false">{$card/type}{$card/value}</card>
+    let $revealedCard := if ($playerID = "dealer" and count($blackjack-main:game/dealer/hand/card) = 0)
+        (: first drawn card of the dealer is hidden :)
+        then <card hidden="true">{$card/type}{$card/value}</card>
+        else <card hidden="false">{$card/type}{$card/value}</card>
     return (
             delete node $blackjack-main:game/deck/card[position() = $randomNumber],
             insert node $revealedCard into $blackjack-main:game/players/player[@id = $playerID]/hand
@@ -222,8 +225,29 @@ declare
 %updating
 function blackjack-main:moveTurn($playerOnTurn as xs:string){
     if ($playerOnTurn = $blackjack-main:game/@onTurn) then (
-        let $newPlayerTurn := if($blackjack-main:game/@onTurn = game/players/player[last()]/@id ) then "dealer" else game/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
-        return (replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn))
+        let $newPlayerTurn := if($blackjack-main:game/@onTurn = game/players/player[last()]/@id )
+            then "dealer"
+            else game/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
+        return (replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn,
+            (: TO-DO: update Datenbank und sende draw an Player, optional warte 1000ms:)
+            if ($newPlayerTurn = "dealer") then blackjack-main:dealerTurn()))
+};
+
+(:~
+ : dealer Turn
+ : @return model change: dealer has drawn cards
+ :)
+declare
+%updating
+function blackjack-main:dealerTurn(){
+    let $dealerHandValue := blackjack-main:calculateHandValue("dealer")
+    return (if ($blackjack-main:game/@onTurn = "dealer") then (
+            replace node $blackjack-main:game/dealer/hand/card[position() = 1]/@hidden with "false",
+            if ($dealerHandValue < 17) then
+            blackjack-main:drawCard("dealer"),
+            (: TO-DO: update Datenbank und sende draw an Player, optional warte 1000ms:)
+            blackjack-main:dealerTurn())
+            else (blackjack-main:payPhase()))
 };
 
 (:~
