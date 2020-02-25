@@ -140,7 +140,7 @@ function blackjack-main:removePlayer($playerID as xs:string){
   };
 
 (:~
- : pay all players
+ : pay all players and change to bet-Phase
  : @return model change at player-wallets and player-pools
  :)
 declare
@@ -148,7 +148,9 @@ declare
 function blackjack-main:payPhase(){
     for $playerId in blackjack-main:game/players/player/@id
     return (
-        blackjack-main:payPlayer($playerId)
+        blackjack-main:payPlayer($playerId),
+        delete node $blackjack-main:game/dealer/hand/card,
+        replace value of node $blackjack-main:game/@onTurn with "bet"
     )
 };
 (:~
@@ -178,7 +180,40 @@ function blackjack-main:payPlayer($playerID as xs:string){
 };
 
 (:~
- : pay player
+ : put a chip into the pool of the player
+ : @playerID $playerID of the player, who bets
+ : @chipValue $chipValue of the bet chip
+ : @return model change to move turn to next player
+ :)
+declare
+%updating
+function blackjack-main:bet($playerId as xs:string, $chipValue as xs:integer){
+    let $wallet := xs:integer($blackjack-main:game/players/player[@id=$playerID]/wallet/node())
+    let $poolBet := sum($blackjack-main:game/players/player[@id=$playerID]/pool/chip/value)
+    let $newChip := <chip><value>{$chipValue}</value></chip>
+    return if (($chipValue = 10 or $chipValue = 50 or $chipValue = 100
+            or $chipValue = 250 or $chipValue = 500 or $chipValue = 1000)
+            and $chipValue <= $wallet)
+            then (
+                replace node $blackjack-main:game/players/player[@id=$playerId]/wallet with ($wallet - $chipValue),
+                insert node $newChip into $blackjack-main:game/players/player[@id=$playerId]/pool
+            )
+};
+
+(:~
+ : give every player and the dealer two cards
+ : @return model change to move turn to next player
+ :)
+declare
+%updating
+function blackjack-main:handOutCards(){
+    if ($blackjack-main:game/@onTurn = "bet") then (
+        (: TO-DO (updaten der Datenbank nach der ersten Karte für den dealer nötig:)
+    )
+};
+
+(:~
+ : move Turn to next player or to dealer
  : @playerOnTurn $playerID whose turn it is next
  : @return model change to move turn to next player
  :)
