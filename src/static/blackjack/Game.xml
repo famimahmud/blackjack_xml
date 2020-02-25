@@ -53,7 +53,7 @@
             <wallet>
                 5150
             </wallet>
-            <pool>
+            <pool locked="true">
                 <chip>
                     <value>100</value>
                 </chip>
@@ -80,7 +80,7 @@
             <wallet>
                 0
             </wallet>
-            <pool>
+            <pool locked="true">
                 <chip>
                     <value>100</value>
                 </chip>
@@ -111,7 +111,7 @@
             <wallet>
                 30
             </wallet>
-            <pool>
+            <pool locked="true">
                 <chip>
                     <value>50</value>
                 </chip>
@@ -147,7 +147,7 @@
             <wallet>
                 666
             </wallet>
-            <pool>
+            <pool locked="true">
                 <chip>
                     <value>10</value>
                 </chip>
