@@ -26,7 +26,6 @@ function blackjack-main:newRound($playerName as xs:string, $playerID as xs:integ
     let $game :=
         <game round="1" onTurn="dealer" phase="bet">
             {$deck}
-
             <dealer>
                 <hand>
                 </hand>

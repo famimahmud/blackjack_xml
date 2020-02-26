@@ -63,10 +63,11 @@
         </xsl:variable>
 
         <xsl:variable name="textY">
-            <xsl:choose>
+            <!--<xsl:choose>
                 <xsl:when test="$chipValue = 1000">0.15</xsl:when>
                 <xsl:otherwise>-0.25</xsl:otherwise>
-            </xsl:choose>
+            </xsl:choose>-->
+            0
         </xsl:variable>
 
 
