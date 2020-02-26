@@ -25,10 +25,10 @@ declare
 function blackjack-main:newRound($playerName as xs:string, $playerID as xs:integer) { (:$player as element(player)) {:)
     let $deck := blackjack-main:generateDeck()
     let $game :=
-        <game>
+        <game round="1" onTurn="dealer" phase="bet">
             {$deck}
 
-            <dealer onTurn="false">
+            <dealer>
                 <hand>
                 </hand>
             </dealer>
@@ -153,7 +153,7 @@ function blackjack-main:payPhase(){
     return (
         blackjack-main:payPlayer($playerID),
         delete node $blackjack-main:game/dealer/hand/card,
-        replace value of node $blackjack-main:game/@onTurn with "bet"
+        replace value of node $blackjack-main:game/@phase with "bet"
     )
 };
 (:~
@@ -211,7 +211,7 @@ function blackjack-main:bet($playerID as xs:string, $chipValue as xs:integer){
 declare
 %updating
 function blackjack-main:handOutCards(){
-    if ($blackjack-main:game/@onTurn = "bet") then (
+    if ($blackjack-main:game/@phase = "bet") then (
         (: TO-DO (updaten der Datenbank nach der ersten Karte für den dealer nötig:)
     )
 };

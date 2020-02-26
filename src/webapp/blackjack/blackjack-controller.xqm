@@ -92,7 +92,7 @@ declare
 function blackjack-controller:bet($playerID as xs:string, $chipValue as xs:integer){
     let $game := blackjack-main:getGame()
     return (
-        if($game/@onTurn = "bet" and $game/players/player[@id = $playerID]/pool/@locked = "false")
+        if($game/@phase = "bet" and $game/players/player[@id = $playerID]/pool/@locked = "false")
         then (  blackjack-main:bet($playerID, $chipValue),
             update:output(web:redirect("/blackjack/draw"))
         )
@@ -108,7 +108,7 @@ declare
 function blackjack-controller:confirmBet($playerID as xs:string){
     let $game := blackjack-main:getGame()
     return (
-        if($game/@onTurn = "bet")
+        if($game/@phase = "bet")
         then (replace node $game/players/player[@id = $playerID]/pool/@locked with "true",
              (:check if player is over 21 -> if true: moveTurn:)
             (if (count(game/players/player/pool[@locked="true"]/@locked) = count(game/players/player))
@@ -129,7 +129,7 @@ function blackjack-controller:resetBet($playerID as xs:string){
     let $wallet := xs:integer(game/players/player[@id=$playerID]/wallet/node())
     let $poolBet := sum(game/players/player[@id=$playerID]/pool/chip/value)
     return (
-        if($game/@onTurn = "bet" and $game/players/player[@id = $playerID]/pool/@locked = "false")
+        if($game/@phase = "bet" and $game/players/player[@id = $playerID]/pool/@locked = "false")
         then (  replace node $game/players/player[@id=$playerID]/wallet with ($wallet + $poolBet),
                 replace node $game/players/player[@id = $playerID]/pool with <pool locked="false"></pool>,
                 update:output(web:redirect("/blackjack/draw"))
@@ -164,7 +164,7 @@ declare
 function blackjack-controller:stand($playerID as xs:string){
     let $game := blackjack-main:getGame()
     return (
-        if($game/@onTurn = $playerID)
+        if($game/@onTurn = $playerID and $game/@phase = "play")
         then (blackjack-main:moveTurn($playerID),
                 update:output(web:redirect("/blackjack/draw")) (:redirect allways? (outside of if):)
         )
