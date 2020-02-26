@@ -1,5 +1,5 @@
 <xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xls="http://www.w3.org/1999/XSL/Transform">
+                xmlns:xls="http://www.w3.org/1999/XSL/Transform" xmlns:xslt="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes"/>
 
     <!-- Imports -->
@@ -207,7 +207,7 @@
             </xsl:for-each>
 
             <foreignObject width="100%" height="100%" x="90%" y="0%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/start" method="get" id="Exit">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/start" method="post" id="Exit">
                     <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                             form="Exit" value="Submit">
                         Exit
@@ -215,7 +215,7 @@
                 </form>
             </foreignObject>
             <foreignObject width="100%" height="100%" x="0%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/hit" method="get" id="Hit">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/hit" method="post" id="Hit">
                     <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                             form="Hit" value="Submit">
                         Hit
@@ -223,13 +223,106 @@
                 </form>
             </foreignObject>
             <foreignObject width="100%" height="100%" x="90%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/stand" method="get" id="Stand">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/stand" method="post" id="Stand">
                     <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                             form="Stand" value="Submit">
                         Stand
                     </button>
                 </form>
             </foreignObject>
+
+            <foreignObject width="7" height="7" x="25%" y="93%">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_10">
+                    <label>
+                        <svg width="7" height="7">
+                            <xsl:call-template name="ChipTemplate">
+                                <xsl:with-param name="chipValue" select="10"/>
+                                <xsl:with-param name="id" select="10"/>
+                            </xsl:call-template>
+                        </svg>
+                        <input type="submit" name="value" id="value10" value="10"
+                               style="background: transparent; border: none !important;"/>
+                    </label>
+                </form>
+            </foreignObject>
+
+            <foreignObject width="7" height="7" x="35%" y="93%">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_50">
+                    <label>
+                        <svg width="7" height="7">
+                            <xsl:call-template name="ChipTemplate">
+                                <xsl:with-param name="chipValue" select="50"/>
+                                <xsl:with-param name="id" select="50"/>
+                            </xsl:call-template>
+                        </svg>
+                        <!-- TODO: Implement playerID parameter -->
+                        <input type="hidden" name="value" id="playerID" value="50"/>
+                        <input type="submit" name="value" id="value50" value="50"
+                               style="background: transparent; border: none !important;"/>
+                    </label>
+                </form>
+            </foreignObject>
+
+            <foreignObject width="7" height="7" x="45%" y="93%">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_100">
+                    <label>
+                        <svg width="7" height="7">
+                            <xsl:call-template name="ChipTemplate">
+                                <xsl:with-param name="chipValue" select="100"/>
+                                <xsl:with-param name="id" select="100"/>
+                            </xsl:call-template>
+                        </svg>
+                        <input type="submit" name="value" id="value100" value="100"
+                               style="background: transparent; border: none !important;"/>
+                    </label>
+                </form>
+            </foreignObject>
+
+            <foreignObject width="7" height="7" x="55%" y="93%">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_250">
+                    <label>
+                        <svg width="7" height="7">
+                            <xsl:call-template name="ChipTemplate">
+                                <xsl:with-param name="chipValue" select="250"/>
+                                <xsl:with-param name="id" select="250"/>
+                            </xsl:call-template>
+                        </svg>
+                        <input type="submit" name="value" id="value250" value="250"
+                               style="background: transparent; border: none !important;"/>
+                    </label>
+                </form>
+            </foreignObject>
+
+            <foreignObject width="7" height="7" x="65%" y="93%">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_500">
+                    <label>
+                        <svg width="7" height="7">
+                            <xsl:call-template name="ChipTemplate">
+                                <xsl:with-param name="chipValue" select="500"/>
+                                <xsl:with-param name="id" select="500"/>
+                            </xsl:call-template>
+                        </svg>
+                        <input type="submit" name="value" id="value500" value="500"
+                               style="background: transparent; border: none !important;"/>
+                    </label>
+                </form>
+            </foreignObject>
+
+            <foreignObject width="7" height="7" x="75%" y="93%">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_1000">
+                    <label>
+                        <svg width="7" height="7">
+                            <xsl:call-template name="ChipTemplate">
+                                <xsl:with-param name="chipValue" select="1000"/>
+                                <xsl:with-param name="id" select="1000"/>
+                            </xsl:call-template>
+                        </svg>
+                        <input type="submit" name="value" id="value1000" value="1000"
+                               style="background: transparent; border: none !important;"/>
+                    </label>
+                </form>
+            </foreignObject>
+
         </svg>
 
     </xsl:template>
