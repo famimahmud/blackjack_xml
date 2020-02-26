@@ -29,6 +29,9 @@
         <xsl:variable name="strokeColor" select="'white'"/>
         <xsl:variable name="fonts" select="'Raleway, sans-serif'"/>
         <xsl:variable name="playerCount" select="count(/*/players/*)"/>
+        <xsl:variable name="rectHeight" select="5"/>
+        <xsl:variable name="rectWidth" select="25"/>
+
 
         <xsl:variable name="currentPlayer">
             <xsl:if test="/*/@onTurn = 'dealer'">
@@ -74,6 +77,14 @@
                     </xsl:call-template>
                 </svg>
             </xsl:for-each>
+
+            <!-- Name and ID in the top left corner -->
+            <text x="1%" y="1%" fill="{$textColor}" font-size="{$fontSize + 1}"
+                  font-family="helvetica"
+                  font-style="oblique"
+                  alignment-baseline="hanging">
+                <xsl:value-of select="concat(/*/players/*/@name, /*/players/*/@id)"></xsl:value-of>
+            </text>
 
             <!-- Generate Dealer card box -->
             <!-- Choose box color -->
@@ -323,6 +334,49 @@
                 </form>
             </foreignObject>
 
+=======
+            <xsl:choose>
+
+                <xsl:when test=" /*/@phase ='bet'">
+                    <foreignObject width="100%" height="100%" x="0%" y="93%">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/confirmBet" method="post"
+                              id="Confirm">
+                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                                    form="Confirm" value="Submit">
+                                Confirm
+                            </button>
+                        </form>
+                    </foreignObject>
+                    <foreignObject width="100%" height="100%" x="90%" y="93%">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/resetBet" method="post"
+                              id="Reset">
+                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                                    form="Reset" value="Submit">
+                                Reset
+                            </button>
+                        </form>
+                    </foreignObject>
+                </xsl:when>
+                <xsl:otherwise>
+                    <foreignObject width="100%" height="100%" x="0%" y="93%">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/hit" method="post" id="Hit">
+                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                                    form="Hit" value="Submit">
+                                Hit
+                            </button>
+                        </form>
+                    </foreignObject>
+                    <foreignObject width="100%" height="100%" x="90%" y="93%">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/stand" method="post" id="Stand">
+                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                                    form="Stand" value="Submit">
+                                Stand
+                            </button>
+                        </form>
+                    </foreignObject>
+                </xsl:otherwise>
+            </xsl:choose>
+>>>>>>> 9ca1b3fe0e2f16e8f997b0169dcef7764f372233
         </svg>
 
     </xsl:template>

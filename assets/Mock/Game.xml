@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl "href="GameTemplate.xsl" ?>
 
-<game id="53602" round="1" onTurn="52813">
+<game id="53602" round="1" onTurn="18593" phase="play">
     <deck>
         <card hidden="true">
             <type>Heart</type>
@@ -68,11 +68,11 @@
 
         <player id="29603" name="Donald" highscore="500">
             <hand>
-                <card hidden="true">
+                <card hidden="false">
                     <type>Heart</type>
                     <value>J</value>
                 </card>
-                <card hidden="true">
+                <card hidden="false">
                     <type>Club</type>
                     <value>J</value>
                 </card>
