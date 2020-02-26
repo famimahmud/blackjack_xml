@@ -257,6 +257,48 @@
                 </form>
             </foreignObject>
 
+            <xsl:choose>
+
+                <xsl:when test=" /*/@phase ='bet'">
+                    <foreignObject width="100%" height="100%" x="0%" y="93%">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/confirmBet" method="post"
+                              id="Confirm">
+                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                                    form="Confirm" value="Submit">
+                                Confirm
+                            </button>
+                        </form>
+                    </foreignObject>
+                    <foreignObject width="100%" height="100%" x="90%" y="93%">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/resetBet" method="post"
+                              id="Reset">
+                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                                    form="Reset" value="Submit">
+                                Reset
+                            </button>
+                        </form>
+                    </foreignObject>
+                </xsl:when>
+                <xsl:otherwise>
+                    <foreignObject width="100%" height="100%" x="0%" y="93%">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/hit" method="post" id="Hit">
+                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                                    form="Hit" value="Submit">
+                                Hit
+                            </button>
+                        </form>
+                    </foreignObject>
+                    <foreignObject width="100%" height="100%" x="90%" y="93%">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/stand" method="post" id="Stand">
+                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                                    form="Stand" value="Submit">
+                                Stand
+                            </button>
+                        </form>
+                    </foreignObject>
+                </xsl:otherwise>
+            </xsl:choose>
+
             <foreignObject width="7" height="7" x="35%" y="93%">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_50">
                     <label>
@@ -266,8 +308,8 @@
                                 <xsl:with-param name="id" select="50"/>
                             </xsl:call-template>
                         </svg>
-                        <!-- TODO: Implement playerID parameter -->
-                        <input type="hidden" name="value" id="playerID" value="50"/>
+                        <!-- TODO: Implement playerID parameter
+                        <input type="hidden" name="value" id="playerID" value="50"/> -->
                         <input type="submit" name="value" id="value50" value="50"
                                style="background: transparent; border: none !important;"/>
                     </label>
@@ -333,48 +375,6 @@
                     </label>
                 </form>
             </foreignObject>
-
-            <xsl:choose>
-
-                <xsl:when test=" /*/@phase ='bet'">
-                    <foreignObject width="100%" height="100%" x="0%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/confirmBet" method="post"
-                              id="Confirm">
-                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
-                                    form="Confirm" value="Submit">
-                                Confirm
-                            </button>
-                        </form>
-                    </foreignObject>
-                    <foreignObject width="100%" height="100%" x="90%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/resetBet" method="post"
-                              id="Reset">
-                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
-                                    form="Reset" value="Submit">
-                                Reset
-                            </button>
-                        </form>
-                    </foreignObject>
-                </xsl:when>
-                <xsl:otherwise>
-                    <foreignObject width="100%" height="100%" x="0%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/hit" method="post" id="Hit">
-                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
-                                    form="Hit" value="Submit">
-                                Hit
-                            </button>
-                        </form>
-                    </foreignObject>
-                    <foreignObject width="100%" height="100%" x="90%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/stand" method="post" id="Stand">
-                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
-                                    form="Stand" value="Submit">
-                                Stand
-                            </button>
-                        </form>
-                    </foreignObject>
-                </xsl:otherwise>
-            </xsl:choose>
         </svg>
 
     </xsl:template>
