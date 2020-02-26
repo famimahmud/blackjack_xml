@@ -334,7 +334,6 @@
                 </form>
             </foreignObject>
 
-=======
             <xsl:choose>
 
                 <xsl:when test=" /*/@phase ='bet'">
@@ -376,7 +375,6 @@
                     </foreignObject>
                 </xsl:otherwise>
             </xsl:choose>
->>>>>>> 9ca1b3fe0e2f16e8f997b0169dcef7764f372233
         </svg>
 
     </xsl:template>
