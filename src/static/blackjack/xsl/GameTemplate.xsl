@@ -286,7 +286,7 @@
                 </form>
             </foreignObject>
 
-            <foreignObject width="7" height="7" x="35%" y="93%">
+            <foreignObject width="7" height="7" x="34%" y="93%">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_50">
                     <label>
                         <svg width="7" height="7">
@@ -304,7 +304,7 @@
                 </form>
             </foreignObject>
 
-            <foreignObject width="7" height="7" x="45%" y="93%">
+            <foreignObject width="7" height="7" x="43%" y="93%">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_100">
                     <label>
                         <svg width="7" height="7">
@@ -320,7 +320,7 @@
                 </form>
             </foreignObject>
 
-            <foreignObject width="7" height="7" x="55%" y="93%">
+            <foreignObject width="7" height="7" x="52%" y="93%">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_250">
                     <label>
                         <svg width="7" height="7">
@@ -336,7 +336,7 @@
                 </form>
             </foreignObject>
 
-            <foreignObject width="7" height="7" x="65%" y="93%">
+            <foreignObject width="7" height="7" x="61%" y="93%">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_500">
                     <label>
                         <svg width="7" height="7">
@@ -352,7 +352,7 @@
                 </form>
             </foreignObject>
 
-            <foreignObject width="7" height="7" x="75%" y="93%">
+            <foreignObject width="7" height="7" x="70%" y="93%">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_1000">
                     <label>
                         <svg width="7" height="7">
