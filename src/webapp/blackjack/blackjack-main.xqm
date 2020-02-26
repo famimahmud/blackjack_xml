@@ -8,7 +8,6 @@ declare variable $blackjack-main:deck := db:open("Deck")/deck;
 declare variable $blackjack-main:players := db:open("Players")/players;
 declare variable $blackjack-main:lobby := db:open("Lobby")/lobby;
 
-
 (:~
  : Deck gets shuffled
  : @return the shuffled deck
@@ -121,15 +120,14 @@ function blackjack-main:removePlayer($playerID as xs:string){
    : @return the maximal Value of the Hand (all Aces count 11)
    :)
   declare
-  function blackjack-main:calculateHandValueHelper($hand as element()+) as xs:integer {
-     let $result :=  if (empty($hand/card)) then 0
+  function blackjack-main:calculateHandValueHelper($hand as element()) as xs:integer {
+     if (empty($hand/card)) then 0
         else ( if ($hand/card[position() = 1]/value = "J"
                 or $hand/card[position() = 1]/value = "Q"
                 or $hand/card[position() = 1]/value = "K")
-            then (blackjack-main:calculateHandValueHelper($hand/card[position() > 1]) + 10)
-            else (if ($hand/card[position() = 1]/value = "A") then (blackjack-main:calculateHandValueHelper($hand/card[position() > 1] + 11))
-                else (blackjack-main:calculateHandValueHelper($hand/card[position() > 1]) + xs:integer($hand/card[position() = 1]/value/node()))))
-    return xs:integer($result)
+            then (blackjack-main:calculateHandValueHelper(<hand>{$hand/card[position() > 1]}</hand>) + 10)
+            else (if ($hand/card[position() = 1]/value = "A") then (blackjack-main:calculateHandValueHelper(<hand>{$hand/card[position() > 1]}</hand>) + 11)
+                else (blackjack-main:calculateHandValueHelper(<hand>{$hand/card[position() > 1]}</hand>) + xs:integer($hand/card[position() = 1]/value))))
   };
 
   (:~
@@ -228,12 +226,28 @@ declare
 %updating
 function blackjack-main:moveTurn($playerOnTurn as xs:string){
     if ($playerOnTurn = $blackjack-main:game/@onTurn) then (
-        let $newPlayerTurn := if($blackjack-main:game/@onTurn = $blackjack-main:game/players/player[last()]/@id )
+       blackjack-main:moveTurnHelper($playerOnTurn))
+};
+
+(:~
+ : move Turn to next player with less than 21 or to dealer
+ : @playerOnTurn $playerID whose turn it is next
+ : @return model change to move turn to next player
+ :)
+declare
+%updating
+function blackjack-main:moveTurnHelper($playerOnTurn as xs:string){
+        let $newPlayerTurn := if($playerOnTurn = $blackjack-main:game/players/player[last()]/@id )
             then "dealer"
             else $blackjack-main:game/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
-        return (replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn,
-            (: TO-DO: update Datenbank und sende draw an Player, optional warte 1000ms:)
-            if ($newPlayerTurn = "dealer") then blackjack-main:dealerTurn()))
+        return ( if ($newPlayerTurn = "dealer" or blackjack-main:calculateHandValue($newPlayerTurn) <= 20)
+            then (
+                replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn
+                        (: TO-DO: update Datenbank und sende draw an Player, optional warte 1000ms:)
+(:                        if ($newPlayerTurn = "dealer") then blackjack-main:dealerTurn():)
+                )
+                else (blackjack-main:moveTurnHelper($newPlayerTurn))
+        )
 };
 
 (:~

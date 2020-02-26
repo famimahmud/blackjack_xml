@@ -99,14 +99,6 @@
                     <type>Spade</type>
                     <value>7</value>
                 </card>
-                <card hidden="false">
-                    <type>Heart</type>
-                    <value>4</value>
-                </card>
-                <card hidden="false">
-                    <type>Heart</type>
-                    <value>J</value>
-                </card>
             </hand>
             <wallet>
                 30
@@ -123,23 +115,23 @@
 
         <player id="39602" name="Kim" highscore="200">
             <hand>
-                <card hidden="true">
+                <card hidden="false">
                     <type>Spade</type>
                     <value>2</value>
                 </card>
-                <card hidden="true">
+                <card hidden="false">
                     <type>Heart</type>
                     <value>J</value>
                 </card>
-                <card hidden="true">
+                <card hidden="false">
                     <type>Spade</type>
                     <value>8</value>
                 </card>
-                <card hidden="true">
+                <card hidden="false">
                     <type>Club</type>
                     <value>10</value>
                 </card>
-                <card hidden="true">
+                <card hidden="false">
                     <type>Club</type>
                     <value>10</value>
                 </card>
