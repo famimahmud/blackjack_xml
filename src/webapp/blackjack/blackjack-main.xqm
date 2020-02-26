@@ -25,7 +25,7 @@ declare
 function blackjack-main:newRound($playerName as xs:string, $playerID as xs:integer) { (:$player as element(player)) {:)
     let $deck := blackjack-main:generateDeck()
     let $game :=
-        <game>
+        <game id ="1" round="1" onTurn="{$playerID}" phase="bet">
             {$deck}
 
             <dealer onTurn="false">
