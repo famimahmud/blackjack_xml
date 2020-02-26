@@ -31,17 +31,6 @@ function blackjack-controller:start(){
 };
 
 declare
-%rest:path("/blackjack/newGame")
-%rest:query-param("name", "{$name}")
-%rest:query-param("id", "{$id}")
-%rest:GET
-%updating
-function blackjack-controller:newGame($name as xs:string, $id as xs:integer){
-    let $redirectLink := "/blackjack/draw"
-    return (blackjack-main:newGame($name, $id), update:output(web:redirect("/blackjack/draw")))
-};
-
-declare
 %rest:path("/blackjack/newRound")
 %rest:query-param("name", "{$name}")
 %rest:query-param("id", "{$id}")
@@ -95,8 +84,8 @@ declare function blackjack-controller:genereratePage($game as element(game), $xs
 
 declare
 %rest:path("/blackjack/bet")
-%rest:query-param("value", "{$chipValue}")
 %rest:query-param("playerID", "{$playerID}")
+%rest:query-param("value", "{$chipValue}")
 %output:method("html")
 %rest:POST
 %updating

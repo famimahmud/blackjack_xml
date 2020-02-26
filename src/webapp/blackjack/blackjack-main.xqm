@@ -21,47 +21,32 @@ function blackjack-main:shuffleDeck() {
 };
 
 declare
-  %updating
-  function blackjack-main:newGame($playerName as xs:string, $playerID as xs:integer) { (:$player as element(player)) {:)
-      let $deck := blackjack-main:generateDeck()
-      let $game :=
-          <game round="1" onTurn="dealer" phase="bet">
-              {$deck}
-              <dealer>
-                  <hand>
-                  </hand>
-              </dealer>
+%updating
+function blackjack-main:newRound($playerName as xs:string, $playerID as xs:integer) { (:$player as element(player)) {:)
+    let $deck := blackjack-main:generateDeck()
+    let $game :=
+        <game round="1" onTurn="dealer" phase="bet">
+            {$deck}
+            <dealer>
+                <hand>
+                </hand>
+            </dealer>
 
-              <players>
-                  <player id="{$playerID}" name="{$playerName}">
-                              <hand>
-                              </hand>
-                              <wallet>
-                                  500
-                              </wallet>
-                              <pool locked="false">
-                              </pool>
-                   </player>
-              </players>
-          </game>
+            <players>
+                <player id="{$playerID}" name="{$playerName}">
+                            <hand>
+                            </hand>
+                            <wallet>
+                                500
+                            </wallet>
+                            <pool>
+                            </pool>
+                 </player>
+            </players>
+        </game>
 
-      return (replace node $blackjack-main:game with $game)
-  };
-  declare
-  %updating
-  function blackjack-main:newRound($playerName as xs:string, $playerID as xs:integer) { (:$player as element(player)) {:)
-      let $deck := blackjack-main:generateDeck()
-      let $newPool := <pool locked = "false"/>
-      (:--TODO replace multiple pool nodes with newPool:)
-      return (replace node $blackjack-main:game/deck with $deck,
-              delete node $blackjack-main:gname/players/player/hand/card,
-              delete node $blackjack-main:game/dealer/hand/card,
-              for $oldPool in blackjack-main:game/players/player/pool
-              return(
-                 replace node $oldPool with $newPool
-              )
-      )
-  };
+    return (replace node $blackjack-main:game with $game)
+};
 
 (:~
  : Return random number from given interval [0, max]
