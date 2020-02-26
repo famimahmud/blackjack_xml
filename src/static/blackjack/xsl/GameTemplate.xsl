@@ -225,37 +225,8 @@
                     </button>
                 </form>
             </foreignObject>
-            <foreignObject width="100%" height="100%" x="0%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/hit" method="post" id="Hit">
-                    <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
-                            form="Hit" value="Submit">
-                        Hit
-                    </button>
-                </form>
-            </foreignObject>
-            <foreignObject width="100%" height="100%" x="90%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/stand" method="post" id="Stand">
-                    <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
-                            form="Stand" value="Submit">
-                        Stand
-                    </button>
-                </form>
-            </foreignObject>
 
-            <foreignObject width="7" height="7" x="25%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_10">
-                    <label>
-                        <svg width="7" height="7">
-                            <xsl:call-template name="ChipTemplate">
-                                <xsl:with-param name="chipValue" select="10"/>
-                                <xsl:with-param name="id" select="10"/>
-                            </xsl:call-template>
-                        </svg>
-                        <input type="submit" name="value" id="value10" value="10"
-                               style="background: transparent; border: none !important;"/>
-                    </label>
-                </form>
-            </foreignObject>
+
 
             <xsl:choose>
 
@@ -299,6 +270,22 @@
                 </xsl:otherwise>
             </xsl:choose>
 
+            <foreignObject width="7" height="7" x="25%" y="93%">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_10">
+                    <label>
+                        <svg width="7" height="7">
+                            <xsl:call-template name="ChipTemplate">
+                                <xsl:with-param name="chipValue" select="10"/>
+                                <xsl:with-param name="id" select="10"/>
+                            </xsl:call-template>
+                        </svg>
+                        <input type="submit" name="value" id="value10" value="10"
+                               style="background: transparent; border: none !important;"/>
+                        <input type="hidden" name="playerID" id="playerID10" value="/*/players/*/@id"></input>
+                    </label>
+                </form>
+            </foreignObject>
+
             <foreignObject width="7" height="7" x="35%" y="93%">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_50">
                     <label>
@@ -312,6 +299,7 @@
                         <input type="hidden" name="value" id="playerID" value="50"/> -->
                         <input type="submit" name="value" id="value50" value="50"
                                style="background: transparent; border: none !important;"/>
+                        <input type="hidden" name="playerID" id="playerID50" value="/*/players/*/@id"></input>
                     </label>
                 </form>
             </foreignObject>
@@ -327,6 +315,7 @@
                         </svg>
                         <input type="submit" name="value" id="value100" value="100"
                                style="background: transparent; border: none !important;"/>
+                        <input type="hidden" name="playerID" id="playerID100" value="/*/players/*/@id"></input>
                     </label>
                 </form>
             </foreignObject>
@@ -342,6 +331,7 @@
                         </svg>
                         <input type="submit" name="value" id="value250" value="250"
                                style="background: transparent; border: none !important;"/>
+                        <input type="hidden" name="playerID" id="playerID250" value="/*/players/*/@id"></input>
                     </label>
                 </form>
             </foreignObject>
@@ -357,6 +347,7 @@
                         </svg>
                         <input type="submit" name="value" id="value500" value="500"
                                style="background: transparent; border: none !important;"/>
+                        <input type="hidden" name="playerID" id="playerID500" value="/*/players/*/@id"></input>
                     </label>
                 </form>
             </foreignObject>
@@ -372,6 +363,7 @@
                         </svg>
                         <input type="submit" name="value" id="value1000" value="1000"
                                style="background: transparent; border: none !important;"/>
+                        <input type="hidden" name="playerID" id="playerID1000" value="/*/players/*/@id"></input>
                     </label>
                 </form>
             </foreignObject>
