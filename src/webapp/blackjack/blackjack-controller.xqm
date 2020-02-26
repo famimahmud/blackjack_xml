@@ -126,11 +126,11 @@ declare
 %updating
 function blackjack-controller:resetBet($playerID as xs:string){
     let $game := blackjack-main:getGame()
-    let $wallet := xs:integer(game/players/player[@id=$playerID]/wallet/node())
-    let $poolBet := sum(game/players/player[@id=$playerID]/pool/chip/value)
+    let $wallet := xs:integer($game/players/player[@id=$playerID]/wallet/node())
+    let $poolBet := sum($game/players/player[@id=$playerID]/pool/chip/value)
     return (
         if($game/@phase = "bet" and $game/players/player[@id = $playerID]/pool/@locked = "false")
-        then (  replace node $game/players/player[@id=$playerID]/wallet with ($wallet + $poolBet),
+        then (  replace node $game/players/player[@id=$playerID]/wallet/node() with ($wallet + $poolBet),
                 replace node $game/players/player[@id = $playerID]/pool with <pool locked="false"></pool>,
                 update:output(web:redirect("/blackjack/draw"))
         )
@@ -146,7 +146,7 @@ declare
 function blackjack-controller:hit($playerID as xs:string){
     let $game := blackjack-main:getGame()
     return (
-        (if($game/@onTurn = $playerID and blackjack-main:calculateHandValue($playerID) < 21)
+        (if($game/@onTurn = $playerID and $game/@phase = "play" and blackjack-main:calculateHandValue($playerID) < 21)
         then blackjack-main:drawCard($playerID)),
         update:output(web:redirect("/blackjack/draw"))
     )

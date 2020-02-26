@@ -200,7 +200,7 @@ function blackjack-main:bet($playerID as xs:string, $chipValue as xs:integer){
             or $chipValue = 250 or $chipValue = 500 or $chipValue = 1000)
             and $chipValue <= $wallet)
             then (
-                replace node $blackjack-main:game/players/player[@id=$playerID]/wallet with ($wallet - $chipValue),
+                replace node $blackjack-main:game/players/player[@id=$playerID]/wallet/node() with ($wallet - $chipValue),
                 insert node $newChip into $blackjack-main:game/players/player[@id=$playerID]/pool
             )
 };
