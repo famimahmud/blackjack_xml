@@ -146,12 +146,9 @@ declare
 function blackjack-controller:hit($playerID as xs:string){
     let $game := blackjack-main:getGame()
     return (
-        if($game/@onTurn = $playerID and blackjack-main:calculateHandValue($playerID) < 21)
-        then (blackjack-main:drawCard($playerID),
-             (:check if player is over 21 -> if true: moveTurn:)
-            (if (blackjack-main:calculateHandValue($playerID) > 21) then blackjack-main:moveTurn($playerID)),
-                update:output(web:redirect("/blackjack/draw")) (:redirect always? (outside of if):)
-        )
+        (if($game/@onTurn = $playerID and blackjack-main:calculateHandValue($playerID) < 21)
+        then blackjack-main:drawCard($playerID)),
+        update:output(web:redirect("/blackjack/draw"))
     )
 };
 

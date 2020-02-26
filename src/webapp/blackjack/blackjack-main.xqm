@@ -96,7 +96,11 @@ function blackjack-main:removePlayer($playerID as xs:string){
         else <card hidden="false">{$card/type}{$card/value}</card>
     return (
             delete node $blackjack-main:game/deck/card[position() = $randomNumber],
-            insert node $revealedCard into $blackjack-main:game/players/player[@id = $playerID]/hand
+            (if ($playerID = "dealer")
+                then insert node $revealedCard into $blackjack-main:game/dealer/hand
+                else insert node $revealedCard into $blackjack-main:game/players/player[@id = $playerID]/hand),
+            if (blackjack-helper:getNewHandValue($card/value, blackjack-main:calculateHandValue($playerID)) > 20)
+                then blackjack-main:moveTurn($playerID)
     )
  };
 
@@ -225,9 +229,9 @@ declare
 %updating
 function blackjack-main:moveTurn($playerOnTurn as xs:string){
     if ($playerOnTurn = $blackjack-main:game/@onTurn) then (
-        let $newPlayerTurn := if($blackjack-main:game/@onTurn = game/players/player[last()]/@id )
+        let $newPlayerTurn := if($blackjack-main:game/@onTurn = $blackjack-main:game/players/player[last()]/@id )
             then "dealer"
-            else game/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
+            else $blackjack-main:game/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
         return (replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn,
             (: TO-DO: update Datenbank und sende draw an Player, optional warte 1000ms:)
             if ($newPlayerTurn = "dealer") then blackjack-main:dealerTurn()))
