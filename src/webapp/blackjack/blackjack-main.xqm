@@ -62,14 +62,7 @@ function blackjack-main:newGame($playerName as xs:string, $playerID as xs:intege
   %updating
   function blackjack-main:newRound () {
       let $deck := blackjack-main:generateDeck()
-      let $newPool := <pool locked = "false"/>
-      return (replace node $blackjack-main:game/deck with $deck,
-              delete node $blackjack-main:game/players/player/hand/card,
-              delete node $blackjack-main:game/dealer/hand/card,
-              for $oldPool in $blackjack-main:game/players/player/pool
-              return(
-                 replace node $oldPool with $newPool
-              )
+      return (replace node $blackjack-main:game/deck with $deck
       )
   };
 
@@ -152,7 +145,7 @@ function blackjack-main:removePlayer($playerID as xs:string){
                 or $hand/card[position() = 1]/value = "K")
             then (blackjack-main:calculateHandValueHelper(<hand>{$hand/card[position() > 1]}</hand>) + 10)
             else (if ($hand/card[position() = 1]/value = "A") then (blackjack-main:calculateHandValueHelper(<hand>{$hand/card[position() > 1]}</hand>) + 11)
-                else (blackjack-main:calculateHandValueHelper(<hand>{$hand/card[position() > 1]}</hand>) + xs:integer($hand/card[position() = 1]/value))))
+                else (blackjack-main:calculateHandValueHelper(<hand>{$hand/card[position() > 1]}</hand>) + xs:integer($hand/card[position() = 1]/value/node()))))
   };
 
   (:~
@@ -175,13 +168,26 @@ function blackjack-main:removePlayer($playerID as xs:string){
 declare
 %updating
 function blackjack-main:payPhase(){
+    blackjack-main:payEachPlayer(),
+    replace node $blackjack-main:game/dealer/hand with <hand sum="0"/>,
+    (:new Round -Funktion definieren:)
+    replace value of node $blackjack-main:game/@phase with "bet",
+    blackjack-main:newRound()
+};
+
+(:~
+ : pay all players and change to bet-Phase
+ : @return model change at player-wallets and player-pools
+ :)
+declare
+%updating
+function blackjack-main:payEachPlayer(){
     for $playerID in blackjack-main:game/players/player/@id
     return (
-        blackjack-main:payPlayer($playerID),
-        delete node $blackjack-main:game/dealer/hand/card,
-        replace value of node $blackjack-main:game/@phase with "bet"
+        blackjack-main:payPlayer($playerID)
     )
 };
+
 (:~
  : move the current turn to the given player
  : @playerID $playerID who will be paid
@@ -196,7 +202,7 @@ function blackjack-main:payPlayer($playerID as xs:string){
     let $dealerValue := $blackjack-main:game/dealer/hand/@sum
     return (
         replace node $blackjack-main:game/players/player[@id=$playerID]/pool with <pool locked="false"></pool>,
-        delete node $blackjack-main:game/players/player[@id=$playerID]/hand/card,
+        replace node $blackjack-main:game/players/player[@id=$playerID]/hand with <hand sum="0"/>,
         (: check if playerhand is below 22 -> if not -> loss :)
         if ($playerValue < 22) then (
             (: check if playerhand = dealerhand  -> no gain :)
@@ -282,15 +288,29 @@ declare
 function blackjack-main:moveTurnHelper($playerOnTurn as xs:string){
         let $newPlayerTurn := if($playerOnTurn = $blackjack-main:game/players/player[last()]/@id )
             then "dealer"
-            else $blackjack-main:game/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
+            else if ($playerOnTurn = "dealer") then $blackjack-main:game/players/player[position() = 1]/@id
+                 else $blackjack-main:game/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
         return ( if ($newPlayerTurn = "dealer" or $blackjack-main:game/players/player[@id=$newPlayerTurn]/hand/@sum <= 20)
             then (
-                replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn
+                replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn,
                         (: TO-DO: update Datenbank und sende draw an Player, optional warte 1000ms:)
-(:                        if ($newPlayerTurn = "dealer") then blackjack-main:dealerTurn():)
+                        if ($newPlayerTurn = "dealer")
+                            then blackjack-main:revealeDealerHand(),
+                                 update:output(web:redirect("blackjack/dealerTurn"))
                 )
                 else (blackjack-main:moveTurnHelper($newPlayerTurn))
         )
+};
+
+declare
+%updating
+function blackjack-main:revealeDealerHand() {
+    let $dealerHandValue := blackjack-main:calculateHandValue($blackjack-main:game/dealer/hand)
+        let $firstCard := $blackjack-main:game/dealer/hand/card[position() = 1]
+        return (if ($blackjack-main:game/@onTurn = "dealer") then (
+                (replace node $blackjack-main:game/dealer/hand
+                    with <hand sum="{$dealerHandValue}"><card hidden="false">{$firstCard/type}{$firstCard/value}</card>
+                    {$blackjack-main:game/dealer/hand/card[position() > 1]}</hand>)))
 };
 
 (:~
@@ -302,12 +322,12 @@ declare
 function blackjack-main:dealerTurn(){
     let $dealerHandValue := blackjack-main:calculateHandValue($blackjack-main:game/dealer/hand)
     return (if ($blackjack-main:game/@onTurn = "dealer") then (
-            replace node $blackjack-main:game/dealer/hand/card[position() = 1]/@hidden with "false",
+            update:output(web:redirect("/blackjack/draw")),
+            prof:sleep(1000), (: pause for 1000ms :)
             if ($dealerHandValue < 17) then
-            blackjack-main:drawCard("dealer"),
-            (: TO-DO: update Datenbank und sende draw an Player, optional warte 1000ms:)
-            blackjack-main:dealerTurn())
-            else (blackjack-main:payPhase()))
+            blackjack-main:drawCard("dealer")
+            else replace value of node $blackjack-main:game/@phase with "pay",
+                 update:output(web:redirect("/blackjack/draw"))))
 };
 
 (:~

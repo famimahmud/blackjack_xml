@@ -19,7 +19,7 @@
         <xsl:variable name="rectMidWidth" select="50"/>
         <xsl:variable name="strokeWidth" select="0.5"/>
         <xsl:variable name="edgeRadius" select="2"/>
-        <xsl:variable name="highscoreBoard" select="document('../HighscoreBoard.xml')"/>
+        <xsl:variable name="highscoreBoard" select="document('../Highscores.xml')"/>
 
         <xsl:variable name="cardX" select="2.5"/>
         <xsl:variable name="cardY" select="1.5"/>
@@ -205,17 +205,17 @@
 
                 <!-- Liste der Highscores-->
                 <xsl:for-each select="$highscoreBoard/highscores/highscore">
-                    <xsl:variable name="currentY" select="($startY + 9) + (position() * 6)"/>
-                    <xsl:variable name="position" select="position"/>
+                    <xsl:variable name="currentY" select="($startY + 6) + (position() * 4)"/>
+                    <xsl:variable name="position" select="@position"/>
                     <xsl:variable name="name" select="name"/>
                     <xsl:variable name="score" select="score"/>
 
                     <text y="{$currentY}" fill="{$textColor}" font-size="{$fontSize - 2}" font-family="{$fonts}">
                         <tspan x="{$startX - 3}" alignment-baseline="hanging">
-                            <xsl:value-of select="concat($position, $name)"/>
+                            <xsl:value-of select="concat($position, '. ', $name)"/>
                         </tspan>
                         <tspan x="{$startX + 20}" alignment-baseline="hanging">
-                            <xsl:value-of select="$score"/>
+                            <xsl:value-of select="concat($score, '$')"/>
                         </tspan>
                     </text>
                 </xsl:for-each>

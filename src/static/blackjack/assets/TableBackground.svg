@@ -8,6 +8,10 @@
      width="100%" height="100%" viewBox="0 0 1500 1000" stroke="white"
      font-family="Raleway, serif" font-size="40" preserveAspectRatio="none">
 
+    <defs>
+        <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Raleway');</style>
+    </defs>
+
     <radialGradient id="radialgradient">
         <stop offset="10%" style="stop-color:green;stop-opacity:1"/>
         <stop offset="100%" style="stop-color:darkgreen;stop-opacity:1"/>
@@ -20,6 +24,14 @@
 
     <rect height="100%" width="100%" fill="green"/>
     <path d="M0 0 L0 350 Q750 550 1500 350 L1500 0" stroke="none" fill="url(#radialgradient)"/>
+
+    <path id="bow" d="M0 340 Q750 540 1500 340 M1500 340" stroke="none" fill="none"/>
+
+    <text font-family="Raleway, serif">
+        <textPath xlink:href="#bow" stroke="#004a00" fill="#004a00" startOffset="0.5%" font-size="25" textLength="1500">
+            BLACKJACK PAYS 3 TO 2 • DEALER MUST DRAW TO 16 AND STAND ON 17
+        </textPath>
+    </text>
 
     <rect x="0" y="910" height="90" width="100%" fill="url(#lineargradient)" stroke="none"/>
 
