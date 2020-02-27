@@ -80,7 +80,7 @@
 
             <!-- Name and ID in the top left corner -->
             <text x="1%" y="1%" fill="{$textColor}" font-size="{$fontSize + 1}"
-                  font-family="helvetica"
+                  font-family="{$fonts}"
                   font-style="oblique"
                   alignment-baseline="hanging">
                 <xsl:value-of select="concat(/*/players/*/@name, /*/players/*/@id)"></xsl:value-of>
