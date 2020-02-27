@@ -38,7 +38,10 @@ declare
 %updating
 function blackjack-controller:newGame($name as xs:string, $id as xs:integer){
     let $redirectLink := "/blackjack/draw"
-    return (blackjack-main:newGame($name, $id), update:output(web:redirect("/blackjack/draw")))
+    let $lobby := blackjack-main:getLobby()
+    return (
+        blackjack-main:newGame($name, $id),
+        update:output(web:redirect("/blackjack/draw")))
 };
 
 declare
@@ -175,13 +178,29 @@ function blackjack-controller:stand($playerID as xs:string){
 };
 
 declare
-%rest:path("/blackjack/restore")
+%rest:path("/blackjack/dealerTurn")
+%output:method("html")
+%rest:GET
+%updating
+function blackjack-controller:dealerTurn(){
+    let $game := blackjack-main:getGame()
+    return (
+        if($game/@onTurn = "dealer" and $game/@phase = "play")
+        then (blackjack-main:dealerTurn()),
+        if($game/dealer/hand/@sum < 17) then
+        update:output(web:redirect("blackjack/dealerTurn"))
+        else update:output(web:redirect("/blackjack/draw"))
+        )
+};
+
+declare
+%rest:path("/blackjack/restoreAccount")
 %rest:query-param("playerName", "{$playerName}")
 %rest:query-param("playerID", "{$playerID}")
 %output:method("html")
 %rest:POST
 %updating
-function blackjack-controller:restore($playerName as xs:string, $playerID as xs:string){
+function blackjack-controller:restoreAccount($playerName as xs:string, $playerID as xs:string){
     let $player := blackjack-main:getPlayers()/player[@id=$playerID and @name=$playerName]
     let $lobby := blackjack-main:getLobby()
     return (
@@ -191,3 +210,4 @@ function blackjack-controller:restore($playerName as xs:string, $playerID as xs:
         update:output(web:redirect("/blackjack/start"))
     )
 };
+
