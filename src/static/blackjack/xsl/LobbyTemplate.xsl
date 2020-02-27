@@ -230,7 +230,7 @@
                 <!-- Spielstand wiederherstellen-->
                 <line x1="{$startX}" y1="{$startY + 25}" x2="{$rectMidWidth - 5}" y2="{$startY + 25}"
                       fill="{$rectColor}" stroke="{$textColor}" stroke-width="0.5"/>
-<<<<<<< HEAD
+
                 <!--<text fill="{$textColor}" font-size="{$fontSize - 1}" font-family="helvetica"
 =======
                 <text fill="{$textColor}" font-size="{$fontSize - 1}" font-family="{$fonts}"
