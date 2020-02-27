@@ -173,3 +173,19 @@ function blackjack-controller:stand($playerID as xs:string){
         update:output(web:redirect("/blackjack/draw"))
     )
 };
+
+declare
+%rest:path("/blackjack/dealerTurn")
+%output:method("html")
+%rest:GET
+%updating
+function blackjack-controller:dealerTurn(){
+    let $game := blackjack-main:getGame()
+    return (
+        if($game/@onTurn = "dealer" and $game/@phase = "play")
+        then (blackjack-main:dealerTurn()),
+        if($game/dealer/hand/@sum < 17) then
+        update:output(web:redirect("blackjack/dealerTurn"))
+        else update:output(web:redirect("/blackjack/draw"))
+    )
+};
