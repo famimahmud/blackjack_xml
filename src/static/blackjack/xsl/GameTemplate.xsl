@@ -79,11 +79,16 @@
             </xsl:for-each>
 
             <!-- Name and ID in the top left corner -->
-            <text x="1%" y="1%" fill="{$textColor}" font-size="{$fontSize + 1}"
+            <rect x="0" y="0" rx="2" ry="2" height="15" width="30" style="fill: #134900; opacity: 0.5"/>
+            <text x="2" y="3" fill="{$textColor}" font-size="{$fontSize - 1.5}"
                   font-family="{$fonts}"
-                  font-style="oblique"
                   alignment-baseline="hanging">
-                <xsl:value-of select="concat(/*/players/*/@name, /*/players/*/@id)"></xsl:value-of>
+                <xsl:value-of select="concat('Your name: ', /*/players/*/@name)"/>
+            </text>
+            <text x="2" y="8" fill="{$textColor}" font-size="{$fontSize - 1.5}"
+                  font-family="{$fonts}"
+                  alignment-baseline="hanging">
+                <xsl:value-of select="concat('Your ID: ', /*/players/*/@id)"/>
             </text>
 
             <!-- Generate Dealer card box -->
