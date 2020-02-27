@@ -221,6 +221,24 @@ function blackjack-main:bet($playerID as xs:string, $chipValue as xs:integer){
 };
 
 (:~
+ : confirm the bet of the given player
+ : @playerID $playerID of the player, whos bets will be confirmed
+ : @return model change to move turn to next player
+ :)
+declare
+%updating
+function blackjack-main:confirmBet($playerID as xs:string){
+    if ($blackjack-main:game/players/player[@id = $playerID]/pool/@locked = "false")
+    then (
+        replace node $blackjack-main:game/players/player[@id = $playerID]/pool
+            with <pool locked="true">{$blackjack-main:game/players/player[@id = $playerID]/pool/chip}</pool>,
+        (:check if all players confirmed their bets -> if true: hand out Cards:)
+        if (count($blackjack-main:game/players/player/pool[@locked="true"]/@locked) >= (count($blackjack-main:game/players/player) - 1))
+        then blackjack-main:handOutCards()
+        )
+};
+
+(:~
  : give every player and the dealer two cards
  : @return model change to move turn to next player
  :)
