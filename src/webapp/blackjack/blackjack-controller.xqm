@@ -27,7 +27,7 @@ function blackjack-controller:start(){
     let $lobby := blackjack-main:getLobby()
         let $xslStylesheet := "LobbyTemplate.xsl"
         let $title := "Blackjack Lobby"
-        return (blackjack-controller:genererateLobby($lobby, $xslStylesheet, $title))
+        return (blackjack-controller:generateLobby($lobby, $xslStylesheet, $title))
 };
 
 declare
@@ -60,10 +60,10 @@ function blackjack-controller:drawGame(){
     let $game := blackjack-main:getGame()
     let $xslStylesheet := "GameTemplate.xsl"
     let $title := "Blackjack"
-    return (blackjack-controller:genereratePage($game, $xslStylesheet, $title))
+    return (blackjack-controller:generatePage($game, $xslStylesheet, $title))
 };
 
-declare function blackjack-controller:genererateLobby($lobby as element(lobby), $xslStylesheet as xs:string,
+declare function blackjack-controller:generateLobby($lobby as element(lobby), $xslStylesheet as xs:string,
         $title as xs:string) {
     let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/", $xslStylesheet))
     let $transformed := xslt:transform($lobby, $stylesheet)
@@ -71,6 +71,7 @@ declare function blackjack-controller:genererateLobby($lobby as element(lobby), 
         <html>
             <head>
                 <title>{$title}</title>
+                <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
             </head>
             <body style="background: url(/static/blackjack/assets/LobbyBackground.svg">
                 {$transformed}
@@ -78,7 +79,7 @@ declare function blackjack-controller:genererateLobby($lobby as element(lobby), 
         </html>
 };
 
-declare function blackjack-controller:genereratePage($game as element(game), $xslStylesheet as xs:string,
+declare function blackjack-controller:generatePage($game as element(game), $xslStylesheet as xs:string,
         $title as xs:string) {
     let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/", $xslStylesheet))
     let $transformed := xslt:transform($game, $stylesheet)
@@ -86,6 +87,7 @@ declare function blackjack-controller:genereratePage($game as element(game), $xs
         <html>
             <head>
                 <title>{$title}</title>
+                <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
             </head>
             <body style="background: url(/static/blackjack/assets/TableBackground.svg">
                 {$transformed}

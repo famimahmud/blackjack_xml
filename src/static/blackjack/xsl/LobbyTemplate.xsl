@@ -28,7 +28,7 @@
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              width="100%" height="100%" viewBox="0 0 {$width} {$height}"
-             style="background: url(/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/LobbyBackground.svg); background-size: 100% 100%">
+             >
 
             <!-- Import online fonts -->
             <defs>
@@ -37,101 +37,11 @@
 
             <!-- Überschrift -->
             <!-- Logo -->
-            <svg x="{($width div 2)-35}" y="{$height div 15}" width="{$fontSize*3}" height="{$fontSize*3}"
-                 viewBox="0 0 10 10">
-                <symbol id="leftCard" viewBox="0 0 {$cardWidth} {$cardHeight}">
-                    <linearGradient id="gradient1" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1"/>
-                        <stop offset="100%" style="stop-color:#ffffe6;stop-opacity:1"/>
-                    </linearGradient>
-                    <rect x="0"
-                          y="0"
-                          width="5"
-                          height="7"
-                          rx="0.25"
-                          ry="0.25"
-                          fill="url(#gradient1)"
-                          style="stroke:black;stroke-width:0.03"/>
-                    <symbol id="valueBox1">
-                        <svg height="2" width="1" viewBox="0 0 1 2">
-                            <text x="0.05"
-                                  y="0.8"
-                                  font-size="0.8"
-                                  font-family="{$fonts}"
-                                  fill="black">A
-                            </text>
-                            <image x="0"
-                                   y="1"
-                                   width="0.6"
-                                   height="0.6"
-                                   xlink:href="/static/blackjack/assets/icons/Club.svg"/>
-                        </svg>
-                    </symbol>
-                    <use xlink:href="#valueBox1" x="0.2" y="0"/>
-                    <use xlink:href="#valueBox1"
-                         x="0.2"
-                         y="0"
-                         transform="rotate(180 2.5 3.5)"/>
-                    <svg x="0.5"
-                         y="1"
-                         width="4"
-                         height="5"
-                         viewBox="0 0 5 7"
-                         preserveAspectRatio="none">
-                        <image x="2"
-                               y="3"
-                               width="1"
-                               height="1"
-                               xlink:href="/static/blackjack/assets/icons/Club.svg"/>
-                    </svg>
-                </symbol>
+            <image x="{($width div 2)-35}" y="{$height div 15}"
+                   width="{$fontSize*3}" height="{$fontSize*3}"
+                   xlink:href="/static/blackjack/assets/icons/Logo.svg"/>
 
-                <symbol id="rightCard" viewBox="0 0 {$cardWidth} {$cardHeight}">
-                    <linearGradient id="gradient2" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1"/>
-                        <stop offset="100%" style="stop-color:#ffffe6;stop-opacity:1"/>
-                    </linearGradient>
-                    <rect x="0"
-                          y="0"
-                          width="5"
-                          height="7"
-                          rx="0.25"
-                          ry="0.25"
-                          fill="url(#gradient2)"
-                          style="stroke:{$rectColor};stroke-width:0.03"/>
-                    <symbol id="valueBox2">
-                        <svg height="2" width="1" viewBox="0 0 1 2">
-                            <text x="0.05"
-                                  y="0.8"
-                                  font-size="0.8"
-                                  font-family="{$fonts}"
-                                  fill="red">K
-                            </text>
-                            <image x="0"
-                                   y="1"
-                                   width="0.6"
-                                   height="0.6"
-                                   xlink:href="/static/blackjack/assets/icons/Heart.svg"/>
-                        </svg>
-                    </symbol>
-                    <use xlink:href="#valueBox2" x="0.2" y="0"/>
-                    <use xlink:href="#valueBox2"
-                         x="0.2"
-                         y="0"
-                         transform="rotate(180 2.5 3.5)"/>
-                    <image x="0.1"
-                           y="1"
-                           width="4.9"
-                           height="5"
-                           xlink:href="/static/blackjack/assets/icons/red/King.svg"/>
-                </symbol>
-                <use xlink:href="#leftCard" x="{$cardX}" y="{$cardY}" width="{$cardWidth}" height="{$cardHeight}"
-                     transform="rotate(340,5,5)"/>
-                <use xlink:href="#rightCard" x="{$cardX}" y="{$cardY}" width="{$cardWidth}" height="{$cardHeight}"
-                     transform="rotate(20,5,5)"/>
-            </svg>
-
-            <text x="{$width div 2}" y="{$height div 10}" fill="{$textColor}" font-size="{$fontSize * 2}"
+            <text x="{$width div 2 + 5}" y="{$height div 10}" fill="{$textColor}" font-size="{$fontSize * 2}"
                   font-family="{$fonts}" text-anchor="middle"
                   alignment-baseline="hanging">
                 Blackjack
