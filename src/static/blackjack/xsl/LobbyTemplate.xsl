@@ -28,7 +28,7 @@
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              width="100%" height="100%" viewBox="0 0 {$width} {$height}"
-             style="background: url(/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/LobbyBackground.svg); background-size: 100% 100%">
+             >
 
             <!-- Import online fonts -->
             <defs>
@@ -37,101 +37,11 @@
 
             <!-- Überschrift -->
             <!-- Logo -->
-            <svg x="{($width div 2)-35}" y="{$height div 15}" width="{$fontSize*3}" height="{$fontSize*3}"
-                 viewBox="0 0 10 10">
-                <symbol id="leftCard" viewBox="0 0 {$cardWidth} {$cardHeight}">
-                    <linearGradient id="gradient1" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1"/>
-                        <stop offset="100%" style="stop-color:#ffffe6;stop-opacity:1"/>
-                    </linearGradient>
-                    <rect x="0"
-                          y="0"
-                          width="5"
-                          height="7"
-                          rx="0.25"
-                          ry="0.25"
-                          fill="url(#gradient1)"
-                          style="stroke:black;stroke-width:0.03"/>
-                    <symbol id="valueBox1">
-                        <svg height="2" width="1" viewBox="0 0 1 2">
-                            <text x="0.05"
-                                  y="0.8"
-                                  font-size="0.8"
-                                  font-family="{$fonts}"
-                                  fill="black">A
-                            </text>
-                            <image x="0"
-                                   y="1"
-                                   width="0.6"
-                                   height="0.6"
-                                   xlink:href="/static/blackjack/assets/icons/Club.svg"/>
-                        </svg>
-                    </symbol>
-                    <use xlink:href="#valueBox1" x="0.2" y="0"/>
-                    <use xlink:href="#valueBox1"
-                         x="0.2"
-                         y="0"
-                         transform="rotate(180 2.5 3.5)"/>
-                    <svg x="0.5"
-                         y="1"
-                         width="4"
-                         height="5"
-                         viewBox="0 0 5 7"
-                         preserveAspectRatio="none">
-                        <image x="2"
-                               y="3"
-                               width="1"
-                               height="1"
-                               xlink:href="/static/blackjack/assets/icons/Club.svg"/>
-                    </svg>
-                </symbol>
+            <image x="{($width div 2)-35}" y="{$height div 15}"
+                   width="{$fontSize*3}" height="{$fontSize*3}"
+                   xlink:href="/static/blackjack/assets/icons/Logo.svg"/>
 
-                <symbol id="rightCard" viewBox="0 0 {$cardWidth} {$cardHeight}">
-                    <linearGradient id="gradient2" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1"/>
-                        <stop offset="100%" style="stop-color:#ffffe6;stop-opacity:1"/>
-                    </linearGradient>
-                    <rect x="0"
-                          y="0"
-                          width="5"
-                          height="7"
-                          rx="0.25"
-                          ry="0.25"
-                          fill="url(#gradient2)"
-                          style="stroke:{$rectColor};stroke-width:0.03"/>
-                    <symbol id="valueBox2">
-                        <svg height="2" width="1" viewBox="0 0 1 2">
-                            <text x="0.05"
-                                  y="0.8"
-                                  font-size="0.8"
-                                  font-family="{$fonts}"
-                                  fill="red">K
-                            </text>
-                            <image x="0"
-                                   y="1"
-                                   width="0.6"
-                                   height="0.6"
-                                   xlink:href="/static/blackjack/assets/icons/Heart.svg"/>
-                        </svg>
-                    </symbol>
-                    <use xlink:href="#valueBox2" x="0.2" y="0"/>
-                    <use xlink:href="#valueBox2"
-                         x="0.2"
-                         y="0"
-                         transform="rotate(180 2.5 3.5)"/>
-                    <image x="0.1"
-                           y="1"
-                           width="4.9"
-                           height="5"
-                           xlink:href="/static/blackjack/assets/icons/red/King.svg"/>
-                </symbol>
-                <use xlink:href="#leftCard" x="{$cardX}" y="{$cardY}" width="{$cardWidth}" height="{$cardHeight}"
-                     transform="rotate(340,5,5)"/>
-                <use xlink:href="#rightCard" x="{$cardX}" y="{$cardY}" width="{$cardWidth}" height="{$cardHeight}"
-                     transform="rotate(20,5,5)"/>
-            </svg>
-
-            <text x="{$width div 2}" y="{$height div 10}" fill="{$textColor}" font-size="{$fontSize * 2}"
+            <text x="{$width div 2 + 5}" y="{$height div 10}" fill="{$textColor}" font-size="{$fontSize * 2}"
                   font-family="{$fonts}" text-anchor="middle"
                   alignment-baseline="hanging">
                 Blackjack
@@ -147,7 +57,7 @@
                 <xsl:variable name="name" select="lobby/player/@name"/>
                 <xsl:variable name="id" select="lobby/player/@id"/>
                 <foreignObject width="100%" height="100%" x="{$startX}" y="{$startY - 1}">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/newGame" method="get" id="Neues Spiel">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/newRound" method="get" id="Neues Spiel">
                         <input type="hidden" name="name" id="name" value="{$name}"/>
                         <input type="hidden" name="id" id="id" value="{$id}"/>
                         <button style=" width:80%; height:20%; display:table-cell; font-size:{$fontSize - 1}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
@@ -230,11 +140,21 @@
                 <!-- Spielstand wiederherstellen-->
                 <line x1="{$startX}" y1="{$startY + 25}" x2="{$rectMidWidth - 5}" y2="{$startY + 25}"
                       fill="{$rectColor}" stroke="{$textColor}" stroke-width="0.5"/>
-                <text fill="{$textColor}" font-size="{$fontSize - 1}" font-family="{$fonts}"
-                      alignment-baseline="hanging">
-                    <tspan x="{$startX}" y="{$startY + 34}">Spielstand</tspan>
-                    <tspan x="{$startX}" y="{$startY + 39}">wiederherstellen:</tspan>
-                </text>
+
+                <foreignObject width="100%" height="100%" font-family="helvetica" fill="{$textColor}" font-size="{$fontSize - 1}" x="{$startX}" y="{$startY+30}">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/restore" method="post" id="restore" >
+                        <input  size="23" type="text" name="playerName" id="playerName" style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="Name"/>
+                        <input  size="8" type="text" name="playerID" id="playerID" style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="ID"/> <br/>
+                        <button style=" width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                                form="restore" value="Submit">
+                            Spielstand wiederherstellen
+                        </button>
+                    </form>
+                </foreignObject>
+
+
+
+                <!--
                 <rect x="{$startX}" y="{$startY + 42}" width="{$rectMidWidth - 25}" height="{$rectHeight div 12}"
                       fill="none" style="stroke:{$rectColor};stroke-width:{$strokeWidth - 0.2}"/>
                 <text x="{$startX + 1}" y="{$startY + 42.5}" fill="{$textColor}" font-size="{$fontSize - 1}"
@@ -257,7 +177,7 @@
                       font-family="{$fonts}" text-anchor="middle"
                       alignment-baseline="hanging">
                     -->
-                </text>
+                <!--</text> -->
             </svg>
 
             <!-- 3. Rechteck - HighscoreBoard -->

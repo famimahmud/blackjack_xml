@@ -27,7 +27,7 @@ function blackjack-controller:start(){
     let $lobby := blackjack-main:getLobby()
         let $xslStylesheet := "LobbyTemplate.xsl"
         let $title := "Blackjack Lobby"
-        return (blackjack-controller:genererateLobby($lobby, $xslStylesheet, $title))
+        return (blackjack-controller:generateLobby($lobby, $xslStylesheet, $title))
 };
 
 declare
@@ -43,13 +43,11 @@ function blackjack-controller:newGame($name as xs:string, $id as xs:integer){
 
 declare
 %rest:path("/blackjack/newRound")
-%rest:query-param("name", "{$name}")
-%rest:query-param("id", "{$id}")
 %rest:GET
 %updating
-function blackjack-controller:newRound($name as xs:string, $id as xs:integer){
+function blackjack-controller:newRound(){
     let $redirectLink := "/blackjack/draw"
-    return (blackjack-main:newRound($name, $id), update:output(web:redirect("/blackjack/draw")))
+    return (blackjack-main:newRound(), update:output(web:redirect("/blackjack/draw")))
 };
 
 declare
@@ -60,10 +58,10 @@ function blackjack-controller:drawGame(){
     let $game := blackjack-main:getGame()
     let $xslStylesheet := "GameTemplate.xsl"
     let $title := "Blackjack"
-    return (blackjack-controller:genereratePage($game, $xslStylesheet, $title))
+    return (blackjack-controller:generatePage($game, $xslStylesheet, $title))
 };
 
-declare function blackjack-controller:genererateLobby($lobby as element(lobby), $xslStylesheet as xs:string,
+declare function blackjack-controller:generateLobby($lobby as element(lobby), $xslStylesheet as xs:string,
         $title as xs:string) {
     let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/", $xslStylesheet))
     let $transformed := xslt:transform($lobby, $stylesheet)
@@ -71,6 +69,7 @@ declare function blackjack-controller:genererateLobby($lobby as element(lobby), 
         <html>
             <head>
                 <title>{$title}</title>
+                <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
             </head>
             <body style="background: url(/static/blackjack/assets/LobbyBackground.svg">
                 {$transformed}
@@ -78,7 +77,7 @@ declare function blackjack-controller:genererateLobby($lobby as element(lobby), 
         </html>
 };
 
-declare function blackjack-controller:genereratePage($game as element(game), $xslStylesheet as xs:string,
+declare function blackjack-controller:generatePage($game as element(game), $xslStylesheet as xs:string,
         $title as xs:string) {
     let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/", $xslStylesheet))
     let $transformed := xslt:transform($game, $stylesheet)
@@ -86,6 +85,7 @@ declare function blackjack-controller:genereratePage($game as element(game), $xs
         <html>
             <head>
                 <title>{$title}</title>
+                <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
             </head>
             <body style="background: url(/static/blackjack/assets/TableBackground.svg">
                 {$transformed}
@@ -187,5 +187,23 @@ function blackjack-controller:dealerTurn(){
         if($game/dealer/hand/@sum < 17) then
         update:output(web:redirect("blackjack/dealerTurn"))
         else update:output(web:redirect("/blackjack/draw"))
+        )
+};
+
+declare
+%rest:path("/blackjack/restore")
+%rest:query-param("playerName", "{$playerName}")
+%rest:query-param("playerID", "{$playerID}")
+%output:method("html")
+%rest:POST
+%updating
+function blackjack-controller:restore($playerName as xs:string, $playerID as xs:string){
+    let $player := blackjack-main:getPlayers()/player[@id=$playerID and @name=$playerName]
+    let $lobby := blackjack-main:getLobby()
+    return (
+        if(count($lobby/player) = 0)
+        then (insert node $player into $lobby)
+        else (replace node $lobby/player with $player),
+        update:output(web:redirect("/blackjack/start"))
     )
 };
