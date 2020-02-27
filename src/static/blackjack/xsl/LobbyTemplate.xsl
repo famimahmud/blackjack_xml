@@ -28,7 +28,7 @@
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              width="100%" height="100%" viewBox="0 0 {$width} {$height}"
-             >
+        >
 
             <!-- Import online fonts -->
             <defs>
@@ -57,7 +57,8 @@
                 <xsl:variable name="name" select="lobby/player/@name"/>
                 <xsl:variable name="id" select="lobby/player/@id"/>
                 <foreignObject width="100%" height="100%" x="{$startX}" y="{$startY - 1}">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/newRound" method="get" id="Neues Spiel">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/newGame" method="get"
+                          id="Neues Spiel">
                         <input type="hidden" name="name" id="name" value="{$name}"/>
                         <input type="hidden" name="id" id="id" value="{$id}"/>
                         <button style=" width:80%; height:20%; display:table-cell; font-size:{$fontSize - 1}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
@@ -120,64 +121,60 @@
                       style="fill: #134900; opacity: 0.6"/>
 
                 <!-- Spielername -->
-                <xsl:variable name="name" select="lobby/player/@name"/>
-                <xsl:variable name="id" select="lobby/player/@id"/>
-                <text x="{$rectMidWidth div 2}" y="{$startY + 2.5}" fill="{$textColor}" font-size="{$fontSize+1}"
-                      font-family="{$fonts}" text-anchor="middle"
-                      alignment-baseline="hanging">
-                    <xsl:value-of select=" concat( $name, ' ', $id)"/>
-                </text>
+                <xsl:choose>
+                    <xsl:when test="count(lobby/player)=0">
+                        <foreignObject width="100%" height="100%" font-family="helvetica" fill="{$textColor}"
+                                       font-size="{$fontSize - 1}" x="{$startX}" y="{$startY}">
+                            <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/restoreAccount" method="post" id="create">
+                                <input size="36" type="text" name="playerName" id="playerName1"
+                                       style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="Name"/>
+                                <br/>
+                                <button style=" width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                                        form="restore" value="Submit">
+                                    Account erstellen
+                                </button>
+                            </form>
+                        </foreignObject>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:variable name="name" select="lobby/player/@name"/>
+                        <xsl:variable name="id" select="lobby/player/@id"/>
+                        <text x="{$rectMidWidth div 2}" y="{$startY + 2.5}" fill="{$textColor}"
+                              font-size="{$fontSize+1}"
+                              font-family="{$fonts}" text-anchor="middle"
+                              alignment-baseline="hanging">
+                            <xsl:value-of select=" concat( $name, ' ', $id)"/>
+                        </text>
 
-                <!-- Highscore -->
-                <xsl:variable name="highscore" select="lobby/player/@highscore"/>
-                <text x="{$rectMidWidth div 2}" y="{$startY + 15}" fill="{$textColor}" font-size="{$fontSize}"
-                      font-family="{$fonts}"
-                      text-anchor="middle"
-                      alignment-baseline="hanging">
-                    <xsl:value-of select=" concat( 'Highscore: ' ,$highscore)"/>
-                </text>
+                        <!-- Highscore -->
+                        <xsl:variable name="highscore" select="lobby/player/@highscore"/>
+                        <text x="{$rectMidWidth div 2}" y="{$startY + 15}" fill="{$textColor}" font-size="{$fontSize}"
+                              font-family="{$fonts}"
+                              text-anchor="middle"
+                              alignment-baseline="hanging">
+                            <xsl:value-of select=" concat( 'Highscore: ' ,$highscore)"/>
+                        </text>
+                    </xsl:otherwise>
+                </xsl:choose>
 
-                <!-- Spielstand wiederherstellen-->
+                <!-- Account wiederherstellen-->
                 <line x1="{$startX}" y1="{$startY + 25}" x2="{$rectMidWidth - 5}" y2="{$startY + 25}"
                       fill="{$rectColor}" stroke="{$textColor}" stroke-width="0.5"/>
 
-                <foreignObject width="100%" height="100%" font-family="helvetica" fill="{$textColor}" font-size="{$fontSize - 1}" x="{$startX}" y="{$startY+30}">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/restore" method="post" id="restore" >
-                        <input  size="23" type="text" name="playerName" id="playerName" style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="Name"/>
-                        <input  size="8" type="text" name="playerID" id="playerID" style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="ID"/> <br/>
+                <foreignObject width="100%" height="100%" font-family="helvetica" fill="{$textColor}"
+                               font-size="{$fontSize - 1}" x="{$startX}" y="{$startY+30}">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/restoreAccount" method="post" id="restore">
+                        <input size="23" type="text" name="playerName" id="playerName"
+                               style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="Name"/>
+                        <input size="8" type="text" name="playerID" id="playerID"
+                               style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="ID"/>
+                        <br/>
                         <button style=" width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
                                 form="restore" value="Submit">
-                            Spielstand wiederherstellen
+                            Account wiederherstellen
                         </button>
                     </form>
                 </foreignObject>
-
-
-
-                <!--
-                <rect x="{$startX}" y="{$startY + 42}" width="{$rectMidWidth - 25}" height="{$rectHeight div 12}"
-                      fill="none" style="stroke:{$rectColor};stroke-width:{$strokeWidth - 0.2}"/>
-                <text x="{$startX + 1}" y="{$startY + 42.5}" fill="{$textColor}" font-size="{$fontSize - 1}"
-                      font-family="{$fonts}"
-                      font-style="oblique"
-                      alignment-baseline="hanging">
-                    Name
-                </text>
-                <rect x="{$startX + 27}" y="{$startY + 42}" width="{$rectMidWidth - 40}" height="{$rectHeight div 12}"
-                      fill="none" style="stroke:{$rectColor};stroke-width:{$strokeWidth - 0.2}"/>
-                <text x="{$startX + 28}" y="{$startY + 42.5}" fill="{$textColor}" font-size="{$fontSize - 1}"
-                      font-family="{$fonts}"
-                      font-style="oblique"
-                      alignment-baseline="hanging">
-                    ID
-                </text>
-                <circle cx="{$rectMidWidth - 4}" cy="{$startY + 44.5}" r="{$fontSize div 2}"
-                        stroke-width="{$strokeWidth}" stroke="{$rectColor}" fill="none"></circle>
-                <text x="{$rectMidWidth - 4}" y="{$startY + 43.4}" fill="lightblue" font-size="{$fontSize - 2}"
-                      font-family="{$fonts}" text-anchor="middle"
-                      alignment-baseline="hanging">
-                    -->
-                <!--</text> -->
             </svg>
 
             <!-- 3. Rechteck - HighscoreBoard -->
