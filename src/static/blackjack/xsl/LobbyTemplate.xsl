@@ -142,7 +142,7 @@
                  viewBox="0 0 {$rectWidth} {$rectHeight}">
                 <rect x="0" y="0" width="{$rectWidth}" height="{$rectHeight}" fill="none" rx="{$edgeRadius}"
                       ry="{$edgeRadius}"
-                      style="stroke:{$rectColor};stroke-width:1"/>
+                      style="fill: #134900; opacity: 0.6"/>
                 <!-- Button für neues Spiel-->
                 <xsl:variable name="name" select="lobby/player/@name"/>
                 <xsl:variable name="id" select="lobby/player/@id"/>
@@ -207,7 +207,7 @@
                  viewBox="0 0 {$rectMidWidth} {$rectHeight}">
                 <rect x="0" y="0" width="{$rectMidWidth}" height="{$rectHeight}" fill="none" rx="{$edgeRadius}"
                       ry="{$edgeRadius}"
-                      style="stroke:{$rectColor};stroke-width:1"/>
+                      style="fill: #134900; opacity: 0.6"/>
 
                 <!-- Spielername -->
                 <xsl:variable name="name" select="lobby/player/@name"/>
@@ -265,7 +265,7 @@
                  viewBox="0 0 {$rectWidth} {$rectHeight}">
                 <rect x="0" y="0" width="{$rectWidth}" height="{$rectHeight}" fill="none" rx="{$edgeRadius}"
                       ry="{$edgeRadius}"
-                      style="stroke:{$rectColor}; stroke-width:1"/>
+                      style="fill: #134900; opacity: 0.6"/>
                 <text x="{$rectWidth div 2}" y="7.5" fill="{$textColor}" font-size="{$fontSize}" font-family="{$fonts}"
                       text-anchor="middle"
                       alignment-baseline="hanging">
