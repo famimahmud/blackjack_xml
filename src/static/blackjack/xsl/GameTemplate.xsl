@@ -91,7 +91,7 @@
             <symbol id="dealerBox">
                 <xsl:variable name="color">
                     <xsl:choose>
-                        <xsl:when test="/*/@onTurn = 'dealer'">
+                        <xsl:when test="(/*/@onTurn = 'dealer') and (/*/@phase = 'play')">
                             <xsl:value-of select="$onTurnColor"/>
                         </xsl:when>
                         <xsl:otherwise>
