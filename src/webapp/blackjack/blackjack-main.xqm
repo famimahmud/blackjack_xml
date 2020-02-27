@@ -53,7 +53,7 @@ declare
       let $newPool := <pool locked = "false"/>
       (:--TODO replace multiple pool nodes with newPool:)
       return (replace node $blackjack-main:game/deck with $deck,
-              delete node $blackjack-main:gname/players/player/hand/card,
+              delete node $blackjack-main:game/players/player/hand/card,
               delete node $blackjack-main:game/dealer/hand/card,
               for $oldPool in blackjack-main:game/players/player/pool
               return(
