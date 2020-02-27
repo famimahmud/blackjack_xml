@@ -39,7 +39,7 @@ declare
 function blackjack-controller:newGame($name as xs:string, $id as xs:integer){
     let $lobby := blackjack-main:getLobby()
     return (
-        if(count(lobby/player)=0)
+        if(count($lobby/player)=0)
         then(update:output(web:redirect("/blackjack/start")))
         else(
         blackjack-main:newGame($name, $id),
@@ -207,7 +207,7 @@ function blackjack-controller:pay(){
                 then blackjack-main:payPhase(),
             update:output(web:redirect("/blackjack/draw"))
         )
-}
+};
 
 declare
 %rest:path("/blackjack/restoreAccount")
