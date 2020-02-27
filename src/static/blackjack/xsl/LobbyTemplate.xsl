@@ -8,6 +8,7 @@
         <xsl:variable name="fontSize" select="5"/>
         <xsl:variable name="textColor" select="'white'"/>
         <xsl:variable name="rectColor" select="'black'"/>
+        <xsl:variable name="fonts" select="'Raleway, sans-serif'"/>
         <xsl:variable name="startX" select="5"/>
         <xsl:variable name="startY" select="5"/>
         <xsl:variable name="rect2X" select="50"/>
@@ -28,6 +29,12 @@
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              width="100%" height="100%" viewBox="0 0 {$width} {$height}"
              style="background: url(/Users/famimahmud/XML-Praktikum/blackjack/src/static/blackjack/assets/LobbyBackground.svg); background-size: 100% 100%">
+
+            <!-- Import online fonts -->
+            <defs>
+                <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Raleway');</style>
+            </defs>
+
             <!-- Überschrift -->
             <!-- Logo -->
             <svg x="{($width div 2)-35}" y="{$height div 15}" width="{$fontSize*3}" height="{$fontSize*3}"
@@ -50,7 +57,7 @@
                             <text x="0.05"
                                   y="0.8"
                                   font-size="0.8"
-                                  font-family="serif"
+                                  font-family="{$fonts}"
                                   fill="black">A
                             </text>
                             <image x="0"
@@ -97,7 +104,7 @@
                             <text x="0.05"
                                   y="0.8"
                                   font-size="0.8"
-                                  font-family="serif"
+                                  font-family="{$fonts}"
                                   fill="red">K
                             </text>
                             <image x="0"
@@ -125,7 +132,7 @@
             </svg>
 
             <text x="{$width div 2}" y="{$height div 10}" fill="{$textColor}" font-size="{$fontSize * 2}"
-                  font-family="helvetica" text-anchor="middle"
+                  font-family="{$fonts}" text-anchor="middle"
                   alignment-baseline="hanging">
                 Blackjack
             </text>
@@ -156,20 +163,20 @@
                       fill="{$textColor}">√
                 </text>
                 <text x="{$startX + 8}" y="{$startY + 14}" font-size="{$fontSize - 1}" alignment-baseline="hanging"
-                      fill="{$textColor}">Single-Player?
+                      fill="{$textColor}" font-family="{$fonts}">Single-Player?
                 </text>
 
                 <!-- Liste der Spiele -->
                 <text x="{$startX}" y="{$startY + 22}" font-size="{$fontSize}" alignment-baseline="hanging"
-                      fill="{$textColor}">Spiele:
+                      fill="{$textColor}" font-family="{$fonts}">Spiele:
                 </text>
                 <line x1="{$startX}" y1="{$startY + 27}" x2="{$startX + 14}" y2="{$startY + 27}" fill="{$textColor}"
                       stroke="{$textColor}" stroke-width="0.5"/>
                 <text x="{$startX + 13}" y="{$startY + 30}" font-size="{$fontSize - 2}" font-style="oblique"
-                      alignment-baseline="hanging" fill="{$textColor}">players
+                      alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">players
                 </text>
                 <text x="{$startX + 24}" y="{$startY + 30}" font-size="{$fontSize - 2}" font-style="oblique"
-                      alignment-baseline="hanging" fill="{$textColor}">round
+                      alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">round
                 </text>
 
                 <xsl:for-each select="lobby/games/game">
@@ -181,7 +188,7 @@
                     <rect x="{$startX}" y="{$currentRectY}" width="{$rectWidth - 10}" height="{($rectHeight div 12)-1}"
                           fill="none" style="stroke:{$rectColor};stroke-width:{$strokeWidth - 0.2}"/>
                     <text y="{$currentRectY + 1}" fill="{$textColor}" font-size="{$fontSize - 2}"
-                          font-family="helvetica">
+                          font-family="{$fonts}">
                         <tspan x="{$startX + 1}" alignment-baseline="hanging">
                             <xsl:value-of select=" concat('Game',$gameID)"/>
                         </tspan>
@@ -206,7 +213,7 @@
                 <xsl:variable name="name" select="lobby/player/@name"/>
                 <xsl:variable name="id" select="lobby/player/@id"/>
                 <text x="{$rectMidWidth div 2}" y="{$startY + 2.5}" fill="{$textColor}" font-size="{$fontSize+1}"
-                      font-family="helvetica" text-anchor="middle"
+                      font-family="{$fonts}" text-anchor="middle"
                       alignment-baseline="hanging">
                     <xsl:value-of select=" concat( $name, ' ', $id)"/>
                 </text>
@@ -214,7 +221,7 @@
                 <!-- Highscore -->
                 <xsl:variable name="highscore" select="lobby/player/@highscore"/>
                 <text x="{$rectMidWidth div 2}" y="{$startY + 15}" fill="{$textColor}" font-size="{$fontSize}"
-                      font-family="helvetica"
+                      font-family="{$fonts}"
                       text-anchor="middle"
                       alignment-baseline="hanging">
                     <xsl:value-of select=" concat( 'Highscore: ' ,$highscore)"/>
@@ -223,7 +230,7 @@
                 <!-- Spielstand wiederherstellen-->
                 <line x1="{$startX}" y1="{$startY + 25}" x2="{$rectMidWidth - 5}" y2="{$startY + 25}"
                       fill="{$rectColor}" stroke="{$textColor}" stroke-width="0.5"/>
-                <text fill="{$textColor}" font-size="{$fontSize - 1}" font-family="helvetica"
+                <text fill="{$textColor}" font-size="{$fontSize - 1}" font-family="{$fonts}"
                       alignment-baseline="hanging">
                     <tspan x="{$startX}" y="{$startY + 34}">Spielstand</tspan>
                     <tspan x="{$startX}" y="{$startY + 39}">wiederherstellen:</tspan>
@@ -231,7 +238,7 @@
                 <rect x="{$startX}" y="{$startY + 42}" width="{$rectMidWidth - 25}" height="{$rectHeight div 12}"
                       fill="none" style="stroke:{$rectColor};stroke-width:{$strokeWidth - 0.2}"/>
                 <text x="{$startX + 1}" y="{$startY + 42.5}" fill="{$textColor}" font-size="{$fontSize - 1}"
-                      font-family="helvetica"
+                      font-family="{$fonts}"
                       font-style="oblique"
                       alignment-baseline="hanging">
                     Name
@@ -239,7 +246,7 @@
                 <rect x="{$startX + 27}" y="{$startY + 42}" width="{$rectMidWidth - 40}" height="{$rectHeight div 12}"
                       fill="none" style="stroke:{$rectColor};stroke-width:{$strokeWidth - 0.2}"/>
                 <text x="{$startX + 28}" y="{$startY + 42.5}" fill="{$textColor}" font-size="{$fontSize - 1}"
-                      font-family="helvetica"
+                      font-family="{$fonts}"
                       font-style="oblique"
                       alignment-baseline="hanging">
                     ID
@@ -247,7 +254,7 @@
                 <circle cx="{$rectMidWidth - 4}" cy="{$startY + 44.5}" r="{$fontSize div 2}"
                         stroke-width="{$strokeWidth}" stroke="{$rectColor}" fill="none"></circle>
                 <text x="{$rectMidWidth - 4}" y="{$startY + 43.4}" fill="lightblue" font-size="{$fontSize - 2}"
-                      font-family="helvetica" text-anchor="middle"
+                      font-family="{$fonts}" text-anchor="middle"
                       alignment-baseline="hanging">
                     -->
                 </text>
@@ -259,7 +266,7 @@
                 <rect x="0" y="0" width="{$rectWidth}" height="{$rectHeight}" fill="none" rx="{$edgeRadius}"
                       ry="{$edgeRadius}"
                       style="stroke:{$rectColor}; stroke-width:1"/>
-                <text x="{$rectWidth div 2}" y="7.5" fill="{$textColor}" font-size="{$fontSize}" font-family="helvetica"
+                <text x="{$rectWidth div 2}" y="7.5" fill="{$textColor}" font-size="{$fontSize}" font-family="{$fonts}"
                       text-anchor="middle"
                       alignment-baseline="hanging">
                     Highscores
@@ -272,7 +279,7 @@
                     <xsl:variable name="name" select="name"/>
                     <xsl:variable name="score" select="score"/>
 
-                    <text y="{$currentY}" fill="{$textColor}" font-size="{$fontSize - 2}" font-family="helvetica">
+                    <text y="{$currentY}" fill="{$textColor}" font-size="{$fontSize - 2}" font-family="{$fonts}">
                         <tspan x="{$startX - 3}" alignment-baseline="hanging">
                             <xsl:value-of select="concat($position, $name)"/>
                         </tspan>
