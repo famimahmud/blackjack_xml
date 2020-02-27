@@ -19,9 +19,16 @@ function blackjack-main:shuffleDeck() {
     return ($ret)
 };
 
+(:~
+  : initate a new Game by creating a new Game model
+  : @playerName player who starts new Game
+  : @playerID ID of player who starts new Game
+  : @return model change
+  :)
+
 declare
-  %updating
-  function blackjack-main:newGame($playerName as xs:string, $playerID as xs:integer) { (:$player as element(player)) {:)
+%updating
+function blackjack-main:newGame($playerName as xs:string, $playerID as xs:integer) {
       let $deck := blackjack-main:generateDeck()
       let $game :=
           <game round="1" onTurn="dealer" phase="bet">
@@ -46,12 +53,16 @@ declare
 
       return (replace node $blackjack-main:game with $game)
   };
+
+  (:~
+  : initate a new Round by deleting hands and pools
+  : @return model change
+  :)
   declare
   %updating
-  function blackjack-main:newRound($playerName as xs:string, $playerID as xs:integer) { (:$player as element(player)) {:)
+  function blackjack-main:newRound () {
       let $deck := blackjack-main:generateDeck()
       let $newPool := <pool locked = "false"/>
-      (:--TODO replace multiple pool nodes with newPool:)
       return (replace node $blackjack-main:game/deck with $deck,
               delete node $blackjack-main:game/players/player/hand/card,
               delete node $blackjack-main:game/dealer/hand/card,
@@ -317,4 +328,8 @@ declare function blackjack-main:getGame(){
 
 declare function blackjack-main:getLobby(){
     $blackjack-main:lobby
+};
+
+declare function blackjack-main:getPlayers(){
+    $blackjack-main:players
 };
