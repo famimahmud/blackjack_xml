@@ -140,7 +140,7 @@
                 <xsl:variable name="name" select="lobby/player/@name"/>
                 <xsl:variable name="id" select="lobby/player/@id"/>
                 <foreignObject width="100%" height="100%" x="{$startX}" y="{$startY - 1}">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/newGame" method="get" id="Neues Spiel">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/newRound" method="get" id="Neues Spiel">
                         <input type="hidden" name="name" id="name" value="{$name}"/>
                         <input type="hidden" name="id" id="id" value="{$id}"/>
                         <button style=" width:80%; height:20%; display:table-cell; font-size:{$fontSize - 1}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
@@ -223,11 +223,27 @@
                 <!-- Spielstand wiederherstellen-->
                 <line x1="{$startX}" y1="{$startY + 25}" x2="{$rectMidWidth - 5}" y2="{$startY + 25}"
                       fill="{$rectColor}" stroke="{$textColor}" stroke-width="0.5"/>
-                <text fill="{$textColor}" font-size="{$fontSize - 1}" font-family="helvetica"
+                <!--<text fill="{$textColor}" font-size="{$fontSize - 1}" font-family="helvetica"
                       alignment-baseline="hanging">
                     <tspan x="{$startX}" y="{$startY + 34}">Spielstand</tspan>
                     <tspan x="{$startX}" y="{$startY + 39}">wiederherstellen:</tspan>
-                </text>
+                </text>-->
+
+                <!--  TODO: Change label font-family -->
+                <foreignObject width="100%" height="100%" font-family="helvetica" fill="{$textColor}" font-size="{$fontSize - 1}" x="{$startX}" y="{$startY+30}">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/restore" method="post" id="restore" >
+                        <input  size="23" type="text" name="playerName" id="playerName" style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="Name"/>
+                        <input  size="8" type="text" name="playerID" id="playerID" style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="ID"/> <br/>
+                        <button style=" width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                                form="restore" value="Submit">
+                            Spielstand wiederherstellen
+                        </button>
+                    </form>
+                </foreignObject>
+
+
+
+                <!--
                 <rect x="{$startX}" y="{$startY + 42}" width="{$rectMidWidth - 25}" height="{$rectHeight div 12}"
                       fill="none" style="stroke:{$rectColor};stroke-width:{$strokeWidth - 0.2}"/>
                 <text x="{$startX + 1}" y="{$startY + 42.5}" fill="{$textColor}" font-size="{$fontSize - 1}"
@@ -250,7 +266,7 @@
                       font-family="helvetica" text-anchor="middle"
                       alignment-baseline="hanging">
                     -->
-                </text>
+                <!--</text> -->
             </svg>
 
             <!-- 3. Rechteck - HighscoreBoard -->
