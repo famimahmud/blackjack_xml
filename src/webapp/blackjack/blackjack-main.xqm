@@ -66,7 +66,7 @@ function blackjack-main:newGame($playerName as xs:string, $playerID as xs:intege
       return (replace node $blackjack-main:game/deck with $deck,
               delete node $blackjack-main:game/players/player/hand/card,
               delete node $blackjack-main:game/dealer/hand/card,
-              for $oldPool in blackjack-main:game/players/player/pool
+              for $oldPool in $blackjack-main:game/players/player/pool
               return(
                  replace node $oldPool with $newPool
               )
