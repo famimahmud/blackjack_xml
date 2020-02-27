@@ -79,11 +79,21 @@
             </xsl:for-each>
 
             <!-- Name and ID in the top left corner -->
-            <text x="1%" y="1%" fill="{$textColor}" font-size="{$fontSize + 1}"
-                  font-family="helvetica"
-                  font-style="oblique"
+            <rect x="0" y="0" rx="2" ry="2" height="15" width="30" style="fill: #134900; opacity: 0.6"/>
+            <text x="2" y="2" fill="{$textColor}" font-size="{$fontSize - 1.5}"
+                  font-family="{$fonts}"
                   alignment-baseline="hanging">
-                <xsl:value-of select="concat(/*/players/*/@name, /*/players/*/@id)"></xsl:value-of>
+                Your player info:
+            </text>
+            <text x="2" y="6" fill="{$textColor}" font-size="{$fontSize - 1.5}"
+                  font-family="{$fonts}"
+                  alignment-baseline="hanging">
+                <xsl:value-of select="concat('Name: ', /*/players/*/@name)"/>
+            </text>
+            <text x="2" y="10" fill="{$textColor}" font-size="{$fontSize - 1.5}"
+                  font-family="{$fonts}"
+                  alignment-baseline="hanging">
+                <xsl:value-of select="concat('ID: ', /*/players/*/@id)"/>
             </text>
 
             <!-- Generate Dealer card box -->
@@ -91,7 +101,7 @@
             <symbol id="dealerBox">
                 <xsl:variable name="color">
                     <xsl:choose>
-                        <xsl:when test="/*/@onTurn = 'dealer'">
+                        <xsl:when test="(/*/@onTurn = 'dealer') and (/*/@phase = 'play')">
                             <xsl:value-of select="$onTurnColor"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -120,6 +130,27 @@
                         </xsl:call-template>
                     </svg>
                 </xsl:for-each>
+
+                <!-- Show hand sum -->
+                <xsl:variable name="handSum" select="*/dealer/hand/@sum"/>
+
+                <xsl:if test="$handSum > 0">
+                    <xsl:variable name="counterBackground">
+                        <xsl:choose>
+                            <xsl:when test="$handSum > 21">red</xsl:when>
+                            <xsl:when test="$handSum = 21">goldenrod</xsl:when>
+                            <xsl:otherwise>#134900</xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <svg width="4" height="3" x="{$fieldWidth - 5}" y="8">
+                        <rect x="0" y="0" rx="0.75" ry="0.75" width="100%" height="100%"
+                              style="fill: {$counterBackground}; opacity:0.75"/>
+                        <text x="2" y="1.5" fill="white" text-anchor="middle"
+                              alignment-baseline="central" font-size="2.5">
+                            <xsl:value-of select="$handSum"/>
+                        </text>
+                    </svg>
+                </xsl:if>
             </symbol>
             <!-- Print box -->
             <use xlink:href="#dealerBox" x="{$dealerX}" y="{$dealerY}"/>
@@ -195,6 +226,27 @@
                             </xsl:call-template>
                         </svg>
                     </xsl:for-each>
+
+                    <!-- Show hand sum -->
+                    <xsl:variable name="handSum" select="hand/@sum"/>
+
+                    <xsl:if test="$handSum > 0">
+                        <xsl:variable name="counterBackground">
+                            <xsl:choose>
+                                <xsl:when test="$handSum > 21">red</xsl:when>
+                                <xsl:when test="$handSum = 21">goldenrod</xsl:when>
+                                <xsl:otherwise>#134900</xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:variable>
+                        <svg width="4" height="3" x="{$fieldWidth - 5}" y="7">
+                            <rect x="0" y="0" rx="0.75" ry="0.75" width="100%" height="100%"
+                                  style="fill: {$counterBackground}; opacity:0.75"/>
+                            <text x="2" y="1.5" fill="white" text-anchor="middle"
+                                  alignment-baseline="central" font-size="2.5">
+                                <xsl:value-of select="$handSum"/>
+                            </text>
+                        </svg>
+                    </xsl:if>
                 </symbol>
 
                 <!-- Curve function: 10 * (count - 2*pos + 1) / (count - 1) -->
@@ -225,7 +277,6 @@
                     </button>
                 </form>
             </foreignObject>
-
 
 
             <xsl:choose>
@@ -281,7 +332,7 @@
                         </svg>
                         <input type="submit" name="value" id="value10" value="10"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID10" value="/*/players/*/@id"></input>
+                        <input type="hidden" name="playerID" id="playerID10" value="/*/players/*/@id"/>
                     </label>
                 </form>
             </foreignObject>
@@ -299,7 +350,7 @@
                         <input type="hidden" name="value" id="playerID" value="50"/> -->
                         <input type="submit" name="value" id="value50" value="50"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID50" value="/*/players/*/@id"></input>
+                        <input type="hidden" name="playerID" id="playerID50" value="/*/players/*/@id"/>
                     </label>
                 </form>
             </foreignObject>
@@ -315,7 +366,7 @@
                         </svg>
                         <input type="submit" name="value" id="value100" value="100"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID100" value="/*/players/*/@id"></input>
+                        <input type="hidden" name="playerID" id="playerID100" value="/*/players/*/@id"/>
                     </label>
                 </form>
             </foreignObject>
@@ -331,7 +382,7 @@
                         </svg>
                         <input type="submit" name="value" id="value250" value="250"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID250" value="/*/players/*/@id"></input>
+                        <input type="hidden" name="playerID" id="playerID250" value="/*/players/*/@id"/>
                     </label>
                 </form>
             </foreignObject>
@@ -347,7 +398,7 @@
                         </svg>
                         <input type="submit" name="value" id="value500" value="500"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID500" value="/*/players/*/@id"></input>
+                        <input type="hidden" name="playerID" id="playerID500" value="/*/players/*/@id"/>
                     </label>
                 </form>
             </foreignObject>
@@ -363,7 +414,7 @@
                         </svg>
                         <input type="submit" name="value" id="value1000" value="1000"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID1000" value="/*/players/*/@id"></input>
+                        <input type="hidden" name="playerID" id="playerID1000" value="/*/players/*/@id"/>
                     </label>
                 </form>
             </foreignObject>

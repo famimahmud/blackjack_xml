@@ -26,7 +26,7 @@
     </deck>
 
     <dealer>
-        <hand>
+        <hand sum="17">
             <card hidden="false">
                 <type>Spade</type>
                 <value>7</value>
@@ -40,7 +40,7 @@
 
     <players>
         <player id="18593" name="Angela" highscore="5150">
-            <hand>
+            <hand sum="21">
                 <card hidden="false">
                     <type>Heart</type>
                     <value>K</value>
@@ -53,7 +53,7 @@
             <wallet>
                 5150
             </wallet>
-            <pool>
+            <pool locked="false">
                 <chip>
                     <value>100</value>
                 </chip>
@@ -67,7 +67,7 @@
         </player>
 
         <player id="29603" name="Donald" highscore="500">
-            <hand>
+            <hand sum="20">
                 <card hidden="false">
                     <type>Heart</type>
                     <value>J</value>
@@ -80,7 +80,7 @@
             <wallet>
                 0
             </wallet>
-            <pool>
+            <pool locked="false">
                 <chip>
                     <value>100</value>
                 </chip>
@@ -94,7 +94,7 @@
         </player>
 
         <player id="52813" name="Boris" highscore="200">
-            <hand>
+            <hand sum="7">
                 <card hidden="false">
                     <type>Spade</type>
                     <value>7</value>
@@ -103,7 +103,7 @@
             <wallet>
                 30
             </wallet>
-            <pool>
+            <pool locked="false">
                 <chip>
                     <value>50</value>
                 </chip>
@@ -114,7 +114,7 @@
         </player>
 
         <player id="39602" name="Kim" highscore="200">
-            <hand>
+            <hand sum="40">
                 <card hidden="false">
                     <type>Spade</type>
                     <value>2</value>
@@ -139,7 +139,7 @@
             <wallet>
                 666
             </wallet>
-            <pool>
+            <pool locked="true">
                 <chip>
                     <value>10</value>
                 </chip>

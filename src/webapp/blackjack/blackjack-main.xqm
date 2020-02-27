@@ -112,19 +112,21 @@ function blackjack-main:removePlayer($playerID as xs:string){
  %updating
  function blackjack-main:drawCard($playerID as xs:string) {
     let $cardsInDeck := count($blackjack-main:game/deck/card)
+    let $cardsInHand := if ($playerID = "dealer") then $blackjack-main:game/dealer/hand/card
+                        else $blackjack-main:game/players/player[@id = $playerID]/hand/card
     let $randomNumber := blackjack-helper:getRandomInt($cardsInDeck)
     let $card := $blackjack-main:game/deck/card[position() = $randomNumber]
     let $revealedCard := if ($playerID = "dealer" and count($blackjack-main:game/dealer/hand/card) = 0)
         (: first drawn card of the dealer is hidden :)
         then <card hidden="true">{$card/type}{$card/value}</card>
         else <card hidden="false">{$card/type}{$card/value}</card>
+    let $handValue := blackjack-main:calculateHandValue(<hand>{$cardsInHand[@hidden="false"]}{$revealedCard[@hidden="false"]}</hand>)
     return (
             delete node $blackjack-main:game/deck/card[position() = $randomNumber],
             (if ($playerID = "dealer")
-                then insert node $revealedCard into $blackjack-main:game/dealer/hand
-                else insert node $revealedCard into $blackjack-main:game/players/player[@id = $playerID]/hand),
-            if (blackjack-helper:getNewHandValue($card/value, blackjack-main:calculateHandValue($playerID)) > 20)
-                then blackjack-main:moveTurn($playerID)
+                then replace node $blackjack-main:game/dealer/hand with <hand sum="{$handValue}">{$cardsInHand}{$revealedCard}</hand>
+                else replace node $blackjack-main:game/players/player[@id = $playerID]/hand with <hand sum="{$handValue}">{$cardsInHand}{$revealedCard}</hand>),
+            if ($handValue > 20) then blackjack-main:moveTurn($playerID)
     )
  };
 
@@ -134,11 +136,8 @@ function blackjack-main:removePlayer($playerID as xs:string){
   : @return interger with the closes value to 21
   :)
   declare
-  function blackjack-main:calculateHandValue($playerID as xs:string) as xs:integer {
-     let $hand := if ($playerID = "dealer") then game/dealer/hand
-                    else ($blackjack-main:game/players/player[@id = $playerID]/hand)
-     return (blackjack-main:reduceHandValueWithAces(count($hand/card[value ="A"]), blackjack-main:calculateHandValueHelper($hand))
-     )
+  function blackjack-main:calculateHandValue($hand as element()) as xs:integer {
+     blackjack-main:reduceHandValueWithAces(count($hand/card[value ="A"]), blackjack-main:calculateHandValueHelper($hand))
   };
   (:~
    : Calculates the maxValue of a given Hand
@@ -193,8 +192,8 @@ declare
 function blackjack-main:payPlayer($playerID as xs:string){
     let $wallet := xs:integer($blackjack-main:game/players/player[@id=$playerID]/wallet/node())
     let $poolBet := sum($blackjack-main:game/players/player[@id=$playerID]/pool/chip/value)
-    let $playerValue := blackjack-main:calculateHandValue($playerID)
-    let $dealerValue := blackjack-main:calculateHandValue("dealer")
+    let $playerValue := $blackjack-main:game/players/player[@id=$playerID]/hand/@sum
+    let $dealerValue := $blackjack-main:game/dealer/hand/@sum
     return (
         replace node $blackjack-main:game/players/player[@id=$playerID]/pool with <pool locked="false"></pool>,
         delete node $blackjack-main:game/players/player[@id=$playerID]/hand/card,
@@ -232,6 +231,24 @@ function blackjack-main:bet($playerID as xs:string, $chipValue as xs:integer){
 };
 
 (:~
+ : confirm the bet of the given player
+ : @playerID $playerID of the player, whos bets will be confirmed
+ : @return model change to move turn to next player
+ :)
+declare
+%updating
+function blackjack-main:confirmBet($playerID as xs:string){
+    if ($blackjack-main:game/players/player[@id = $playerID]/pool/@locked = "false")
+    then (
+        replace node $blackjack-main:game/players/player[@id = $playerID]/pool
+            with <pool locked="true">{$blackjack-main:game/players/player[@id = $playerID]/pool/chip}</pool>,
+        (:check if all players confirmed their bets -> if true: hand out Cards:)
+        if (count($blackjack-main:game/players/player/pool[@locked="true"]/@locked) >= (count($blackjack-main:game/players/player) - 1))
+        then blackjack-main:handOutCards()
+        )
+};
+
+(:~
  : give every player and the dealer two cards
  : @return model change to move turn to next player
  :)
@@ -266,7 +283,7 @@ function blackjack-main:moveTurnHelper($playerOnTurn as xs:string){
         let $newPlayerTurn := if($playerOnTurn = $blackjack-main:game/players/player[last()]/@id )
             then "dealer"
             else $blackjack-main:game/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
-        return ( if ($newPlayerTurn = "dealer" or blackjack-main:calculateHandValue($newPlayerTurn) <= 20)
+        return ( if ($newPlayerTurn = "dealer" or $blackjack-main:game/players/player[@id=$newPlayerTurn]/hand/@sum <= 20)
             then (
                 replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn
                         (: TO-DO: update Datenbank und sende draw an Player, optional warte 1000ms:)
@@ -283,7 +300,7 @@ function blackjack-main:moveTurnHelper($playerOnTurn as xs:string){
 declare
 %updating
 function blackjack-main:dealerTurn(){
-    let $dealerHandValue := blackjack-main:calculateHandValue("dealer")
+    let $dealerHandValue := blackjack-main:calculateHandValue($blackjack-main:game/dealer/hand)
     return (if ($blackjack-main:game/@onTurn = "dealer") then (
             replace node $blackjack-main:game/dealer/hand/card[position() = 1]/@hidden with "false",
             if ($dealerHandValue < 17) then

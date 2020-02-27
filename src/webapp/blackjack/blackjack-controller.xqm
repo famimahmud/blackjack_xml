@@ -101,10 +101,9 @@ declare
 function blackjack-controller:bet($playerID as xs:string, $chipValue as xs:integer){
     let $game := blackjack-main:getGame()
     return (
-        if($game/@phase = "bet" and $game/players/player[@id = $playerID]/pool/@locked = "false")
-        then (  blackjack-main:bet($playerID, $chipValue),
-            update:output(web:redirect("/blackjack/draw"))
-        )
+        (if($game/@phase = "bet" and $game/players/player[@id = $playerID]/pool/@locked = "false")
+        then blackjack-main:bet($playerID, $chipValue)),
+        update:output(web:redirect("/blackjack/draw"))
     )
 };
 
@@ -118,12 +117,8 @@ function blackjack-controller:confirmBet($playerID as xs:string){
     let $game := blackjack-main:getGame()
     return (
         if($game/@phase = "bet")
-        then (replace node $game/players/player[@id = $playerID]/pool/@locked with "true",
-             (:check if player is over 21 -> if true: moveTurn:)
-            (if (count(game/players/player/pool[@locked="true"]/@locked) = count(game/players/player))
-                then blackjack-main:handOutCards()),
-                update:output(web:redirect("/blackjack/draw")) (:redirect always? (outside of if):)
-        )
+        then blackjack-main:confirmBet($playerID),
+        update:output(web:redirect("/blackjack/draw"))
     )
 };
 
@@ -140,9 +135,9 @@ function blackjack-controller:resetBet($playerID as xs:string){
     return (
         if($game/@phase = "bet" and $game/players/player[@id = $playerID]/pool/@locked = "false")
         then (  replace node $game/players/player[@id=$playerID]/wallet/node() with ($wallet + $poolBet),
-                replace node $game/players/player[@id = $playerID]/pool with <pool locked="false"></pool>,
-                update:output(web:redirect("/blackjack/draw"))
-        )
+                replace node $game/players/player[@id = $playerID]/pool with <pool locked="false"></pool>
+        ),
+        update:output(web:redirect("/blackjack/draw"))
     )
 };
 
@@ -155,7 +150,7 @@ declare
 function blackjack-controller:hit($playerID as xs:string){
     let $game := blackjack-main:getGame()
     return (
-        (if($game/@onTurn = $playerID and $game/@phase = "play" and blackjack-main:calculateHandValue($playerID) < 21)
+        (if($game/@onTurn = $playerID and $game/@phase = "play" and $game/players/player[@id=$playerID]/hand/@sum < 21)
         then blackjack-main:drawCard($playerID)),
         update:output(web:redirect("/blackjack/draw"))
     )
@@ -171,9 +166,9 @@ function blackjack-controller:stand($playerID as xs:string){
     let $game := blackjack-main:getGame()
     return (
         if($game/@onTurn = $playerID and $game/@phase = "play")
-        then (blackjack-main:moveTurn($playerID),
-                update:output(web:redirect("/blackjack/draw")) (:redirect allways? (outside of if):)
-        )
+        then (blackjack-main:moveTurn($playerID) (:redirect allways? (outside of if):)
+        ),
+        update:output(web:redirect("/blackjack/draw"))
     )
 };
 
