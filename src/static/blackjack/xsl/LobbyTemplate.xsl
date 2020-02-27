@@ -54,19 +54,30 @@
                       ry="{$edgeRadius}"
                       style="fill: #134900; opacity: 0.6"/>
                 <!-- Button für neues Spiel-->
-                <xsl:variable name="name" select="lobby/player/@name"/>
-                <xsl:variable name="id" select="lobby/player/@id"/>
-                <foreignObject width="100%" height="100%" x="{$startX}" y="{$startY - 1}">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/newGame" method="get"
-                          id="Neues Spiel">
-                        <input type="hidden" name="name" id="name" value="{$name}"/>
-                        <input type="hidden" name="id" id="id" value="{$id}"/>
-                        <button style=" width:80%; height:20%; display:table-cell; font-size:{$fontSize - 1}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
-                                form="Neues Spiel" value="Submit">
-                            Neues Spiel
-                        </button>
-                    </form>
-                </foreignObject>
+                <xsl:choose>
+                    <xsl:when test="count(lobby/player)=0">
+                        <text font-size="{$fontSize - 1}" alignment-baseline="hanging"
+                              fill="{$textColor}" font-family="{$fonts}">
+                            <tspan x="{$startX}" y="{$startY + 3}" > Erstelle oder lade </tspan>
+                            <tspan x="{$startX}" y="{$startY+ 7}"> einen Account! </tspan>
+                        </text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:variable name="name" select="lobby/player/@name"/>
+                        <xsl:variable name="id" select="lobby/player/@id"/>
+                        <foreignObject width="100%" height="100%" x="{$startX}" y="{$startY - 1}">
+                            <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/newGame" method="get"
+                                  id="Neues Spiel">
+                                <input type="hidden" name="name" id="name" value="{$name}"/>
+                                <input type="hidden" name="id" id="id" value="{$id}"/>
+                                <button style=" width:80%; height:20%; display:table-cell; font-size:{$fontSize - 1}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                                        form="Neues Spiel" value="Submit">
+                                    Neues Spiel
+                                </button>
+                            </form>
+                        </foreignObject>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <!-- Einzelspiel Abfrage -->
                 <rect x="{$startX}" y="{$startY + 13}" width="{$rectWidth - 35}" height="{$rectHeight div 12}"
                       fill="none" style="stroke:{$rectColor} ;stroke-width:{$strokeWidth }"/>
@@ -125,12 +136,14 @@
                     <xsl:when test="count(lobby/player)=0">
                         <foreignObject width="100%" height="100%" font-family="helvetica" fill="{$textColor}"
                                        font-size="{$fontSize - 1}" x="{$startX}" y="{$startY}">
-                            <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/restoreAccount" method="post" id="create">
+                            <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/createAccount" method="post"
+                                  id="createAccount">
                                 <input size="36" type="text" name="playerName" id="playerName1"
-                                       style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="Name"/>
+                                       style="outline:none; font-size:{$fontSize - 2}; border: none"
+                                       placeholder="Name"/>
                                 <br/>
                                 <button style=" width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
-                                        form="restore" value="Submit">
+                                        form="createAccount" value="Submit">
                                     Account erstellen
                                 </button>
                             </form>
@@ -163,14 +176,15 @@
 
                 <foreignObject width="100%" height="100%" font-family="helvetica" fill="{$textColor}"
                                font-size="{$fontSize - 1}" x="{$startX}" y="{$startY+30}">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/restoreAccount" method="post" id="restore">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/restoreAccount" method="post"
+                          id="restoreAccount">
                         <input size="23" type="text" name="playerName" id="playerName"
                                style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="Name"/>
                         <input size="8" type="text" name="playerID" id="playerID"
                                style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="ID"/>
                         <br/>
                         <button style=" width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
-                                form="restore" value="Submit">
+                                form="restoreAccount" value="Submit">
                             Account wiederherstellen
                         </button>
                     </form>

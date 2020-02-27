@@ -2,15 +2,15 @@
 <?xml-stylesheet type="text/xsl "href="GameTemplate.xsl" ?>
 
 <players>
-    <player id="1859" name="Angela" highscore="5150"/>
+    <player id="1" name="Angela" highscore="5150"/>
 
-    <player id="2960" name="Donald" highscore="500"/>
+    <player id="2" name="Donald" highscore="500"/>
 
-    <player id="5281" name="Boris" highscore="200"/>
+    <player id="3" name="Boris" highscore="200"/>
 
-    <player id="3960" name="Kim" highscore="200"/>
+    <player id="4" name="Kim" highscore="200"/>
 
-    <player id="7623" name="Manuel" highscore="150"/>
+    <player id="5" name="Manuel" highscore="150"/>
 
 
 

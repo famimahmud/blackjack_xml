@@ -37,11 +37,13 @@ declare
 %rest:GET
 %updating
 function blackjack-controller:newGame($name as xs:string, $id as xs:integer){
-    let $redirectLink := "/blackjack/draw"
     let $lobby := blackjack-main:getLobby()
     return (
+        if(count(lobby/player)=0)
+        then(update:output(web:redirect("/blackjack/start")))
+        else(
         blackjack-main:newGame($name, $id),
-        update:output(web:redirect("/blackjack/draw")))
+        update:output(web:redirect("/blackjack/draw"))))
 };
 
 declare
@@ -193,5 +195,24 @@ function blackjack-controller:restoreAccount($playerName as xs:string, $playerID
         else (replace node $lobby/player with $player),
         update:output(web:redirect("/blackjack/start"))
     )
+};
+
+declare
+%rest:path("/blackjack/createAccount")
+%rest:query-param("playerName", "{$playerName}")
+%output:method("html")
+%rest:POST
+%updating
+function blackjack-controller:createAccount($playerName as xs:string){
+    let $players:= blackjack-main:getPlayers()
+    let $newID := if(count($players/player) = 0)
+                      then(0)
+                      else((blackjack-main:getPlayers()/player[last()]/@id) +1)
+    let $newPlayer := <player id="{$newID}" name="{$playerName}" highscore="0"/>
+    let $lobby := blackjack-main:getLobby()
+    return (
+        insert node $newPlayer into $players,
+        insert node $newPlayer into $lobby,
+        update:output(web:redirect("/blackjack/start")))
 };
 

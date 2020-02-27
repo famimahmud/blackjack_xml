@@ -7,6 +7,4 @@
         <game round="2" id="145" maxRounds="10" players="1"/>
         <game round="4" id="554" maxRounds="10" players="4"/>
     </games>
-
-    <player id="5281" name="Boris" highscore="200"/>
 </lobby>
