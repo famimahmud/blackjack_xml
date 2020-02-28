@@ -1,4 +1,4 @@
-xquery version "3.0";
+xquery version "3.1";
 
 module namespace blackjack-controller = "blackjack-controller.xqm";
 import module namespace blackjack-main = "Blackjack/Main" at "blackjack-main.xqm";
@@ -15,8 +15,9 @@ function blackjack-controller:setup() {
     let $lobby_model := doc(concat($blackjack-controller:staticPath, "Lobby.xml"))
     let $deck_model := doc(concat($blackjack-controller:staticPath, "Deck.xml"))
     let $players_model := doc(concat($blackjack-controller:staticPath, "Players.xml"))
+    let $highscores_model := doc(concat($blackjack-controller:staticPath, "Highscores.xml"))
     let $redirectLink := "/blackjack/start"
-    return (db:create("Game", $game_model), db:create("Lobby", $lobby_model), db:create("Deck", $deck_model), db:create("Players", $players_model), update:output(web:redirect($redirectLink)))
+    return (db:create("Game", $game_model), db:create("Lobby", $lobby_model), db:create("Deck", $deck_model), db:create("Players", $players_model), db:create("Highscores", $highscores_model), update:output(web:redirect($redirectLink)))
 };
 
 declare
@@ -246,3 +247,13 @@ function blackjack-controller:createAccount($playerName as xs:string){
         update:output(web:redirect("/blackjack/start")))
 };
 
+(: ONLY FOR TESTING PURPOSES :)
+declare
+%rest:path("/blackjack/addHighscore")
+%rest:query-param("playerID", "{$playerID}")
+%output:method("html")
+%rest:POST
+%updating
+function blackjack-controller:addHighscore($playerID as xs:integer){
+    blackjack-main:addHighscore($playerID)
+};

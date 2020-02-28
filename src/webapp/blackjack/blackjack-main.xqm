@@ -1,4 +1,4 @@
-xquery version "3.0";
+xquery version "3.1";
 
 module namespace blackjack-main = "Blackjack/Main";
 import module namespace blackjack-helper = "Blackjack/Helper" at "blackjack-helper.xqm";
@@ -7,6 +7,7 @@ declare variable $blackjack-main:game := db:open("Game")/game;
 declare variable $blackjack-main:deck := db:open("Deck")/deck;
 declare variable $blackjack-main:players := db:open("Players")/players;
 declare variable $blackjack-main:lobby := db:open("Lobby")/lobby;
+declare variable $blackjack-main:highscores := db:open("Highscores")/highscores;
 
 (:~
  : Deck gets shuffled
@@ -262,7 +263,7 @@ declare
 %updating
 function blackjack-main:handOutCards(){
     if ($blackjack-main:game/@phase = "bet") then (
-        (: TO-DO (updaten der Datenbank nach der ersten Karte für den dealer nötig:)
+        (: TODO (updaten der Datenbank nach der ersten Karte für den dealer nötig:)
     )
 };
 
@@ -293,7 +294,7 @@ function blackjack-main:moveTurnHelper($playerOnTurn as xs:string){
         return ( if ($newPlayerTurn = "dealer" or $blackjack-main:game/players/player[@id=$newPlayerTurn]/hand/@sum <= 20)
             then (
                 replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn,
-                        (: TO-DO: update Datenbank und sende draw an Player, optional warte 1000ms:)
+                        (: TODO: update Datenbank und sende draw an Player, optional warte 1000ms:)
                         if ($newPlayerTurn = "dealer")
                             then blackjack-main:revealeDealerHand(),
                                  update:output(web:redirect("blackjack/dealerTurn"))
@@ -352,4 +353,23 @@ declare function blackjack-main:getLobby(){
 
 declare function blackjack-main:getPlayers(){
     $blackjack-main:players
+};
+
+(:~
+ : Inserts player score to high score list and computes new board
+ : @playerID $playerID of the player to be inserted
+ : @return New high score board
+ :)
+declare
+%updating
+function blackjack-main:addHighscore($playerID as xs:integer){
+    let $playerName := $blackjack-main:game/players/player[@id=$playerID]/@name
+    let $playerScore := $blackjack-main:game/players/player[@id=$playerID]/wallet
+    let $newEntry :=
+    <highscore>
+        <name>{$playerName}</name>
+        <score>{$playerScore}</score>
+    </highscore>
+    return ( (:if ($playerScore > 0) then ( :)
+        insert node $newEntry as last into $blackjack-main:highscores)
 };

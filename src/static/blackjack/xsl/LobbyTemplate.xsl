@@ -58,8 +58,8 @@
                     <xsl:when test="count(lobby/player)=0">
                         <text font-size="{$fontSize - 1}" alignment-baseline="hanging"
                               fill="{$textColor}" font-family="{$fonts}">
-                            <tspan x="{$startX}" y="{$startY + 3}" > Erstelle oder lade </tspan>
-                            <tspan x="{$startX}" y="{$startY+ 7}"> einen Account! </tspan>
+                            <tspan x="{$startX}" y="{$startY + 3}">Erstelle oder lade</tspan>
+                            <tspan x="{$startX}" y="{$startY+ 7}">einen Account!</tspan>
                         </text>
                     </xsl:when>
                     <xsl:otherwise>
@@ -203,21 +203,27 @@
                     Highscores
                 </text>
 
+
                 <!-- Liste der Highscores-->
+
                 <xsl:for-each select="$highscoreBoard/highscores/highscore">
+                    <!-- Sort by scores -->
+                    <xsl:sort select="score" data-type="number" order="descending"/>
                     <xsl:variable name="currentY" select="($startY + 6) + (position() * 4)"/>
-                    <xsl:variable name="position" select="@position"/>
+                    <xsl:variable name="position" select="position()"/>
                     <xsl:variable name="name" select="name"/>
                     <xsl:variable name="score" select="score"/>
 
-                    <text y="{$currentY}" fill="{$textColor}" font-size="{$fontSize - 2}" font-family="{$fonts}">
-                        <tspan x="{$startX - 3}" alignment-baseline="hanging">
-                            <xsl:value-of select="concat($position, '. ', $name)"/>
-                        </tspan>
-                        <tspan x="{$startX + 20}" alignment-baseline="hanging">
-                            <xsl:value-of select="concat($score, '$')"/>
-                        </tspan>
-                    </text>
+                    <xsl:if test="not($position > 10)">
+                        <text y="{$currentY}" fill="{$textColor}" font-size="{$fontSize - 2}" font-family="{$fonts}">
+                            <tspan x="{$startX - 3}" alignment-baseline="hanging">
+                                <xsl:value-of select="concat($position, '. ', $name)"/>
+                            </tspan>
+                            <tspan x="{$startX + 20}" alignment-baseline="hanging">
+                                <xsl:value-of select="concat($score, '$')"/>
+                            </tspan>
+                        </text>
+                    </xsl:if>
                 </xsl:for-each>
             </svg>
         </svg>

@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <highscores>
-    <highscore position="1">
+    <highscore>
         <name>Angela</name>
         <score>13337</score>
     </highscore>
-    <highscore position="2">
-        <name>Horst</name>
-        <score>5724</score>
-    </highscore>
-    <highscore position="3">
-        <name>Kim</name>
-        <score>666</score>
-    </highscore>
-    <highscore position="4">
-        <name>Emmanuel</name>
-        <score>500</score>
-    </highscore>
-    <highscore position="5">
-        <name>Vladimir</name>
-        <score>423</score>
-    </highscore>
-    <highscore position="6">
+    <highscore>
         <name>Boris</name>
         <score>321</score>
     </highscore>
-    <highscore position="7">
+    <highscore>
+        <name>Horst</name>
+        <score>5724</score>
+    </highscore>
+    <highscore>
+        <name>Kim</name>
+        <score>666</score>
+    </highscore>
+    <highscore>
+        <name>Emmanuel</name>
+        <score>500</score>
+    </highscore>
+    <highscore>
+        <name>Vladimir</name>
+        <score>423</score>
+    </highscore>
+        <highscore>
+        <name>Sebastian</name>
+        <score>300</score>
+    </highscore>
+    <highscore>
         <name>Markus</name>
         <score>299</score>
     </highscore>
-    <highscore position="8">
+    <highscore>
         <name>Justin</name>
         <score>250</score>
     </highscore>
-    <highscore position="9">
+    <highscore>
         <name>Alexander</name>
         <score>2</score>
     </highscore>
-    <highscore position="10">
+    <highscore>
         <name>Donald</name>
         <score>1</score>
     </highscore>
