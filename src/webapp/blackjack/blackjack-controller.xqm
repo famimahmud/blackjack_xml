@@ -174,7 +174,8 @@ function blackjack-controller:handOutOneCardToEach(){
         then (blackjack-main:handOutOneCardToEach(),
             blackjack-main:moveTurn("dealer"),
             replace value of node $blackjack-main:game/@phase with "play")
-        )
+        ),
+        update:output(web:redirect("/blackjack/draw"))
 };
 
 declare

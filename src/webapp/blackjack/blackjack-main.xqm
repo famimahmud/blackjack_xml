@@ -316,22 +316,17 @@ function blackjack-main:moveTurnHelper($playerOnTurn as xs:string){
             then (
                 replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn,
                 if ($newPlayerTurn = "dealer")
-                    then blackjack-main:revealeDealerHand(),
-                        update:output(web:redirect("/blackjack/dealerTurn"))
+                    then
+                        let $dealerHandValue := blackjack-main:calculateHandValue($blackjack-main:game/dealer/hand)
+                        let $firstCard := $blackjack-main:game/dealer/hand/card[position() = 1]
+                        return (
+                            replace node $blackjack-main:game/dealer/hand
+                                    with <hand sum="{$dealerHandValue}"><card hidden="false">{$firstCard/type}{$firstCard/value}</card>
+                                                {$blackjack-main:game/dealer/hand/card[position() > 1]}</hand>,
+                            update:output(web:redirect("/blackjack/dealerTurn")))
                 )
                 else (blackjack-main:moveTurnHelper($newPlayerTurn))
         )
-};
-
-declare
-%updating
-function blackjack-main:revealeDealerHand() {
-    let $dealerHandValue := blackjack-main:calculateHandValue($blackjack-main:game/dealer/hand)
-        let $firstCard := $blackjack-main:game/dealer/hand/card[position() = 1]
-        return (if ($blackjack-main:game/@onTurn = "dealer") then (
-                (replace node $blackjack-main:game/dealer/hand
-                    with <hand sum="{$dealerHandValue}"><card hidden="false">{$firstCard/type}{$firstCard/value}</card>
-                    {$blackjack-main:game/dealer/hand/card[position() > 1]}</hand>)))
 };
 
 (:~
