@@ -21,7 +21,7 @@ function blackjack-main:shuffleDeck() {
 };
 
 (:~
-  : initate a new Game by creating a new Game model
+  : Initate a new Game by creating a new Game model
   : @playerName player who starts new Game
   : @playerID ID of player who starts new Game
   : @return model change
@@ -56,7 +56,7 @@ function blackjack-main:newGame($playerName as xs:string, $playerID as xs:intege
   };
 
   (:~
-  : initate a new Round by deleting hands and pools
+  : Initate a new Round by deleting hands and pools
   : @return model change
   :)
   declare
@@ -390,8 +390,9 @@ function blackjack-main:addHighscore($playerID as xs:integer){
     </highscore>
     return (
         if ($playerScore > 0 and $playerScore > $currentHighscore) then (
+            (: Replace old highscore value with new highscore in player database :)
             replace value of node $blackjack-main:players/player[@id=$playerID]/@highscore with $playerScore,
-            insert node $newEntry as last into $blackjack-main:highscores),
-            update:output("Inserted new highscore")
+            (: Add new highscore to highscore database :)
+            insert node $newEntry as last into $blackjack-main:highscores)
         )
 };

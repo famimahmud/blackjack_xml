@@ -272,14 +272,3 @@ function blackjack-controller:createAccount($playerName as xs:string){
         insert node $newPlayer into $lobby,
         update:output(web:redirect("/blackjack/start")))
 };
-
-(: ONLY FOR TESTING PURPOSES :)
-declare
-%rest:path("/blackjack/addHighscore")
-%rest:query-param("playerID", "{$playerID}")
-%output:method("html")
-%rest:POST
-%updating
-function blackjack-controller:addHighscore($playerID as xs:integer){
-    blackjack-main:addHighscore($playerID)
-};
