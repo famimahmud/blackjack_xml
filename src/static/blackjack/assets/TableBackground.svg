@@ -25,11 +25,18 @@
     <rect height="100%" width="100%" fill="green"/>
     <path d="M0 0 L0 350 Q750 550 1500 350 L1500 0" stroke="none" fill="url(#radialgradient)"/>
 
-    <path id="bow" d="M0 340 Q750 540 1500 340 M1500 340" stroke="none" fill="none"/>
+    <path id="upperBow" d="M0 300 Q750 510 1500 300 M1500 300" stroke="none" fill="none"/>
+    <path id="lowerBow" d="M0 335 Q750 535 1500 340 M1500 335" stroke="none" fill="none"/>
 
-    <text font-family="Raleway, serif">
-        <textPath xlink:href="#bow" stroke="#004a00" fill="#004a00" startOffset="0.5%" font-size="25" textLength="1500">
-            BLACKJACK PAYS 3 TO 2 • DEALER MUST DRAW TO 16 AND STAND ON 17
+    <text font-family="Raleway, sans-serif">
+        <textPath xlink:href="#upperBow" stroke="#004a00" fill="#004a00" text-anchor="middle" startOffset="50%" font-size="25">
+            BLACKJACK PAYS 3 TO 2
+        </textPath>
+    </text>
+
+    <text font-family="Raleway, sans-serif">
+        <textPath xlink:href="#lowerBow" stroke="#004a00" fill="#004a00" text-anchor="middle" startOffset="50%" font-size="25">
+            DEALER MUST DRAW TO 16 AND STAND ON 17
         </textPath>
     </text>
 
