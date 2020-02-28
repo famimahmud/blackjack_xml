@@ -317,7 +317,7 @@ function blackjack-main:moveTurnHelper($playerOnTurn as xs:string){
                 replace value of node $blackjack-main:game/@onTurn with $newPlayerTurn,
                 if ($newPlayerTurn = "dealer")
                     then blackjack-main:revealeDealerHand(),
-                        update:output(web:redirect("blackjack/dealerTurn"))
+                        update:output(web:redirect("/blackjack/dealerTurn"))
                 )
                 else (blackjack-main:moveTurnHelper($newPlayerTurn))
         )
@@ -347,7 +347,7 @@ function blackjack-main:dealerTurn(){
             prof:sleep(1000), :)(: pause for 1000ms :)
             if ($dealerHandValue < 17)
             then (blackjack-main:drawCard("dealer"),
-                update:output(web:redirect("blackjack/dealerTurn")))
+                update:output(web:redirect("/blackjack/dealerTurn")))
             else replace value of node $blackjack-main:game/@phase with "pay",
                  update:output(web:redirect("/blackjack/pay")),
                  update:output(web:redirect("/blackjack/draw"))))

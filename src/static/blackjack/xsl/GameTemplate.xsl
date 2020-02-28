@@ -31,7 +31,7 @@
         <xsl:variable name="playerCount" select="count(/*/players/*)"/>
         <xsl:variable name="rectHeight" select="5"/>
         <xsl:variable name="rectWidth" select="25"/>
-
+        <xsl:variable name="playerID" select="game/players/player/@id"/>
 
         <xsl:variable name="currentPlayer">
             <xsl:if test="/*/@onTurn = 'dealer'">
@@ -279,6 +279,7 @@
             </foreignObject>
 
 
+
             <xsl:choose>
 
                 <xsl:when test=" /*/@phase ='bet'">
@@ -289,6 +290,7 @@
                                     form="Confirm" value="Submit">
                                 Confirm
                             </button>
+                            <input type="hidden" name="playerID" id="playerIDconfirm" value="{$playerID}"/>
                         </form>
                     </foreignObject>
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
@@ -298,6 +300,7 @@
                                     form="Reset" value="Submit">
                                 Reset
                             </button>
+                            <input type="hidden" name="playerID" id="playerIDreset" value="{$playerID}"/>
                         </form>
                     </foreignObject>
                 </xsl:when>
@@ -308,6 +311,7 @@
                                     form="Hit" value="Submit">
                                 Hit
                             </button>
+                            <input type="hidden" name="playerID" id="playerIDhit" value="{$playerID}"/>
                         </form>
                     </foreignObject>
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
@@ -316,6 +320,7 @@
                                     form="Stand" value="Submit">
                                 Stand
                             </button>
+                            <input type="hidden" name="playerID" id="playerIDstand" value="{$playerID}"/>
                         </form>
                     </foreignObject>
                 </xsl:otherwise>
@@ -332,7 +337,7 @@
                         </svg>
                         <input type="submit" name="value" id="value10" value="10"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID10" value="/*/players/*/@id"/>
+                        <input type="hidden" name="playerID" id="playerID10" value="{$playerID}"/>
                     </label>
                 </form>
             </foreignObject>
@@ -350,7 +355,7 @@
                         <input type="hidden" name="value" id="playerID" value="50"/> -->
                         <input type="submit" name="value" id="value50" value="50"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID50" value="/*/players/*/@id"/>
+                        <input type="hidden" name="playerID" id="playerID50" value="{$playerID}"/>
                     </label>
                 </form>
             </foreignObject>
@@ -366,7 +371,7 @@
                         </svg>
                         <input type="submit" name="value" id="value100" value="100"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID100" value="/*/players/*/@id"/>
+                        <input type="hidden" name="playerID" id="playerID100" value="{$playerID}"/>
                     </label>
                 </form>
             </foreignObject>
@@ -382,7 +387,7 @@
                         </svg>
                         <input type="submit" name="value" id="value250" value="250"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID250" value="/*/players/*/@id"/>
+                        <input type="hidden" name="playerID" id="playerID250" value="{$playerID}"/>
                     </label>
                 </form>
             </foreignObject>
@@ -398,7 +403,7 @@
                         </svg>
                         <input type="submit" name="value" id="value500" value="500"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID500" value="/*/players/*/@id"/>
+                        <input type="hidden" name="playerID" id="playerID500" value="{$playerID}"/>
                     </label>
                 </form>
             </foreignObject>
@@ -414,7 +419,7 @@
                         </svg>
                         <input type="submit" name="value" id="value1000" value="1000"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID1000" value="/*/players/*/@id"/>
+                        <input type="hidden" name="playerID" id="playerID1000" value="{$playerID}"/>
                     </label>
                 </form>
             </foreignObject>
