@@ -122,7 +122,7 @@ function blackjack-main:removePlayer($playerID as xs:string){
             (if ($playerID = "dealer")
                 then replace node $blackjack-main:game/dealer/hand with <hand sum="{$handValue}">{$cardsInHand}{$revealedCard}</hand>
                 else replace node $blackjack-main:game/players/player[@id = $playerID]/hand with <hand sum="{$handValue}">{$cardsInHand}{$revealedCard}</hand>),
-            if ($handValue > 20 and $playerID != "dealer") then blackjack-main:moveTurn($playerID)
+            if ($handValue > 20 and $playerID != "dealer" and $blackjack-main:game/@phase = "play") then blackjack-main:moveTurn($playerID)
     )
  };
 
@@ -258,19 +258,33 @@ function blackjack-main:confirmBet($playerID as xs:string){
             with <pool locked="true">{$blackjack-main:game/players/player[@id = $playerID]/pool/chip}</pool>,
         (:check if all players confirmed their bets -> if true: hand out Cards:)
         if (count($blackjack-main:game/players/player/pool[@locked="true"]/@locked) >= (count($blackjack-main:game/players/player) - 1))
-        then blackjack-main:handOutCards()
+        then (
+            replace value of node $blackjack-main:game/@phase with "deal",
+            update:output(web:redirect("/blackjack/dealPhase"))
         )
+    )
 };
 
+declare
+%updating
+function blackjack-main:handOutOneCardToEach(){
+    if ($blackjack-main:game/@phase = "deal") then (
+        for $playerID in ($blackjack-main:game/players/player/@id, "dealer")
+            return
+                blackjack-main:drawCard($playerID)
+    )
+};
 (:~
  : give every player and the dealer two cards
  : @return model change to move turn to next player
  :)
 declare
 %updating
-function blackjack-main:handOutCards(){
-    if ($blackjack-main:game/@phase = "bet") then (
-        (: TODO (updaten der Datenbank nach der ersten Karte für den dealer nötig:)
+function blackjack-main:dealPhase(){
+    if ($blackjack-main:game/@phase = "deal") then (
+        blackjack-main:handOutOneCardToEach(),
+        update:output(web:redirect("/blackjack/handOutOneCardToEach")),
+        update:output(web:redirect("/blackjack/draw"))
     )
 };
 

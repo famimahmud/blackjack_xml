@@ -150,6 +150,34 @@ function blackjack-controller:resetBet($playerID as xs:string){
 };
 
 declare
+%rest:path("/blackjack/dealPhase")
+%output:method("html")
+%rest:GET
+%updating
+function blackjack-controller:dealPhase(){
+    let $game := blackjack-main:getGame()
+    return (
+        if($game/@phase = "deal")
+        then (blackjack-main:dealPhase())
+        )
+};
+
+declare
+%rest:path("/blackjack/handOutOneCardToEach")
+%output:method("html")
+%rest:GET
+%updating
+function blackjack-controller:handOutOneCardToEach(){
+    let $game := blackjack-main:getGame()
+    return (
+        if($game/@phase = "deal")
+        then (blackjack-main:handOutOneCardToEach(),
+            blackjack-main:moveTurn("dealer"),
+            replace value of node $blackjack-main:game/@phase with "play")
+        )
+};
+
+declare
 %rest:path("/blackjack/hit")
 %rest:query-param("playerID", "{$playerID}")
 %output:method("html")
