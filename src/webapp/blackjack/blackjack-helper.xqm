@@ -7,7 +7,7 @@ module namespace helper = "Blackjack/Helper";
  : @return  the calculated random integer
  :)
  declare function helper:getRandomInt($max as xs:integer) as xs:integer {
-    random:integer($max + 1)
+    (random:integer($max) + 1)
  };
 
 (: declare function helper:getNewHandValue ($newCardSymbol as element(), $handValue as xs:integer) as xs:integer {

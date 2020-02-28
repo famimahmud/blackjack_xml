@@ -189,10 +189,7 @@ function blackjack-controller:dealerTurn(){
     let $game := blackjack-main:getGame()
     return (
         if($game/@onTurn = "dealer" and $game/@phase = "play")
-        then (blackjack-main:dealerTurn()),
-        if($game/dealer/hand/@sum < 17) then
-        update:output(web:redirect("blackjack/dealerTurn"))
-        else update:output(web:redirect("/blackjack/pay"))
+        then (blackjack-main:dealerTurn())
         )
 };
 
@@ -203,11 +200,11 @@ declare
 %updating
 function blackjack-controller:pay(){
     let $game := blackjack-main:getGame()
-        return (
-            if ($game/@phase = "pay")
-                then blackjack-main:payPhase(),
-            update:output(web:redirect("/blackjack/draw"))
-        )
+    return (
+        (if ($game/@phase = "pay")
+            then blackjack-main:payPhase()),
+        update:output(web:redirect("/blackjack/draw"))
+    )
 };
 
 declare
