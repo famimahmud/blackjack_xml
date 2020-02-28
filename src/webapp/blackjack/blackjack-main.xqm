@@ -380,13 +380,18 @@ declare function blackjack-main:getPlayers(){
 declare
 %updating
 function blackjack-main:addHighscore($playerID as xs:integer){
-    let $playerName := $blackjack-main:game/players/player[@id=$playerID]/@name
-    let $playerScore := $blackjack-main:game/players/player[@id=$playerID]/wallet
+    let $playerName := string($blackjack-main:game/players/player[@id=$playerID]/@name)
+    let $playerScore := $blackjack-main:game/players/player[@id=$playerID]/wallet/text()
+    let $currentHighscore := $blackjack-main:players/player[@id=$playerID]/@highscore
     let $newEntry :=
     <highscore>
         <name>{$playerName}</name>
         <score>{$playerScore}</score>
     </highscore>
-    return ( (:if ($playerScore > 0) then ( :)
-        insert node $newEntry as last into $blackjack-main:highscores)
+    return (
+        if ($playerScore > 0 and $playerScore > $currentHighscore) then (
+            replace value of node $blackjack-main:players/player[@id=$playerID]/@highscore with $playerScore,
+            insert node $newEntry as last into $blackjack-main:highscores),
+            update:output("Inserted new highscore")
+        )
 };
