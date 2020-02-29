@@ -374,7 +374,7 @@ declare function blackjack-main:getPlayers(){
 
 (:~
  : Inserts player score to high score list and computes new board
- : @playerID $playerID of the player to be inserted
+ : @playerID ID of the player to be inserted
  : @return New high score board
  :)
 declare
@@ -395,4 +395,21 @@ function blackjack-main:addHighscore($playerID as xs:integer){
             (: Add new highscore to highscore database :)
             insert node $newEntry as last into $blackjack-main:highscores)
         )
+};
+
+
+(:~
+ : End game: save all highscores and remove game from lobby
+ : @gameID ID of the game to be terminated
+ : @return Model change in highscore and lobby database
+ :)
+declare
+%updating
+function blackjack-main:endGame($gameID as xs:integer){
+    (: TODO: Test method :)
+    (: Save scores of all players :)
+    for $playerID in $blackjack-main:game/players/player/@id
+    return blackjack-main:addHighscore($playerID),
+    (: Remove game from lobby directory :)
+    delete node $blackjack-main:lobby/games/game[@id = $gameID]
 };
