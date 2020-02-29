@@ -152,11 +152,17 @@
                     <xsl:otherwise>
                         <xsl:variable name="name" select="lobby/player/@name"/>
                         <xsl:variable name="id" select="lobby/player/@id"/>
-                        <text x="{$rectMidWidth div 2}" y="{$startY + 2.5}" fill="{$textColor}"
+                        <text x="{$rectMidWidth div 2}" y="{$startY + 1.5}" fill="{$textColor}"
                               font-size="{$fontSize+1}"
                               font-family="{$fonts}" text-anchor="middle"
                               alignment-baseline="hanging">
-                            <xsl:value-of select=" concat( $name, ' ', $id)"/>
+                            <xsl:value-of select="$name"/>
+                        </text>
+                        <text x="{$rectMidWidth div 2}" y="{$startY + 8}" fill="{$textColor}"
+                              font-size="{$fontSize - 2}"
+                              font-family="{$fonts}" text-anchor="middle"
+                              alignment-baseline="hanging">
+                            <xsl:value-of select="concat('ID: ', $id)"/>
                         </text>
 
                         <!-- Highscore -->

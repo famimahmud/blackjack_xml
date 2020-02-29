@@ -47,6 +47,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      width="100%" height="100%" viewBox="0 0 10 10">
 
+      <defs>
+        <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Raleway');</style>
+    </defs>
+
     <symbol id="heart" viewBox="0 0 5 5">
         <circle cx="&leftCircleXHeart;" cy="&leftCircleYHeart;" r="&circleRadiusHeart;" style="fill:red"/>
         <circle cx="&rightCircleXHeart;" cy="&rightCircleYHeart;" r="&circleRadiusHeart;" style="fill:red"/>
@@ -315,7 +319,7 @@
                 <text x="0.05"
                       y="0.8"
                       font-size="0.8"
-                      font-family="serif"
+                      font-family="Raleway, sans-serif"
                       fill="black">A
                 </text>
                 <use x="0"
@@ -362,7 +366,7 @@
                 <text x="0.05"
                       y="0.8"
                       font-size="0.8"
-                      font-family="serif"
+                      font-family="Raleway, sans-serif"
                       fill="red">K
                 </text>
                 <use x="0"
