@@ -2,6 +2,8 @@
                 xmlns:xls="http://www.w3.org/1999/XSL/Transform" xmlns:xslt="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes"/>
 
+    <xsl:param name="gameId"/>
+
     <!-- Imports -->
     <xsl:include href="CardTemplate.xsl"/>
     <xsl:include href="ChipTemplate.xsl"/>
@@ -270,7 +272,7 @@
             </xsl:for-each>
 
             <foreignObject width="100%" height="100%" x="90%" y="0%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/start" method="get" id="Exit">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack" method="get" id="Exit">
                     <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                             form="Exit" value="Submit">
                         Exit
@@ -284,7 +286,7 @@
 
                 <xsl:when test=" /*/@phase ='bet'">
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/confirmBet" method="post"
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/confirmBet" method="post"
                               id="Confirm">
                             <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Confirm" value="Submit">
@@ -294,7 +296,7 @@
                         </form>
                     </foreignObject>
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/resetBet" method="post"
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/resetBet" method="post"
                               id="Reset">
                             <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Reset" value="Submit">
@@ -306,7 +308,7 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/hit" method="post" id="Hit">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/hit" method="post" id="Hit">
                             <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Hit" value="Submit">
                                 Hit
@@ -315,7 +317,7 @@
                         </form>
                     </foreignObject>
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/stand" method="post" id="Stand">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/stand" method="post" id="Stand">
                             <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Stand" value="Submit">
                                 Stand
@@ -327,7 +329,7 @@
             </xsl:choose>
 
             <foreignObject width="7" height="7" x="25%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_10">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_10">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -343,7 +345,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="34%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_50">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_50">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -361,7 +363,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="43%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_100">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_100">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -377,7 +379,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="52%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_250">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_250">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -393,7 +395,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="61%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_500">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_500">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -409,7 +411,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="70%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/bet" method="post" id="Chip_1000">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_1000">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">

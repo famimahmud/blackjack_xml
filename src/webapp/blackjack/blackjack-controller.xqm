@@ -63,7 +63,7 @@ function blackjack-controller:drawGame($gameId as xs:integer){
     let $game := blackjack-main:getGame($gameId)
     let $xslStylesheet := "GameTemplate.xsl"
     let $title := "Blackjack"
-    return (blackjack-controller:generatePage($game, $xslStylesheet, $title))
+    return (blackjack-controller:generatePage($game, $xslStylesheet, $gameId, $title))
 };
 
 
@@ -85,9 +85,12 @@ declare function blackjack-controller:generateLobby($lobby as element(lobby), $x
 
 
 declare function blackjack-controller:generatePage($game as element(game), $xslStylesheet as xs:string,
-        $title as xs:string) {
+        $gameId as xs:integer, $title as xs:string) {
     let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/", $xslStylesheet))
-    let $transformed := xslt:transform($game, $stylesheet)
+    let $parameters := map {
+        "gameId": $gameId
+    }
+    let $transformed := xslt:transform($game, $stylesheet, $parameters)
     return
         <html>
             <head>
