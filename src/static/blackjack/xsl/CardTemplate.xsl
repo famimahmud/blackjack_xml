@@ -77,7 +77,7 @@
                             <text x="{$textX}" y="0.8" font-size="0.8" font-family="{$fonts}" fill="{$cardColor}">
                                 <xsl:value-of select="$cardValue"/>
                             </text>
-                            <image x="0" y="1" width="0.6" height="0.6" xlink:href="../static/blackjack/assets/icons/{$cardType}.svg"/>
+                            <image x="0" y="1" width="0.6" height="0.6" xlink:href="/static/blackjack/assets/icons/{$cardType}.svg"/>
                         </svg>
                     </symbol>
 
@@ -89,13 +89,13 @@
                     <xsl:choose>
                         <!-- Use King, Queen or Jack asset -->
                         <xsl:when test="$cardValue = 'K'">
-                            <image x="0.1" y="1" width="4.9" height="5" xlink:href="../static/blackjack/assets/icons/{$cardColor}/King.svg"/>
+                            <image x="0.1" y="1" width="4.9" height="5" xlink:href="/static/blackjack/assets/icons/{$cardColor}/King.svg"/>
                         </xsl:when>
                         <xsl:when test="$cardValue = 'Q'">
-                            <image x="0.1" y="1" width="4.9" height="5" xlink:href="../static/blackjack/assets/icons/{$cardColor}/Queen.svg"/>
+                            <image x="0.1" y="1" width="4.9" height="5" xlink:href="/static/blackjack/assets/icons/{$cardColor}/Queen.svg"/>
                         </xsl:when>
                         <xsl:when test="$cardValue = 'J'">
-                            <image x="0.1" y="1" width="4.9" height="5" xlink:href="../static/blackjack/assets/icons/{$cardColor}/Jack.svg"/>
+                            <image x="0.1" y="1" width="4.9" height="5" xlink:href="/static/blackjack/assets/icons/{$cardColor}/Jack.svg"/>
                         </xsl:when>
 
                         <!-- Otherwise generate asset from number count -->
@@ -107,10 +107,10 @@
                                     <xsl:choose>
                                         <xsl:when test="@rotate = 'true'">
                                             <image x="{$currentX}" y="{$currentY}" width="1" height="1"
-                                                   xlink:href="../static/blackjack/assets/icons/{$cardType}.svg" transform="rotate(180 {$currentX + 0.5} {$currentY + 0.5})"/>
+                                                   xlink:href="/static/blackjack/assets/icons/{$cardType}.svg" transform="rotate(180 {$currentX + 0.5} {$currentY + 0.5})"/>
                                         </xsl:when>
                                         <xsl:otherwise>
-                                            <image x="{$currentX}" y="{$currentY}" width="1" height="1" xlink:href="../static/blackjack/assets/icons/{$cardType}.svg"/>
+                                            <image x="{$currentX}" y="{$currentY}" width="1" height="1" xlink:href="/static/blackjack/assets/icons/{$cardType}.svg"/>
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:for-each>
