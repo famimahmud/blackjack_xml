@@ -33,7 +33,7 @@
         <xsl:variable name="playerCount" select="count(/*/players/*)"/>
         <xsl:variable name="rectHeight" select="5"/>
         <xsl:variable name="rectWidth" select="25"/>
-        <xsl:variable name="playerID" select="game/players/player/@id"/>
+        <xsl:variable name="playerId" select="game[@id=$gameId]/@onTurn"/>
 
         <xsl:variable name="currentPlayer">
             <xsl:if test="/*/@onTurn = 'dealer'">
@@ -292,7 +292,7 @@
                                     form="Confirm" value="Submit">
                                 Confirm
                             </button>
-                            <input type="hidden" name="playerID" id="playerIDconfirm" value="{$playerID}"/>
+                            <input type="hidden" name="playerId" id="playerIdConfirm" value="{$playerId}"/>
                         </form>
                     </foreignObject>
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
@@ -302,7 +302,7 @@
                                     form="Reset" value="Submit">
                                 Reset
                             </button>
-                            <input type="hidden" name="playerID" id="playerIDreset" value="{$playerID}"/>
+                            <input type="hidden" name="playerId" id="playerIdReset" value="{$playerId}"/>
                         </form>
                     </foreignObject>
                 </xsl:when>
@@ -313,7 +313,7 @@
                                     form="Hit" value="Submit">
                                 Hit
                             </button>
-                            <input type="hidden" name="playerID" id="playerIDhit" value="{$playerID}"/>
+                            <input type="hidden" name="playerId" id="playerIdHit" value="{$playerId}"/>
                         </form>
                     </foreignObject>
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
@@ -322,7 +322,7 @@
                                     form="Stand" value="Submit">
                                 Stand
                             </button>
-                            <input type="hidden" name="playerID" id="playerIDstand" value="{$playerID}"/>
+                            <input type="hidden" name="playerId" id="playerIdStand" value="{$playerId}"/>
                         </form>
                     </foreignObject>
                 </xsl:otherwise>
@@ -337,9 +337,9 @@
                                 <xsl:with-param name="id" select="10"/>
                             </xsl:call-template>
                         </svg>
-                        <input type="submit" name="value" id="value10" value="10"
+                        <input type="submit" name="chipValue" id="value10" value="10"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID10" value="{$playerID}"/>
+                        <input type="hidden" name="playerId" id="playerId10" value="{$playerId}"/>
                     </label>
                 </form>
             </foreignObject>
@@ -353,11 +353,9 @@
                                 <xsl:with-param name="id" select="50"/>
                             </xsl:call-template>
                         </svg>
-                        <!-- TODO: Implement playerID parameter
-                        <input type="hidden" name="value" id="playerID" value="50"/> -->
-                        <input type="submit" name="value" id="value50" value="50"
+                        <input type="submit" name="chipValue" id="value50" value="50"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID50" value="{$playerID}"/>
+                        <input type="hidden" name="playerId" id="playerId50" value="{$playerId}"/>
                     </label>
                 </form>
             </foreignObject>
@@ -371,9 +369,9 @@
                                 <xsl:with-param name="id" select="100"/>
                             </xsl:call-template>
                         </svg>
-                        <input type="submit" name="value" id="value100" value="100"
+                        <input type="submit" name="chipValue" id="value100" value="100"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID100" value="{$playerID}"/>
+                        <input type="hidden" name="playerId" id="playerId100" value="{$playerId}"/>
                     </label>
                 </form>
             </foreignObject>
@@ -387,9 +385,9 @@
                                 <xsl:with-param name="id" select="250"/>
                             </xsl:call-template>
                         </svg>
-                        <input type="submit" name="value" id="value250" value="250"
+                        <input type="submit" name="chipValue" id="value250" value="250"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID250" value="{$playerID}"/>
+                        <input type="hidden" name="playerId" id="playerId250" value="{$playerId}"/>
                     </label>
                 </form>
             </foreignObject>
@@ -403,9 +401,9 @@
                                 <xsl:with-param name="id" select="500"/>
                             </xsl:call-template>
                         </svg>
-                        <input type="submit" name="value" id="value500" value="500"
+                        <input type="submit" name="chipValue" id="value500" value="500"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID500" value="{$playerID}"/>
+                        <input type="hidden" name="playerId" id="playerId500" value="{$playerId}"/>
                     </label>
                 </form>
             </foreignObject>
@@ -419,9 +417,9 @@
                                 <xsl:with-param name="id" select="1000"/>
                             </xsl:call-template>
                         </svg>
-                        <input type="submit" name="value" id="value1000" value="1000"
+                        <input type="submit" name="chipValue" id="value1000" value="1000"
                                style="background: transparent; border: none !important;"/>
-                        <input type="hidden" name="playerID" id="playerID1000" value="{$playerID}"/>
+                        <input type="hidden" name="playerId" id="playerId1000" value="{$playerId}"/>
                     </label>
                 </form>
             </foreignObject>

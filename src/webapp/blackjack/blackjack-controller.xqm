@@ -17,7 +17,8 @@ function blackjack-controller:setup() {
     let $players_model := doc(concat($blackjack-controller:staticPath, "Players.xml"))
     let $highscores_model := doc(concat($blackjack-controller:staticPath, "Highscores.xml"))
     let $redirectLink := "/blackjack"
-    return (db:create("Games", $games_model), db:create("Deck", $deck_model), db:create("Players", $players_model), db:create("Highscores", $highscores_model), update:output(web:redirect($redirectLink)))
+    return (db:create("Games", $games_model), db:create("Deck", $deck_model), db:create("Players", $players_model), db:create("Highscores", $highscores_model), (:update:output(web:redirect($redirectLink))):)
+    update:output("Created databases"))
 };
 
 (:
@@ -38,7 +39,7 @@ declare
 %rest:query-param("playerId", "{$playerId}")
 %rest:GET
 %updating
-function blackjack-controller:newGame($playerName as xs:string, $playerId as xs:integer){
+function blackjack-controller:newGame($playerName as xs:string, $playerId as xs:string){
         let $gameId := blackjack-helper:createGameId()
         return (blackjack-main:newGame($gameId, $playerName, $playerId),
         update:output(web:redirect(concat("/blackjack/", $gameId))))
@@ -106,12 +107,12 @@ declare function blackjack-controller:generatePage($game as element(game), $xslS
 
 declare
 %rest:path("/blackjack/{$gameId}/bet")
-%rest:query-param("value", "{$chipValue}")
 %rest:query-param("playerId", "{$playerId}")
+%rest:query-param("chipValue", "{$chipValue}")
 %output:method("html")
 %rest:POST
 %updating
-function blackjack-controller:bet($gameId as xs:integer, $playerId as xs:integer, $chipValue as xs:integer){
+function blackjack-controller:bet($gameId as xs:integer, $playerId as xs:string, $chipValue as xs:integer){
     let $game := blackjack-main:getGame($gameId)
     return (
         (if($game/@phase = "bet" and $game/players/player[@id = $playerId]/pool/@locked = "false")
@@ -143,7 +144,7 @@ declare
 %output:method("html")
 %rest:POST
 %updating
-function blackjack-controller:resetBet($gameId as xs:integer, $playerId as xs:integer){
+function blackjack-controller:resetBet($gameId as xs:integer, $playerId as xs:string){
     let $game := blackjack-main:getGame($gameId)
     let $wallet := xs:integer($game/players/player[@id=$playerId]/wallet/node())
     let $poolBet := sum($game/players/player[@id=$playerId]/pool/chip/value)
@@ -182,7 +183,7 @@ function blackjack-controller:handOutOneCardToEach($gameId as xs:integer){
         if($game/@phase = "deal")
         then (blackjack-main:handOutOneCardToEach($gameId),
             blackjack-main:moveTurn($gameId, "dealer"),
-            replace value of node $blackjack-main:game/@phase with "play")
+            replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "play")
         ),
         update:output(web:redirect(concat("/blackjack/", $gameId)))
 };
@@ -194,7 +195,7 @@ declare
 %output:method("html")
 %rest:POST
 %updating
-function blackjack-controller:hit($gameId as xs:integer, $playerId as xs:integer){
+function blackjack-controller:hit($gameId as xs:integer, $playerId as xs:string){
     let $game := blackjack-main:getGame($gameId)
     return (
         (if($game/@onTurn = $playerId and $game/@phase = "play" and $game/players/player[@id=$playerId]/hand/@sum < 21)
@@ -210,7 +211,7 @@ declare
 %output:method("html")
 %rest:POST
 %updating
-function blackjack-controller:stand($gameId as xs:integer, $playerId as xs:integer){
+function blackjack-controller:stand($gameId as xs:integer, $playerId as xs:string){
     let $game := blackjack-main:getGame($gameId)
     return (
         if($game/@onTurn = $playerId and $game/@phase = "play")
