@@ -21,17 +21,38 @@ function blackjack-controller:setup() {
     update:output("Created databases"))
 };
 
-(:
+
 declare
 %rest:GET
 %output:method("html")
-%rest:path("/blackjack")
-function blackjack-controller:start(){
+%rest:query-param("playerName", "{$playerName}")
+%rest:query-param("playerId", "{$playerId}")
+%rest:path("/blackjack/lobby")
+function blackjack-controller:start($playerName as xs:string?, $playerId as xs:string?){
+        let $games := blackjack-main:getGames()
         let $xslStylesheet := "LobbyTemplate.xsl"
         let $title := "Blackjack | Lobby"
-        return (blackjack-controller:generateLobby($lobby, $xslStylesheet, $title))
+        let $emptyMap := map {
+                                    "isLoggedIn": 0,
+                                    "playerName": '',
+                                    "playerId": '',
+                                    "playerHighscore": ''
+                             }
+        let $parameters := if (not($playerName instance of xs:string) or not($playerId instance of xs:string)) then (
+            $emptyMap
+        ) else if (blackjack-helper:playerExists($playerName, $playerId)) then (
+            map {
+                        "isLoggedIn": 1,
+                        "playerName": $playerName,
+                        "playerId": $playerId,
+                        "playerHighscore": blackjack-helper:getPlayerHighscore($playerName, $playerId)
+                }
+        ) else (
+            $emptyMap
+        )
+        return (blackjack-controller:generateLobby($games, $xslStylesheet, $parameters, $title))
 };
-:)
+
 
 declare
 %rest:path("/blackjack/newGame")
@@ -57,6 +78,15 @@ function blackjack-controller:newRound($gameId as xs:integer){
 
 
 declare
+%rest:path("/blackjack")
+%rest:GET
+%updating
+function blackjack-controller:redirectLobby(){
+    update:output(web:redirect("/blackjack/lobby"))
+};
+
+
+declare
 %rest:path("/blackjack/{$gameId}")
 %output:method("html")
 %rest:GET
@@ -68,10 +98,10 @@ function blackjack-controller:drawGame($gameId as xs:integer){
 };
 
 
-declare function blackjack-controller:generateLobby($lobby as element(lobby), $xslStylesheet as xs:string,
+declare function blackjack-controller:generateLobby($games as element(games), $xslStylesheet as xs:string, $parameters as item()*,
         $title as xs:string) {
     let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/", $xslStylesheet))
-    let $transformed := xslt:transform($lobby, $stylesheet)
+    let $transformed := xslt:transform($games, $stylesheet, $parameters)
     return
         <html>
             <head>
@@ -271,6 +301,7 @@ function blackjack-controller:restoreAccount($playerName as xs:string, $playerId
 };
 :)
 
+
 declare
 %rest:path("/blackjack/createAccount")
 %rest:query-param("playerName", "{$playerName}")
@@ -279,9 +310,9 @@ declare
 %updating
 function blackjack-controller:createAccount($playerName as xs:string){
     let $players:= blackjack-main:getPlayers()
-    let $newID := blackjack-helper:createPlayerId()
-    let $newPlayer := <player id="{$newID}" name="{$playerName}" highscore="0"/>
+    let $newId := blackjack-helper:createPlayerId()
+    let $newPlayer := <player id="{$newId}" name="{$playerName}" highscore="0"/>
     return (
         insert node $newPlayer into $players,
-        update:output(web:redirect("/blackjack")))
+        update:output(web:redirect(concat("/blackjack/lobby?playerName=", $playerName, "&amp;playerId=", $newId))))
 };

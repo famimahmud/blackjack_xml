@@ -53,6 +53,24 @@ declare variable $blackjack-helper:games := db:open("Games")/games;
   };
 
 
+ (:~
+  : Check whether player exists in player database
+  : @return boolean returning existence
+  :)
+  declare function blackjack-helper:playerExists($playerName as xs:string, $playerId as xs:string) as xs:boolean {
+     exists($blackjack-helper:players/player[@name = $playerName and @id = $playerId])
+  };
+
+
+ (:~
+  : Get player highscore from player database
+  : @return player highscore
+  :)
+  declare function blackjack-helper:getPlayerHighscore($playerName as xs:string, $playerId as xs:string) as xs:integer {
+     $blackjack-helper:players/player[@name = $playerName and @id = $playerId]/@highscore
+  };
+
+
 (: declare function helper:getNewHandValue ($newCardSymbol as element(), $handValue as xs:integer) as xs:integer {
     let $value := if ($newCardSymbol = "J" or $newCardSymbol = "Q" or $newCardSymbol = "K") then 10
         else (if ($newCardSymbol = "A") then (if ($handValue > 11) then 1 else 11)

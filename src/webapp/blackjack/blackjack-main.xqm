@@ -373,6 +373,11 @@ declare function blackjack-main:getGame($gameId as xs:integer){
 };
 
 
+declare function blackjack-main:getGames(){
+    $blackjack-main:games
+};
+
+
 declare function blackjack-main:getPlayers(){
     $blackjack-main:players
 };
