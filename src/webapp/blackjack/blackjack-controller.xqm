@@ -2,6 +2,7 @@ xquery version "3.1";
 
 module namespace blackjack-controller = "blackjack-controller.xqm";
 import module namespace blackjack-main = "Blackjack/Main" at "blackjack-main.xqm";
+import module namespace blackjack-helper = "Blackjack/Helper" at "blackjack-helper.xqm";
 
 declare variable $blackjack-controller:staticPath := "../static/blackjack/";
 
@@ -262,13 +263,20 @@ declare
 %updating
 function blackjack-controller:createAccount($playerName as xs:string){
     let $players:= blackjack-main:getPlayers()
-    let $newID := if(count($players/player) = 0)
-                      then(0)
-                      else((blackjack-main:getPlayers()/player[last()]/@id) +1)
+    let $newID := blackjack-helper:createPlayerId()
     let $newPlayer := <player id="{$newID}" name="{$playerName}" highscore="0"/>
     let $lobby := blackjack-main:getLobby()
     return (
         insert node $newPlayer into $players,
         insert node $newPlayer into $lobby,
         update:output(web:redirect("/blackjack/start")))
+};
+
+declare
+%rest:path("/blackjack/newid")
+%output:method("html")
+%rest:GET
+%updating
+function blackjack-controller:createAccount(){
+    update:output(blackjack-helper:createPlayerId())
 };
