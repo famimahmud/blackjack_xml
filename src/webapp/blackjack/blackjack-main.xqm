@@ -6,7 +6,7 @@ import module namespace blackjack-helper = "Blackjack/Helper" at "blackjack-help
 declare variable $blackjack-main:game := db:open("Game")/game;
 declare variable $blackjack-main:deck := db:open("Deck")/deck;
 declare variable $blackjack-main:players := db:open("Players")/players;
-declare variable $blackjack-main:lobby := db:open("Lobby")/lobby;
+declare variable $blackjack-main:games := db:open("Games")/games;
 declare variable $blackjack-main:highscores := db:open("Highscores")/highscores;
 
 (:~
@@ -20,6 +20,7 @@ function blackjack-main:shuffleDeck() {
     return ($ret)
 };
 
+
 (:~
   : Initate a new Game by creating a new Game model
   : @playerName player who starts new Game
@@ -29,10 +30,10 @@ function blackjack-main:shuffleDeck() {
 
 declare
 %updating
-function blackjack-main:newGame($playerName as xs:string, $playerID as xs:integer) {
+function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string, $playerId as xs:integer) {
       let $deck := blackjack-main:generateDeck()
       let $game :=
-          <game round="1" onTurn="dealer" phase="bet">
+          <game id="{$gameId}" round="1" maxRounds="10" onTurn="dealer" phase="bet">
               {$deck}
               <dealer>
                   <hand>
@@ -40,7 +41,7 @@ function blackjack-main:newGame($playerName as xs:string, $playerID as xs:intege
               </dealer>
 
               <players>
-                  <player id="{$playerID}" name="{$playerName}">
+                  <player id="{$playerId}" name="{$playerName}">
                               <hand>
                               </hand>
                               <wallet>
@@ -55,6 +56,7 @@ function blackjack-main:newGame($playerName as xs:string, $playerID as xs:intege
       return (replace node $blackjack-main:game with $game)
   };
 
+
   (:~
   : Initate a new Round by deleting hands and pools
   : @return model change
@@ -68,6 +70,7 @@ function blackjack-main:newGame($playerName as xs:string, $playerID as xs:intege
       )
       (:websocket draw:)
   };
+
 
 (:~
  : Return random number from given interval [0, max]
@@ -87,6 +90,7 @@ function blackjack-main:newGame($playerName as xs:string, $playerID as xs:intege
     return ($deck)
  };
 
+
 (:~
  : Remove given player from list of Players
  : @playerID $playerID who will be deleted
@@ -97,6 +101,7 @@ declare
 function blackjack-main:removePlayer($playerID as xs:string){
     delete node $blackjack-main:game/players/player[@id = $playerID]
 };
+
 
 (:~
  : Draw one card from the deck and add the card to the player hand
@@ -125,6 +130,7 @@ function blackjack-main:removePlayer($playerID as xs:string){
             if ($handValue > 20 and $playerID != "dealer" and $blackjack-main:game/@phase = "play") then blackjack-main:moveTurn($playerID)
     )
  };
+
 
  (:~
   : Calculates the maxValue of Hand
@@ -157,6 +163,7 @@ function blackjack-main:removePlayer($playerID as xs:string){
      )
   };
 
+
   (:~
    : Reduces the HandValue by 10 for each Ace untill the value is smaller than 22
    : @numberOfAces number of Aces, which will be used to reduce by 10
@@ -169,6 +176,7 @@ function blackjack-main:removePlayer($playerID as xs:string){
         else (blackjack-main:reduceHandValueWithAces(($handValue - 10), $numberOfAces - 1))
     return $result
   };
+
 
 (:~
  : pay all players and change to bet-Phase
@@ -183,6 +191,7 @@ function blackjack-main:payPhase(){
     blackjack-main:newRound()
 };
 
+
 (:~
  : pay all players and change to bet-Phase
  : @return model change at player-wallets and player-pools
@@ -195,6 +204,7 @@ function blackjack-main:payEachPlayer(){
         blackjack-main:payPlayer($playerID)
     )
 };
+
 
 (:~
  : move the current turn to the given player
@@ -223,6 +233,7 @@ function blackjack-main:payPlayer($playerID as xs:string){
     )
 };
 
+
 (:~
  : put a chip into the pool of the player
  : @playerID $playerID of the player, who bets
@@ -243,6 +254,7 @@ function blackjack-main:bet($playerID as xs:string, $chipValue as xs:integer){
                 insert node $newChip into $blackjack-main:game/players/player[@id=$playerID]/pool
             )
 };
+
 
 (:~
  : confirm the bet of the given player
@@ -265,6 +277,7 @@ function blackjack-main:confirmBet($playerID as xs:string){
     )
 };
 
+
 declare
 %updating
 function blackjack-main:handOutOneCardToEach(){
@@ -274,6 +287,8 @@ function blackjack-main:handOutOneCardToEach(){
                 blackjack-main:drawCard($playerID)
     )
 };
+
+
 (:~
  : give every player and the dealer two cards
  : @return model change to move turn to next player
@@ -288,6 +303,7 @@ function blackjack-main:dealPhase(){
     )
 };
 
+
 (:~
  : move Turn to next player or to dealer
  : @playerOnTurn $playerID whose turn it is next
@@ -299,6 +315,7 @@ function blackjack-main:moveTurn($playerOnTurn as xs:string){
     if ($playerOnTurn = $blackjack-main:game/@onTurn) then (
        blackjack-main:moveTurnHelper($playerOnTurn))
 };
+
 
 (:~
  : move Turn to next player with less than 21 or to dealer
@@ -329,6 +346,7 @@ function blackjack-main:moveTurnHelper($playerOnTurn as xs:string){
         )
 };
 
+
 (:~
  : dealer Turn
  : @return model change: dealer has drawn cards
@@ -348,6 +366,7 @@ function blackjack-main:dealerTurn(){
                  update:output(web:redirect("/blackjack/draw"))))
 };
 
+
 (:~
  : adding a player to the game
  : @playerID $playerID who will be added
@@ -360,17 +379,16 @@ function blackjack-main:addPlayer($playerID as xs:string){
     return(insert node $newPlayer as last into $blackjack-main:game/players)
 };
 
-declare function blackjack-main:getGame(){
-    $blackjack-main:game
+
+declare function blackjack-main:getGame($gameId as xs:integer){
+    $blackjack-main:games/game[@id = $gameId]
 };
 
-declare function blackjack-main:getLobby(){
-    $blackjack-main:lobby
-};
 
 declare function blackjack-main:getPlayers(){
     $blackjack-main:players
 };
+
 
 (:~
  : Inserts player score to high score list and computes new board
@@ -410,6 +428,6 @@ function blackjack-main:endGame($gameID as xs:integer){
     (: Save scores of all players :)
     for $playerID in $blackjack-main:game/players/player/@id
     return blackjack-main:addHighscore($playerID),
-    (: Remove game from lobby directory :)
-    delete node $blackjack-main:lobby/games/game[@id = $gameID]
+    (: Remove game from game directory :)
+    delete node $blackjack-main:games/game[@id = $gameID]
 };

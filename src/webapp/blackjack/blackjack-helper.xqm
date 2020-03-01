@@ -3,6 +3,7 @@ xquery version "3.1";
 module namespace blackjack-helper = "Blackjack/Helper";
 
 declare variable $blackjack-helper:players := db:open("Players")/players;
+declare variable $blackjack-helper:games := db:open("Games")/games;
 
 (:~
  : Return random number from given interval [0, max]
@@ -35,6 +36,21 @@ declare variable $blackjack-helper:players := db:open("Players")/players;
             $newID
     )
  };
+
+
+ (:~
+  : Creates new random game ID
+  : @return new game ID
+  :)
+  declare function blackjack-helper:createGameId() as xs:integer {
+     let $newID := blackjack-helper:getRandomIntFromRange(1000, 9999)
+     return (
+         if (boolean($blackjack-helper:games/game[@id = $newID])) then
+             blackjack-helper:createPlayerId()
+         else
+             $newID
+     )
+  };
 
 
 (: declare function helper:getNewHandValue ($newCardSymbol as element(), $handValue as xs:integer) as xs:integer {
