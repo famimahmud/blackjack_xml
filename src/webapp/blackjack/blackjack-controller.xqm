@@ -98,7 +98,7 @@ declare function blackjack-controller:generatePage($game as element(game), $xslS
                 <title>{$title}</title>
                 <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
             </head>
-            <body style="background: url(/static/blackjack/assets/TableBackground.svg">
+            <body style="background: url(/static/blackjack/assets/TableBackgroundCompressed.svg">
                 {$transformed}
             </body>
         </html>
