@@ -50,7 +50,7 @@ declare
 %rest:GET
 %updating
 function blackjack-controller:newRound($gameId as xs:integer){
-    blackjack-main:newRound(),
+    blackjack-main:newRound($gameId),
     update:output(web:redirect(concat("/blackjack/", $gameId)))
 };
 
@@ -112,7 +112,7 @@ function blackjack-controller:bet($gameId as xs:integer, $playerId as xs:integer
     let $game := blackjack-main:getGame($gameId)
     return (
         (if($game/@phase = "bet" and $game/players/player[@id = $playerId]/pool/@locked = "false")
-        then blackjack-main:bet($playerId, $chipValue)),
+        then blackjack-main:bet($gameId, $playerId, $chipValue)),
         update:output(web:redirect(concat("/blackjack/", $gameId)))
     )
 };
@@ -128,7 +128,7 @@ function blackjack-controller:confirmBet($gameId as xs:integer, $playerId as xs:
     let $game := blackjack-main:getGame($gameId)
     return (
         if($game/@phase = "bet")
-        then blackjack-main:confirmBet($playerId),
+        then blackjack-main:confirmBet($gameId, $playerId),
         update:output(web:redirect(concat("/blackjack/", $gameId)))
     )
 };
@@ -163,7 +163,7 @@ function blackjack-controller:dealPhase($gameId as xs:integer){
     let $game := blackjack-main:getGame($gameId)
     return (
         if($game/@phase = "deal")
-        then (blackjack-main:dealPhase())
+        then (blackjack-main:dealPhase($gameId))
         )
 };
 
@@ -177,8 +177,8 @@ function blackjack-controller:handOutOneCardToEach($gameId as xs:integer){
     let $game := blackjack-main:getGame($gameId)
     return (
         if($game/@phase = "deal")
-        then (blackjack-main:handOutOneCardToEach(),
-            blackjack-main:moveTurn("dealer"),
+        then (blackjack-main:handOutOneCardToEach($gameId),
+            blackjack-main:moveTurn($gameId, "dealer"),
             replace value of node $blackjack-main:game/@phase with "play")
         ),
         update:output(web:redirect(concat("/blackjack/", $gameId)))
@@ -195,7 +195,7 @@ function blackjack-controller:hit($gameId as xs:integer, $playerId as xs:integer
     let $game := blackjack-main:getGame($gameId)
     return (
         (if($game/@onTurn = $playerId and $game/@phase = "play" and $game/players/player[@id=$playerId]/hand/@sum < 21)
-        then blackjack-main:drawCard($playerId)),
+        then blackjack-main:drawCard($gameId, $playerId)),
         update:output(web:redirect(concat("/blackjack/", $gameId)))
     )
 };
@@ -211,7 +211,7 @@ function blackjack-controller:stand($gameId as xs:integer, $playerId as xs:integ
     let $game := blackjack-main:getGame($gameId)
     return (
         if($game/@onTurn = $playerId and $game/@phase = "play")
-        then (blackjack-main:moveTurn($playerId) (:redirect allways? (outside of if):)
+        then (blackjack-main:moveTurn($gameId, $playerId) (:redirect allways? (outside of if):)
         ),
         update:output(web:redirect(concat("/blackjack/", $gameId)))
     )
@@ -227,7 +227,7 @@ function blackjack-controller:dealerTurn($gameId as xs:integer){
     let $game := blackjack-main:getGame($gameId)
     return (
         if($game/@onTurn = "dealer" and $game/@phase = "play")
-        then (blackjack-main:dealerTurn())
+        then (blackjack-main:dealerTurn($gameId))
         )
 };
 
@@ -241,7 +241,7 @@ function blackjack-controller:pay($gameId as xs:integer){
     let $game := blackjack-main:getGame($gameId)
     return (
         (if ($game/@phase = "pay")
-            then blackjack-main:payPhase()),
+            then blackjack-main:payPlayers($gameId)),
         update:output(web:redirect(concat("/blackjack/", $gameId)))
     )
 };
