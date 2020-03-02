@@ -10,5 +10,7 @@
 
     <player id="4444" name="Kim" highscore="200"/>
 
-    <player id="5555" name="Manuel" highscore="150"/>
+    <player id="5555" name="Horst" highscore="150"/>
+
+    <player id="6666" name="Vladimir" highscore="450"/>
 </players>
