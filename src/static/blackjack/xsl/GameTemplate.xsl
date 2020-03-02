@@ -275,7 +275,7 @@
 
             <foreignObject width="100%" height="100%" x="90%" y="0%">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/exit" method="post" id="Exit">
-                    <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                    <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                             form="Exit" value="Submit">
                         Exit
                     </button>
@@ -292,7 +292,7 @@
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/confirmBet" method="post"
                               id="Confirm">
-                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                            <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Confirm" value="Submit">
                                 Confirm
                             </button>
@@ -302,7 +302,7 @@
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/resetBet" method="post"
                               id="Reset">
-                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                            <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Reset" value="Submit">
                                 Reset
                             </button>
@@ -313,7 +313,7 @@
                 <xsl:otherwise>
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/hit" method="post" id="Hit">
-                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                            <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Hit" value="Submit">
                                 Hit
                             </button>
@@ -322,7 +322,7 @@
                     </foreignObject>
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/stand" method="post" id="Stand">
-                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                            <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Stand" value="Submit">
                                 Stand
                             </button>

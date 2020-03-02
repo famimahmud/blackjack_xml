@@ -71,11 +71,11 @@
                                   id="newGame">
                                 <input type="hidden" name="playerName" id="newPlayerName" value="{$name}"/>
                                 <input type="hidden" name="playerId" id="newPlayerId" value="{$id}"/>
-                                <button style="top: 13%; width:80%; height:10%; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                                <button style="outline-width: medium; top: 13%; width:80%; height:10%; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
                                         id="singlePlayer" name="singlePlayer" value="true">
                                     Singleplayer
                                 </button>
-                                <button style="top: 27%; width:80%; height:10%; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                                <button style="outline-width: medium;top: 27%; width:80%; height:10%; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
                                         id="multiPlayer" name="singlePlayer" value="false">
                                     Multiplayer
                                 </button>
@@ -174,7 +174,7 @@
                                        style="outline:none; font-size:{$fontSize - 2}; border: none"
                                        placeholder="Name"/>
                                 <br/>
-                                <button style=" width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                                <button style=" outline-width: medium; width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
                                         form="createAccount" value="Submit">
                                     Account erstellen
                                 </button>
@@ -196,7 +196,7 @@
                         <input size="8" type="text" name="playerId" id="playerId"
                                style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="ID"/>
                         <br/>
-                        <button style=" width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                        <button style="outline-width: medium;  width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
                                 form="restoreAccount" value="Submit">
                             Account wiederherstellen
                         </button>
