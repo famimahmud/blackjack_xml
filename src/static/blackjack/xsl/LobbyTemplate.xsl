@@ -63,14 +63,21 @@
                     <xsl:when test="$isLoggedIn = 1">
                         <xsl:variable name="name" select="$playerName"/>
                         <xsl:variable name="id" select="$playerId"/>
+                        <text x="{$startX}" y="{$startY}" font-size="{$fontSize - 1}" alignment-baseline="hanging"
+                              fill="{$textColor}" font-family="{$fonts}">Neues Spiel:
+                        </text>
                         <foreignObject width="100%" height="100%" x="{$startX}" y="{$startY - 1}">
                             <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/newGame" method="get"
-                                  id="Neues Spiel">
+                                  id="newGame">
                                 <input type="hidden" name="playerName" id="newPlayerName" value="{$name}"/>
                                 <input type="hidden" name="playerId" id="newPlayerId" value="{$id}"/>
-                                <button style=" width:80%; height:20%; display:table-cell; font-size:{$fontSize - 1}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
-                                        form="Neues Spiel" value="Submit">
-                                    Neues Spiel
+                                <button style="top: 13%; width:80%; height:10%; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                                        id="singlePlayer" name="singlePlayer" value="true">
+                                    Singleplayer
+                                </button>
+                                <button style="top: 27%; width:80%; height:10%; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                                        id="multiPlayer" name="singlePlayer" value="false">
+                                    Multiplayer
                                 </button>
                             </form>
                         </foreignObject>
@@ -83,22 +90,11 @@
                         </text>
                     </xsl:otherwise>
                 </xsl:choose>
-                <!-- Einzelspiel Abfrage -->
-                <rect x="{$startX}" y="{$startY + 13}" width="{$rectWidth - 35}" height="{$rectHeight div 12}"
-                      fill="none" style="stroke:{$rectColor} ;stroke-width:{$strokeWidth }"/>
-                <text x="{$startX + 1}" y="{$startY + 14}" font-size="{$fontSize}" alignment-baseline="hanging"
-                      fill="{$textColor}">√
-                </text>
-                <text x="{$startX + 8}" y="{$startY + 14}" font-size="{$fontSize - 1}" alignment-baseline="hanging"
-                      fill="{$textColor}" font-family="{$fonts}">Single-Player?
-                </text>
 
                 <!-- Liste der Spiele -->
-                <text x="{$startX}" y="{$startY + 22}" font-size="{$fontSize}" alignment-baseline="hanging"
+                <text x="{$startX}" y="{$startY + 26}" font-size="{$fontSize - 1}" alignment-baseline="hanging"
                       fill="{$textColor}" font-family="{$fonts}">Spiele:
                 </text>
-                <line x1="{$startX}" y1="{$startY + 27}" x2="{$startX + 14}" y2="{$startY + 27}" fill="{$textColor}"
-                      stroke="{$textColor}" stroke-width="0.5"/>
                 <text x="{$startX + 13}" y="{$startY + 30}" font-size="{$fontSize - 2}" font-style="oblique"
                       alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">players
                 </text>
@@ -108,9 +104,9 @@
 
                 <foreignObject x="{$startX}" y="39" width="{$rectWidth - 10}" height="{(5*($rectHeight div 12))}"
                                font-family="{$fonts}" font-size="{$fontSize - 1}" style="overflow-y: scroll">
-                        <svg x="0" y="39" height="{(count(games/game))*($rectHeight div 12) + (count(games/game) * 2)}" width="100%"
-                             viewBox="0 0 {$rectWidth - 10} {(count(games/game))*($rectHeight div 12) + (count(games/game) * 2)}">
-                            <xsl:for-each select="games/game">
+                        <svg x="0" y="39" height="{(count(games/game[@singlePlayer = 'false']))*($rectHeight div 12) + (count(games/game[@singlePlayer = 'false']) * 2)}" width="100%"
+                             viewBox="0 0 {$rectWidth - 10} {(count(games/game[@singlePlayer = 'false']))*($rectHeight div 12) + (count(games/game[@singlePlayer = 'false']) * 2)}">
+                            <xsl:for-each select="games/game[@singlePlayer = 'false']">
                                 <xsl:variable name="currentRectY" select="0 + ((position() - 1) * 6)"/>
                                 <xsl:variable name="gameID" select="@id"/>
                                 <xsl:variable name="players" select="count(players/player)"/>

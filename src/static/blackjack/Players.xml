@@ -13,4 +13,6 @@
     <player id="5555" name="Horst" highscore="150"/>
 
     <player id="6666" name="Vladimir" highscore="450"/>
+
+    <player id="7777" name="Emmanuel" highscore="450"/>
 </players>
