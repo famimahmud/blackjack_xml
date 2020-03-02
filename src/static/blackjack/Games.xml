@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl "href="GameTemplate.xsl" ?>
 
 <games>
-    <game id="1234" round="6" maxRounds="10" onTurn="1111" phase="bet">
+    <game id="1234" round="6" maxRounds="10" onTurn="1111" phase="bet" singlePlayer="false">
         <deck>
             <card hidden="true">
                 <type>Heart</type>
@@ -169,7 +169,7 @@
         </players>
     </game>
 
-    <game id="2345" round="2" maxRounds="10" onTurn="5555" phase="bet">
+    <game id="2345" round="2" maxRounds="10" onTurn="5555" phase="bet" singlePlayer="false">
         <deck>
             <card hidden="true">
                 <type>Club</type>
@@ -239,6 +239,61 @@
                 </hand>
                 <wallet>
                     0
+                </wallet>
+                <pool locked="false">
+                    <chip>
+                        <value>100</value>
+                    </chip>
+                    <chip>
+                        <value>500</value>
+                    </chip>
+                    <chip>
+                        <value>50</value>
+                    </chip>
+                </pool>
+            </player>
+        </players>
+    </game>
+
+    <game id="3456" round="2" maxRounds="10" onTurn="7777" phase="bet" singlePlayer="true">
+        <deck>
+            <card hidden="true">
+                <type>Heart</type>
+                <value>7</value>
+            </card>
+            <card hidden="true">
+                <type>Club</type>
+                <value>2</value>
+            </card>
+        </deck>
+
+        <dealer>
+            <hand>
+                <card hidden="false">
+                    <type>Diamond</type>
+                    <value>3</value>
+                </card>
+                <card hidden="false">
+                    <type>Spade</type>
+                    <value>Q</value>
+                </card>
+            </hand>
+        </dealer>
+
+        <players>
+            <player id="5555" name="Horst">
+                <hand>
+                    <card hidden="false">
+                        <type>Heart</type>
+                        <value>K</value>
+                    </card>
+                    <card hidden="false">
+                        <type>Club</type>
+                        <value>A</value>
+                    </card>
+                </hand>
+                <wallet>
+                    5150
                 </wallet>
                 <pool locked="false">
                     <chip>
