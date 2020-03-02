@@ -250,6 +250,30 @@ function blackjack-controller:stand($gameId as xs:integer, $playerId as xs:strin
     )
 };
 
+declare
+%rest:path("/blackjack/{$gameId}/exit")
+%rest:query-param("playerId", "{$playerId}")
+%rest:query-param("playerName", "{$playerName}")
+%output:method("html")
+%rest:POST
+%updating
+function blackjack-controller:exit($gameId as xs:integer, $playerId as xs:string, $playerName as xs:string){
+    let $game := blackjack-main:getGame($gameId)
+    let $parameters := map {
+            "playerName": $playerName,
+            "playerId": $playerId
+        }
+    return (
+        delete node $game/players/player[@id=$playerId],
+        if(count($game[@id=$gameId]/players/player[@id=$playerId])) (:Check if the player is in the Game:)
+        then(if(count($game[@id=$gameId]/players)=1)
+            then (blackjack-main:endGame($gameId))
+            else (blackjack-main:addHighscore($gameId, $playerId))),
+
+    update:output(web:redirect("/blackjack/lobby", $parameters))
+    )
+};
+
 
 declare
 %rest:path("/blackjack/{$gameId}/dealerTurn")

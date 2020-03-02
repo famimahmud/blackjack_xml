@@ -43,7 +43,7 @@ function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string,
                   <player id="{$playerId}" name="{$playerName}">
                           <hand>
                           </hand>
-                          <wallet>500</wallet>
+                          <wallet>1000</wallet>
                           <pool locked="false"></pool>
                    </player>
               </players>
@@ -423,3 +423,5 @@ function blackjack-main:endGame($gameId as xs:integer){
     (: Remove game from game directory :)
     delete node $blackjack-main:games/game[@id = $gameId]
 };
+
+

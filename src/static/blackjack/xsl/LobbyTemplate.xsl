@@ -85,8 +85,8 @@
                     <xsl:otherwise>
                         <text font-size="{$fontSize - 1}" alignment-baseline="hanging"
                               fill="{$textColor}" font-family="{$fonts}">
-                            <tspan x="{$startX}" y="{$startY + 3}">Erstelle oder lade</tspan>
-                            <tspan x="{$startX}" y="{$startY+ 7}">einen Account!</tspan>
+                            <tspan x="{$startX}" y="{$startY + 10}">Erstelle oder lade</tspan>
+                            <tspan x="{$startX}" y="{$startY+ 14}">einen Account!</tspan>
                         </text>
                     </xsl:otherwise>
                 </xsl:choose>

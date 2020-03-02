@@ -33,7 +33,8 @@
         <xsl:variable name="playerCount" select="count(/*/players/*)"/>
         <xsl:variable name="rectHeight" select="5"/>
         <xsl:variable name="rectWidth" select="25"/>
-        <xsl:variable name="playerId" select="game[@id=$gameId]/@onTurn"/>
+        <xsl:variable name="playerId" select="game[@id=$gameId]/@onTurn"/> <!--TODO Als XSL-Param für multiplayer-->
+        <xsl:variable name="playerName" select="game/players/player[@id=$playerId]/@name"/> <!--TODO Als XSL-Param für multiplayer-->
 
         <xsl:variable name="currentPlayer">
             <xsl:if test="/*/@onTurn = 'dealer'">
@@ -87,6 +88,7 @@
                   alignment-baseline="hanging">
                 Your player info:
             </text>
+            <!--TODO Multiclient-->
             <text x="2" y="6" fill="{$textColor}" font-size="{$fontSize - 1.5}"
                   font-family="{$fonts}"
                   alignment-baseline="hanging">
@@ -272,11 +274,13 @@
             </xsl:for-each>
 
             <foreignObject width="100%" height="100%" x="90%" y="0%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack" method="get" id="Exit">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/exit" method="post" id="Exit">
                     <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                             form="Exit" value="Submit">
                         Exit
                     </button>
+                    <input type="hidden" name="playerId" id="playerIdExit" value="{$playerId}"/>
+                    <input type="hidden" name="playerName" id="playerNameExit" value="{$playerName}"/>
                 </form>
             </foreignObject>
 
