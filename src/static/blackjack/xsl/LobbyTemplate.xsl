@@ -76,7 +76,7 @@
                                     Singleplayer
                                 </button>
                                 <button style="top: 27%; width:80%; height:10%; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
-                                        id="multiPlayer" name="singlePlayer" value="true">
+                                        id="multiPlayer" name="singlePlayer" value="false">
                                     Multiplayer
                                 </button>
                             </form>

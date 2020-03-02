@@ -56,11 +56,12 @@ declare
 %rest:path("/blackjack/newGame")
 %rest:query-param("playerName", "{$playerName}")
 %rest:query-param("playerId", "{$playerId}")
+%rest:query-param("singlePlayer", "{$singlePlayer}")
 %rest:GET
 %updating
-function blackjack-controller:newGame($playerName as xs:string, $playerId as xs:string){
+function blackjack-controller:newGame($playerName as xs:string, $playerId as xs:string, $singlePlayer as xs:string){
         let $gameId := blackjack-helper:createGameId()
-        return (blackjack-main:newGame($gameId, $playerName, $playerId),
+        return (blackjack-main:newGame($gameId, $playerName, $playerId, $singlePlayer),
         update:output(web:redirect(concat("/blackjack/", $gameId))))
 };
 

@@ -29,10 +29,10 @@ function blackjack-main:shuffleDeck() {
 
 declare
 %updating
-function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string, $playerId as xs:string) {
+function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string, $playerId as xs:string, $singlePlayer as xs:string) {
       let $deck := blackjack-main:generateDeck()
       let $game :=
-          <game id="{$gameId}" round="1" maxRounds="10" onTurn="{$playerId}" phase="bet">
+          <game id="{$gameId}" singlePlayer="{$singlePlayer}" round="1" maxRounds="10" onTurn="{$playerId}" phase="bet">
               {$deck}
               <dealer>
                   <hand>
