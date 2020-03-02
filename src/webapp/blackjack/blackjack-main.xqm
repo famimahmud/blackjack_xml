@@ -62,6 +62,8 @@ function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string,
   function blackjack-main:newRound ($gameId as xs:integer) {
       let $deck := blackjack-main:generateDeck()
       return (replace node $blackjack-main:games/game[@id = $gameId]/deck with $deck,
+              replace value of node $blackjack-main:games/game[@id = $gameId]/@onTurn
+                    with $blackjack-main:games/game[@id = $gameId]/players/player[position() = 1]/@id,
               replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "bet"
       )
       (:websocket draw:)
@@ -169,7 +171,7 @@ function blackjack-main:removePlayer($gameId as xs:integer, $playerId as xs:stri
   declare
   function blackjack-main:reduceHandValueWithAces($numberOfAces as xs:integer, $handValue as xs:integer) as xs:integer {
     let $result := if ($numberOfAces = 0 or $handValue < 22) then $handValue
-        else (blackjack-main:reduceHandValueWithAces(($handValue - 10), $numberOfAces - 1))
+        else (blackjack-main:reduceHandValueWithAces(($numberOfAces - 1), ($handValue - 10)))
     return $result
   };
 
@@ -257,7 +259,7 @@ function blackjack-main:confirmBet($gameId as xs:integer, $playerId as xs:string
         if (count($blackjack-main:games/game[@id = $gameId]/players/player/pool[@locked="true"]/@locked) >= (count($blackjack-main:games/game[@id = $gameId]/players/player) - 1))
         then (
             replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "deal",
-            update:output(web:redirect(concat("/blackjack/", $gameId, "dealPhase")))
+            update:output(web:redirect(concat("/blackjack/", $gameId, "/dealPhase")))
         )
     )
 };
@@ -283,7 +285,7 @@ declare
 function blackjack-main:dealPhase($gameId as xs:integer){
     if ($blackjack-main:games/game[@id = $gameId]/@phase = "deal") then (
         blackjack-main:handOutOneCardToEach($gameId),
-        update:output(web:redirect(concat("/blackjack/", $gameId, "handOutOneCardToEach"))),
+        update:output(web:redirect(concat("/blackjack/", $gameId, "/handOutOneCardToEach"))),
         update:output(web:redirect(concat("/blackjack/", $gameId)))
     )
 };
@@ -296,7 +298,7 @@ function blackjack-main:dealPhase($gameId as xs:integer){
  :)
 declare
 %updating
-function blackjack-main:moveTurn($gameId as xs:integer, $playerOnTurn as xs:integer){
+function blackjack-main:moveTurn($gameId as xs:integer, $playerOnTurn as xs:string){
     if ($playerOnTurn = $blackjack-main:games/game[@id = $gameId]/@onTurn) then (
        blackjack-main:moveTurnHelper($gameId, $playerOnTurn))
 };
@@ -325,7 +327,7 @@ function blackjack-main:moveTurnHelper($gameId as xs:integer, $playerOnTurn as x
                             replace node $blackjack-main:games/game[@id = $gameId]/dealer/hand
                                     with <hand sum="{$dealerHandValue}"><card hidden="false">{$firstCard/type}{$firstCard/value}</card>
                                                 {$blackjack-main:games/game[@id = $gameId]/dealer/hand/card[position() > 1]}</hand>,
-                            update:output(web:redirect(concat("/blackjack/", $gameId, "dealerTurn"))))
+                            update:output(web:redirect(concat("/blackjack/", $gameId, "/dealerTurn"))))
                 )
                 else (blackjack-main:moveTurnHelper($gameId, $newPlayerTurn))
         )
@@ -345,10 +347,10 @@ function blackjack-main:dealerTurn($gameId as xs:integer){
             prof:sleep(1000), :)(: pause for 1000ms :)
             if ($dealerHandValue < 17)
             then (blackjack-main:drawCard($gameId, "dealer"),
-                update:output(web:redirect(concat("/blackjack/", $gameId, "dealerTurn"))))
+                update:output(web:redirect(concat("/blackjack/", $gameId, "/dealerTurn"))))
             else replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "pay",
-                 update:output(web:redirect(concat("/blackjack/", $gameId, "pay"))),
-                 update:output(web:redirect(concat("/blackjack/", $gameId, "draw")))))
+                 update:output(web:redirect(concat("/blackjack/", $gameId, "/pay"))),
+                 update:output(web:redirect(concat("/blackjack/", $gameId)))))
 };
 
 
