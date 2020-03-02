@@ -17,8 +17,8 @@ function blackjack-controller:setup() {
     let $players_model := doc(concat($blackjack-controller:staticPath, "Players.xml"))
     let $highscores_model := doc(concat($blackjack-controller:staticPath, "Highscores.xml"))
     let $redirectLink := "/blackjack"
-    return (db:create("Games", $games_model), db:create("Deck", $deck_model), db:create("Players", $players_model), db:create("Highscores", $highscores_model), (:update:output(web:redirect($redirectLink))):)
-    update:output("Created databases"))
+    return (db:create("Games", $games_model), db:create("Deck", $deck_model), db:create("Players", $players_model), db:create("Highscores", $highscores_model),
+    update:output(web:redirect($redirectLink)))
 };
 
 
