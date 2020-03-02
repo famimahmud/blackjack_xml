@@ -125,7 +125,7 @@ function blackjack-main:removePlayer($gameId as xs:integer, $playerId as xs:stri
             (if ($playerId = "dealer")
                 then replace node $blackjack-main:games/game[@id = $gameId]/dealer/hand with <hand sum="{$handValue}">{$cardsInHand}{$revealedCard}</hand>
                 else replace node $blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/hand with <hand sum="{$handValue}">{$cardsInHand}{$revealedCard}</hand>),
-            if ($handValue > 20 and $playerId != "dealer" and $blackjack-main:games/game[@id = $gameId]/@phase = "play") then blackjack-main:moveTurn($gameId, $playerId)
+            if ($handValue > 21 and $playerId != "dealer" and $blackjack-main:games/game[@id = $gameId]/@phase = "play") then blackjack-main:moveTurn($gameId, $playerId)
     )
  };
 
@@ -316,7 +316,7 @@ function blackjack-main:moveTurnHelper($gameId as xs:integer, $playerOnTurn as x
             then "dealer"
             else if ($playerOnTurn = "dealer") then $blackjack-main:games/game[@id = $gameId]/players/player[position() = 1]/@id
                  else $blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
-        return ( if ($newPlayerTurn = "dealer" or $blackjack-main:games/game[@id = $gameId]/players/player[@id=$newPlayerTurn]/hand/@sum <= 20)
+        return ( if ($newPlayerTurn = "dealer" or $blackjack-main:games/game[@id = $gameId]/players/player[@id=$newPlayerTurn]/hand/@sum <= 21)
             then (
                 replace value of node $blackjack-main:games/game[@id = $gameId]/@onTurn with $newPlayerTurn,
                 if ($newPlayerTurn = "dealer")
@@ -391,7 +391,7 @@ declare
 %updating
 function blackjack-main:addHighscore($gameId as xs:integer, $playerId as xs:string){
     let $playerName := string($blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerId]/@name)
-    let $playerScore := $blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerId]/wallet/text()
+    let $playerScore := $blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerId]/wallet/text() -1000
     let $currentHighscore := $blackjack-main:players/player[@id=$playerId]/@highscore
     let $newEntry :=
     <highscore>
