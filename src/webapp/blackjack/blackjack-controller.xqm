@@ -324,8 +324,12 @@ function blackjack-controller:createAccount($playerName as xs:string){
     let $players:= blackjack-main:getPlayers()
     let $playerId := string(blackjack-helper:createPlayerId())
     let $newPlayer := <player id="{$playerId}" name="{$playerName}" highscore="0"/>
+    let $parameters := map {
+        "playerName": $playerName,
+        "playerId": $playerId
+    }
     return (
         insert node $newPlayer into $players,
-        update:output(web:redirect(concat("/blackjack/lobby?playerName=", $playerName, "&amp;playerId=", $playerId)))
+        update:output(web:redirect("/blackjack/lobby", $parameters))
     )
 };
