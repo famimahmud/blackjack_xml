@@ -38,9 +38,7 @@ function blackjack-controller:start($playerName as xs:string?, $playerId as xs:s
                                     "playerId": '',
                                     "playerHighscore": ''
                              }
-        let $parameters := if (not($playerName instance of xs:string) or not($playerId instance of xs:string)) then (
-            $emptyMap
-        ) else if (blackjack-helper:playerExists($playerName, $playerId)) then (
+        let $parameters := if (blackjack-helper:playerExists($playerName, $playerId)) then (
             map {
                         "isLoggedIn": 1,
                         "playerName": $playerName,
@@ -303,6 +301,20 @@ function blackjack-controller:restoreAccount($playerName as xs:string, $playerId
 
 
 declare
+%rest:path("/blackjack/restoreAccount")
+%rest:query-param("playerName", "{$playerName}")
+%rest:query-param("playerId", "{$playerId}")
+%output:method("html")
+%rest:GET
+function blackjack-controller:restoreAccount($playerName as xs:string, $playerId as xs:string){
+    let $playerExists := blackjack-helper:playerExists($playerName, $playerId)
+    return if ($playerExists) then (
+        blackjack-controller:start($playerName, $playerId)
+    )
+};
+
+
+declare
 %rest:path("/blackjack/createAccount")
 %rest:query-param("playerName", "{$playerName}")
 %output:method("html")
@@ -310,9 +322,10 @@ declare
 %updating
 function blackjack-controller:createAccount($playerName as xs:string){
     let $players:= blackjack-main:getPlayers()
-    let $newId := blackjack-helper:createPlayerId()
-    let $newPlayer := <player id="{$newId}" name="{$playerName}" highscore="0"/>
+    let $playerId := string(blackjack-helper:createPlayerId())
+    let $newPlayer := <player id="{$playerId}" name="{$playerName}" highscore="0"/>
     return (
         insert node $newPlayer into $players,
-        update:output(web:redirect(concat("/blackjack/lobby?playerName=", $playerName, "&amp;playerId=", $newId))))
+        update:output(web:redirect(concat("/blackjack/lobby?playerName=", $playerName, "&amp;playerId=", $playerId)))
+    )
 };

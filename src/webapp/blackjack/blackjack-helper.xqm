@@ -57,8 +57,12 @@ declare variable $blackjack-helper:games := db:open("Games")/games;
   : Check whether player exists in player database
   : @return boolean returning existence
   :)
-  declare function blackjack-helper:playerExists($playerName as xs:string, $playerId as xs:string) as xs:boolean {
-     exists($blackjack-helper:players/player[@name = $playerName and @id = $playerId])
+  declare function blackjack-helper:playerExists($playerName as xs:string?, $playerId as xs:string?) as xs:boolean {
+     if (not($playerName instance of xs:string) or not($playerId instance of xs:string)) then (
+        false()
+     ) else (
+        exists($blackjack-helper:players/player[@name = $playerName and @id = $playerId])
+     )
   };
 
 
