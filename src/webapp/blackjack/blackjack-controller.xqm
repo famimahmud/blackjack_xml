@@ -230,7 +230,7 @@ declare
 function blackjack-controller:hit($gameId as xs:integer, $playerId as xs:string){
     let $game := blackjack-main:getGame($gameId)
     return (
-        (if($game/@onTurn = $playerId and $game/@phase = "play" and $game/players/player[@id=$playerId]/hand/@sum < 21)
+        (if($game/@onTurn = $playerId and $game/@phase = "play" and $game/players/player[@id=$playerId]/hand/@sum < 22)
         then blackjack-main:drawCard($gameId, $playerId)),
         update:output(web:redirect(concat("/blackjack/", $gameId)))
     )
@@ -250,6 +250,30 @@ function blackjack-controller:stand($gameId as xs:integer, $playerId as xs:strin
         then (blackjack-main:moveTurn($gameId, $playerId) (:redirect allways? (outside of if):)
         ),
         update:output(web:redirect(concat("/blackjack/", $gameId)))
+    )
+};
+
+declare
+%rest:path("/blackjack/{$gameId}/exit")
+%rest:query-param("playerId", "{$playerId}")
+%rest:query-param("playerName", "{$playerName}")
+%output:method("html")
+%rest:POST
+%updating
+function blackjack-controller:exit($gameId as xs:integer, $playerId as xs:string, $playerName as xs:string){
+    let $game := blackjack-main:getGame($gameId)
+    let $parameters := map {
+            "playerName": $playerName,
+            "playerId": $playerId
+        }
+    return (
+        delete node $game/players/player[@id=$playerId],
+        if(count($game[@id=$gameId]/players/player[@id=$playerId])) (:Check if the player is in the Game:)
+        then(if(count($game[@id=$gameId]/players)=1)
+            then (blackjack-main:endGame($gameId))
+            else (blackjack-main:addHighscore($gameId, $playerId))),
+
+    update:output(web:redirect("/blackjack/lobby", $parameters))
     )
 };
 
