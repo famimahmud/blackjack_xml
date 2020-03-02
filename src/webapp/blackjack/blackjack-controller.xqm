@@ -32,23 +32,26 @@ function blackjack-controller:start($playerName as xs:string?, $playerId as xs:s
         let $games := blackjack-main:getGames()
         let $xslStylesheet := "LobbyTemplate.xsl"
         let $title := "Blackjack | Lobby"
+        let $highscoreBoard := blackjack-helper:getHighscoreBoard()
         let $emptyMap := map {
                                     "isLoggedIn": 0,
                                     "playerName": '',
                                     "playerId": '',
-                                    "playerHighscore": ''
+                                    "playerHighscore": '',
+                                    "highscoreBoard": $highscoreBoard
                              }
         let $parameters := if (blackjack-helper:playerExists($playerName, $playerId)) then (
             map {
                         "isLoggedIn": 1,
                         "playerName": $playerName,
                         "playerId": $playerId,
-                        "playerHighscore": blackjack-helper:getPlayerHighscore($playerName, $playerId)
+                        "playerHighscore": blackjack-helper:getPlayerHighscore($playerName, $playerId),
+                        "highscoreBoard": $highscoreBoard
                 }
         ) else (
             $emptyMap
         )
-        return (blackjack-controller:generateLobby($games, $xslStylesheet, $parameters, $title))
+        return blackjack-controller:generateLobby($games, $xslStylesheet, $parameters, $title)
 };
 
 

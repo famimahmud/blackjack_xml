@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes"/>
 
     <xsl:template match="/">
@@ -7,6 +7,7 @@
         <xsl:param name="playerName"/>
         <xsl:param name="playerId"/>
         <xsl:param name="playerHighscore"/>
+        <xsl:param name="highscoreBoard"/>
 
         <xsl:variable name="width" select="150"/>
         <xsl:variable name="height" select="100"/>
@@ -24,7 +25,6 @@
         <xsl:variable name="rectMidWidth" select="50"/>
         <xsl:variable name="strokeWidth" select="0.5"/>
         <xsl:variable name="edgeRadius" select="2"/>
-        <xsl:variable name="highscoreBoard" select="document('../Highscores.xml')"/>
 
         <xsl:variable name="cardX" select="2.5"/>
         <xsl:variable name="cardY" select="1.5"/>
