@@ -32,7 +32,7 @@ declare
 function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string, $playerId as xs:string) {
       let $deck := blackjack-main:generateDeck()
       let $game :=
-          <game id="{$gameId}" round="1" maxRounds="10" onTurn="dealer" phase="bet">
+          <game id="{$gameId}" round="1" maxRounds="10" onTurn="{$playerId}" phase="bet">
               {$deck}
               <dealer>
                   <hand>
@@ -41,13 +41,10 @@ function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string,
 
               <players>
                   <player id="{$playerId}" name="{$playerName}">
-                              <hand>
-                              </hand>
-                              <wallet>
-                                  500
-                              </wallet>
-                              <pool locked="false">
-                              </pool>
+                          <hand>
+                          </hand>
+                          <wallet>500</wallet>
+                          <pool locked="false"></pool>
                    </player>
               </players>
           </game>
