@@ -1,0 +1,10 @@
+rect.section{
+    x:0;
+    y: 0;
+    width:40px;
+    height: 60px;
+    fill:#134900;
+    opacity: 0.6 ;
+    rx: 2;
+    ry: 2;
+}
