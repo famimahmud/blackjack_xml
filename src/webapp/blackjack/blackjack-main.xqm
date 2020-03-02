@@ -341,16 +341,16 @@ function blackjack-main:moveTurnHelper($gameId as xs:integer, $playerOnTurn as x
 declare
 %updating
 function blackjack-main:dealerTurn($gameId as xs:integer){
+    if ($blackjack-main:games/game[@id = $gameId]/@onTurn = "dealer") then (
+    let $update := web:redirect(concat("/blackjack/", $gameId))
     let $dealerHandValue := blackjack-main:calculateHandValue($blackjack-main:games/game[@id = $gameId]/dealer/hand)
-    return (if ($blackjack-main:games/game[@id = $gameId]/@onTurn = "dealer") then (
-            (:update:output(web:redirect(concat("/blackjack/", $gameId))),
-            prof:sleep(1000), :)(: pause for 1000ms :)
+    return (
+            prof:sleep(1000),(: pause for 1000ms :)
             if ($dealerHandValue < 17)
             then (blackjack-main:drawCard($gameId, "dealer"),
                 update:output(web:redirect(concat("/blackjack/", $gameId, "/dealerTurn"))))
             else replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "pay",
-                 update:output(web:redirect(concat("/blackjack/", $gameId, "/pay"))),
-                 update:output(web:redirect(concat("/blackjack/", $gameId)))))
+                 update:output(web:redirect(concat("/blackjack/", $gameId, "/pay")))))
 };
 
 
@@ -361,9 +361,19 @@ function blackjack-main:dealerTurn($gameId as xs:integer){
  :)
 declare
 %updating
-function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string){
-    let $newPlayer := $blackjack-main:players/player[@id=$playerId]
-    return(insert node $newPlayer as last into $blackjack-main:games/game[@id = $gameId]/players)
+function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string) as empty-sequence(){
+    if (exists($blackjack-main:players/player[@id = $playerId])
+        and empty($blackjack-main:games/game[@id = $gameId]/players/player[@id = playerId]))
+        then(
+            let $playerName := $blackjack-main:players/player[@id = $playerId]/@name
+            let $newPlayer :=
+                  <player id="{$playerId}" name="{$playerName}">
+                          <hand/>
+                          <wallet>500</wallet>
+                          <pool locked="false"/>
+                   </player>
+    return( insert node $newPlayer as last into $blackjack-main:games/game[@id = $gameId]/players)
+    )
 };
 
 

@@ -287,7 +287,7 @@
                 <xsl:when test=" /*/@phase ='bet'">
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/confirmBet" method="post"
-                              id="Confirm">
+                              id="Confirm" target="hiddenFrame">
                             <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Confirm" value="Submit">
                                 Confirm
@@ -297,7 +297,7 @@
                     </foreignObject>
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/resetBet" method="post"
-                              id="Reset">
+                              id="Reset" target="hiddenFrame">
                             <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Reset" value="Submit">
                                 Reset
@@ -308,7 +308,7 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/hit" method="post" id="Hit">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/hit" method="post" id="Hit" target="hiddenFrame">
                             <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Hit" value="Submit">
                                 Hit
@@ -317,7 +317,7 @@
                         </form>
                     </foreignObject>
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/stand" method="post" id="Stand">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/stand" method="post" id="Stand" target="hiddenFrame">
                             <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Stand" value="Submit">
                                 Stand
@@ -329,7 +329,7 @@
             </xsl:choose>
 
             <foreignObject width="7" height="7" x="25%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_10">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_10" target="hiddenFrame">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -345,7 +345,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="34%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_50">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_50" target="hiddenFrame">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -361,7 +361,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="43%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_100">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_100" target="hiddenFrame">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -377,7 +377,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="52%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_250">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_250" target="hiddenFrame">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -393,7 +393,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="61%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_500">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_500" target="hiddenFrame">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -409,7 +409,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="70%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_1000">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_1000" target="hiddenFrame">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -422,6 +422,11 @@
                         <input type="hidden" name="playerId" id="playerId1000" value="{$playerId}"/>
                     </label>
                 </form>
+            </foreignObject>
+
+            <!-- Invisible iframe to throw away results of POST request -->
+            <foreignObject width="0" height="0">
+                <iframe class = "hiddenFrame" xmlns = "http://www.w3.org/1999/xhtml" name="hiddenFrame"></iframe>
             </foreignObject>
         </svg>
 

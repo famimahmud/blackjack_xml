@@ -1,8 +1,11 @@
 xquery version "3.1";
 
 module namespace blackjack-controller = "blackjack-controller.xqm";
+
+import module namespace request = "http://exquery.org/ns/request";
 import module namespace blackjack-main = "Blackjack/Main" at "blackjack-main.xqm";
 import module namespace blackjack-helper = "Blackjack/Helper" at "blackjack-helper.xqm";
+import module namespace blackjack-ws = "Blackjack/WS" at "blackjack-websocket.xqm";
 
 declare variable $blackjack-controller:staticPath := "../static/blackjack/";
 
@@ -62,9 +65,37 @@ declare
 function blackjack-controller:newGame($playerName as xs:string, $playerId as xs:string, $singlePlayer as xs:string){
         let $gameId := blackjack-helper:createGameId()
         return (blackjack-main:newGame($gameId, $playerName, $playerId, $singlePlayer),
-        update:output(web:redirect(concat("/blackjack/", $gameId))))
+            (if ($singlePlayer = "false")
+            then update:output(web:redirect(concat("/blackjack/", $gameId, "/join/", $playerId)))
+            else update:output(web:redirect(concat("/blackjack/", $gameId)))))
 };
 
+declare
+%rest:GET
+%output:method("html")
+%rest:path("/blackjack/{$gameId}/join/{$playerID}")
+function blackjack-controller:join($gameId as xs:string, $playerID as xs:string){
+    let $hostname := request:hostname()
+    let $port := request:port()
+    let $address := concat($hostname,":",$port)
+    let $websocketURL := concat("ws://",$address,"/ws/blackjack")
+    let $getURL := concat("http://", $address, "/blackjack/", $gameId, "/getGameLayout/", $playerID)
+    let $subscription := concat("/blackjack/", $gameId ,"/", $playerID)
+    let $html :=
+        <html>
+            <head>
+                <title>Blackjack</title>
+                <script src="/static/blackjack/JS/jquery-3.2.1.min.js"></script>
+                <script src="/static/blackjack/JS/stomp.js"></script>
+                <script src="/static/blackjack/JS/ws-element.js"></script>
+                <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
+            </head>
+            <body style="background: url(/static/blackjack/assets/TableBackgroundCompressed.svg">
+                <ws-stream id = "Blackjack" url="{$websocketURL}" subscription = "{$subscription}" geturl = "{$getURL}"/>
+            </body>
+        </html>
+    return $html
+};
 
 declare
 %rest:path("/blackjack/{$gameId}/newRound")
@@ -84,19 +115,6 @@ function blackjack-controller:redirectLobby(){
     update:output(web:redirect("/blackjack/lobby"))
 };
 
-
-declare
-%rest:path("/blackjack/{$gameId}")
-%output:method("html")
-%rest:GET
-function blackjack-controller:drawGame($gameId as xs:integer){
-    let $game := blackjack-main:getGame($gameId)
-    let $xslStylesheet := "GameTemplate.xsl"
-    let $title := "Blackjack"
-    return (blackjack-controller:generatePage($game, $xslStylesheet, $gameId, $title))
-};
-
-
 declare function blackjack-controller:generateLobby($games as element(games), $xslStylesheet as xs:string, $parameters as item()*,
         $title as xs:string) {
     let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/", $xslStylesheet))
@@ -113,14 +131,45 @@ declare function blackjack-controller:generateLobby($games as element(games), $x
         </html>
 };
 
+declare
+%rest:path("/blackjack/{$gameId}")
+%rest:GET
+function blackjack-controller:drawGame($gameId as xs:integer){
+    let $game := blackjack-main:getGame($gameId)
+    let $xslStylesheet := "GameTemplate.xsl"
+    let $title := "Blackjack"
+    return (if ($game/@singlePlayer = "true") then
+            blackjack-controller:generatePage($gameId, $game/players/player[position() = 1]/@id, $title)
+        else    (: send via Websocket if the game is Multiclient:)
+                let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/GameTemplate.xsl"))
+                let $wsIds := blackjack-ws:getIDs()
+                return
+                    (for $wsId in $wsIds
+                        where (blackjack-ws:get($wsId, "applicationID") = "Blackjack" and blackjack-ws:get($wsId, "gameID") = $gameId)
+                        let $playerId := blackjack-ws:get($wsId, "playerID")
+                        let $destinationPath := concat("/blackjack/", $gameId ,"/", $playerId)
+                        let $transformed := blackjack-controller:getGameLayout($gameId, $playerId)
+                        return (blackjack-ws:send($transformed, $destinationPath)))
+    )
+};
 
-declare function blackjack-controller:generatePage($game as element(game), $xslStylesheet as xs:string,
-        $gameId as xs:integer, $title as xs:string) {
-    let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/", $xslStylesheet))
+declare
+%rest:path("/blackjack/{$gameId}/getGameLayout/{$playerId}")
+%output:method("html")
+%rest:GET
+function blackjack-controller:getGameLayout($gameId as xs:integer, $playerId as xs:integer){
+    let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/GameTemplate.xsl"))
     let $parameters := map {
-        "gameId": $gameId
+        "gameId": $gameId,
+        "playerId": $playerId
     }
+    let $game := blackjack-main:getGame($gameId)
     let $transformed := xslt:transform($game, $stylesheet, $parameters)
+    return ($transformed)
+};
+
+declare function blackjack-controller:generatePage($gameId as xs:integer, $playerId as xs:integer, $title as xs:string) {
+    let $transformed := blackjack-controller:getGameLayout($gameId, $playerId)
     return
         <html>
             <head>
@@ -227,7 +276,7 @@ declare
 function blackjack-controller:hit($gameId as xs:integer, $playerId as xs:string){
     let $game := blackjack-main:getGame($gameId)
     return (
-        (if($game/@onTurn = $playerId and $game/@phase = "play" and $game/players/player[@id=$playerId]/hand/@sum < 21)
+        (if($game/@onTurn = $playerId and $game/@phase = "play" and $game/players/player[@id=$playerId]/hand/@sum < 22)
         then blackjack-main:drawCard($gameId, $playerId)),
         update:output(web:redirect(concat("/blackjack/", $gameId)))
     )
@@ -275,7 +324,7 @@ function blackjack-controller:pay($gameId as xs:integer){
     return (
         (if ($game/@phase = "pay")
             then blackjack-main:payPlayers($gameId)),
-        update:output(web:redirect(concat("/blackjack/", $gameId)))
+                update:output(web:redirect(concat("/blackjack/", $gameId)))
     )
 };
 

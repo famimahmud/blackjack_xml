@@ -22,12 +22,14 @@ function blackjack-ws:stompdisconnect(){
 declare
 %ws-stomp:subscribe("/blackjack")
 %ws:header-param("param0", "{$game}")
-%ws:header-param("param1", "{$playerID}")
+%ws:header-param("param1", "{$gameId}")
+%ws:header-param("param2", "{$playerId}")
 %updating
-function blackjack-ws:subscribe($game, $playerID){
-    websocket:set(websocket:id(), "playerID", $playerID),
-    websocket:set(websocket:id(), "applicationID", "ttt"),
-    update:output(trace(concat("WS client with id ", ws:id(), " subscribed to ", $game, "/", $playerID)))
+function blackjack-ws:subscribe($game, $playerId, $gameId){
+    websocket:set(websocket:id(), "playerID", $playerId),
+    websocket:set(websocket:id(), "applicationID", "Blackjack"),
+    websocket:set(websocket:id(), "gameID", $gameId),
+    update:output(trace(concat("WS client with id: ", ws:id(), " and PlayerID: ", $playerId ," subscribed to ", $game, "/ with GameID: ", $gameId)))
 };
 
 declare function blackjack-ws:getIDs(){
