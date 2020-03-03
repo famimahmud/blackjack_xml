@@ -2,6 +2,19 @@
 <?xml-stylesheet type="text/xsl "href="GameTemplate.xsl" ?>
 
 <games>
+    <scores>
+        <score name="Angela">13337</score>
+        <score name="Boris">321</score>
+        <score name="Horst">5724</score>
+        <score name="Kim">666</score>
+        <score name="Emmanuel">500</score>
+        <score name="Vladimir">432</score>
+        <score name="Sebastian">300</score>
+        <score name="Markus">299</score>
+        <score name="Justin">259</score>
+        <score name="Alexander">2</score>
+        <score name="Donald">1</score>
+    </scores>
     <game id="1234" round="6" maxRounds="10" onTurn="1111" phase="bet" singlePlayer="false">
         <deck>
             <card hidden="true">
