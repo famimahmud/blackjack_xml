@@ -214,7 +214,7 @@ function blackjack-main:payPlayer($gameId as xs:integer, $playerId as xs:string)
             if ( $playerValue = $dealerValue)
                 then (replace node $blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerId]/wallet/node() with ($wallet + $poolBet) )
                         (: check if playerhand > dealerhand  -> profit :)
-                else (if ($playerValue > $dealerValue)
+                else (if ($playerValue > $dealerValue or $dealerValue > 21)
                         then (replace node $blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerId]/wallet/node() with ($wallet + (2*$poolBet))))
         )
     )
@@ -365,7 +365,8 @@ function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string)
     if (exists($blackjack-main:players/player[@id = $playerId])
         and empty($blackjack-main:games/game[@id = $gameId]/players/player[@id = playerId])
         and count($blackjack-main:games/game[@id = $gameId]/players/player) < 4
-        and $blackjack-main:games/game[@id = $gameId]/@phase = "bet")
+        and $blackjack-main:games/game[@id = $gameId]/@phase = "bet"
+        and $blackjack-main:games/game[@id = $gameId]/@singlePlayer = "false")
         then(
             let $playerName := $blackjack-main:players/player[@id = $playerId]/@name
             let $newPlayer :=
