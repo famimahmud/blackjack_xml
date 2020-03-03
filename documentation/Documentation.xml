@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-        "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink">
-    <articleinfo>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<book>
+    <bookinfo>
         <title>Blackjack-Implementierung mit XML-Technologien</title>
         <author>
             <firstname>Patryk</firstname>
@@ -17,117 +16,143 @@
             <firstname>Fami</firstname>
             <surname>Mahmud</surname>
         </author>
-    </articleinfo>
-    <section>
-        <title>Introduction</title>
-        <para>An Introduction of the whole project.</para>
-    </section>
-    <section>
-        <title>Worksheet 1</title>
-        <para>In the first meeting we decided to implement our Blackjack game according the official rules defined
-            by Bicycle [<ulink url="https://bicyclecards.com/how-to-play/blackjack/"/>].
-        </para>
-        <para> This basic project requirements where discussed:
-        </para>
-        <itemizedlist>
-            <listitem>
-                <para>Is it possible to join an ongoing game?</para>
-                <itemizedlist spacing="compact">
-                    <listitem>
-                        <para>
-                            <emphasis>It is possible through the Lounge ID</emphasis>
-                        </para>
-                    </listitem>
-                </itemizedlist>
-            </listitem>
-            <listitem>
-                <para>Is it possible to exit an ongoing game?</para>
-                <itemizedlist spacing="compact">
-                    <listitem>
-                        <para>
-                            <emphasis>It is possible through the give up/exit button.</emphasis>
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <emphasis>If your credit is used, you will be ruled out.</emphasis>
-                        </para>
-                    </listitem>
-                </itemizedlist>
-            </listitem>
-            <listitem>
-                <para>How is the Highscore being managed?</para>
-                <itemizedlist spacing="compact">
-                    <listitem>
-                        <para>
-                            <emphasis>The Highscore will be given to the player who has the highest credit at the end of
-                                a game session.
-                            </emphasis>
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <emphasis>Highscore varries depending on the starting credit (? not clear yet)</emphasis>
-                        </para>
-                    </listitem>
-                </itemizedlist>
-            </listitem>
-            <listitem>
-                <para>Does a player have an identity outsid of a game?</para>
-                <itemizedlist spacing="compact">
-                    <listitem>
-                        <para>
-                            <emphasis>The identity will be saved for multiple games during one session on the website.
-                            </emphasis>
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            <emphasis>Once the player leaves the website, his identity will be deleted and the next time
-                                he starts over
-                                with the inital credit of 100$.
-                            </emphasis>
-                        </para>
-                    </listitem>
-                </itemizedlist>
-            </listitem>
-            <listitem>
-                <para>It is not possible to take part in multiple games at the same time.</para>
-            </listitem>
-        </itemizedlist>
-        <para> Based on this requirements we made a sketch of the Lobby-View and the In-game-View: </para>
-        <mediaobject>
-            <imageobject>
-                <imagedata width="50%"
-                           fileref="notes/Paper-Prototype.png"/>
-            </imageobject>
-        </mediaobject>
-        <mediaobject>
-            <imageobject>
-                <imagedata width="50%"
-                           fileref="notes/Paper-Prototype2.png"/>
-            </imageobject>
-        </mediaobject>
-        <para> At the end of lecture the work was split into three. One part was implementing the background in svg,
-            the next one was about the cards and the last part were the chips and the documentation.
-            We set up a git repository in which everyone pushed their solutions.  </para>
-    </section>
-    <section>
-        <sectioninfo>
-            <title>Worksheet 2</title>
-        </sectioninfo>
-        <para>TODO</para>
-    </section>
-    <section>
-        <sectioninfo>
-            <title>Worksheet 3</title>
-        </sectioninfo>
-        <para>TODO</para>
-    </section>
-    <section>
-        <sectioninfo>
-            <title>Worksheet 4</title>
-        </sectioninfo>
-        <para>TODO</para>
-    </section>
-</article>
+    </bookinfo>
+    <part>
+        <title>Blackjack Project</title>
+        <chapter>
+            <title>Introduction</title>
+
+            <sect1>
+                <title>Project Overview</title>
+                <para>An Introduction of the whole project.</para>
+            </sect1>
+            <sect1>
+                <title>Blackjack Concept</title>
+                <sect2>
+                    <title>Game Rules</title>
+
+                    <para>In the first meeting we decided to implement our Blackjack game according
+                        the official rules defined by Bicycle [<ulink
+                            url="https://bicyclecards.com/how-to-play/blackjack/"/>].</para>
+                </sect2>
+                <sect2>
+                    <title>Game </title>
+                    <para></para>
+                </sect2>
+            </sect1>
+            
+        </chapter>
+        <chapter>
+            <title>Technologies</title>
+            <para></para>
+            <sect1>
+                <title>DocBook</title>
+                <para></para>
+            </sect1>
+            <sect1>
+                <title>XML</title>
+                <para></para>
+            </sect1>
+            <sect1>
+                <title>SVG</title>
+                <para></para>
+            </sect1>
+            <sect1>
+                <title>XSLT</title>
+                <para></para>
+            </sect1>
+            <sect1>
+                <title>XQuery</title>
+                <para></para>
+            </sect1>
+            <sect1>
+                <title>RestXQ</title>
+                <para></para>
+            </sect1>
+            <sect1>
+                <title>BaseX</title>
+                <para></para>
+            </sect1>
+        </chapter>
+        <chapter>
+            <title>Design and Implementation</title>
+            <para></para>
+            <sect1>
+                <title>Templates</title>
+                <para></para>
+            </sect1>
+            <sect1>
+                <title>Modules</title>
+                <para></para>
+            </sect1>
+            <sect1>
+                <title>User Actions</title>
+                <para></para>
+            </sect1>
+            <sect1>
+                <title>Game Setup</title>
+                <para></para>
+                <sect2>
+                    <title>Card Deck</title>
+                    <para></para>
+                </sect2>
+                <sect2>
+                    <title>Player </title>
+                    <para></para>
+                </sect2>
+            </sect1>
+            <sect1>
+                <title>Phases</title>
+                <para></para>
+            </sect1>
+        </chapter>
+        <chapter>
+            <title>Architecture</title>
+            <para></para>
+            <sect1>
+                <title>MVC Architecture</title>
+                <para></para>
+            </sect1>
+            <sect1>
+                <title>Data Model</title>
+                <para></para>
+            </sect1>
+        </chapter>
+        <chapter>
+            <title>Game Installation</title>
+            <para></para>
+            <sect1>
+                <title>Requirements</title>
+                <para></para>
+            </sect1>
+            <sect1>
+                <title>Installation</title>
+                <para></para>
+            </sect1>
+        </chapter>
+        <chapter>
+            <title>Game Play</title>
+            <para></para>
+        </chapter>
+        <chapter>
+            <title>Team Organisation</title>
+            <para></para>
+            <sect1>
+                <title>Development Environment</title>
+                <para></para>
+                <sect2>
+                    <title>SCRUM</title>
+                    <para></para>
+                </sect2>
+            </sect1>
+            <sect1>
+                <title>Conclusion</title>
+                <para></para>
+                <sect2>
+                    <title>Reflection</title>
+                    <para></para>
+                </sect2>
+            </sect1>
+        </chapter>
+    </part>
+</book>
