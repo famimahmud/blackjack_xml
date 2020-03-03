@@ -255,7 +255,8 @@ function blackjack-main:bet($gameId as xs:integer, $playerId as xs:string, $chip
 declare
 %updating
 function blackjack-main:confirmBet($gameId as xs:integer, $playerId as xs:string){
-    if ($blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/pool/@locked = "false")
+    let $pool := $blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/pool
+    return if(($pool/@locked = "false") and (count($pool/chip)>0))
     then (
         replace node $blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/pool
             with <pool locked="true">{$blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/pool/chip}</pool>,
