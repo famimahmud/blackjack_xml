@@ -335,8 +335,8 @@
                             <xsl:call-template name="ChipTemplate">
                                 <xsl:with-param name="chipValue" select="10"/>
                                 <xsl:with-param name="id" select="10"/>
-                            </xsl:call-template>-->
-                        </svg>
+                            </xsl:call-template>
+                        </svg>-->
                         <input type="submit" name="chipValue" id="value10" value="10"
                                style="border: none"/>
                         <input type="hidden" name="playerId" id="playerId10" value="{$playerId}"/>
