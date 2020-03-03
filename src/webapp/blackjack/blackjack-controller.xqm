@@ -73,7 +73,7 @@ declare
 %output:method("html")
 %rest:path("/blackjack/{$gameId}/join")
 %rest:query-param("playerId", "{$playerId}")
-function blackjack-controller:join($gameId as xs:string, $playerId as xs:string){
+function blackjack-controller:join($gameId as xs:integer, $playerId as xs:string){
     let $hostname := request:hostname()
     let $port := request:port()
     let $address := concat($hostname,":",$port)
