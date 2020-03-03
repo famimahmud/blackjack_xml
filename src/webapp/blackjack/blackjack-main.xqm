@@ -328,7 +328,6 @@ function blackjack-main:moveTurnHelper($gameId as xs:integer, $playerOnTurn as x
                             replace node $blackjack-main:games/game[@id = $gameId]/dealer/hand
                                     with <hand sum="{$dealerHandValue}"><card hidden="false">{$firstCard/type}{$firstCard/value}</card>
                                                 {$blackjack-main:games/game[@id = $gameId]/dealer/hand/card[position() > 1]}</hand>,
-(:                            update:output(web:redirect(concat("/blackjack/", $gameId, "/continue")))):)
                             update:output(web:redirect(concat("/blackjack/", $gameId, "/dealerTurn"))),
                             update:output(web:redirect(concat("/blackjack/", $gameId))))
                 )
@@ -350,7 +349,6 @@ function blackjack-main:dealerTurn($gameId as xs:integer){
             if ($dealerHandValue < 17)
             then (blackjack-main:drawCard($gameId, "dealer"),
             update:output(web:redirect(concat("/blackjack/", $gameId, "/dealerTurn"))))
-(:                update:output(web:redirect(concat("/blackjack/", $gameId, "/dealerTurn")))):)
             else replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "pay",
                  update:output(web:redirect(concat("/blackjack/", $gameId, "/pay")))))
 };

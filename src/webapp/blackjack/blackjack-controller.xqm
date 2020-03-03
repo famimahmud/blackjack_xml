@@ -151,24 +151,6 @@ function blackjack-controller:drawGame($gameId as xs:integer) {
 };
 
 declare
-%rest:path("/blackjack/{$gameId}/continue")
-%rest:GET
-function blackjack-controller:drawAndContinueToDealerTurn($gameId as xs:integer){
-    let $game := blackjack-main:getGame($gameId)
-    let $xslStylesheet := "GameTemplate.xsl"
-    let $title := "Blackjack"
-    let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/GameTemplate.xsl"))
-    let $wsIds := blackjack-ws:getIDs()
-    return (
-        (for $wsId in $wsIds
-            where (blackjack-ws:get($wsId, "applicationID") = "Blackjack" and blackjack-ws:get($wsId, "gameID") = $gameId)
-                let $playerId := blackjack-ws:get($wsId, "playerId")
-                let $destinationPath := concat("/blackjack/", $gameId ,"/", $playerId)
-                let $transformed := blackjack-controller:getGameLayout($gameId, $playerId)
-                return (blackjack-ws:send($transformed, $destinationPath))))
-};
-
-declare
 %rest:path("/blackjack/{$gameId}/getGameLayout")
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
