@@ -26,9 +26,9 @@ declare
 %ws:header-param("param2", "{$playerId}")
 %updating
 function blackjack-ws:subscribe($game, $playerId, $gameId){
-    websocket:set(websocket:id(), "playerID", $playerId),
-    websocket:set(websocket:id(), "applicationID", "Blackjack"),
-    websocket:set(websocket:id(), "gameID", $gameId),
+    websocket:set(websocket:id(), "playerId", $playerId),
+    websocket:set(websocket:id(), "applicationId", "Blackjack"),
+    websocket:set(websocket:id(), "gameId", $gameId),
     update:output(trace(concat("WS client with id: ", ws:id(), " and PlayerID: ", $playerId ," subscribed to ", $game, "/ with GameID: ", $gameId)))
 };
 

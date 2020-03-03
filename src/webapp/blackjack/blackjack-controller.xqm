@@ -101,7 +101,7 @@ declare
 %updating
 function blackjack-controller:newRound($gameId as xs:integer){
     blackjack-main:newRound($gameId),
-    update:output(web:redirect(concat("/blackjack/", $gameId)))
+    update:output(web:redirect(concat("/blackjack/", $gameId, "/pay")))
 };
 
 
@@ -141,7 +141,7 @@ function blackjack-controller:drawGame($gameId as xs:integer) {
         let $wsIds := blackjack-ws:getIDs()
         return (
             for $wsId in $wsIds
-                where (blackjack-ws:get($wsId, "applicationID") = "Blackjack" and blackjack-ws:get($wsId, "gameID") = $gameId)
+                where (blackjack-ws:get($wsId, "applicationId") = "Blackjack" and blackjack-ws:get($wsId, "gameId") = $gameId)
                     let $playerId := blackjack-ws:get($wsId, "playerId")
                     let $destinationPath := concat("/blackjack/", $gameId ,"/", $playerId)
                     let $transformed := blackjack-controller:getGameLayout($gameId, $playerId)

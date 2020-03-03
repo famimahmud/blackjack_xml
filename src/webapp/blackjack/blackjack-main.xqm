@@ -187,7 +187,8 @@ function blackjack-main:payPlayers($gameId as xs:integer){
         return (
             blackjack-main:payPlayer($gameId, $playerId)
         ),
-    replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "result"
+    replace node $blackjack-main:games/game[@id = $gameId]/dealer/hand with <hand sum="0"/>,
+    blackjack-main:newRound($gameId)
 };
 
 
@@ -204,6 +205,8 @@ function blackjack-main:payPlayer($gameId as xs:integer, $playerId as xs:string)
     let $playerValue := $blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerId]/hand/@sum
     let $dealerValue := $blackjack-main:games/game[@id = $gameId]/dealer/hand/@sum
     return (
+        replace node $blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerId]/pool with <pool locked="false"/>,
+        replace node $blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerId]/hand with <hand sum="0"/>,
         (: check if playerhand is below 22 -> if not -> loss :)
         if ($playerValue < 22) then (
             (: check if playerhand = dealerhand  -> no gain :)
@@ -342,12 +345,12 @@ function blackjack-main:dealerTurn($gameId as xs:integer){
     if ($blackjack-main:games/game[@id = $gameId]/@onTurn = "dealer") then (
     let $dealerHandValue := blackjack-main:calculateHandValue($blackjack-main:games/game[@id = $gameId]/dealer/hand)
     return (
-            prof:sleep(2000),(: pause for 1000ms :)
+(:            prof:sleep(1000),:)(: pause for 1000ms :)
             if ($dealerHandValue < 17)
             then (blackjack-main:drawCard($gameId, "dealer"),
             update:output(web:redirect(concat("/blackjack/", $gameId, "/dealerTurn"))))
             else replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "pay",
-                 update:output(web:redirect(concat("/blackjack/", $gameId, "/pay")))))
+            update:output(web:redirect(concat("/blackjack/", $gameId)))))
 };
 
 
