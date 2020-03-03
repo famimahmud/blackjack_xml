@@ -3,6 +3,7 @@
     <xsl:output indent="yes"/>
 
     <xsl:param name="gameId"/>
+    <xsl:param name="playerId"/>
 
     <!-- Imports -->
     <xsl:include href="CardTemplate.xsl"/>
@@ -33,7 +34,6 @@
         <xsl:variable name="playerCount" select="count(/*/players/*)"/>
         <xsl:variable name="rectHeight" select="5"/>
         <xsl:variable name="rectWidth" select="25"/>
-        <xsl:variable name="playerId" select="game[@id=$gameId]/@onTurn"/>
 
         <xsl:variable name="currentPlayer">
             <xsl:if test="/*/@onTurn = 'dealer'">

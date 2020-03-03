@@ -293,7 +293,7 @@ function blackjack-controller:stand($gameId as xs:integer, $playerId as xs:strin
     let $game := blackjack-main:getGame($gameId)
     return (
         if($game/@onTurn = $playerId and $game/@phase = "play")
-        then (blackjack-main:moveTurn($gameId, $playerId) (:redirect allways? (outside of if):)
+        then (blackjack-main:moveTurn($gameId, $playerId)
         ),
         update:output(web:redirect(concat("/blackjack/", $gameId)))
     )
