@@ -264,7 +264,7 @@ function blackjack-controller:exit($gameId as xs:integer, $playerId as xs:string
         }
     return (
         delete node $game/players/player[@id=$playerId],
-        if(count($game[@id=$gameId]/players/player[@id=$playerId])) (:Check if the player is in the Game:)
+        if(exists($game[@id=$gameId]/players/player[@id=$playerId])) (:Check if the player is in the Game:)
         then(if(count($game[@id=$gameId]/players)=1)
             then (blackjack-main:endGame($gameId))
             else (blackjack-main:addHighscore($gameId, $playerId))),
