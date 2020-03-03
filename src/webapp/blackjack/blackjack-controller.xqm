@@ -302,28 +302,6 @@ function blackjack-controller:pay($gameId as xs:integer){
     )
 };
 
-
-(:
-declare
-%rest:path("/blackjack/restoreAccount")
-%rest:query-param("playerName", "{$playerName}")
-%rest:query-param("playerId", "{$playerId}")
-%output:method("html")
-%rest:POST
-%updating
-function blackjack-controller:restoreAccount($playerName as xs:string, $playerId as xs:string){
-    let $player := blackjack-main:getPlayers()/player[@id=$playerId and @name=$playerName]
-    let $lobby := blackjack-main:getLobby()
-    return (
-        if(count($lobby/player) = 0)
-        then (insert node $player into $lobby)
-        else (replace node $lobby/player with $player),
-        update:output(web:redirect("/blackjack"))
-    )
-};
-:)
-
-
 declare
 %rest:path("/blackjack/restoreAccount")
 %rest:query-param("playerName", "{$playerName}")

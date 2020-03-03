@@ -61,10 +61,17 @@ function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string,
   %updating
   function blackjack-main:newRound ($gameId as xs:integer) {
       let $deck := blackjack-main:generateDeck()
-      return (replace node $blackjack-main:games/game[@id = $gameId]/deck with $deck,
+      return(
+              replace node $blackjack-main:games/game[@id = $gameId]/deck with $deck,
               replace value of node $blackjack-main:games/game[@id = $gameId]/@onTurn
                     with $blackjack-main:games/game[@id = $gameId]/players/player[position() = 1]/@id,
-              replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "bet"
+              replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "bet",
+              replace node $blackjack-main:games/game[@id = $gameId]/dealer/hand with <hand sum="0"/>,
+              for $playerId in $blackjack-main:games/game[@id = $gameId]/players/player/@id
+                            return (
+                                  replace node $blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerId]/pool with <pool locked="false"></pool>,
+                                  replace node $blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerId]/hand with <hand sum="0"/>
+                            )
       )
       (:websocket draw:)
   };
@@ -184,12 +191,11 @@ declare
 %updating
 function blackjack-main:payPlayers($gameId as xs:integer){
     (: remove dealer hand:)
-    replace node $blackjack-main:games/game[@id = $gameId]/dealer/hand with <hand sum="0"/>,
     for $playerId in $blackjack-main:games/game[@id = $gameId]/players/player/@id
         return (
             blackjack-main:payPlayer($gameId, $playerId)
         ),
-    blackjack-main:newRound($gameId)
+    replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "result"
 };
 
 
@@ -206,8 +212,6 @@ function blackjack-main:payPlayer($gameId as xs:integer, $playerId as xs:string)
     let $playerValue := $blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerId]/hand/@sum
     let $dealerValue := $blackjack-main:games/game[@id = $gameId]/dealer/hand/@sum
     return (
-        replace node $blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerId]/pool with <pool locked="false"></pool>,
-        replace node $blackjack-main:games/game[@id = $gameId]/players/player[@id=$playerId]/hand with <hand sum="0"/>,
         (: check if playerhand is below 22 -> if not -> loss :)
         if ($playerValue < 22) then (
             (: check if playerhand = dealerhand  -> no gain :)
@@ -251,7 +255,8 @@ function blackjack-main:bet($gameId as xs:integer, $playerId as xs:string, $chip
 declare
 %updating
 function blackjack-main:confirmBet($gameId as xs:integer, $playerId as xs:string){
-    if ($blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/pool/@locked = "false")
+    let $pool := $blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/pool
+    return if(($pool/@locked = "false") and (count($pool/chip)>0))
     then (
         replace node $blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/pool
             with <pool locked="true">{$blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/pool/chip}</pool>,
