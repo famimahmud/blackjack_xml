@@ -378,7 +378,7 @@ function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string)
                           <pool locked="false"/>
                    </player>
     return( insert node $newPlayer as last into $blackjack-main:games/game[@id = $gameId]/players,
-            update:output(web:redirect(concat("/blackjack/", $gameId, "/join/", $playerId))))
+            update:output(web:redirect(concat("/blackjack/", $gameId, "/join?playerId=", $playerId))))
     )
 };
 

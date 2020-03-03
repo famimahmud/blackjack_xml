@@ -331,14 +331,14 @@
             <foreignObject width="7" height="7" x="25%" y="93%">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_10" target="hiddenFrame">
                     <label>
-                        <svg width="7" height="7">
+                        <!--<svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
                                 <xsl:with-param name="chipValue" select="10"/>
                                 <xsl:with-param name="id" select="10"/>
-                            </xsl:call-template>
+                            </xsl:call-template>-->
                         </svg>
                         <input type="submit" name="chipValue" id="value10" value="10"
-                               style="background: transparent; border: none !important;"/>
+                               style="border: none"/>
                         <input type="hidden" name="playerId" id="playerId10" value="{$playerId}"/>
                     </label>
                 </form>

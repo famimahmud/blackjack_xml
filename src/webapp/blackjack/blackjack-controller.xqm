@@ -65,20 +65,21 @@ declare
 function blackjack-controller:newGame($playerName as xs:string, $playerId as xs:string, $singlePlayer as xs:string){
         let $gameId := blackjack-helper:createGameId()
         return (blackjack-main:newGame($gameId, $playerName, $playerId, $singlePlayer),
-                update:output(web:redirect(concat("/blackjack/", $gameId, "/join/", $playerId))))
+                update:output(web:redirect(concat("/blackjack/", $gameId, "/join?playerId=", $playerId))))
 };
 
 declare
 %rest:GET
 %output:method("html")
-%rest:path("/blackjack/{$gameId}/join/{$playerID}")
-function blackjack-controller:join($gameId as xs:string, $playerID as xs:string){
+%rest:path("/blackjack/{$gameId}/join")
+%rest:query-param("playerId", "{$playerId}")
+function blackjack-controller:join($gameId as xs:string, $playerId as xs:string){
     let $hostname := request:hostname()
     let $port := request:port()
     let $address := concat($hostname,":",$port)
     let $websocketURL := concat("ws://",$address,"/ws/blackjack")
-    let $getURL := concat("http://", $address, "/blackjack/", $gameId, "/getGameLayout/", $playerID)
-    let $subscription := concat("/blackjack/", $gameId ,"/", $playerID)
+    let $getURL := concat("http://", $address, "/blackjack/", $gameId, "/getGameLayout?playerId=", $playerId)
+    let $subscription := concat("/blackjack/", $gameId ,"/", $playerId)
     let $html :=
         <html>
             <head>
@@ -142,7 +143,7 @@ function blackjack-controller:drawGame($gameId as xs:integer) {
         return (
             for $wsId in $wsIds
                 where (blackjack-ws:get($wsId, "applicationID") = "Blackjack" and blackjack-ws:get($wsId, "gameID") = $gameId)
-                    let $playerId := blackjack-ws:get($wsId, "playerID")
+                    let $playerId := blackjack-ws:get($wsId, "playerId")
                     let $destinationPath := concat("/blackjack/", $gameId ,"/", $playerId)
                     let $transformed := blackjack-controller:getGameLayout($gameId, $playerId)
                     return (blackjack-ws:send($transformed, $destinationPath)))
@@ -152,7 +153,6 @@ function blackjack-controller:drawGame($gameId as xs:integer) {
 declare
 %rest:path("/blackjack/{$gameId}/continue")
 %rest:GET
-%updating
 function blackjack-controller:drawAndContinueToDealerTurn($gameId as xs:integer){
     let $game := blackjack-main:getGame($gameId)
     let $xslStylesheet := "GameTemplate.xsl"
@@ -162,15 +162,15 @@ function blackjack-controller:drawAndContinueToDealerTurn($gameId as xs:integer)
     return (
         (for $wsId in $wsIds
             where (blackjack-ws:get($wsId, "applicationID") = "Blackjack" and blackjack-ws:get($wsId, "gameID") = $gameId)
-                let $playerId := blackjack-ws:get($wsId, "playerID")
+                let $playerId := blackjack-ws:get($wsId, "playerId")
                 let $destinationPath := concat("/blackjack/", $gameId ,"/", $playerId)
                 let $transformed := blackjack-controller:getGameLayout($gameId, $playerId)
-                return (blackjack-ws:send($transformed, $destinationPath))),
-        update:output(web:redirect(concat("/blackjack/", $gameId, "/dealerTurn"))))
+                return (blackjack-ws:send($transformed, $destinationPath))))
 };
 
 declare
-%rest:path("/blackjack/{$gameId}/getGameLayout/{$playerId}")
+%rest:path("/blackjack/{$gameId}/getGameLayout")
+%rest:query-param("playerId", "{$playerId}")
 %output:method("html")
 %rest:GET
 function blackjack-controller:getGameLayout($gameId as xs:integer, $playerId as xs:integer){

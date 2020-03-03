@@ -104,31 +104,39 @@
 
                 <foreignObject x="{$startX}" y="39" width="{$rectWidth - 10}" height="{(5*($rectHeight div 12))}"
                                font-family="{$fonts}" font-size="{$fontSize - 1}" style="overflow-y: scroll">
-                        <svg x="0" y="39" height="{(count(games/game[@singlePlayer = 'false']))*($rectHeight div 12) + (count(games/game[@singlePlayer = 'false']) * 2)}" width="100%"
-                             viewBox="0 0 {$rectWidth - 10} {(count(games/game[@singlePlayer = 'false']))*($rectHeight div 12) + (count(games/game[@singlePlayer = 'false']) * 2)}">
-                            <xsl:for-each select="games/game[@singlePlayer = 'false']">
-                                <xsl:variable name="currentRectY" select="0 + ((position() - 1) * 6)"/>
-                                <xsl:variable name="gameID" select="@id"/>
-                                <xsl:variable name="players" select="count(players/player)"/>
-                                <xsl:variable name="round" select="@round"/>
-                                <xsl:variable name="maxRounds" select="@maxRounds"/>
-                                <rect x="0" y="{$currentRectY}" width="{$rectWidth - 10}"
-                                      height="{($rectHeight div 12)-1}"
-                                      fill="none" style="stroke:{$rectColor};stroke-width:{$strokeWidth - 0.2}"/>
-                                <text y="{$currentRectY + 1}" fill="{$textColor}" font-size="{$fontSize - 2}"
-                                      font-family="{$fonts}">
-                                    <tspan x="1" alignment-baseline="hanging">
-                                        <xsl:value-of select=" concat('Game',$gameID)"/>
-                                    </tspan>
-                                    <tspan x="16" alignment-baseline="hanging">
-                                        <xsl:value-of select=" concat('|  ',$players)"/>
-                                    </tspan>
-                                    <tspan x="22" alignment-baseline="hanging">
-                                        <xsl:value-of select=" concat('| ',$round, '/', $maxRounds)"/>
-                                    </tspan>
-                                </text>
-                            </xsl:for-each>
-                        </svg>
+                    <svg x="0" y="39"
+                         height="{(count(games/game[@singlePlayer = 'false']))*($rectHeight div 12) + (count(games/game[@singlePlayer = 'false']) * 2)}"
+                         width="100%"
+                         viewBox="0 0 {$rectWidth - 10} {(count(games/game[@singlePlayer = 'false']))*($rectHeight div 12) + (count(games/game[@singlePlayer = 'false']) * 2)}">
+                        <xsl:for-each select="games/game[@singlePlayer = 'false']">
+                            <xsl:variable name="currentRectY" select="0 + ((position() - 1) * 6)"/>
+                            <xsl:variable name="gameID" select="@id"/>
+                            <xsl:variable name="players" select="count(players/player)"/>
+
+                            <!-- TODO Action -->
+                            <form xmlns="http://www.w3.org/1999/xhtml" action="" method="post"
+                                  id="joinButton{$gameID}" target="hiddenFrame">
+                                <label>
+                                    <input type="submit" name="gameId" id="{$gameID}Button" value="{$gameID}"
+                                           style="background: transparent; border: none !important;"/>
+                                    <input type="hidden" name="playerId" id="{$gameID}playerId" value="{$playerId}"/>
+                                    <rect x="0" y="{$currentRectY}" width="{$rectWidth - 10}"
+                                          height="{($rectHeight div 12)-1}"
+                                          fill="none" style="stroke:{$rectColor};stroke-width:{$strokeWidth - 0.2}"/>
+                                    <text y="{$currentRectY + 1}" fill="{$textColor}" font-size="{$fontSize - 2}"
+                                          font-family="{$fonts}">
+                                        <tspan x="1" alignment-baseline="hanging">
+                                            <xsl:value-of select=" concat('Game',$gameID)"/>
+                                        </tspan>
+                                        <tspan x="16" alignment-baseline="hanging">
+                                            <xsl:value-of select=" concat('|  ',$players)"/>
+                                        </tspan>
+                                    </text>
+
+                                </label>
+                            </form>
+                        </xsl:for-each>
+                    </svg>
                 </foreignObject>
             </svg>
 
