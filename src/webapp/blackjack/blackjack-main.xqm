@@ -363,7 +363,9 @@ declare
 %updating
 function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string) as empty-sequence(){
     if (exists($blackjack-main:players/player[@id = $playerId])
-        and empty($blackjack-main:games/game[@id = $gameId]/players/player[@id = playerId]))
+        and empty($blackjack-main:games/game[@id = $gameId]/players/player[@id = playerId])
+        and count($blackjack-main:games/game[@id = $gameId]/players/player) < 4
+        and $blackjack-main:games/game[@id = $gameId]/@phase = "bet")
         then(
             let $playerName := $blackjack-main:players/player[@id = $playerId]/@name
             let $newPlayer :=
@@ -372,7 +374,8 @@ function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string)
                           <wallet>500</wallet>
                           <pool locked="false"/>
                    </player>
-    return( insert node $newPlayer as last into $blackjack-main:games/game[@id = $gameId]/players)
+    return( insert node $newPlayer as last into $blackjack-main:games/game[@id = $gameId]/players,
+            update:output(web:redirect(concat("/blackjack/", $gameId, "/join/", $playerId))))
     )
 };
 

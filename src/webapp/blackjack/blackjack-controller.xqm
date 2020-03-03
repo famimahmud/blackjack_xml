@@ -383,3 +383,13 @@ function blackjack-controller:createAccount($playerName as xs:string){
         update:output(web:redirect("/blackjack/lobby", $parameters))
     )
 };
+
+declare
+%rest:path("/blackjack/{$gameId}/join")
+%rest:query-param("playerId", "{$playerId}")
+%output:method("html")
+%rest:POST
+%updating
+function blackjack-controller:joinGame($gameId as xs:integer, $playerId as xs:string){
+        blackjack-main:addPlayer($gameId, $playerId)
+};
