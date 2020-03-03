@@ -1,0 +1,54 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT games (scores, game*)>
+
+<!ELEMENT scores (score*)>
+
+<!ELEMENT score (#PCDATA)>
+
+<!ELEMENT game (deck, dealer, players)>
+
+<!ELEMENT deck (card*)>
+
+<!ELEMENT card (type, value)>
+
+<!ELEMENT type (#PCDATA)>
+
+<!ELEMENT dealer (hand)>
+
+<!ELEMENT hand (card*)>
+
+<!ELEMENT players (player+)>
+
+<!ELEMENT player (hand, wallet, pool)>
+
+<!ELEMENT wallet (#PCDATA)>
+
+<!ELEMENT pool (chip*)>
+
+<!ELEMENT chip (value)>
+
+<!ELEMENT value (#PCDATA)>
+
+<!ATTLIST game
+    id CDATA #REQUIRED
+    round CDATA #REQUIRED
+    maxRounds CDATA #REQUIRED
+    onTurn NMTOKEN #REQUIRED
+    phase NMTOKEN #REQUIRED
+    singlePlayer (true | false) #REQUIRED>
+
+<!ATTLIST pool
+    locked (true | false) #REQUIRED>
+
+<!ATTLIST player
+    id CDATA #REQUIRED
+    name NMTOKEN #REQUIRED>
+
+<!ATTLIST card
+    hidden (true | false) #REQUIRED>
+
+<!ATTLIST score
+    name NMTOKEN #REQUIRED>
+
+
