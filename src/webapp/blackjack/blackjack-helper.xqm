@@ -4,7 +4,6 @@ module namespace blackjack-helper = "Blackjack/Helper";
 
 declare variable $blackjack-helper:players := db:open("Players")/players;
 declare variable $blackjack-helper:games := db:open("Games")/games;
-declare variable $blackjack-helper:highscores := db:open("Highscores");
 
 (:~
  : Return random number from given interval [0, max]
@@ -77,11 +76,11 @@ declare variable $blackjack-helper:highscores := db:open("Highscores");
 
 
    (:~
-    : Get player highscore from player database
-    : @return player highscore
+    : Get player scores from games database
+    : @return player scores
     :)
-    declare function blackjack-helper:getHighscoreBoard() {
-       $blackjack-helper:highscores
+    declare function blackjack-helper:getScoreBoard() {
+       $blackjack-helper:games/scores
     };
 
 

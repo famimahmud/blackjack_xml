@@ -15,9 +15,8 @@ function blackjack-controller:setup() {
     let $games_model := doc(concat($blackjack-controller:staticPath, "Games.xml"))
     let $deck_model := doc(concat($blackjack-controller:staticPath, "Deck.xml"))
     let $players_model := doc(concat($blackjack-controller:staticPath, "Players.xml"))
-    let $highscores_model := doc(concat($blackjack-controller:staticPath, "Highscores.xml"))
     let $redirectLink := "/blackjack"
-    return (db:create("Games", $games_model), db:create("Deck", $deck_model), db:create("Players", $players_model), db:create("Highscores", $highscores_model),
+    return (db:create("Games", $games_model), db:create("Deck", $deck_model), db:create("Players", $players_model),
     update:output(web:redirect($redirectLink)))
 };
 
@@ -32,21 +31,18 @@ function blackjack-controller:start($playerName as xs:string?, $playerId as xs:s
         let $games := blackjack-main:getGames()
         let $xslStylesheet := "LobbyTemplate.xsl"
         let $title := "Blackjack | Lobby"
-        let $highscoreBoard := blackjack-helper:getHighscoreBoard()
         let $emptyMap := map {
                                     "isLoggedIn": 0,
                                     "playerName": '',
                                     "playerId": '',
-                                    "playerHighscore": '',
-                                    "highscoreBoard": $highscoreBoard
+                                    "playerHighscore": ''
                              }
         let $parameters := if (blackjack-helper:playerExists($playerName, $playerId)) then (
             map {
                         "isLoggedIn": 1,
                         "playerName": $playerName,
                         "playerId": $playerId,
-                        "playerHighscore": blackjack-helper:getPlayerHighscore($playerName, $playerId),
-                        "highscoreBoard": $highscoreBoard
+                        "playerHighscore": blackjack-helper:getPlayerHighscore($playerName, $playerId)
                 }
         ) else (
             $emptyMap
