@@ -90,12 +90,12 @@
             <text x="2" y="6" fill="{$textColor}" font-size="{$fontSize - 1.5}"
                   font-family="{$fonts}"
                   alignment-baseline="hanging">
-                <xsl:value-of select="concat('Name: ', /*/players/*/@name)"/>
+                <xsl:value-of select="concat('Name: ', /*/players/player[@id = $playerId]/@name)"/>
             </text>
             <text x="2" y="10" fill="{$textColor}" font-size="{$fontSize - 1.5}"
                   font-family="{$fonts}"
                   alignment-baseline="hanging">
-                <xsl:value-of select="concat('ID: ', /*/players/*/@id)"/>
+                <xsl:value-of select="concat('ID: ', $playerId)"/>
             </text>
 
             <!-- Generate Dealer card box -->
