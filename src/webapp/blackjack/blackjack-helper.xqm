@@ -75,6 +75,15 @@ declare variable $blackjack-helper:games := db:open("Games")/games;
   };
 
 
+   (:~
+    : Get player scores from games database
+    : @return player scores
+    :)
+    declare function blackjack-helper:getScoreBoard() {
+       $blackjack-helper:games/scores
+    };
+
+
 (: declare function helper:getNewHandValue ($newCardSymbol as element(), $handValue as xs:integer) as xs:integer {
     let $value := if ($newCardSymbol = "J" or $newCardSymbol = "Q" or $newCardSymbol = "K") then 10
         else (if ($newCardSymbol = "A") then (if ($handValue > 11) then 1 else 11)
