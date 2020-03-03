@@ -284,7 +284,7 @@
 
             <xsl:choose>
 
-                <xsl:when test=" /*/@phase ='bet'">
+                <xsl:when test="( /*/@phase ='bet') and (/*/players/player[@id = $playerId]/pool/@locked = 'false')">
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/confirmBet" method="post"
                               id="Confirm" target="hiddenFrame">
@@ -306,7 +306,7 @@
                         </form>
                     </foreignObject>
                 </xsl:when>
-                <xsl:otherwise>
+                <xsl:when test="( /*/@phase ='play') and (/*/@onTurn = $playerId)">
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/hit" method="post" id="Hit" target="hiddenFrame">
                             <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
@@ -325,7 +325,7 @@
                             <input type="hidden" name="playerId" id="playerIdStand" value="{$playerId}"/>
                         </form>
                     </foreignObject>
-                </xsl:otherwise>
+                </xsl:when>
             </xsl:choose>
 
             <foreignObject width="7" height="7" x="25%" y="93%">

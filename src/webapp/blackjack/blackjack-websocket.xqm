@@ -36,7 +36,7 @@ declare function blackjack-ws:getIDs(){
     websocket:ids()
 };
 
-declare function blackjack-ws:send($data, $path){
+declare function blackjack-ws:send($data, $path) as empty-sequence(){
     websocket:sendchannel(fn:serialize($data), $path)
 };
 
