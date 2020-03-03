@@ -7,7 +7,6 @@
         <xsl:param name="playerName"/>
         <xsl:param name="playerId"/>
         <xsl:param name="playerHighscore"/>
-        <xsl:param name="highscoreBoard"/>
 
         <xsl:variable name="width" select="150"/>
         <xsl:variable name="height" select="100"/>
@@ -32,8 +31,7 @@
         <xsl:variable name="cardHeight" select="7"/>
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-             width="100%" height="100%" viewBox="0 0 {$width} {$height}"
-        >
+             width="100%" height="100%" viewBox="0 0 {$width} {$height}">
 
             <!-- Import online fonts -->
             <defs>
@@ -219,13 +217,13 @@
 
                 <!-- Liste der Highscores-->
 
-                <xsl:for-each select="$highscoreBoard/highscores/highscore">
+                <xsl:for-each select="games/scores/score">
                     <!-- Sort by scores -->
-                    <xsl:sort select="score" data-type="number" order="descending"/>
+                    <xsl:sort select="node()" data-type="number" order="descending"/>
                     <xsl:variable name="currentY" select="($startY + 6) + (position() * 4)"/>
                     <xsl:variable name="position" select="position()"/>
-                    <xsl:variable name="name" select="name"/>
-                    <xsl:variable name="score" select="score"/>
+                    <xsl:variable name="name" select="@name"/>
+                    <xsl:variable name="score" select="node()"/>
 
                     <xsl:if test="not($position > 10)">
                         <text y="{$currentY}" fill="{$textColor}" font-size="{$fontSize - 2}" font-family="{$fonts}">
