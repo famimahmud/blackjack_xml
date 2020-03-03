@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes"/>
 
     <xsl:template match="/">
@@ -24,7 +24,6 @@
         <xsl:variable name="rectMidWidth" select="50"/>
         <xsl:variable name="strokeWidth" select="0.5"/>
         <xsl:variable name="edgeRadius" select="2"/>
-        <xsl:variable name="highscoreBoard" select="document('../Highscores.xml')"/>
 
         <xsl:variable name="cardX" select="2.5"/>
         <xsl:variable name="cardY" select="1.5"/>
@@ -32,8 +31,7 @@
         <xsl:variable name="cardHeight" select="7"/>
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-             width="100%" height="100%" viewBox="0 0 {$width} {$height}"
-        >
+             width="100%" height="100%" viewBox="0 0 {$width} {$height}">
 
             <!-- Import online fonts -->
             <defs>
@@ -71,11 +69,11 @@
                                   id="newGame">
                                 <input type="hidden" name="playerName" id="newPlayerName" value="{$name}"/>
                                 <input type="hidden" name="playerId" id="newPlayerId" value="{$id}"/>
-                                <button style="top: 13%; width:80%; height:10%; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                                <button style="outline-width: medium; top: 13%; width:80%; height:10%; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
                                         id="singlePlayer" name="singlePlayer" value="true">
                                     Singleplayer
                                 </button>
-                                <button style="top: 27%; width:80%; height:10%; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                                <button style="outline-width: medium;top: 27%; width:80%; height:10%; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
                                         id="multiPlayer" name="singlePlayer" value="false">
                                     Multiplayer
                                 </button>
@@ -85,8 +83,8 @@
                     <xsl:otherwise>
                         <text font-size="{$fontSize - 1}" alignment-baseline="hanging"
                               fill="{$textColor}" font-family="{$fonts}">
-                            <tspan x="{$startX}" y="{$startY + 3}">Erstelle oder lade</tspan>
-                            <tspan x="{$startX}" y="{$startY+ 7}">einen Account!</tspan>
+                            <tspan x="{$startX}" y="{$startY + 10}">Erstelle oder lade</tspan>
+                            <tspan x="{$startX}" y="{$startY+ 14}">einen Account!</tspan>
                         </text>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -182,7 +180,7 @@
                                        style="outline:none; font-size:{$fontSize - 2}; border: none"
                                        placeholder="Name"/>
                                 <br/>
-                                <button style=" width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                                <button style=" outline-width: medium; width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
                                         form="createAccount" value="Submit">
                                     Account erstellen
                                 </button>
@@ -204,7 +202,7 @@
                         <input size="8" type="text" name="playerId" id="playerId"
                                style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="ID"/>
                         <br/>
-                        <button style=" width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
+                        <button style="outline-width: medium;  width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
                                 form="restoreAccount" value="Submit">
                             Account wiederherstellen
                         </button>
@@ -227,13 +225,13 @@
 
                 <!-- Liste der Highscores-->
 
-                <xsl:for-each select="$highscoreBoard/highscores/highscore">
+                <xsl:for-each select="games/scores/score">
                     <!-- Sort by scores -->
-                    <xsl:sort select="score" data-type="number" order="descending"/>
+                    <xsl:sort select="node()" data-type="number" order="descending"/>
                     <xsl:variable name="currentY" select="($startY + 6) + (position() * 4)"/>
                     <xsl:variable name="position" select="position()"/>
-                    <xsl:variable name="name" select="name"/>
-                    <xsl:variable name="score" select="score"/>
+                    <xsl:variable name="name" select="@name"/>
+                    <xsl:variable name="score" select="node()"/>
 
                     <xsl:if test="not($position > 10)">
                         <text y="{$currentY}" fill="{$textColor}" font-size="{$fontSize - 2}" font-family="{$fonts}">

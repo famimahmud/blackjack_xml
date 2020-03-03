@@ -18,9 +18,8 @@ function blackjack-controller:setup() {
     let $games_model := doc(concat($blackjack-controller:staticPath, "Games.xml"))
     let $deck_model := doc(concat($blackjack-controller:staticPath, "Deck.xml"))
     let $players_model := doc(concat($blackjack-controller:staticPath, "Players.xml"))
-    let $highscores_model := doc(concat($blackjack-controller:staticPath, "Highscores.xml"))
     let $redirectLink := "/blackjack"
-    return (db:create("Games", $games_model), db:create("Deck", $deck_model), db:create("Players", $players_model), db:create("Highscores", $highscores_model),
+    return (db:create("Games", $games_model), db:create("Deck", $deck_model), db:create("Players", $players_model),
     update:output(web:redirect($redirectLink)))
 };
 
@@ -51,7 +50,7 @@ function blackjack-controller:start($playerName as xs:string?, $playerId as xs:s
         ) else (
             $emptyMap
         )
-        return (blackjack-controller:generateLobby($games, $xslStylesheet, $parameters, $title))
+        return blackjack-controller:generateLobby($games, $xslStylesheet, $parameters, $title)
 };
 
 
@@ -297,6 +296,30 @@ function blackjack-controller:stand($gameId as xs:integer, $playerId as xs:strin
     )
 };
 
+declare
+%rest:path("/blackjack/{$gameId}/exit")
+%rest:query-param("playerId", "{$playerId}")
+%rest:query-param("playerName", "{$playerName}")
+%output:method("html")
+%rest:POST
+%updating
+function blackjack-controller:exit($gameId as xs:integer, $playerId as xs:string, $playerName as xs:string){
+    let $game := blackjack-main:getGame($gameId)
+    let $parameters := map {
+            "playerName": $playerName,
+            "playerId": $playerId
+        }
+    return (
+        delete node $game/players/player[@id=$playerId],
+        if(exists($game[@id=$gameId]/players/player[@id=$playerId])) (:Check if the player is in the Game:)
+        then(if(count($game[@id=$gameId]/players)=1)
+            then (blackjack-main:endGame($gameId))
+            else (blackjack-main:addHighscore($gameId, $playerId))),
+
+    update:output(web:redirect("/blackjack/lobby", $parameters))
+    )
+};
+
 
 declare
 %rest:path("/blackjack/{$gameId}/dealerTurn")
@@ -325,28 +348,6 @@ function blackjack-controller:pay($gameId as xs:integer){
                 update:output(web:redirect(concat("/blackjack/", $gameId)))
     )
 };
-
-
-(:
-declare
-%rest:path("/blackjack/restoreAccount")
-%rest:query-param("playerName", "{$playerName}")
-%rest:query-param("playerId", "{$playerId}")
-%output:method("html")
-%rest:POST
-%updating
-function blackjack-controller:restoreAccount($playerName as xs:string, $playerId as xs:string){
-    let $player := blackjack-main:getPlayers()/player[@id=$playerId and @name=$playerName]
-    let $lobby := blackjack-main:getLobby()
-    return (
-        if(count($lobby/player) = 0)
-        then (insert node $player into $lobby)
-        else (replace node $lobby/player with $player),
-        update:output(web:redirect("/blackjack"))
-    )
-};
-:)
-
 
 declare
 %rest:path("/blackjack/restoreAccount")

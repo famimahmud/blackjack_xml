@@ -34,6 +34,9 @@
         <xsl:variable name="playerCount" select="count(/*/players/*)"/>
         <xsl:variable name="rectHeight" select="5"/>
         <xsl:variable name="rectWidth" select="25"/>
+        <xsl:variable name="playerName"
+                      select="game/players/player/@name"/> <!--TODO Als XSL-Param für multiplayer-->
+
 
         <xsl:variable name="currentPlayer">
             <xsl:if test="/*/@onTurn = 'dealer'">
@@ -85,8 +88,9 @@
             <text x="2" y="2" fill="{$textColor}" font-size="{$fontSize - 1.5}"
                   font-family="{$fonts}"
                   alignment-baseline="hanging">
-                Your player info:
+                Your player info
             </text>
+            <!--TODO Multiclient-->
             <text x="2" y="6" fill="{$textColor}" font-size="{$fontSize - 1.5}"
                   font-family="{$fonts}"
                   alignment-baseline="hanging">
@@ -97,7 +101,6 @@
                   alignment-baseline="hanging">
                 <xsl:value-of select="concat('ID: ', $playerId)"/>
             </text>
-
             <!-- Generate Dealer card box -->
             <!-- Choose box color -->
             <symbol id="dealerBox">
@@ -270,25 +273,40 @@
                      y="{$playerY - $shiftFactor - 10}"
                      transform="rotate({$curveFactor} {$fieldPos + $fieldWidth div 2} {$playerY + $fieldHeight div 2})"/>
             </xsl:for-each>
-
-            <foreignObject width="100%" height="100%" x="90%" y="0%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack" method="get" id="Exit">
-                    <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+            <!--Exit Button-->
+            <foreignObject width="20%" height="10%" x="90%" y="0%">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/exit" method="post" id="Exit">
+                    <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                             form="Exit" value="Submit">
                         Exit
                     </button>
+                    <input type="hidden" name="playerId" id="playerIdExit" value="{$playerId}"/>
+                    <input type="hidden" name="playerName" id="playerNameExit" value="{$playerName}"/>
                 </form>
             </foreignObject>
-
-
-
+            <!--New Round Button for result phase-->
             <xsl:choose>
-
-                <xsl:when test="( /*/@phase ='bet') and (/*/players/player[@id = $playerId]/pool/@locked = 'false')">
+                <xsl:when test="/game/@phase = 'result'">
+                    <foreignObject width="15%" height="20%" x="90%" y="10%">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/newRound" method="get" id="newRound">
+                            <button style="padding:2px 1.5px ;outline-width: medium;   display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                                    form="newRound" value="Submit">
+                                New Round
+                            </button>
+                            <input type="hidden" name="playerId" id="playerIdNewRound" value="{$playerId}"/>
+                            <input type="hidden" name="playerName" id="playerNameNewRound" value="{$playerName}"/>
+                        </form>
+                    </foreignObject>
+                </xsl:when>
+            </xsl:choose>
+            <!--Bet Buttons or Hit & Stand-->
+            <xsl:choose>
+                <xsl:when test=" /*/@phase ='bet'">
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/confirmBet" method="post"
-                              id="Confirm" target="hiddenFrame">
-                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/confirmBet"
+                              method="post"
+                              id="Confirm" target="hiddenFrame">>
+                            <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Confirm" value="Submit">
                                 Confirm
                             </button>
@@ -298,7 +316,8 @@
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/resetBet" method="post"
                               id="Reset" target="hiddenFrame">
-                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                            <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+
                                     form="Reset" value="Submit">
                                 Reset
                             </button>
@@ -308,8 +327,9 @@
                 </xsl:when>
                 <xsl:when test="( /*/@phase ='play') and (/*/@onTurn = $playerId)">
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/hit" method="post" id="Hit" target="hiddenFrame">
-                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/hit" method="post"
+                              id="Hit" target="hiddenFrame">>
+                            <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Hit" value="Submit">
                                 Hit
                             </button>
@@ -317,8 +337,9 @@
                         </form>
                     </foreignObject>
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/stand" method="post" id="Stand" target="hiddenFrame">
-                            <button style=" display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/stand" method="post"
+                              id="Stand target="hiddenFrame">">
+                            <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
                                     form="Stand" value="Submit">
                                 Stand
                             </button>
@@ -328,6 +349,7 @@
                 </xsl:when>
             </xsl:choose>
 
+            <!--Chips as Buttons-->
             <foreignObject width="7" height="7" x="25%" y="93%">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_10" target="hiddenFrame">
                     <label>
