@@ -277,7 +277,7 @@ function blackjack-main:confirmBet($gameId as xs:integer, $playerId as xs:string
     )
 };
 
-:~
+(:~
  : gives every player and the dealer one card
  : @gameId Id of the game, where the cards will be handed out
  : @return model change with one card more in every hand

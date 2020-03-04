@@ -29,7 +29,7 @@ function blackjack-ws:subscribe($game, $playerId, $gameId){
     websocket:set(websocket:id(), "playerId", $playerId),
     websocket:set(websocket:id(), "applicationId", "Blackjack"),
     websocket:set(websocket:id(), "gameId", $gameId),
-    update:output(trace(concat("WS client with id: ", ws:id(), " and PlayerID: ", $playerId ," subscribed to ", $game, "/ with GameID: ", $gameId)))
+    update:output(trace(concat("WS client with id: ", ws:id(), " and PlayerID: ", $playerId ," subscribed to ", $gameId)))
 };
 
 declare function blackjack-ws:getIDs(){
