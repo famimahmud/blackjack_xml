@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <book>
     <bookinfo>
-        <title>Blackjack-Implementierung mit XML-Technologien</title>
+        <title>Blackjack-Implementation with XML-Technologies</title>
         <author>
             <firstname>Patryk</firstname>
             <surname>Brzoza</surname>
@@ -17,142 +17,163 @@
             <surname>Mahmud</surname>
         </author>
     </bookinfo>
-    <part>
-        <title>Blackjack Project</title>
-        <chapter>
-            <title>Introduction</title>
+    <chapter>
+        <title>Introduction</title>
+        <para>This DocBook documents the development and implementation of a multi-client Blackjack
+            game, which is only using XML-Technologies. We will present an overview over these
+            Technologies and the way we used them. Furthermore, it describes the rules and
+            strategies we agreed on for our Blackjack Game, the important phases with possible user
+            actions, the interaction between client and server, as well as the design and
+            implementation in detail. A complete walkthrough with the installation of the game and
+            an example of a game play will be shown. In addition, we will discuss the way we
+            organized our project and reflect on positive and negative aspects. </para>
 
-            <sect1>
-                <title>Project Overview</title>
-                <para>An Introduction of the whole project.</para>
-            </sect1>
-            <sect1>
-                <title>Blackjack Concept</title>
-                <sect2>
-                    <title>Game Rules</title>
+        <sect1>
+            <title>Project Overview</title>
+            <para>The Project is part of the practical course XML-Technologies (IN0012, IN2106,
+                IN4013) in the winter term 2019/2020. Throughout the lecture Prof. Anne
+                Brüggemann-Klein and Phillip Ulrich introduced us to the XML-Technologies such as
+                SVG, XHTML, XSLT, XQuery and XPath. The objective of this project is to implement a
+                browser game of Blackjack by making use of XML-Technologies exclusively. </para>
+            <para>During the first part of the lab we received tasks every weeek which we were able
+                to complete with the newly introduced technology. In this manner we were able to get
+                to know and to practice the use of the important technologies step by step.  </para>
+            <para>The second part, the actual development project, began after the last meeting in
+                the second week of January. We had to organize ourselve within the group and decide
+                on methodologies on how to implement, design and document the requirements stated in
+                the project assignment. The project ends with the completed game, documentation and
+                a final presentation. </para>
+        </sect1>
+        <sect1>
+            <title>Blackjack Concept</title>
+            <sect2>
+                <title>Game Rules</title>
 
-                    <para>In the first meeting we decided to implement our Blackjack game according
-                        the official rules defined by Bicycle [<ulink
-                            url="https://bicyclecards.com/how-to-play/blackjack/"/>].</para>
-                </sect2>
-                <sect2>
-                    <title>Game </title>
-                    <para></para>
-                </sect2>
-            </sect1>
-            
-        </chapter>
-        <chapter>
-            <title>Technologies</title>
-            <para></para>
-            <sect1>
-                <title>DocBook</title>
-                <para></para>
-            </sect1>
-            <sect1>
-                <title>XML</title>
-                <para></para>
-            </sect1>
-            <sect1>
-                <title>SVG</title>
-                <para></para>
-            </sect1>
-            <sect1>
-                <title>XSLT</title>
-                <para></para>
-            </sect1>
-            <sect1>
-                <title>XQuery</title>
-                <para></para>
-            </sect1>
-            <sect1>
-                <title>RestXQ</title>
-                <para></para>
-            </sect1>
-            <sect1>
-                <title>BaseX</title>
-                <para></para>
-            </sect1>
-        </chapter>
-        <chapter>
-            <title>Design and Implementation</title>
-            <para></para>
-            <sect1>
-                <title>Templates</title>
-                <para></para>
-            </sect1>
-            <sect1>
-                <title>Modules</title>
-                <para></para>
-            </sect1>
-            <sect1>
-                <title>User Actions</title>
-                <para></para>
-            </sect1>
-            <sect1>
-                <title>Game Setup</title>
-                <para></para>
-                <sect2>
-                    <title>Card Deck</title>
-                    <para></para>
-                </sect2>
-                <sect2>
-                    <title>Player </title>
-                    <para></para>
-                </sect2>
-            </sect1>
-            <sect1>
-                <title>Phases</title>
-                <para></para>
-            </sect1>
-        </chapter>
-        <chapter>
-            <title>Architecture</title>
-            <para></para>
-            <sect1>
-                <title>MVC Architecture</title>
-                <para></para>
-            </sect1>
-            <sect1>
-                <title>Data Model</title>
-                <para></para>
-            </sect1>
-        </chapter>
-        <chapter>
-            <title>Game Installation</title>
-            <para></para>
-            <sect1>
-                <title>Requirements</title>
-                <para></para>
-            </sect1>
-            <sect1>
-                <title>Installation</title>
-                <para></para>
-            </sect1>
-        </chapter>
-        <chapter>
-            <title>Game Play</title>
-            <para></para>
-        </chapter>
-        <chapter>
-            <title>Team Organisation</title>
-            <para></para>
-            <sect1>
-                <title>Development Environment</title>
-                <para></para>
-                <sect2>
-                    <title>SCRUM</title>
-                    <para></para>
-                </sect2>
-            </sect1>
-            <sect1>
-                <title>Conclusion</title>
-                <para></para>
-                <sect2>
-                    <title>Reflection</title>
-                    <para></para>
-                </sect2>
-            </sect1>
-        </chapter>
-    </part>
+                <para>In the first meeting we decided to implement our Blackjack game according the
+                    official rules defined by Bicycle [<ulink
+                        url="https://bicyclecards.com/how-to-play/blackjack/"/>].</para>
+            </sect2>
+            <sect2>
+                <title>Game </title>
+                <para/>
+            </sect2>
+        </sect1>
+
+    </chapter>
+    <chapter>
+        <title>Technologies</title>
+        <para/>
+        <sect1>
+            <title>DocBook</title>
+            <para/>
+        </sect1>
+        <sect1>
+            <title>XML</title>
+            <para/>
+        </sect1>
+        <sect1>
+            <title>SVG</title>
+            <para/>
+        </sect1>
+        <sect1>
+            <title>XSLT</title>
+            <para/>
+        </sect1>
+        <sect1>
+            <title>XQuery</title>
+            <para/>
+        </sect1>
+        <sect1>
+            <title>RestXQ</title>
+            <para/>
+        </sect1>
+        <sect1>
+            <title>BaseX</title>
+            <para/>
+        </sect1>
+    </chapter>
+    <chapter>
+        <title>Project Requirements</title>
+        <para></para>
+    </chapter>
+    <chapter>
+        <title>Design and Implementation</title>
+        <para/>
+        <sect1>
+            <title>Templates</title>
+            <para/>
+        </sect1>
+        <sect1>
+            <title>Modules</title>
+            <para/>
+        </sect1>
+        <sect1>
+            <title>User Actions</title>
+            <para/>
+        </sect1>
+        <sect1>
+            <title>Game Setup</title>
+            <para/>
+            <sect2>
+                <title>Card Deck</title>
+                <para/>
+            </sect2>
+            <sect2>
+                <title>Player </title>
+                <para/>
+            </sect2>
+        </sect1>
+        <sect1>
+            <title>Phases</title>
+            <para/>
+        </sect1>
+    </chapter>
+    <chapter>
+        <title>Architecture</title>
+        <para/>
+        <sect1>
+            <title>MVC Architecture</title>
+            <para/>
+        </sect1>
+        <sect1>
+            <title>Data Model</title>
+            <para/>
+        </sect1>
+    </chapter>
+    <chapter>
+        <title>Game Installation</title>
+        <para/>
+        <sect1>
+            <title>Requirements</title>
+            <para/>
+        </sect1>
+        <sect1>
+            <title>Installation</title>
+            <para/>
+        </sect1>
+    </chapter>
+    <chapter>
+        <title>Game Play</title>
+        <para/>
+    </chapter>
+    <chapter>
+        <title>Team Organisation</title>
+        <para/>
+        <sect1>
+            <title>Development Environment</title>
+            <para/>
+            <sect2>
+                <title>SCRUM</title>
+                <para/>
+            </sect2>
+        </sect1>
+        <sect1>
+            <title>Conclusion</title>
+            <para/>
+            <sect2>
+                <title>Reflection</title>
+                <para/>
+            </sect2>
+        </sect1>
+    </chapter>
 </book>
