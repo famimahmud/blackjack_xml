@@ -93,19 +93,12 @@
                 <text x="{$startX}" y="{$startY + 26}" font-size="{$fontSize - 1}" alignment-baseline="hanging"
                       fill="{$textColor}" font-family="{$fonts}">Spiele:
                 </text>
-                <text x="{$startX + 13}" y="{$startY + 30}" font-size="{$fontSize - 2}" font-style="oblique"
+                <text x="{$startX + 22}" y="{$startY + 30}" font-size="{$fontSize - 2}" font-style="oblique"
                       alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">players
                 </text>
-                <text x="{$startX + 24}" y="{$startY + 30}" font-size="{$fontSize - 2}" font-style="oblique"
-                      alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">round
-                </text>
 
-                <foreignObject x="{$startX}" y="39" width="{$rectWidth - 10}" height="{(5*($rectHeight div 12))}"
+                <foreignObject x="{$startX}" y="39" width="80%" height="20"
                                font-family="{$fonts}" font-size="{$fontSize - 1}" style="overflow-y: scroll">
-                    <svg x="0" y="39"
-                         height="{(count(games/game[@singlePlayer = 'false']))*($rectHeight div 12) + (count(games/game[@singlePlayer = 'false']) * 2)}"
-                         width="100%"
-                         viewBox="0 0 {$rectWidth - 10} {(count(games/game[@singlePlayer = 'false']))*($rectHeight div 12) + (count(games/game[@singlePlayer = 'false']) * 2)}">
                         <xsl:for-each select="games/game[@singlePlayer = 'false']">
                             <xsl:variable name="currentRectY" select="0 + ((position() - 1) * 6)"/>
                             <xsl:variable name="gameID" select="@id"/>
@@ -115,26 +108,15 @@
                             <form xmlns="http://www.w3.org/1999/xhtml" action="" method="post"
                                   id="joinButton{$gameID}" target="hiddenFrame">
                                 <label>
-                                    <input type="submit" name="gameId" id="{$gameID}Button" value="{$gameID}"
-                                           style="background: transparent; border: none !important;"/>
+                                    <input type="submit" name="gameId" id="{$gameID}Button" value="{concat('Game#', $gameID, '  -  ', $players)}"
+                                           style="background: transparent;  text-align: center; margin: auto; width:100%; height:25%; outline-width: medium;
+                                           display:table-cell; font-size:{$fontSize - 2.5}; color: white; border-radius:1px; border: none;
+                                           background-color: #ED4416 ; cursor: pointer; margin-bottom:-3;"/>
                                     <input type="hidden" name="playerId" id="{$gameID}playerId" value="{$playerId}"/>
-                                    <rect x="0" y="{$currentRectY}" width="{$rectWidth - 10}"
-                                          height="{($rectHeight div 12)-1}"
-                                          fill="none" style="stroke:{$rectColor};stroke-width:{$strokeWidth - 0.2}"/>
-                                    <text y="{$currentRectY + 1}" fill="{$textColor}" font-size="{$fontSize - 2}"
-                                          font-family="{$fonts}">
-                                        <tspan x="1" alignment-baseline="hanging">
-                                            <xsl:value-of select=" concat('Game',$gameID)"/>
-                                        </tspan>
-                                        <tspan x="16" alignment-baseline="hanging">
-                                            <xsl:value-of select=" concat('|  ',$players)"/>
-                                        </tspan>
-                                    </text>
 
                                 </label>
                             </form>
                         </xsl:for-each>
-                    </svg>
                 </foreignObject>
             </svg>
 
