@@ -53,15 +53,16 @@
             <!-- 1. Rechteck - Spiele -->
             <svg x="{$startX}" y="{$rectY}" width="{$rectWidth}" height="{$rectHeight}"
                  viewBox="0 0 {$rectWidth} {$rectHeight}">
-                <rect x="0" y="0" width="{$rectWidth}" height="{$rectHeight}" fill="none" rx="{$edgeRadius}"
-                      ry="{$edgeRadius}"
-                      style="fill: #134900; opacity: 0.6"/>
+                <rect class="separatorRect" x="0" y="0" width="{$rectWidth}" height="{$rectHeight}" fill="none"
+                      rx="{$edgeRadius}"
+                      ry="{$edgeRadius}"/>
                 <!-- Button für neues Spiel-->
                 <xsl:choose>
                     <xsl:when test="$isLoggedIn = 1">
                         <xsl:variable name="name" select="$playerName"/>
                         <xsl:variable name="id" select="$playerId"/>
-                        <text x="{$startX}" y="{$startY}" font-size="{$fontSize - 1}" alignment-baseline="hanging"
+                        <text text-decoration="underline" x="{$startX}" y="{$startY}" font-size="{$fontSize - 1}"
+                              alignment-baseline="hanging"
                               fill="{$textColor}" font-family="{$fonts}">New Game:
                         </text>
                         <foreignObject width="100%" height="100%" x="{$startX}" y="{$startY - 1}">
@@ -69,12 +70,10 @@
                                   id="newGame">
                                 <input type="hidden" name="playerName" id="newPlayerName" value="{$name}"/>
                                 <input type="hidden" name="playerId" id="newPlayerId" value="{$id}"/>
-                                <button style="outline-width: medium; top: 13%; width:80%; height:10%; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
-                                        id="singlePlayer" name="singlePlayer" value="true">
+                                <button id="singlePlayerButton" name="singlePlayer" value="true">
                                     Singleplayer
                                 </button>
-                                <button style="outline-width: medium;top: 27%; width:80%; height:10%; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
-                                        id="multiPlayer" name="singlePlayer" value="false">
+                                <button id="multiPlayerButton" name="singlePlayer" value="false">
                                     Multiplayer
                                 </button>
                             </form>
@@ -91,40 +90,49 @@
 
                 <!-- Liste der Spiele -->
                 <text x="{$startX}" y="{$startY + 26}" font-size="{$fontSize - 1}" alignment-baseline="hanging"
-                      fill="{$textColor}" font-family="{$fonts}">Games:
-                </text>
-                <text x="{$startX + 22}" y="{$startY + 30}" font-size="{$fontSize - 2}" font-style="oblique"
-                      alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">players
+                      text-decoration="underline" fill="{$textColor}" font-family="{$fonts}">Games:
                 </text>
 
-                <foreignObject x="{$startX}" y="39" width="80%" height="20"
-                               font-family="{$fonts}" font-size="{$fontSize - 1}" style="overflow-y: scroll">
-                        <xsl:for-each select="games/game[@singlePlayer = 'false']">
-                            <xsl:variable name="currentRectY" select="0 + ((position() - 1) * 6)"/>
-                            <xsl:variable name="gameID" select="@id"/>
-                            <xsl:variable name="players" select="count(players/player)"/>
+                <xsl:choose>
+                    <xsl:when test="count(games/game[@singlePlayer = 'false' and @phase = 'bet']) = 0">
+                        <text x="{$startX + 4}" y="45" font-size="{$fontSize - 2}"
+                              font-style="oblique"
+                              alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">No active games
+                        </text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <text x="{$startX + 22}" y="{$startY + 30}" font-size="{$fontSize - 2}" font-style="oblique"
+                              alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">players
+                        </text>
+                        <foreignObject id="gameContainer" x="{$startX}" y="39" width="80%" height="20"
+                                       font-family="{$fonts}" font-size="{$fontSize - 1}">
+                            <xsl:for-each select="games/game[@singlePlayer = 'false' and @phase = 'bet']">
+                                <xsl:variable name="currentRectY" select="0 + ((position() - 1) * 6)"/>
+                                <xsl:variable name="gameID" select="@id"/>
+                                <xsl:variable name="players" select="count(players/player)"/>
 
-                            <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameID}/joinGame" method="post"
-                                  id="joinButton{$gameID}">
-                                <label>
-                                    <input type="submit" name="gameId" id="{$gameID}Button" value="{concat('Game#', $gameID, '  -  ', $players)}"
-                                           style="background: transparent;  text-align: center; margin: auto; width:100%; height:25%; outline-width: medium;
-                                           display:table-cell; font-size:{$fontSize - 2.5}; color: white; border-radius:1px; border: none;
-                                           background-color: #ED4416 ; cursor: pointer; margin-bottom:-3;"/>
-                                    <input type="hidden" name="playerId" id="{$gameID}playerId" value="{$playerId}"/>
-
-                                </label>
-                            </form>
-                        </xsl:for-each>
-                </foreignObject>
+                                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameID}/joinGame"
+                                      method="post"
+                                      id="joinButton{$gameID}">
+                                    <label>
+                                        <input class="joinGameButton" type="submit" name="gameId" id="{$gameID}Button"
+                                               value="{concat('Game#', $gameID, '  -  ', $players)}"/>
+                                        <input type="hidden" name="playerId" id="{$gameID}playerId"
+                                               value="{$playerId}"/>
+                                    </label>
+                                </form>
+                            </xsl:for-each>
+                        </foreignObject>
+                    </xsl:otherwise>
+                </xsl:choose>
             </svg>
 
             <!-- 2. Rechteck - Spielerinfo -->
             <svg x="{$rect2X}" y="{$rectY}" width="{$rectMidWidth}" height="{$rectHeight}"
                  viewBox="0 0 {$rectMidWidth} {$rectHeight}">
-                <rect x="0" y="0" width="{$rectMidWidth}" height="{$rectHeight}" fill="none" rx="{$edgeRadius}"
-                      ry="{$edgeRadius}"
-                      style="fill: #134900; opacity: 0.6"/>
+                <rect class="separatorRect" x="0" y="0" width="{$rectMidWidth}" height="{$rectHeight}" fill="none"
+                      rx="{$edgeRadius}"
+                      ry="{$edgeRadius}"/>
 
                 <!-- Spielername -->
                 <xsl:choose>
@@ -149,7 +157,7 @@
                               font-family="{$fonts}"
                               text-anchor="middle"
                               alignment-baseline="hanging">
-                            <xsl:value-of select=" concat( 'Highscore: ' , $playerHighscore)"/>
+                            <xsl:value-of select=" concat( 'Highscore: ' , $playerHighscore, '$')"/>
                         </text>
                     </xsl:when>
                     <xsl:otherwise>
@@ -157,12 +165,10 @@
                                        font-size="{$fontSize - 1}" x="{$startX}" y="{$startY}">
                             <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/createAccount" method="post"
                                   id="createAccount">
-                                <input size="36" type="text" name="playerName" id="playerName1"
-                                       style="outline:none; font-size:{$fontSize - 2}; border: none"
+                                <input class="inputBox" size="36" type="text" name="playerName" id="playerName1"
                                        placeholder="Name"/>
                                 <br/>
-                                <button style=" outline-width: medium; width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
-                                        form="createAccount" value="Submit">
+                                <button class="accountButton" form="createAccount" value="Submit">
                                     Create account
                                 </button>
                             </form>
@@ -178,13 +184,11 @@
                                font-size="{$fontSize - 1}" x="{$startX}" y="{$startY+30}">
                     <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/lobby" method="get"
                           id="restoreAccount">
-                        <input size="23" type="text" name="playerName" id="playerName"
-                               style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="Name"/>
-                        <input size="8" type="text" name="playerId" id="playerId"
-                               style="outline:none; font-size:{$fontSize - 2}; border: none" placeholder="ID"/>
+                        <input size="23" class="inputBox" type="text" name="playerName" id="playerName"
+                               placeholder="Name"/>
+                        <input size="8" class="inputBox" type="text" name="playerId" id="playerId" placeholder="ID"/>
                         <br/>
-                        <button style="outline-width: medium;  width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
-                                form="restoreAccount" value="Submit">
+                        <button class="accountButton" form="restoreAccount" value="Submit">
                             Restore account
                         </button>
                     </form>
@@ -194,37 +198,48 @@
             <!-- 3. Rechteck - HighscoreBoard -->
             <svg x="{$rect3X}" y="{$rectY}" width="{$rectWidth}" height="{$rectHeight}"
                  viewBox="0 0 {$rectWidth} {$rectHeight}">
-                <rect x="0" y="0" width="{$rectWidth}" height="{$rectHeight}" fill="none" rx="{$edgeRadius}"
-                      ry="{$edgeRadius}"
-                      style="fill: #134900; opacity: 0.6"/>
+                <rect x="0" y="0" class="separatorRect" width="{$rectWidth}" height="{$rectHeight}" fill="none"
+                      rx="{$edgeRadius}"
+                      ry="{$edgeRadius}"/>
                 <text x="{$rectWidth div 2}" y="7.5" fill="{$textColor}" font-size="{$fontSize}" font-family="{$fonts}"
-                      text-anchor="middle"
-                      alignment-baseline="hanging">
+                      text-anchor="middle" text-decoration="underline" alignment-baseline="hanging">
                     Highscores
                 </text>
 
 
                 <!-- Liste der Highscores-->
-
-                <xsl:for-each select="games/scores/score">
-                    <!-- Sort by scores -->
-                    <xsl:sort select="node()" data-type="number" order="descending"/>
-                    <xsl:variable name="currentY" select="($startY + 6) + (position() * 4)"/>
-                    <xsl:variable name="position" select="position()"/>
-                    <xsl:variable name="name" select="@name"/>
-                    <xsl:variable name="score" select="node()"/>
-
-                    <xsl:if test="not($position > 10)">
-                        <text y="{$currentY}" fill="{$textColor}" font-size="{$fontSize - 2}" font-family="{$fonts}">
-                            <tspan x="{$startX - 3}" alignment-baseline="hanging">
-                                <xsl:value-of select="concat($position, '. ', $name)"/>
-                            </tspan>
-                            <tspan x="{$startX + 20}" alignment-baseline="hanging">
-                                <xsl:value-of select="concat($score, '$')"/>
+                <xsl:choose>
+                    <xsl:when test="count(games/scores/score) = 0">
+                        <text y="{$rectHeight div 2}" fill="{$textColor}" font-size="{$fontSize - 2}"
+                              font-family="{$fonts}" font-style="oblique">
+                            <tspan x="10" alignment-baseline="hanging">
+                                No Highscores
                             </tspan>
                         </text>
-                    </xsl:if>
-                </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:for-each select="games/scores/score">
+                            <!-- Sort by scores -->
+                            <xsl:sort select="node()" data-type="number" order="descending"/>
+                            <xsl:variable name="currentY" select="($startY + 6) + (position() * 4)"/>
+                            <xsl:variable name="position" select="position()"/>
+                            <xsl:variable name="name" select="@name"/>
+                            <xsl:variable name="score" select="node()"/>
+
+                            <xsl:if test="not($position > 10)">
+                                <text y="{$currentY}" fill="{$textColor}" font-size="{$fontSize - 2}"
+                                      font-family="{$fonts}">
+                                    <tspan x="{$startX - 3}" alignment-baseline="hanging">
+                                        <xsl:value-of select="concat($position, '. ', $name)"/>
+                                    </tspan>
+                                    <tspan x="{$startX + 20}" alignment-baseline="hanging">
+                                        <xsl:value-of select="concat($score, '$')"/>
+                                    </tspan>
+                                </text>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </xsl:otherwise>
+                </xsl:choose>
             </svg>
         </svg>
     </xsl:template>

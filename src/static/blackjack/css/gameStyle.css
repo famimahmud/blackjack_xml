@@ -1,0 +1,30 @@
+#table {
+    background-size: 100% 100%;
+}
+
+.infoBox {
+    fill: #134900;
+    opacity: 0.6;
+}
+
+.gameButton {
+    outline-width: medium;
+    display: table-cell;
+    font-size: 3px;
+    color: white;
+    border-radius: 1px;
+    border: none;
+    vertical-align: middle;
+    background-color: #ed4a29;
+    cursor: pointer;
+    position: absolute;
+    width: 20;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+.chipButton {
+    background: transparent;
+    border: none !important;
+}

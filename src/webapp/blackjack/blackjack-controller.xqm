@@ -15,9 +15,9 @@ declare
 %updating
 %rest:GET
 function blackjack-controller:setup() {
-    let $games_model := doc(concat($blackjack-controller:staticPath, "Games.xml"))
-    let $deck_model := doc(concat($blackjack-controller:staticPath, "Deck.xml"))
-    let $players_model := doc(concat($blackjack-controller:staticPath, "Players.xml"))
+    let $games_model := doc(concat($blackjack-controller:staticPath, "db/Games.xml"))
+    let $deck_model := doc(concat($blackjack-controller:staticPath, "db/Deck.xml"))
+    let $players_model := doc(concat($blackjack-controller:staticPath, "db/Players.xml"))
     let $redirectLink := "/blackjack"
     return (db:create("Games", $games_model), db:create("Deck", $deck_model), db:create("Players", $players_model),
     update:output(web:redirect($redirectLink)))
@@ -87,6 +87,7 @@ function blackjack-controller:join($gameId as xs:integer, $playerId as xs:string
                 <script src="/static/blackjack/JS/stomp.js"></script>
                 <script src="/static/blackjack/JS/ws-element.js"></script>
                 <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
+                <link rel="stylesheet" type="text/css" href="/static/blackjack/css/gameStyle.css"/>
             </head>
             <body style="background: url(/static/blackjack/assets/TableBackgroundCompressed.svg">
                 <ws-stream id = "Blackjack" url="{$websocketURL}" subscription = "{$subscription}" geturl = "{$getURL}"/>
@@ -122,6 +123,7 @@ declare function blackjack-controller:generateLobby($games as element(games), $x
             <head>
                 <title>{$title}</title>
                 <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
+                <link rel="stylesheet" type="text/css" href="/static/blackjack/css/lobbyStyle.css"/>
             </head>
             <body style="background: url(/static/blackjack/assets/LobbyBackground.svg">
                 {$transformed}
@@ -172,6 +174,7 @@ declare function blackjack-controller:generatePage($gameId as xs:integer, $playe
             <head>
                 <title>{$title}</title>
                 <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
+                <link rel="stylesheet" type="text/css" href="/static/blackjack/css/gameStyle.css"/>
             </head>
             <body style="background: url(/static/blackjack/assets/TableBackgroundCompressed.svg">
                 {$transformed}
