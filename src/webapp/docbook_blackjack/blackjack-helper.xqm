@@ -2,8 +2,8 @@ xquery version "3.1";
 
 module namespace blackjack-helper = "Blackjack/Helper";
 
-declare variable $blackjack-helper:players := db:open("Players")/players;
-declare variable $blackjack-helper:games := db:open("Games")/games;
+declare variable $blackjack-helper:players := db:open("DocBook_Players")/players;
+declare variable $blackjack-helper:games := db:open("DocBook_Games")/games;
 
 (:~
  : Return random number from given interval [0, max]

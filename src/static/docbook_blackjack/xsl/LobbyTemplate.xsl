@@ -42,7 +42,7 @@
             <!-- Logo -->
             <image x="{($width div 2)-35}" y="{$height div 15}"
                    width="{$fontSize*3}" height="{$fontSize*3}"
-                   xlink:href="/static/blackjack/assets/icons/Logo.svg"/>
+                   xlink:href="/static/docbook_blackjack/assets/icons/Logo.svg"/>
 
             <text x="{$width div 2 + 5}" y="{$height div 10}" fill="{$textColor}" font-size="{$fontSize * 2}"
                   font-family="{$fonts}" text-anchor="middle"
@@ -66,7 +66,7 @@
                               fill="{$textColor}" font-family="{$fonts}">New Game:
                         </text>
                         <foreignObject width="100%" height="100%" x="{$startX}" y="{$startY - 1}">
-                            <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/newGame" method="get"
+                            <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/newGame" method="get"
                                   id="newGame">
                                 <input type="hidden" name="playerName" id="newPlayerName" value="{$name}"/>
                                 <input type="hidden" name="playerId" id="newPlayerId" value="{$id}"/>
@@ -111,7 +111,7 @@
                                 <xsl:variable name="gameID" select="@id"/>
                                 <xsl:variable name="players" select="count(players/player)"/>
 
-                                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameID}/joinGame"
+                                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameID}/joinGame"
                                       method="post"
                                       id="joinButton{$gameID}">
                                     <label>
@@ -163,7 +163,7 @@
                     <xsl:otherwise>
                         <foreignObject width="100%" height="100%" font-family="{$fonts}" fill="{$textColor}"
                                        font-size="{$fontSize - 1}" x="{$startX}" y="{$startY}">
-                            <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/createAccount" method="post"
+                            <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/createAccount" method="post"
                                   id="createAccount">
                                 <input class="inputBox" size="36" type="text" name="playerName" id="playerName1"
                                        placeholder="Name"/>
@@ -182,7 +182,7 @@
 
                 <foreignObject width="100%" height="100%" font-family="{$fonts}" fill="{$textColor}"
                                font-size="{$fontSize - 1}" x="{$startX}" y="{$startY+30}">
-                    <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/lobby" method="get"
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/lobby" method="get"
                           id="restoreAccount">
                         <input size="23" class="inputBox" type="text" name="playerName" id="playerName"
                                placeholder="Name"/>

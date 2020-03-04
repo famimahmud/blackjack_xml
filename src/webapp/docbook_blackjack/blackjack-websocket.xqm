@@ -6,14 +6,14 @@ import module namespace websocket = "http://basex.org/modules/ws";
 import module namespace blackjack-main = "Blackjack/Main" at "blackjack-main.xqm";
 
 declare
-%ws-stomp:connect("/blackjack")
+%ws-stomp:connect("/docbook_blackjack")
 %updating
 function blackjack-ws:stompconnect(){
     update:output(trace(concat("WS client connected with id ", websocket:id())))
 };
 
 declare
-%ws:close("/blackjack")
+%ws:close("/docbook_blackjack")
 %updating
 function blackjack-ws:stompdisconnect(){
     let $gameId := blackjack-ws:get(websocket:id(), "gameId")
@@ -31,7 +31,7 @@ function blackjack-ws:stompdisconnect(){
 };
 
 declare
-%ws-stomp:subscribe("/blackjack")
+%ws-stomp:subscribe("/docbook_blackjack")
 %ws:header-param("param0", "{$game}")
 %ws:header-param("param1", "{$gameId}")
 %ws:header-param("param2", "{$playerId}")
