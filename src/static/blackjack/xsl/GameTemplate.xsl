@@ -85,10 +85,10 @@
 
             <!-- Name and ID in the top left corner -->
             <rect x="0" y="0" rx="2" ry="2" height="15" width="30" style="fill: #134900; opacity: 0.6"/>
-            <text x="2" y="2" fill="{$textColor}" font-size="{$fontSize - 1.5}"
+            <text x="2" y="2" fill="{$textColor}" font-size="{$fontSize - 1.5}" text-decoration="underline"
                   font-family="{$fonts}"
                   alignment-baseline="hanging">
-                Your player info
+                <xsl:value-of select="concat('Game#', $gameId)"/>
             </text>
             <!--TODO Multiclient-->
             <text x="2" y="6" fill="{$textColor}" font-size="{$fontSize - 1.5}"

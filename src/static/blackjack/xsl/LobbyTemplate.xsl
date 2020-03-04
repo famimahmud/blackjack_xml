@@ -96,7 +96,7 @@
 
                 <foreignObject id="gameContainer" x="{$startX}" y="39" width="80%" height="20"
                                font-family="{$fonts}" font-size="{$fontSize - 1}">
-                    <xsl:for-each select="games/game[@singlePlayer = 'false']">
+                    <xsl:for-each select="games/game[@singlePlayer = 'false' and @phase = 'bet']">
                         <xsl:variable name="currentRectY" select="0 + ((position() - 1) * 6)"/>
                         <xsl:variable name="gameID" select="@id"/>
                         <xsl:variable name="players" select="count(players/player)"/>
