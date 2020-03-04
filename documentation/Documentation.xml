@@ -34,62 +34,129 @@
                 IN4013) in the winter term 2019/2020. Throughout the lecture Prof. Anne
                 Brüggemann-Klein and Phillip Ulrich introduced us to the XML-Technologies such as
                 SVG, XHTML, XSLT, XQuery and XPath. The objective of this project is to implement a
-                browser game of Blackjack by making use of XML-Technologies exclusively. </para>
-            <para>During the first part of the lab we received tasks every weeek which we were able
+                multi-client browser game of Blackjack by making use of XML-Technologies
+                exclusively. </para>
+            <para>During the first part of the lab we received tasks every week which we were able
                 to complete with the newly introduced technology. In this manner we were able to get
-                to know and to practice the use of the important technologies step by step.  </para>
+                to know and to practice the use of the important technologies step by step. </para>
             <para>The second part, the actual development project, began after the last meeting in
-                the second week of January. We had to organize ourselve within the group and decide
+                the second week of January. We had to organize ourselves within the group and decide
                 on methodologies on how to implement, design and document the requirements stated in
                 the project assignment. The project ends with the completed game, documentation and
                 a final presentation. </para>
         </sect1>
         <sect1>
             <title>Blackjack Concept</title>
+            <para>We decided to implement a general Blackjack game according the basic rules defined
+                by Bicycle [<ulink url="https://bicyclecards.com/how-to-play/blackjack/"/>]. We did
+                not implement additional rules like 'splitting pairs' or 'doubling down'. </para>
             <sect2>
                 <title>Game Rules</title>
-
-                <para>In the first meeting we decided to implement our Blackjack game according the
-                    official rules defined by Bicycle [<ulink
-                        url="https://bicyclecards.com/how-to-play/blackjack/"/>].</para>
-            </sect2>
-            <sect2>
-                <title>Game </title>
-                <para/>
+                <para>The target of each player is to reach a combined card value as close to 21 as
+                    possible, without going over 21 but beating the dealer. </para>
+                <sect3>
+                    <title>Players</title>
+                    <para>To start a round at least one player has to be in the game, but in one
+                        game a maximum of 7 players are allowed. Nevertheless, every player is
+                        playing each for himself against the dealer, which is represented by the
+                        computer. </para>
+                </sect3>
+                <sect3>
+                    <title>Betting</title>
+                    <para>Every player bets an amount of chips, which will be placed in the pool.
+                        Obviously it is not possible to bet more chips than the participant has in
+                        its wallet. </para>
+                </sect3>
+                <sect3>
+                    <title>Cards</title>
+                    <para>We use a six-deck game, which means that six decks with 52-cards are
+                        combined to 312-cards. In the dealing phase two cards face up will be
+                        distributed to each player after the betting phase. The Dealer takes one
+                        card face up and the second card face down. Each card takes its pip value
+                        and face cards are 10. Aces can take the value of 11 or 1, this depends on
+                        the count. If the count is over 21 the value of ace switches to 1. </para>
+                </sect3>
+                <sect3>
+                    <title>The Play</title>
+                    <para>As a player you must decide if you want to get another card ("hit") or if
+                        you don't want another card ("stand"). You can repeat this until you reach a
+                        count over 21. </para>
+                </sect3>
+                <sect3>
+                    <title>Dealer's Play</title>
+                    <para>Once all players stand on their Cards the dealer's second card gets turned
+                        up. Now the dealer takes cards until he has a count of 17 or more, at which
+                        point the dealer must stand. </para>
+                </sect3>
+                <sect3>
+                    <title>Pay Phase</title>
+                    <para>The winner gets determined by comparing the count of the player with the
+                        dealer's total card value. A player wins and gets paid double of his bet
+                        when the dealer has a lower hand or if the dealer goes bust. The dealer wins
+                        if he has a higher hand or the player goes bust. In this case the player
+                        loses his bet. A tie is possible if both have the same total value or both
+                        go bust. Then the player gets back his bet.</para>
+                </sect3>
             </sect2>
         </sect1>
 
     </chapter>
     <chapter>
         <title>Technologies</title>
-        <para/>
-        <sect1>
-            <title>DocBook</title>
-            <para/>
-        </sect1>
+        <para>As a both mentioned we were introduced into powerful Tools which make it possible
+            write a documentation, to save and encode data of a game state, to generate a GUI using
+            the saved data, as well as interact with data. In the following these Tools are
+            addressed and briefly introduced.</para>
         <sect1>
             <title>XML</title>
-            <para/>
+            <para>XML is the basis for this project. It stands for Extensible Markup Language and
+                defines a set of rules in which documents get encoded in a platform independent
+                format that is readable for humans and computers due to its clear and simple
+                structure. The data of game states are encoded in XML and therefore can easily be
+                transformed and transferred to the web. </para>
+        </sect1>
+        <sect1>
+            <title>DocBook</title>
+            <para>DocBook is a semantic markup language which we use for our documentation. It
+                simplifies the creation of documents with a clear logical structure. In addition,
+                the data is saved in a neutral format which makes it possible to easily transform it
+                to a variety of formats, including HTML, XHTML, PDF, etc. Furthermore, the content
+                quality can be improved by automatic validation through a DTD file.</para>
         </sect1>
         <sect1>
             <title>SVG</title>
-            <para/>
+            <para>SVG (Scalable Vector Graphics) is a language to define vector based 2-dimensional
+                graphical objects. SVG images are defined in XML-format. We used it to create all
+                our graphical components like cards, chips, buttons, etc. </para>
         </sect1>
         <sect1>
             <title>XSLT</title>
-            <para/>
+            <para>"XSLT (Extensble Stylsheet Language Transformations) is a language for
+                transforming XML documents into other XML documents or other formats such as HTML
+                for web pages, plain text or XSL Formatting Objects, which may subsequently be
+                converted to other formats, such as PDF, PostScript and PNG.  "(Source: <ulink
+                    url="https://en.wikipedia.org/wiki/XSLT"/>). In our project it is used to
+                dynamically transform our game states encoded in XML into an XHTML document, which
+                can be used to graphically display the game state in the browser. Moreover, the
+                chips and cards are dynamically transformed using XSLT. The elements of the XML
+                documents are selected with a query language called XPath. XPath is a big a part of
+                XSLT and widely used to navigate through elements and attributes. </para>
         </sect1>
         <sect1>
             <title>XQuery</title>
-            <para/>
-        </sect1>
-        <sect1>
-            <title>RestXQ</title>
-            <para/>
+            <para>Xquery is a very efficient querying language for XML databases. It enables the
+                interaction with the databases. Which makes it possible to delete, insert and
+                replace database nodes. Just like in XSLT nodes are addressed using XPath. The  game
+                actions are implemented using Xquery functions. The functions are initiated by
+                HTTP-Request which are mapped by RESTXQ-Annotations (for example:
+                "localhost:8984/docbook_blackjack/lobby").  </para>
         </sect1>
         <sect1>
             <title>BaseX</title>
-            <para/>
+            <para>BaseX is a management system for XML databases and a Xquery processor. BaseX
+                represents the server side of our implementation to store the databases. It makes it
+                possible to query big XML documents as well as transfer the transformed data to the
+                clients using Websockets. </para>
         </sect1>
     </chapter>
     <chapter>
