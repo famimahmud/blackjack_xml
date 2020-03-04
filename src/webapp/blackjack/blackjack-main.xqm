@@ -34,7 +34,7 @@ declare
 function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string, $playerId as xs:string, $singlePlayer as xs:string) {
       let $deck := blackjack-main:generateDeck()
       let $game :=
-          <game id="{$gameId}" singlePlayer="{$singlePlayer}" round="1" maxRounds="10" onTurn="{$playerId}" phase="bet">
+          <game id="{$gameId}" singlePlayer="{$singlePlayer}" round="1" maxRounds="10" onTurn="noOne" phase="bet">
               {$deck}
               <dealer>
                   <hand>
@@ -264,7 +264,7 @@ declare
 %updating
 function blackjack-main:confirmBet($gameId as xs:integer, $playerId as xs:string){
     let $pool := $blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/pool
-    return if(($pool/@locked = "false") and (count($pool/chip)>0))
+    return if(($pool/@locked = "false") and ((count($pool/chip)>0) or exists($blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/left)))
     then (
         replace node $blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/pool
             with <pool locked="true">{$blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/pool/chip}</pool>,
@@ -303,8 +303,7 @@ declare
 function blackjack-main:dealPhase($gameId as xs:integer){
     if ($blackjack-main:games/game[@id = $gameId]/@phase = "deal") then (
         blackjack-main:handOutOneCardToEach($gameId),
-        update:output(web:redirect(concat("/blackjack/", $gameId, "/handOutOneCardToEach"))),
-        update:output(web:redirect(concat("/blackjack/", $gameId)))
+        update:output(web:redirect(concat("/blackjack/", $gameId, "/handOutOneCardToEach")))
     )
 };
 
@@ -373,7 +372,14 @@ function blackjack-main:dealerTurn($gameId as xs:integer){
             then (blackjack-main:drawCard($gameId, "dealer"),
             update:output(web:redirect(concat("/blackjack/", $gameId, "/dealerTurn"))))
             else replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "pay",
-            update:output(web:redirect(concat("/blackjack/", $gameId)))))
+            if(exists($blackjack-main:games/game[@id = $gameId]/players/player/left) ) then (
+                        let $parameters := map {
+                                    "playerName": $blackjack-main:games/game[@id = $gameId]/players/player[exists(left)]/@name,
+                                    "playerId": $blackjack-main:games/game[@id = $gameId]/players/player[exists(left)]/@id
+                                }
+                                return update:output(web:redirect("/blackjack/lobby", $parameters)))
+                        else update:output(web:redirect(concat("/blackjack/", $gameId)))
+    ))
 };
 
 
@@ -396,7 +402,7 @@ function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string)
             let $newPlayer :=
                   <player id="{$playerId}" name="{$playerName}">
                           <hand/>
-                          <wallet>500</wallet>
+                          <wallet>1000</wallet>
                           <pool locked="false"/>
                    </player>
     return( insert node $newPlayer as last into $blackjack-main:games/game[@id = $gameId]/players,
@@ -445,22 +451,46 @@ function blackjack-main:addHighscore($gameId as xs:integer, $playerId as xs:stri
         )
 };
 
-
 (:~
- : End game: save player highscore and remove player from game. If the player were the last delete the game from lobby
+ : Leave game: save player highscore.
  : @gameId ID of the game to remove the player
- : @playerId ID of the player, who exits the game
+ : @playerId ID of the player, who leaves the game
  : @return Model change in highscore and lobby database
  :)
 declare
 %updating
-function blackjack-main:endGame($gameId as xs:integer){
-    (: TODO: Test method :)
-    (: Save scores of all players :)
-    for $playerId in $blackjack-main:games/game[@id = $gameId]/players/player/@id
-    return blackjack-main:addHighscore($gameId, $playerId),
-    (: Remove game from game directory :)
-    delete node $blackjack-main:games/game[@id = $gameId]
+function blackjack-main:leaveGame($gameId as xs:integer, $playerId as xs:string){
+    blackjack-main:addHighscore($gameId, $playerId),
+    (: if the leaving player was the last player who didn't confimed his bet -> move to dealPhase :)
+    if ($blackjack-main:games/game[@id = $gameId]/@phase = "bet") then (
+        let $pool := $blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId]/pool
+            return if(($pool/@locked = "false"))
+            then (
+                (:check if all players confirmed their bets -> if true: change to deal-Phase and hand out Cards:)
+                if (count($blackjack-main:games/game[@id = $gameId]/players/player/pool[@locked="true"]/@locked) >= (count($blackjack-main:games/game[@id = $gameId]/players/player) - 1))
+                then (
+                    replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "deal",
+                    update:output(web:redirect(concat("/blackjack/", $gameId, "/dealPhase")))
+                )
+    )),
+    (: if the leaving player was on turn -> moveTurn :)
+    if ($blackjack-main:games/game[@id = $gameId]/@phase = "play" and $blackjack-main:games/game[@id = $gameId]/@onTurn = $playerId)
+        then blackjack-main:moveTurn($gameId, $playerId)
 };
+
+(:~
+   : End game: save player highscores and remove game.
+   : @gameId ID of the game to remove the player
+   : @return Model change in highscore and lobby database
+   :)
+  declare
+  %updating
+  function blackjack-main:endGame($gameId as xs:integer){
+      (: Save scores of all players :)
+      for $playerId in $blackjack-main:games/game[@id = $gameId]/players/player/@id
+      return blackjack-main:addHighscore($gameId, $playerId),
+      (: Remove game from game directory :)
+      delete node $blackjack-main:games/game[@id = $gameId]
+  };
 
 

@@ -243,6 +243,7 @@ function blackjack-controller:dealPhase($gameId as xs:integer){
     return (
         if($game/@phase = "deal")
         then (blackjack-main:dealPhase($gameId))
+        (:update:output(web:redirect(concat("/blackjack/", $gameId))) :)
         )
 };
 
@@ -260,7 +261,13 @@ function blackjack-controller:handOutOneCardToEach($gameId as xs:integer){
             blackjack-main:moveTurn($gameId, "dealer"),
             replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "play")
         ),
-        update:output(web:redirect(concat("/blackjack/", $gameId)))
+        if(exists($blackjack-main:games/game[@id = $gameId]/players/player/left) ) then (
+            let $parameters := map {
+                        "playerName": $blackjack-main:games/game[@id = $gameId]/players/player[exists(left)]/@name,
+                        "playerId": $blackjack-main:games/game[@id = $gameId]/players/player[exists(left)]/@id
+                    }
+                    return update:output(web:redirect("/blackjack/lobby", $parameters)))
+            else update:output(web:redirect(concat("/blackjack/", $gameId)))
 };
 
 
@@ -310,11 +317,11 @@ function blackjack-controller:exit($gameId as xs:integer, $playerId as xs:string
             "playerId": $playerId
         }
     return (
-        delete node $game/players/player[@id=$playerId],
+        insert node <left/> into $game/players/player[@id=$playerId],
         if(exists($game[@id=$gameId]/players/player[@id=$playerId])) (:Check if the player is in the Game:)
-        then(if(count($game[@id=$gameId]/players)=1)
+        then(if(count($game[@id=$gameId]/players/player) = 1)
             then (blackjack-main:endGame($gameId))
-            else (blackjack-main:addHighscore($gameId, $playerId))),
+            else (blackjack-main:leaveGame($gameId, $playerId))),
 
     update:output(web:redirect("/blackjack/lobby", $parameters))
     )

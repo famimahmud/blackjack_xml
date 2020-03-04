@@ -16,7 +16,18 @@ declare
 %ws:close("/blackjack")
 %updating
 function blackjack-ws:stompdisconnect(){
-    update:output(trace(concat("WS client disconnected with id ", websocket:id())))
+    let $gameId := blackjack-ws:get(websocket:id(), "gameId")
+    return (
+        if (exists($blackjack-main:games/game[@id = $gameId])) then (
+            let $playerId := blackjack-ws:get(websocket:id(), "playerId")
+            let $game := blackjack-main:getGame($gameId)
+            return (
+                if (exists($game/players/player[@id=$playerId]/left)) then (
+                    delete node $game/players/player[@id=$playerId]),
+                update:output(trace(concat("WS client " , $playerId , " disconnected from game: ", $gameId)))
+            )
+        )
+    )
 };
 
 declare
