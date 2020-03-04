@@ -277,7 +277,7 @@ function blackjack-main:confirmBet($gameId as xs:integer, $playerId as xs:string
     )
 };
 
-:~
+(:~
  : gives every player and the dealer one card
  : @gameId Id of the game, where the cards will be handed out
  : @return model change with one card more in every hand
@@ -387,7 +387,7 @@ declare
 %updating
 function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string) as empty-sequence(){
     if (exists($blackjack-main:players/player[@id = $playerId])
-        and empty($blackjack-main:games/game[@id = $gameId]/players/player[@id = playerId])
+        and empty($blackjack-main:games/game[@id = $gameId]/players/player[@id = $playerId])
         and count($blackjack-main:games/game[@id = $gameId]/players/player) < 4
         and $blackjack-main:games/game[@id = $gameId]/@phase = "bet"
         and $blackjack-main:games/game[@id = $gameId]/@singlePlayer = "false")
