@@ -34,8 +34,7 @@
         <xsl:variable name="playerCount" select="count(/*/players/*)"/>
         <xsl:variable name="rectHeight" select="5"/>
         <xsl:variable name="rectWidth" select="25"/>
-        <xsl:variable name="playerName"
-                      select="game/players/player/@name"/> <!--TODO Als XSL-Param für multiplayer-->
+        <xsl:variable name="playerName" select="game/players/player[@id=$playerId]/@name"/>
 
 
         <xsl:variable name="currentPlayer">
@@ -298,7 +297,7 @@
             </xsl:choose>
             <!--Bet Buttons or Hit & Stand-->
             <xsl:choose>
-                <xsl:when test=" /*/@phase ='bet'">
+                <xsl:when test="/*/@phase ='bet' and game/players/player[@id = $playerId]/pool/@locked = 'false'">
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/confirmBet"
                               method="post"
