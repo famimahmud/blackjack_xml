@@ -15,9 +15,9 @@ declare
 %updating
 %rest:GET
 function blackjack-controller:setup() {
-    let $games_model := doc(concat($blackjack-controller:staticPath, "Games.xml"))
-    let $deck_model := doc(concat($blackjack-controller:staticPath, "Deck.xml"))
-    let $players_model := doc(concat($blackjack-controller:staticPath, "Players.xml"))
+    let $games_model := doc(concat($blackjack-controller:staticPath, "db/Games.xml"))
+    let $deck_model := doc(concat($blackjack-controller:staticPath, "db/Deck.xml"))
+    let $players_model := doc(concat($blackjack-controller:staticPath, "db/Players.xml"))
     let $redirectLink := "/blackjack"
     return (db:create("Games", $games_model), db:create("Deck", $deck_model), db:create("Players", $players_model),
     update:output(web:redirect($redirectLink)))
