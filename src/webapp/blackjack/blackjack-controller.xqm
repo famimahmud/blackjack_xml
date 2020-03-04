@@ -122,6 +122,7 @@ declare function blackjack-controller:generateLobby($games as element(games), $x
             <head>
                 <title>{$title}</title>
                 <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
+                <link rel="stylesheet" type="text/css" href="/static/blackjack/css/lobbyStyle.css"/>
             </head>
             <body style="background: url(/static/blackjack/assets/LobbyBackground.svg">
                 {$transformed}
