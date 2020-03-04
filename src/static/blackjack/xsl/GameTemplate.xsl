@@ -49,10 +49,9 @@
             </xsl:for-each>
         </xsl:variable>
 
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        <svg id="table" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              width="100%" height="100%" viewBox="0 0 {$width} {$height}"
-             font-family="{$fonts}" font-size="{$fontSize}"
-             style="background-size: 100% 100%">
+             font-family="{$fonts}" font-size="{$fontSize}">
 
             <!-- Import online fonts -->
             <defs>
@@ -84,7 +83,7 @@
             </xsl:for-each>
 
             <!-- Name and ID in the top left corner -->
-            <rect x="0" y="0" rx="2" ry="2" height="15" width="30" style="fill: #134900; opacity: 0.6"/>
+            <rect class="infoBox" x="0" y="0" rx="2" ry="2" height="15" width="30"/>
             <text x="2" y="2" fill="{$textColor}" font-size="{$fontSize - 1.5}" text-decoration="underline"
                   font-family="{$fonts}"
                   alignment-baseline="hanging">
@@ -276,8 +275,7 @@
             <!--Exit Button-->
             <foreignObject width="20%" height="10%" x="90%" y="0%">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/exit" method="post" id="Exit">
-                    <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
-                            form="Exit" value="Submit">
+                    <button class="gameButton" form="Exit" value="Submit">
                         Exit
                     </button>
                     <input type="hidden" name="playerId" id="playerIdExit" value="{$playerId}"/>
@@ -289,9 +287,8 @@
                 <xsl:when test="/game/@phase = 'pay'">
                     <foreignObject width="15%" height="20%" x="90%" y="10%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/pay" method="get" id="newRound" target="hiddenFrame">
-                            <button style="padding:2px 1.5px ;outline-width: medium;   display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
-                                    form="newRound" value="Submit">
-                                Pay out Players
+                            <button class="gameButton" form="newRound" value="Submit">
+                                Continue
                             </button>
                             <input type="hidden" name="playerId" id="playerIdNewRound" value="{$playerId}"/>
                             <input type="hidden" name="playerName" id="playerNameNewRound" value="{$playerName}"/>
@@ -306,8 +303,7 @@
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/confirmBet"
                               method="post"
                               id="Confirm" target="hiddenFrame">
-                            <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
-                                    form="Confirm" value="Submit">
+                            <button class="gameButton" form="Confirm" value="Submit">
                                 Confirm
                             </button>
                             <input type="hidden" name="playerId" id="playerIdConfirm" value="{$playerId}"/>
@@ -316,9 +312,7 @@
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/resetBet" method="post"
                               id="Reset" target="hiddenFrame">
-                            <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
-
-                                    form="Reset" value="Submit">
+                            <button class="gameButton" form="Reset" value="Submit">
                                 Reset
                             </button>
                             <input type="hidden" name="playerId" id="playerIdReset" value="{$playerId}"/>
@@ -329,8 +323,7 @@
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/hit" method="post"
                               id="Hit" target="hiddenFrame">
-                            <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
-                                    form="Hit" value="Submit">
+                            <button class="gameButton" form="Hit" value="Submit">
                                 Hit
                             </button>
                             <input type="hidden" name="playerId" id="playerIdHit" value="{$playerId}"/>
@@ -339,8 +332,7 @@
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/stand" method="post"
                               id="Stand" target="hiddenFrame">
-                            <button style="outline-width: medium;  display:table-cell; font-size:3px; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ed4a29 ; cursor: pointer; position: absolute;"
-                                    form="Stand" value="Submit">
+                            <button class="gameButton" form="Stand" value="Submit">
                                 Stand
                             </button>
                             <input type="hidden" name="playerId" id="playerIdStand" value="{$playerId}"/>
@@ -359,8 +351,7 @@
                                 <xsl:with-param name="id" select="10"/>
                             </xsl:call-template>
                         </svg>
-                        <input type="submit" name="chipValue" id="value10" value="10"
-                               style="border: none"/>
+                        <input class="chipButton" type="submit" name="chipValue" id="value10" value="10"/>
                         <input type="hidden" name="playerId" id="playerId10" value="{$playerId}"/>
                     </label>
                 </form>
@@ -375,8 +366,7 @@
                                 <xsl:with-param name="id" select="50"/>
                             </xsl:call-template>
                         </svg>
-                        <input type="submit" name="chipValue" id="value50" value="50"
-                               style="background: transparent; border: none !important;"/>
+                        <input class="chipButton" type="submit" name="chipValue" id="value50" value="50"/>
                         <input type="hidden" name="playerId" id="playerId50" value="{$playerId}"/>
                     </label>
                 </form>
@@ -391,8 +381,7 @@
                                 <xsl:with-param name="id" select="100"/>
                             </xsl:call-template>
                         </svg>
-                        <input type="submit" name="chipValue" id="value100" value="100"
-                               style="background: transparent; border: none !important;"/>
+                        <input class="chipButton" type="submit" name="chipValue" id="value100" value="100"/>
                         <input type="hidden" name="playerId" id="playerId100" value="{$playerId}"/>
                     </label>
                 </form>
@@ -407,8 +396,7 @@
                                 <xsl:with-param name="id" select="250"/>
                             </xsl:call-template>
                         </svg>
-                        <input type="submit" name="chipValue" id="value250" value="250"
-                               style="background: transparent; border: none !important;"/>
+                        <input class="chipButton" type="submit" name="chipValue" id="value250" value="250"/>
                         <input type="hidden" name="playerId" id="playerId250" value="{$playerId}"/>
                     </label>
                 </form>
@@ -423,8 +411,7 @@
                                 <xsl:with-param name="id" select="500"/>
                             </xsl:call-template>
                         </svg>
-                        <input type="submit" name="chipValue" id="value500" value="500"
-                               style="background: transparent; border: none !important;"/>
+                        <input class="chipButton" type="submit" name="chipValue" id="value500" value="500"/>
                         <input type="hidden" name="playerId" id="playerId500" value="{$playerId}"/>
                     </label>
                 </form>
@@ -439,8 +426,7 @@
                                 <xsl:with-param name="id" select="1000"/>
                             </xsl:call-template>
                         </svg>
-                        <input type="submit" name="chipValue" id="value1000" value="1000"
-                               style="background: transparent; border: none !important;"/>
+                        <input class="chipButton" type="submit" name="chipValue" id="value1000" value="1000"/>
                         <input type="hidden" name="playerId" id="playerId1000" value="{$playerId}"/>
                     </label>
                 </form>

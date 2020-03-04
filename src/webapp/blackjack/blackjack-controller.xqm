@@ -87,6 +87,7 @@ function blackjack-controller:join($gameId as xs:integer, $playerId as xs:string
                 <script src="/static/blackjack/JS/stomp.js"></script>
                 <script src="/static/blackjack/JS/ws-element.js"></script>
                 <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
+                <link rel="stylesheet" type="text/css" href="/static/blackjack/css/gameStyle.css"/>
             </head>
             <body style="background: url(/static/blackjack/assets/TableBackgroundCompressed.svg">
                 <ws-stream id = "Blackjack" url="{$websocketURL}" subscription = "{$subscription}" geturl = "{$getURL}"/>
@@ -173,6 +174,7 @@ declare function blackjack-controller:generatePage($gameId as xs:integer, $playe
             <head>
                 <title>{$title}</title>
                 <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
+                <link rel="stylesheet" type="text/css" href="/static/blackjack/css/gameStyle.css"/>
             </head>
             <body style="background: url(/static/blackjack/assets/TableBackgroundCompressed.svg">
                 {$transformed}
