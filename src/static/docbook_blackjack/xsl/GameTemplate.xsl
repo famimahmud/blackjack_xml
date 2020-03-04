@@ -273,7 +273,7 @@
             </xsl:for-each>
             <!--Exit Button-->
             <foreignObject width="20%" height="10%" x="90%" y="0%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/exit" method="post" id="Exit">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/exit" method="post" id="Exit">
                     <button class="gameButton" form="Exit" value="Submit">
                         Exit
                     </button>
@@ -285,7 +285,7 @@
             <xsl:choose>
                 <xsl:when test="/game/@phase = 'pay'">
                     <foreignObject width="15%" height="20%" x="90%" y="10%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/pay" method="get" id="newRound" target="hiddenFrame">
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/pay" method="get" id="newRound" target="hiddenFrame">
                             <button class="gameButton" form="newRound" value="Submit">
                                 Continue
                             </button>
@@ -299,7 +299,7 @@
             <xsl:choose>
                 <xsl:when test="/*/@phase ='bet' and game/players/player[@id = $playerId]/pool/@locked = 'false'">
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/confirmBet"
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/confirmBet"
                               method="post"
                               id="Confirm" target="hiddenFrame">
                             <button class="gameButton" form="Confirm" value="Submit">
@@ -309,7 +309,7 @@
                         </form>
                     </foreignObject>
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/resetBet" method="post"
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/resetBet" method="post"
                               id="Reset" target="hiddenFrame">
                             <button class="gameButton" form="Reset" value="Submit">
                                 Reset
@@ -320,7 +320,7 @@
                 </xsl:when>
                 <xsl:when test="( /*/@phase ='play') and (/*/@onTurn = $playerId)">
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/hit" method="post"
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/hit" method="post"
                               id="Hit" target="hiddenFrame">
                             <button class="gameButton" form="Hit" value="Submit">
                                 Hit
@@ -329,7 +329,7 @@
                         </form>
                     </foreignObject>
                     <foreignObject width="100%" height="100%" x="90%" y="93%">
-                        <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/stand" method="post"
+                        <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/stand" method="post"
                               id="Stand" target="hiddenFrame">
                             <button class="gameButton" form="Stand" value="Submit">
                                 Stand
@@ -342,7 +342,7 @@
 
             <!--Chips as Buttons-->
             <foreignObject width="7" height="7" x="25%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_10" target="hiddenFrame">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/bet" method="post" id="Chip_10" target="hiddenFrame">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -357,7 +357,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="34%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_50" target="hiddenFrame">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/bet" method="post" id="Chip_50" target="hiddenFrame">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -372,7 +372,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="43%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_100" target="hiddenFrame">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/bet" method="post" id="Chip_100" target="hiddenFrame">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -387,7 +387,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="52%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_250" target="hiddenFrame">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/bet" method="post" id="Chip_250" target="hiddenFrame">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -402,7 +402,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="61%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_500" target="hiddenFrame">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/bet" method="post" id="Chip_500" target="hiddenFrame">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">
@@ -417,7 +417,7 @@
             </foreignObject>
 
             <foreignObject width="7" height="7" x="70%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/{$gameId}/bet" method="post" id="Chip_1000" target="hiddenFrame">
+                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/bet" method="post" id="Chip_1000" target="hiddenFrame">
                     <label>
                         <svg width="7" height="7">
                             <xsl:call-template name="ChipTemplate">

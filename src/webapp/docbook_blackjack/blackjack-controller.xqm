@@ -7,10 +7,10 @@ import module namespace blackjack-main = "Blackjack/Main" at "blackjack-main.xqm
 import module namespace blackjack-helper = "Blackjack/Helper" at "blackjack-helper.xqm";
 import module namespace blackjack-ws = "Blackjack/WS" at "blackjack-websocket.xqm";
 
-declare variable $blackjack-controller:staticPath := "../static/blackjack/";
+declare variable $blackjack-controller:staticPath := "../static/docbook_blackjack/";
 
 declare
-%rest:path("blackjack/setup")
+%rest:path("docbook_blackjack/setup")
 %output:method("xhtml")
 %updating
 %rest:GET
@@ -18,8 +18,8 @@ function blackjack-controller:setup() {
     let $games_model := doc(concat($blackjack-controller:staticPath, "db/Games.xml"))
     let $deck_model := doc(concat($blackjack-controller:staticPath, "db/Deck.xml"))
     let $players_model := doc(concat($blackjack-controller:staticPath, "db/Players.xml"))
-    let $redirectLink := "/blackjack"
-    return (db:create("Games", $games_model), db:create("Deck", $deck_model), db:create("Players", $players_model),
+    let $redirectLink := "/docbook_blackjack"
+    return (db:create("DocBook_Games", $games_model), db:create("DocBook_Deck", $deck_model), db:create("DocBook_Players", $players_model),
     update:output(web:redirect($redirectLink)))
 };
 
@@ -29,7 +29,7 @@ declare
 %output:method("html")
 %rest:query-param("playerName", "{$playerName}")
 %rest:query-param("playerId", "{$playerId}")
-%rest:path("/blackjack/lobby")
+%rest:path("/docbook_blackjack/lobby")
 function blackjack-controller:start($playerName as xs:string?, $playerId as xs:string?){
         let $games := blackjack-main:getGames()
         let $xslStylesheet := "LobbyTemplate.xsl"
@@ -55,7 +55,7 @@ function blackjack-controller:start($playerName as xs:string?, $playerId as xs:s
 
 
 declare
-%rest:path("/blackjack/newGame")
+%rest:path("/docbook_blackjack/newGame")
 %rest:query-param("playerName", "{$playerName}")
 %rest:query-param("playerId", "{$playerId}")
 %rest:query-param("singlePlayer", "{$singlePlayer}")
@@ -64,32 +64,32 @@ declare
 function blackjack-controller:newGame($playerName as xs:string, $playerId as xs:string, $singlePlayer as xs:string){
         let $gameId := blackjack-helper:createGameId()
         return (blackjack-main:newGame($gameId, $playerName, $playerId, $singlePlayer),
-                update:output(web:redirect(concat("/blackjack/", $gameId, "/join?playerId=", $playerId))))
+                update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/join?playerId=", $playerId))))
 };
 
 declare
 %rest:GET
 %output:method("html")
-%rest:path("/blackjack/{$gameId}/join")
+%rest:path("/docbook_blackjack/{$gameId}/join")
 %rest:query-param("playerId", "{$playerId}")
 function blackjack-controller:join($gameId as xs:integer, $playerId as xs:string){
     let $hostname := request:hostname()
     let $port := request:port()
     let $address := concat($hostname,":",$port)
-    let $websocketURL := concat("ws://",$address,"/ws/blackjack")
-    let $getURL := concat("http://", $address, "/blackjack/", $gameId, "/getGameLayout?playerId=", $playerId)
-    let $subscription := concat("/blackjack/", $gameId ,"/", $playerId)
+    let $websocketURL := concat("ws://",$address,"/ws/docbook_blackjack")
+    let $getURL := concat("http://", $address, "/docbook_blackjack/", $gameId, "/getGameLayout?playerId=", $playerId)
+    let $subscription := concat("/docbook_blackjack/", $gameId ,"/", $playerId)
     let $html :=
         <html>
             <head>
                 <title>Blackjack</title>
-                <script src="/static/blackjack/JS/jquery-3.2.1.min.js"></script>
-                <script src="/static/blackjack/JS/stomp.js"></script>
-                <script src="/static/blackjack/JS/ws-element.js"></script>
-                <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
-                <link rel="stylesheet" type="text/css" href="/static/blackjack/css/gameStyle.css"/>
+                <script src="/static/docbook_blackjack/JS/jquery-3.2.1.min.js"></script>
+                <script src="/static/docbook_blackjack/JS/stomp.js"></script>
+                <script src="/static/docbook_blackjack/JS/ws-element.js"></script>
+                <link rel="icon" type="image/svg+xml" href="/static/docbook_blackjack/assets/icons/Logo.svg" sizes="any"/>
+                <link rel="stylesheet" type="text/css" href="/static/docbook_blackjack/css/gameStyle.css"/>
             </head>
-            <body style="background: url(/static/blackjack/assets/TableBackgroundCompressed.svg">
+            <body style="background: url(/static/docbook_blackjack/assets/TableBackgroundCompressed.svg">
                 <ws-stream id = "Blackjack" url="{$websocketURL}" subscription = "{$subscription}" geturl = "{$getURL}"/>
             </body>
         </html>
@@ -97,21 +97,21 @@ function blackjack-controller:join($gameId as xs:integer, $playerId as xs:string
 };
 
 declare
-%rest:path("/blackjack/{$gameId}/newRound")
+%rest:path("/docbook_blackjack/{$gameId}/newRound")
 %rest:GET
 %updating
 function blackjack-controller:newRound($gameId as xs:integer){
     blackjack-main:newRound($gameId),
-    update:output(web:redirect(concat("/blackjack/", $gameId, "/pay")))
+    update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/pay")))
 };
 
 
 declare
-%rest:path("/blackjack")
+%rest:path("/docbook_blackjack")
 %rest:GET
 %updating
 function blackjack-controller:redirectLobby(){
-    update:output(web:redirect("/blackjack/lobby"))
+    update:output(web:redirect("/docbook_blackjack/lobby"))
 };
 
 declare function blackjack-controller:generateLobby($games as element(games), $xslStylesheet as xs:string, $parameters as item()*,
@@ -122,17 +122,17 @@ declare function blackjack-controller:generateLobby($games as element(games), $x
         <html>
             <head>
                 <title>{$title}</title>
-                <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
-                <link rel="stylesheet" type="text/css" href="/static/blackjack/css/lobbyStyle.css"/>
+                <link rel="icon" type="image/svg+xml" href="/static/docbook_blackjack/assets/icons/Logo.svg" sizes="any"/>
+                <link rel="stylesheet" type="text/css" href="/static/docbook_blackjack/css/lobbyStyle.css"/>
             </head>
-            <body style="background: url(/static/blackjack/assets/LobbyBackground.svg">
+            <body style="background: url(/static/docbook_blackjack/assets/LobbyBackground.svg">
                 {$transformed}
             </body>
         </html>
 };
 
 declare
-%rest:path("/blackjack/{$gameId}")
+%rest:path("/docbook_blackjack/{$gameId}")
 %rest:GET
 function blackjack-controller:drawGame($gameId as xs:integer) {
     let $game := blackjack-main:getGame($gameId)
@@ -145,14 +145,14 @@ function blackjack-controller:drawGame($gameId as xs:integer) {
             for $wsId in $wsIds
                 where (blackjack-ws:get($wsId, "applicationId") = "Blackjack" and blackjack-ws:get($wsId, "gameId") = $gameId)
                     let $playerId := blackjack-ws:get($wsId, "playerId")
-                    let $destinationPath := concat("/blackjack/", $gameId ,"/", $playerId)
+                    let $destinationPath := concat("/docbook_blackjack/", $gameId ,"/", $playerId)
                     let $transformed := blackjack-controller:getGameLayout($gameId, $playerId)
                     return (blackjack-ws:send($transformed, $destinationPath)))
     )
 };
 
 declare
-%rest:path("/blackjack/{$gameId}/getGameLayout")
+%rest:path("/docbook_blackjack/{$gameId}/getGameLayout")
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
 %rest:GET
@@ -173,10 +173,10 @@ declare function blackjack-controller:generatePage($gameId as xs:integer, $playe
         <html>
             <head>
                 <title>{$title}</title>
-                <link rel="icon" type="image/svg+xml" href="/static/blackjack/assets/icons/Logo.svg" sizes="any"/>
-                <link rel="stylesheet" type="text/css" href="/static/blackjack/css/gameStyle.css"/>
+                <link rel="icon" type="image/svg+xml" href="/static/docbook_blackjack/assets/icons/Logo.svg" sizes="any"/>
+                <link rel="stylesheet" type="text/css" href="/static/docbook_blackjack/css/gameStyle.css"/>
             </head>
-            <body style="background: url(/static/blackjack/assets/TableBackgroundCompressed.svg">
+            <body style="background: url(/static/docbook_blackjack/assets/TableBackgroundCompressed.svg">
                 {$transformed}
             </body>
         </html>
@@ -184,7 +184,7 @@ declare function blackjack-controller:generatePage($gameId as xs:integer, $playe
 
 
 declare
-%rest:path("/blackjack/{$gameId}/bet")
+%rest:path("/docbook_blackjack/{$gameId}/bet")
 %rest:query-param("playerId", "{$playerId}")
 %rest:query-param("chipValue", "{$chipValue}")
 %output:method("html")
@@ -195,13 +195,13 @@ function blackjack-controller:bet($gameId as xs:integer, $playerId as xs:string,
     return (
         (if($game/@phase = "bet" and $game/players/player[@id = $playerId]/pool/@locked = "false")
         then blackjack-main:bet($gameId, $playerId, $chipValue)),
-        update:output(web:redirect(concat("/blackjack/", $gameId)))
+        update:output(web:redirect(concat("/docbook_blackjack/", $gameId)))
     )
 };
 
 
 declare
-%rest:path("/blackjack/{$gameId}/confirmBet")
+%rest:path("/docbook_blackjack/{$gameId}/confirmBet")
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
 %rest:POST
@@ -211,13 +211,13 @@ function blackjack-controller:confirmBet($gameId as xs:integer, $playerId as xs:
     return (
         if($game/@phase = "bet")
         then blackjack-main:confirmBet($gameId, $playerId),
-        update:output(web:redirect(concat("/blackjack/", $gameId)))
+        update:output(web:redirect(concat("/docbook_blackjack/", $gameId)))
     )
 };
 
 
 declare
-%rest:path("/blackjack/{$gameId}/resetBet")
+%rest:path("/docbook_blackjack/{$gameId}/resetBet")
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
 %rest:POST
@@ -231,13 +231,13 @@ function blackjack-controller:resetBet($gameId as xs:integer, $playerId as xs:st
         then (  replace node $game/players/player[@id=$playerId]/wallet/node() with ($wallet + $poolBet),
                 replace node $game/players/player[@id = $playerId]/pool with <pool locked="false"></pool>
         ),
-        update:output(web:redirect(concat("/blackjack/", $gameId)))
+        update:output(web:redirect(concat("/docbook_blackjack/", $gameId)))
     )
 };
 
 
 declare
-%rest:path("/blackjack/{$gameId}/dealPhase")
+%rest:path("/docbook_blackjack/{$gameId}/dealPhase")
 %output:method("html")
 %rest:GET
 %updating
@@ -245,14 +245,13 @@ function blackjack-controller:dealPhase($gameId as xs:integer){
     let $game := blackjack-main:getGame($gameId)
     return (
         if($game/@phase = "deal")
-        then (blackjack-main:dealPhase($gameId))
-        (:update:output(web:redirect(concat("/blackjack/", $gameId))) :)
+        then blackjack-main:dealPhase($gameId)
         )
 };
 
 
 declare
-%rest:path("/blackjack/{$gameId}/handOutOneCardToEach")
+%rest:path("/docbook_blackjack/{$gameId}/handOutOneCardToEach")
 %output:method("html")
 %rest:GET
 %updating
@@ -269,13 +268,13 @@ function blackjack-controller:handOutOneCardToEach($gameId as xs:integer){
                         "playerName": $blackjack-main:games/game[@id = $gameId]/players/player[exists(left)]/@name,
                         "playerId": $blackjack-main:games/game[@id = $gameId]/players/player[exists(left)]/@id
                     }
-                    return update:output(web:redirect("/blackjack/lobby", $parameters)))
-            else update:output(web:redirect(concat("/blackjack/", $gameId)))
+                    return update:output(web:redirect("/docbook_blackjack/lobby", $parameters)))
+            else update:output(web:redirect(concat("/docbook_blackjack/", $gameId)))
 };
 
 
 declare
-%rest:path("/blackjack/{$gameId}/hit")
+%rest:path("/docbook_blackjack/{$gameId}/hit")
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
 %rest:POST
@@ -285,13 +284,13 @@ function blackjack-controller:hit($gameId as xs:integer, $playerId as xs:string)
     return (
         (if($game/@onTurn = $playerId and $game/@phase = "play" and $game/players/player[@id=$playerId]/hand/@sum < 22)
         then blackjack-main:drawCard($gameId, $playerId)),
-        update:output(web:redirect(concat("/blackjack/", $gameId)))
+        update:output(web:redirect(concat("/docbook_blackjack/", $gameId)))
     )
 };
 
 
 declare
-%rest:path("/blackjack/{$gameId}/stand")
+%rest:path("/docbook_blackjack/{$gameId}/stand")
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
 %rest:POST
@@ -302,12 +301,12 @@ function blackjack-controller:stand($gameId as xs:integer, $playerId as xs:strin
         if($game/@onTurn = $playerId and $game/@phase = "play")
         then (blackjack-main:moveTurn($gameId, $playerId)
         ),
-        update:output(web:redirect(concat("/blackjack/", $gameId)))
+        update:output(web:redirect(concat("/docbook_blackjack/", $gameId)))
     )
 };
 
 declare
-%rest:path("/blackjack/{$gameId}/exit")
+%rest:path("/docbook_blackjack/{$gameId}/exit")
 %rest:query-param("playerId", "{$playerId}")
 %rest:query-param("playerName", "{$playerName}")
 %output:method("html")
@@ -326,13 +325,13 @@ function blackjack-controller:exit($gameId as xs:integer, $playerId as xs:string
             then (blackjack-main:endGame($gameId))
             else (blackjack-main:leaveGame($gameId, $playerId))),
 
-    update:output(web:redirect("/blackjack/lobby", $parameters))
+    update:output(web:redirect("/docbook_blackjack/lobby", $parameters))
     )
 };
 
 
 declare
-%rest:path("/blackjack/{$gameId}/dealerTurn")
+%rest:path("/docbook_blackjack/{$gameId}/dealerTurn")
 %output:method("html")
 %rest:GET
 %updating
@@ -346,7 +345,7 @@ function blackjack-controller:dealerTurn($gameId as xs:integer){
 
 
 declare
-%rest:path("/blackjack/{$gameId}/pay")
+%rest:path("/docbook_blackjack/{$gameId}/pay")
 %output:method("html")
 %rest:GET
 %updating
@@ -355,12 +354,12 @@ function blackjack-controller:pay($gameId as xs:integer){
     return (
         (if ($game/@phase = "pay")
             then blackjack-main:payPlayers($gameId)),
-                update:output(web:redirect(concat("/blackjack/", $gameId)))
+                update:output(web:redirect(concat("/docbook_blackjack/", $gameId)))
     )
 };
 
 declare
-%rest:path("/blackjack/restoreAccount")
+%rest:path("/docbook_blackjack/restoreAccount")
 %rest:query-param("playerName", "{$playerName}")
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
@@ -374,7 +373,7 @@ function blackjack-controller:restoreAccount($playerName as xs:string, $playerId
 
 
 declare
-%rest:path("/blackjack/createAccount")
+%rest:path("/docbook_blackjack/createAccount")
 %rest:query-param("playerName", "{$playerName}")
 %output:method("html")
 %rest:POST
@@ -389,12 +388,12 @@ function blackjack-controller:createAccount($playerName as xs:string){
     }
     return (
         insert node $newPlayer into $players,
-        update:output(web:redirect("/blackjack/lobby", $parameters))
+        update:output(web:redirect("/docbook_blackjack/lobby", $parameters))
     )
 };
 
 declare
-%rest:path("/blackjack/{$gameId}/joinGame")
+%rest:path("/docbook_blackjack/{$gameId}/joinGame")
 %rest:query-param("playerId", "{$playerId}")
 %output:method("html")
 %rest:POST

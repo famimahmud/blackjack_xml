@@ -3,10 +3,9 @@ xquery version "3.1";
 module namespace blackjack-main = "Blackjack/Main";
 import module namespace blackjack-helper = "Blackjack/Helper" at "blackjack-helper.xqm";
 
-declare variable $blackjack-main:deck := db:open("Deck")/deck;
-declare variable $blackjack-main:players := db:open("Players")/players;
-declare variable $blackjack-main:games := db:open("Games")/games;
-declare variable $blackjack-main:highscores := db:open("Highscores")/highscores;
+declare variable $blackjack-main:deck := db:open("DocBook_Deck")/deck;
+declare variable $blackjack-main:players := db:open("DocBook_Players")/players;
+declare variable $blackjack-main:games := db:open("DocBook_Games")/games;
 
 (:~
  : Deck gets shuffled
@@ -272,7 +271,7 @@ function blackjack-main:confirmBet($gameId as xs:integer, $playerId as xs:string
         if (count($blackjack-main:games/game[@id = $gameId]/players/player/pool[@locked="true"]/@locked) >= (count($blackjack-main:games/game[@id = $gameId]/players/player) - 1))
         then (
             replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "deal",
-            update:output(web:redirect(concat("/blackjack/", $gameId, "/dealPhase")))
+            update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/dealPhase")))
         )
     )
 };
@@ -303,7 +302,7 @@ declare
 function blackjack-main:dealPhase($gameId as xs:integer){
     if ($blackjack-main:games/game[@id = $gameId]/@phase = "deal") then (
         blackjack-main:handOutOneCardToEach($gameId),
-        update:output(web:redirect(concat("/blackjack/", $gameId, "/handOutOneCardToEach")))
+        update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/handOutOneCardToEach")))
     )
 };
 
@@ -349,8 +348,8 @@ function blackjack-main:moveTurnHelper($gameId as xs:integer, $playerOnTurn as x
                             replace node $blackjack-main:games/game[@id = $gameId]/dealer/hand
                                     with <hand sum="{$dealerHandValue}"><card hidden="false">{$firstCard/type}{$firstCard/value}</card>
                                                 {$blackjack-main:games/game[@id = $gameId]/dealer/hand/card[position() > 1]}</hand>,
-                            update:output(web:redirect(concat("/blackjack/", $gameId, "/dealerTurn"))),
-                            update:output(web:redirect(concat("/blackjack/", $gameId))))
+                            update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/dealerTurn"))),
+                            update:output(web:redirect(concat("/docbook_blackjack/", $gameId))))
                 )
                 else (blackjack-main:moveTurnHelper($gameId, $newPlayerTurn))
         )
@@ -370,15 +369,15 @@ function blackjack-main:dealerTurn($gameId as xs:integer){
 (:            prof:sleep(1000),:)(: pause for 1000ms :)
             if ($dealerHandValue < 17)
             then (blackjack-main:drawCard($gameId, "dealer"),
-            update:output(web:redirect(concat("/blackjack/", $gameId, "/dealerTurn"))))
+            update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/dealerTurn"))))
             else replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "pay",
             if(exists($blackjack-main:games/game[@id = $gameId]/players/player/left) ) then (
                         let $parameters := map {
                                     "playerName": $blackjack-main:games/game[@id = $gameId]/players/player[exists(left)]/@name,
                                     "playerId": $blackjack-main:games/game[@id = $gameId]/players/player[exists(left)]/@id
                                 }
-                                return update:output(web:redirect("/blackjack/lobby", $parameters)))
-                        else update:output(web:redirect(concat("/blackjack/", $gameId)))
+                                return update:output(web:redirect("/docbook_blackjack/lobby", $parameters)))
+                        else update:output(web:redirect(concat("/docbook_blackjack/", $gameId)))
     ))
 };
 
@@ -406,7 +405,7 @@ function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string)
                           <pool locked="false"/>
                    </player>
     return( insert node $newPlayer as last into $blackjack-main:games/game[@id = $gameId]/players,
-            update:output(web:redirect(concat("/blackjack/", $gameId, "/join?playerId=", $playerId))))
+            update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/join?playerId=", $playerId))))
     )
 };
 
@@ -470,7 +469,7 @@ function blackjack-main:leaveGame($gameId as xs:integer, $playerId as xs:string)
                 if (count($blackjack-main:games/game[@id = $gameId]/players/player/pool[@locked="true"]/@locked) >= (count($blackjack-main:games/game[@id = $gameId]/players/player) - 1))
                 then (
                     replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "deal",
-                    update:output(web:redirect(concat("/blackjack/", $gameId, "/dealPhase")))
+                    update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/dealPhase")))
                 )
     )),
     (: if the leaving player was on turn -> moveTurn :)
