@@ -283,7 +283,7 @@
             </foreignObject>
             <!--New Round Button for result phase-->
             <xsl:choose>
-                <xsl:when test="/game/@phase = 'pay'">
+                <xsl:when test="/game/@phase = 'pay' and game/players/player[@id = $playerId]">
                     <foreignObject width="15%" height="20%" x="90%" y="10%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/pay" method="get" id="newRound" target="hiddenFrame">
                             <button class="gameButton" form="newRound" value="Submit">

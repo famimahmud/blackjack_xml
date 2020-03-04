@@ -319,13 +319,14 @@ function blackjack-controller:exit($gameId as xs:integer, $playerId as xs:string
             "playerId": $playerId
         }
     return (
+        if (exists($game/players/player[@id=$playerId])) then (
         insert node <left/> into $game/players/player[@id=$playerId],
         if(exists($game[@id=$gameId]/players/player[@id=$playerId])) (:Check if the player is in the Game:)
         then(if(count($game[@id=$gameId]/players/player) = 1)
             then (blackjack-main:endGame($gameId))
-            else (blackjack-main:leaveGame($gameId, $playerId))),
-
-    update:output(web:redirect("/docbook_blackjack/lobby", $parameters))
+            else (blackjack-main:leaveGame($gameId, $playerId)))
+        ),
+        update:output(web:redirect("/docbook_blackjack/lobby", $parameters))
     )
 };
 

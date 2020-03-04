@@ -203,6 +203,7 @@ function blackjack-main:payPlayers($gameId as xs:integer){
 
 (:~
  : pays out given player and removes the cards form the hand
+ : if the player loses the game and his wallet is empty -> remove him from the game
  : @gameId Id of the game, where the player will be paid out
  : @playerId Id of the player, who will be paid
  : @return model change at player wallet, player pool and player hand
@@ -215,16 +216,21 @@ function blackjack-main:payPlayer($gameId as xs:integer, $playerId as xs:string)
     let $playerValue := $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/hand/@sum
     let $dealerValue := $blackjack-main:lobby/game[@id = $gameId]/dealer/hand/@sum
     return (
-        replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/pool with <pool locked="false"/>,
-        replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/hand with <hand sum="0"/>,
-        (: check if playerhand is below 22 -> if not -> loss :)
-        if ($playerValue < 22) then (
-            (: check if playerhand = dealerhand  -> no gain :)
-            if ( $playerValue = $dealerValue)
-                then (replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/wallet/node() with ($wallet + $poolBet) )
-                        (: check if playerhand > dealerhand or dealerhand > 21 -> profit :)
-                else (if ($playerValue > $dealerValue or $dealerValue > 21)
-                        then (replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/wallet/node() with ($wallet + (2*$poolBet))))
+        if (($playerValue > 21 or ($playerValue < $dealerValue and $dealerValue < 22 ))
+            and $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/wallet < 10)
+            then delete node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]
+            else (
+                replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/pool with <pool locked="false"/>,
+                replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/hand with <hand sum="0"/>,
+                (: check if playerhand is below 22 -> if not -> loss :)
+                if ($playerValue < 22) then (
+                    (: check if playerhand = dealerhand  -> no gain :)
+                    if ( $playerValue = $dealerValue)
+                        then (replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/wallet/node() with ($wallet + $poolBet) )
+                                (: check if playerhand > dealerhand or dealerhand > 21 -> profit :)
+                        else (if ($playerValue > $dealerValue or $dealerValue > 21)
+                                then (replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/wallet/node() with ($wallet + (2*$poolBet))))
+                )
         )
     )
 };
