@@ -94,7 +94,7 @@
                 </text>
 
                 <xsl:choose>
-                    <xsl:when test="count(games/game[@singlePlayer = 'false' and @phase = 'bet']) = 0">
+                    <xsl:when test="count(lobby/game[@singlePlayer = 'false' and @phase = 'bet']) = 0">
                         <text x="{$startX + 4}" y="45" font-size="{$fontSize - 2}"
                               font-style="oblique"
                               alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">No active games
@@ -106,7 +106,7 @@
                         </text>
                         <foreignObject id="gameContainer" x="{$startX}" y="39" width="80%" height="20"
                                        font-family="{$fonts}" font-size="{$fontSize - 1}">
-                            <xsl:for-each select="games/game[@singlePlayer = 'false' and @phase = 'bet']">
+                            <xsl:for-each select="lobby/game[@singlePlayer = 'false' and @phase = 'bet']">
                                 <xsl:variable name="currentRectY" select="0 + ((position() - 1) * 6)"/>
                                 <xsl:variable name="gameID" select="@id"/>
                                 <xsl:variable name="players" select="count(players/player)"/>
@@ -209,7 +209,7 @@
 
                 <!-- Liste der Highscores-->
                 <xsl:choose>
-                    <xsl:when test="count(games/scores/score) = 0">
+                    <xsl:when test="count(lobby/scores/score) = 0">
                         <text y="{$rectHeight div 2}" fill="{$textColor}" font-size="{$fontSize - 2}"
                               font-family="{$fonts}" font-style="oblique">
                             <tspan x="10" alignment-baseline="hanging">
@@ -218,7 +218,7 @@
                         </text>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:for-each select="games/scores/score">
+                        <xsl:for-each select="lobby/scores/score">
                             <!-- Sort by scores -->
                             <xsl:sort select="node()" data-type="number" order="descending"/>
                             <xsl:variable name="currentY" select="($startY + 6) + (position() * 4)"/>

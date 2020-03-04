@@ -18,7 +18,7 @@ declare
 function blackjack-ws:stompdisconnect(){
     let $gameId := blackjack-ws:get(websocket:id(), "gameId")
     return (
-        if (exists($blackjack-main:games/game[@id = $gameId])) then (
+        if (exists($blackjack-main:lobby/game[@id = $gameId])) then (
             let $playerId := blackjack-ws:get(websocket:id(), "playerId")
             let $game := blackjack-main:getGame($gameId)
             return (
