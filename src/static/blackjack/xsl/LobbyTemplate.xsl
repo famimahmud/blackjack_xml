@@ -62,7 +62,7 @@
                         <xsl:variable name="name" select="$playerName"/>
                         <xsl:variable name="id" select="$playerId"/>
                         <text x="{$startX}" y="{$startY}" font-size="{$fontSize - 1}" alignment-baseline="hanging"
-                              fill="{$textColor}" font-family="{$fonts}">Neues Spiel:
+                              fill="{$textColor}" font-family="{$fonts}">New Game:
                         </text>
                         <foreignObject width="100%" height="100%" x="{$startX}" y="{$startY - 1}">
                             <form xmlns="http://www.w3.org/1999/xhtml" action="/blackjack/newGame" method="get"
@@ -83,15 +83,15 @@
                     <xsl:otherwise>
                         <text font-size="{$fontSize - 1}" alignment-baseline="hanging"
                               fill="{$textColor}" font-family="{$fonts}">
-                            <tspan x="{$startX}" y="{$startY + 10}">Erstelle oder lade</tspan>
-                            <tspan x="{$startX}" y="{$startY+ 14}">einen Account!</tspan>
+                            <tspan x="{$startX}" y="{$startY + 10}">Create or restore</tspan>
+                            <tspan x="{$startX}" y="{$startY+ 14}">your account!</tspan>
                         </text>
                     </xsl:otherwise>
                 </xsl:choose>
 
                 <!-- Liste der Spiele -->
                 <text x="{$startX}" y="{$startY + 26}" font-size="{$fontSize - 1}" alignment-baseline="hanging"
-                      fill="{$textColor}" font-family="{$fonts}">Spiele:
+                      fill="{$textColor}" font-family="{$fonts}">Games:
                 </text>
                 <text x="{$startX + 22}" y="{$startY + 30}" font-size="{$fontSize - 2}" font-style="oblique"
                       alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">players
@@ -164,7 +164,7 @@
                                 <br/>
                                 <button style=" outline-width: medium; width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
                                         form="createAccount" value="Submit">
-                                    Account erstellen
+                                    Create account
                                 </button>
                             </form>
                         </foreignObject>
@@ -186,7 +186,7 @@
                         <br/>
                         <button style="outline-width: medium;  width:40px; height:10px; display:table-cell; font-size:{$fontSize - 2}; color: white; border-radius:1px; border: none; vertical-align: middle; background-color: #ED4416 ; cursor: pointer; position: absolute;"
                                 form="restoreAccount" value="Submit">
-                            Account wiederherstellen
+                            Restore account
                         </button>
                     </form>
                 </foreignObject>
