@@ -60,7 +60,8 @@
                     <xsl:when test="$isLoggedIn = 1">
                         <xsl:variable name="name" select="$playerName"/>
                         <xsl:variable name="id" select="$playerId"/>
-                        <text x="{$startX}" y="{$startY}" font-size="{$fontSize - 1}" alignment-baseline="hanging"
+                        <text text-decoration= "underline" x="{$startX}" y="{$startY}" font-size="{$fontSize - 1}"
+                              alignment-baseline="hanging"
                               fill="{$textColor}" font-family="{$fonts}">New Game:
                         </text>
                         <foreignObject width="100%" height="100%" x="{$startX}" y="{$startY - 1}">
@@ -88,7 +89,7 @@
 
                 <!-- Liste der Spiele -->
                 <text x="{$startX}" y="{$startY + 26}" font-size="{$fontSize - 1}" alignment-baseline="hanging"
-                      fill="{$textColor}" font-family="{$fonts}">Games:
+                      text-decoration="underline" fill="{$textColor}" font-family="{$fonts}">Games:
                 </text>
                 <text x="{$startX + 22}" y="{$startY + 30}" font-size="{$fontSize - 2}" font-style="oblique"
                       alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">players
@@ -144,7 +145,7 @@
                               font-family="{$fonts}"
                               text-anchor="middle"
                               alignment-baseline="hanging">
-                            <xsl:value-of select=" concat( 'Highscore: ' , $playerHighscore)"/>
+                            <xsl:value-of select=" concat( 'Highscore: ' , $playerHighscore, '$')"/>
                         </text>
                     </xsl:when>
                     <xsl:otherwise>
@@ -188,8 +189,7 @@
                 <rect x="0" y="0" class="separatorRect" width="{$rectWidth}" height="{$rectHeight}" fill="none" rx="{$edgeRadius}"
                       ry="{$edgeRadius}"/>
                 <text x="{$rectWidth div 2}" y="7.5" fill="{$textColor}" font-size="{$fontSize}" font-family="{$fonts}"
-                      text-anchor="middle"
-                      alignment-baseline="hanging">
+                      text-anchor="middle" text-decoration="underline" alignment-baseline="hanging">
                     Highscores
                 </text>
 
