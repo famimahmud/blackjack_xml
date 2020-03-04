@@ -15,11 +15,11 @@ declare
 %updating
 %rest:GET
 function blackjack-controller:setup() {
-    let $games_model := doc(concat($blackjack-controller:staticPath, "db/Games.xml"))
+    let $lobby_model := doc(concat($blackjack-controller:staticPath, "db/Lobby.xml"))
     let $deck_model := doc(concat($blackjack-controller:staticPath, "db/Deck.xml"))
     let $players_model := doc(concat($blackjack-controller:staticPath, "db/Players.xml"))
     let $redirectLink := "/docbook_blackjack"
-    return (db:create("DocBook_Games", $games_model), db:create("DocBook_Deck", $deck_model), db:create("DocBook_Players", $players_model),
+    return (db:create("DocBook_Lobby", $lobby_model), db:create("DocBook_Deck", $deck_model), db:create("DocBook_Players", $players_model),
     update:output(web:redirect($redirectLink)))
 };
 
@@ -31,7 +31,7 @@ declare
 %rest:query-param("playerId", "{$playerId}")
 %rest:path("/docbook_blackjack/lobby")
 function blackjack-controller:start($playerName as xs:string?, $playerId as xs:string?){
-        let $games := blackjack-main:getGames()
+        let $lobby := blackjack-main:getLobby()
         let $xslStylesheet := "LobbyTemplate.xsl"
         let $title := "Blackjack | Lobby"
         let $emptyMap := map {
@@ -50,7 +50,7 @@ function blackjack-controller:start($playerName as xs:string?, $playerId as xs:s
         ) else (
             $emptyMap
         )
-        return blackjack-controller:generateLobby($games, $xslStylesheet, $parameters, $title)
+        return blackjack-controller:generateLobby($lobby, $xslStylesheet, $parameters, $title)
 };
 
 
@@ -114,10 +114,10 @@ function blackjack-controller:redirectLobby(){
     update:output(web:redirect("/docbook_blackjack/lobby"))
 };
 
-declare function blackjack-controller:generateLobby($games as element(games), $xslStylesheet as xs:string, $parameters as item()*,
+declare function blackjack-controller:generateLobby($lobby as element(lobby), $xslStylesheet as xs:string, $parameters as item()*,
         $title as xs:string) {
     let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/", $xslStylesheet))
-    let $transformed := xslt:transform($games, $stylesheet, $parameters)
+    let $transformed := xslt:transform($lobby, $stylesheet, $parameters)
     return
         <html>
             <head>
@@ -261,12 +261,12 @@ function blackjack-controller:handOutOneCardToEach($gameId as xs:integer){
         if($game/@phase = "deal")
         then (blackjack-main:handOutOneCardToEach($gameId),
             blackjack-main:moveTurn($gameId, "dealer"),
-            replace value of node $blackjack-main:games/game[@id = $gameId]/@phase with "play")
+            replace value of node $blackjack-main:lobby/game[@id = $gameId]/@phase with "play")
         ),
-        if(exists($blackjack-main:games/game[@id = $gameId]/players/player/left) ) then (
+        if(exists($blackjack-main:lobby/game[@id = $gameId]/players/player/left) ) then (
             let $parameters := map {
-                        "playerName": $blackjack-main:games/game[@id = $gameId]/players/player[exists(left)]/@name,
-                        "playerId": $blackjack-main:games/game[@id = $gameId]/players/player[exists(left)]/@id
+                        "playerName": $blackjack-main:lobby/game[@id = $gameId]/players/player[exists(left)]/@name,
+                        "playerId": $blackjack-main:lobby/game[@id = $gameId]/players/player[exists(left)]/@id
                     }
                     return update:output(web:redirect("/docbook_blackjack/lobby", $parameters)))
             else update:output(web:redirect(concat("/docbook_blackjack/", $gameId)))

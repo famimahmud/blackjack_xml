@@ -1,6 +1,6 @@
 <?xml encoding="UTF-8"?>
 
-<!ELEMENT games (scores, game*)>
+<!ELEMENT lobby (scores, game*)>
 
 <!ELEMENT scores (score*)>
 

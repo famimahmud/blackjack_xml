@@ -3,7 +3,7 @@ xquery version "3.1";
 module namespace blackjack-helper = "Blackjack/Helper";
 
 declare variable $blackjack-helper:players := db:open("DocBook_Players")/players;
-declare variable $blackjack-helper:games := db:open("DocBook_Games")/games;
+declare variable $blackjack-helper:lobby := db:open("DocBook_Lobby")/lobby;
 
 (:~
  : Return random number from given interval [0, max]
@@ -45,7 +45,7 @@ declare variable $blackjack-helper:games := db:open("DocBook_Games")/games;
   declare function blackjack-helper:createGameId() as xs:integer {
      let $newID := blackjack-helper:getRandomIntFromRange(1000, 9999)
      return (
-         if (boolean($blackjack-helper:games/game[@id = $newID])) then
+         if (boolean($blackjack-helper:lobby/game[@id = $newID])) then
              blackjack-helper:createPlayerId()
          else
              $newID
@@ -76,9 +76,9 @@ declare variable $blackjack-helper:games := db:open("DocBook_Games")/games;
 
 
    (:~
-    : Get player scores from games database
+    : Get player scores from lobby database
     : @return player scores
     :)
     declare function blackjack-helper:getScoreBoard() {
-       $blackjack-helper:games/scores
+       $blackjack-helper:lobby/scores
     };
