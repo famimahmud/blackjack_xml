@@ -104,7 +104,7 @@
                         <text x="{$startX + 22}" y="{$startY + 30}" font-size="{$fontSize - 2}" font-style="oblique"
                               alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">players
                         </text>
-                        <foreignObject id="gameContainer" x="{$startX}" y="39" width="80%" height="20"
+                        <foreignObject id="gameContainer" x="{$startX}" y="39" width="49" height="20"
                                        font-family="{$fonts}" font-size="{$fontSize - 1}">
                             <xsl:for-each select="lobby/game[@singlePlayer = 'false' and @phase = 'bet']">
                                 <xsl:variable name="currentRectY" select="0 + ((position() - 1) * 6)"/>
@@ -165,7 +165,7 @@
                                        font-size="{$fontSize - 1}" x="{$startX}" y="{$startY}">
                             <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/createAccount" method="post"
                                   id="createAccount">
-                                <input class="inputBox" size="36" type="text" name="playerName" id="playerName1"
+                                <input class="inputBox" size="18" type="text" name="playerName" id="playerName1"
                                        placeholder="Name"/>
                                 <br/>
                                 <button class="accountButton" form="createAccount" value="Submit">
@@ -184,9 +184,9 @@
                                font-size="{$fontSize - 1}" x="{$startX}" y="{$startY+30}">
                     <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/lobby" method="get"
                           id="restoreAccount">
-                        <input size="23" class="inputBox" type="text" name="playerName" id="playerName"
+                        <input size="12" class="inputBox" type="text" name="playerName" id="playerName"
                                placeholder="Name"/>
-                        <input size="8" class="inputBox" type="text" name="playerId" id="playerId" placeholder="ID"/>
+                        <input size="4" class="inputBox" type="text" name="playerId" id="playerId" placeholder="ID"/>
                         <br/>
                         <button class="accountButton" form="restoreAccount" value="Submit">
                             Restore account
