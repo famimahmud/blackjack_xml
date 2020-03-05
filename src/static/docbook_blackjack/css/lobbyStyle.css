@@ -1,6 +1,5 @@
-#singlePlayerButton {
-    outline-width: medium;
-    top: 13%;
+Button{
+    outline: none;
     width: 80%;
     height: 10%;
     display: table-cell;
@@ -9,27 +8,21 @@
     border-radius: 1px;
     border: none;
     vertical-align: middle;
-    background-color: #ED4416;
+    background-color: #F03100;
     cursor: pointer;
     position: absolute;
     font-family: Raleway, sans-serif;
 }
 
+
+#singlePlayerButton {
+    top: 13%;
+
+}
+
 #multiPlayerButton {
     outline-width: medium;
     top: 27%;
-    width: 80%;
-    height: 10%;
-    display: table-cell;
-    font-size: 3;
-    color: white;
-    border-radius: 1px;
-    border: none;
-    vertical-align: middle;
-    background-color: #ED4416;
-    cursor: pointer;
-    position: absolute;
-    font-family: Raleway, sans-serif;
 }
 
 .joinGameButton {
@@ -37,16 +30,8 @@
     text-align: center;
     margin: auto;
     height: 25%;
-    outline-width: medium;
-    display: table-cell;
     font-size: 2.5;
-    color: white;
-    border-radius: 1px;
-    border: none;
-    background-color: #ED4416;
-    cursor: pointer;
     margin-bottom: -3;
-    font-family: Raleway, sans-serif;
 }
 
 .separatorRect {
@@ -62,21 +47,14 @@
 }
 
 .accountButton {
-    outline-width: medium;
     width: 40px;
     height: 10px;
-    display: table-cell;
-    font-size: 3;
-    color: white;
-    border-radius: 1px;
-    border: none;
-    vertical-align: middle;
-    background-color: #ED4416;
-    cursor: pointer;
-    position: absolute;
-    font-family: Raleway, sans-serif;
 }
 
 #gameContainer {
     overflow-y: scroll
+}
+
+Button:hover{
+    background-color: #FF582E;
 }

@@ -15,7 +15,7 @@
     border-radius: 1px;
     border: none;
     vertical-align: middle;
-    background-color: #ed4a29;
+    background-color: #F03100;
     cursor: pointer;
     position: absolute;
     width: 20;
@@ -27,4 +27,8 @@
 .chipButton {
     background: transparent;
     border: none !important;
+}
+
+.gameButton:hover{
+    background-color: #FF582E;
 }
