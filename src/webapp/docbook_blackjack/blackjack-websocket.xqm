@@ -5,6 +5,10 @@ import module namespace websocket = "http://basex.org/modules/ws";
 
 import module namespace blackjack-main = "Blackjack/Main" at "blackjack-main.xqm";
 
+ (:~
+  : Triggered if a player connects to a websocket:
+  : @return console log with connected player and websocket-Id
+  :)
 declare
 %ws-stomp:connect("/docbook_blackjack")
 %updating
@@ -12,6 +16,11 @@ function blackjack-ws:stompconnect(){
     update:output(trace(concat("WS client connected with id ", websocket:id())))
 };
 
+ (:~
+  : Triggered if a player disconnects from a websocket:
+  :     If the player leaft the game -> delete this player from game
+  : @return model changed game /if a player left the game
+  :)
 declare
 %ws:close("/docbook_blackjack")
 %updating
@@ -30,6 +39,11 @@ function blackjack-ws:stompdisconnect(){
     )
 };
 
+ (:~
+  : Triggered if a player subscribes to a websocket
+  : saves playerId, gameId and applicationId to the websocket-Id
+  : @return console log with connected player and game Ids
+  :)
 declare
 %ws-stomp:subscribe("/docbook_blackjack")
 %ws:header-param("param0", "{$game}")
@@ -43,14 +57,25 @@ function blackjack-ws:subscribe($game, $playerId, $gameId){
     update:output(trace(concat("WS client with id: ", ws:id(), " and PlayerID: ", $playerId ," subscribed to ", $gameId)))
 };
 
+
 declare function blackjack-ws:getIDs(){
     websocket:ids()
 };
 
+ (:~
+  : send massage via websocket
+  : @data sended data
+  : @path websocket-path, where to send the data
+  :)
 declare function blackjack-ws:send($data, $path){
     websocket:sendchannel(fn:serialize($data), $path)
 };
 
+ (:~
+  : get information from a websocket-ID
+  : @key the websocket-Id
+  : @value asked information
+  :)
 declare function blackjack-ws:get($key, $value){
     websocket:get($key, $value)
 };

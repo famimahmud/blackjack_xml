@@ -6,22 +6,23 @@ declare variable $blackjack-helper:players := db:open("DocBook_Players")/players
 declare variable $blackjack-helper:lobby := db:open("DocBook_Lobby")/lobby;
 
 (:~
- : Return random number from given interval [0, max]
+ : Return random number from given interval [1, max]
+ : @max the maximum for the ramdon integer
  : @return  the calculated random integer
  :)
  declare function blackjack-helper:getRandomInt($max as xs:integer) as xs:integer {
     (random:integer($max) + 1)
  };
 
-
  (:~
   : Return random number from given interval [min, max]
+  : @min the minimum for the ramdon integer
+  : @max the maximum for the ramdon integer
   : @return  the calculated random integer
   :)
   declare function blackjack-helper:getRandomIntFromRange($min as xs:integer, $max as xs:integer) as xs:integer {
      ((random:integer($max - $min) + 1) + $min)
   };
-
 
 (:~
  : Creates new random player ID
@@ -37,7 +38,6 @@ declare variable $blackjack-helper:lobby := db:open("DocBook_Lobby")/lobby;
     )
  };
 
-
  (:~
   : Creates new random game ID
   : @return new game ID
@@ -52,9 +52,10 @@ declare variable $blackjack-helper:lobby := db:open("DocBook_Lobby")/lobby;
      )
   };
 
-
  (:~
   : Check whether player exists in player database
+  : @playerName name of the searched player
+  : @playerId Id of the searched player
   : @return boolean returning existence
   :)
   declare function blackjack-helper:playerExists($playerName as xs:string?, $playerId as xs:string?) as xs:boolean {
@@ -65,15 +66,15 @@ declare variable $blackjack-helper:lobby := db:open("DocBook_Lobby")/lobby;
      )
   };
 
-
  (:~
   : Get player highscore from player database
+  : @playerName name of the player with the searched highscore
+  : @playerId Id of the player with the searched highscore
   : @return player highscore
   :)
   declare function blackjack-helper:getPlayerHighscore($playerName as xs:string, $playerId as xs:string) as xs:integer {
      $blackjack-helper:players/player[@name = $playerName and @id = $playerId]/@highscore
   };
-
 
    (:~
     : Get player scores from lobby database
