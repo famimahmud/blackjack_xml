@@ -88,7 +88,7 @@
                   alignment-baseline="hanging">
                 <xsl:value-of select="concat('Game#', $gameId)"/>
             </text>
-            <!--TODO Multiclient-->
+
             <text x="2" y="6" fill="{$textColor}" font-size="{$fontSize - 1.5}"
                   font-family="{$fonts}"
                   alignment-baseline="hanging">
@@ -161,6 +161,7 @@
             <!-- Generate player card boxes -->
             <xsl:for-each select="*/players/player">
                 <xsl:variable name="name" select="@name"/>
+                <xsl:variable name="locked" select="pool/@locked"/>
                 <xsl:variable name="wallet" select="wallet"/>
                 <xsl:variable name="position" select="position()"/>
                 <xsl:variable name="fieldPos"
@@ -181,7 +182,14 @@
                     <text x="{$fieldWidth div 2}" y="{$fieldHeight + ($fontSize div 2) + 1}" text-anchor="middle"
                           alignment-baseline="central"
                           fill="{$playerColor}" stroke="none">
-                        <xsl:value-of select="$name"/>
+                        <xsl:choose>
+                            <xsl:when test="/*/@phase ='bet' and $locked = 'true'">
+                                <xsl:value-of select="concat($name, ' ✓')"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="$name"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </text>
                     <text x="{$fieldWidth div 2}" y="{$fieldHeight + ($fontSize div 2) + 4}" text-anchor="middle"
                           alignment-baseline="central" font-size="2"
