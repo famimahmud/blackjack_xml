@@ -2,7 +2,7 @@ xquery version "3.1";
 (:~
  : The main module contains functions to implement the game logic of the blackjack game.
  :
- : @author   Moritz Issig, Patryk Bazoza, Fami Mahmud
+ : @author   Moritz Issig, Patryk Brzoza, Fami Mahmud
  : @see      e.g. chapter main game in the documentation
  : @version  1.0
  :)
@@ -305,8 +305,8 @@ function blackjack-main:moveTurnHelper($gameId as xs:integer, $playerOnTurn as x
             then "dealer"
             else if ($playerOnTurn = "dealer") then $blackjack-main:lobby/game[@id = $gameId]/players/player[position() = 1]/@id
                  else $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
-                 (: checks if the hand of the next player is "dealer" or the hand is less than 21 -> if false: move Turn again :)
-        return ( if ($newPlayerTurn = "dealer" or $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$newPlayerTurn]/hand/@sum <= 21)
+                 (: checks if the hand of the next player is "dealer" or if the player left the game -> if false: move Turn again :)
+        return ( if ($newPlayerTurn = "dealer" or not(exists($blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$newPlayerTurn]/left)))
             then (
                 replace value of node $blackjack-main:lobby/game[@id = $gameId]/@onTurn with $newPlayerTurn,
                 if ($newPlayerTurn = "dealer")

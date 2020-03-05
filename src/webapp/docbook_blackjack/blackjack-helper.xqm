@@ -3,7 +3,7 @@ xquery version "3.1";
  : This module is used for helper functions like generating a Deck or a random number.
  : The generated random number determines Ids or draws random cards out of the deck.
  :
- : @author   Moritz Issig, Patryk Bazoza, Fami Mahmud
+ : @author   Moritz Issig, Patryk Brzoza, Fami Mahmud
  : @see      e.g. chapter helper in the documentation
  : @version  1.0
  :)
@@ -109,4 +109,12 @@ declare variable $blackjack-helper:lobby := db:open("DocBook_Lobby")/lobby;
     :)
     declare function blackjack-helper:getScoreBoard() {
        $blackjack-helper:lobby/scores
+    };
+
+(:~
+    : Get player name from id
+    : @return player name as string
+    :)
+    declare function blackjack-helper:getPlayerName($playerId as xs:string) {
+       $blackjack-helper:players/player[@id = $playerId]/@name
     };

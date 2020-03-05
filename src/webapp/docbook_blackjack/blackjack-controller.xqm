@@ -5,7 +5,7 @@ xquery version "3.1";
  : game module for the Blackjack game. It furthermore handles redirects, creation of the
  : database, and generation of the XSLT delivered to the clients view for display." (Philipp Ulrich)
  :
- : @author   Moritz Issig, Patryk Bazoza, Fami Mahmud
+ : @author   Moritz Issig, Patryk Brzoza, Fami Mahmud
  : @see      e.g. chapter controller in the documentation
  : @version  1.0
  :)
@@ -389,19 +389,17 @@ declare
 %updating
 function blackjack-controller:exit($gameId as xs:integer, $playerId as xs:string, $playerName as xs:string){
     let $game := blackjack-main:getGame($gameId)
-    let $parameters := map {
-            "playerName": $playerName,
-            "playerId": $playerId
-        }
     return (
         if (exists($game/players/player[@id=$playerId])) then (
         insert node <left/> into $game/players/player[@id=$playerId],
         if(exists($game[@id=$gameId]/players/player[@id=$playerId])) (:Check if the player is in the Game:)
         then(if(count($game[@id=$gameId]/players/player) = 1)
             then (blackjack-main:endGame($gameId))
-            else (blackjack-main:leaveGame($gameId, $playerId)))
-        ),
-        update:output(web:redirect("/docbook_blackjack/lobby", $parameters))
+            else (blackjack-main:leaveGame($gameId, $playerId))),
+            update:output(web:redirect("/docbook_blackjack/lobby", map {"playerName": $playerName,"playerId": $playerId}))
+        ) else (
+        update:output(web:redirect("/docbook_blackjack/lobby", map {"playerName": blackjack-helper:getPlayerName($playerId), "playerId": $playerId}))
+        )
     )
 };
 
