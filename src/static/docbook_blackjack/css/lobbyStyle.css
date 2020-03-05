@@ -26,6 +26,7 @@ Button{
 }
 
 .joinGameButton {
+    outline: none;
     text-align: center;
     margin: auto;
     height: 25%;

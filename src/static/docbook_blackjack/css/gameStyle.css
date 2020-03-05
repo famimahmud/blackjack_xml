@@ -8,7 +8,7 @@
 }
 
 .gameButton {
-    outline-width: medium;
+    outline: none;
     display: table-cell;
     font-size: 3px;
     color: white;
