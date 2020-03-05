@@ -2,7 +2,7 @@ xquery version "3.1";
 (:~
  : The main module contains functions to implement the game logic of the blackjack game.
  :
- : @author   Moritz Issig, Patryk Bazoza, Fami Mahmud
+ : @author   Moritz Issig, Patryk Brzoza, Fami Mahmud
  : @see      e.g. chapter main game in the documentation
  : @version  1.0
  :)
