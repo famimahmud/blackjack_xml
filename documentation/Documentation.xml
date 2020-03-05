@@ -157,6 +157,15 @@
                 possible to query big XML documents as well as transfer the transformed data to the
                 clients using Websockets. </para>
         </sect1>
+        <sect1>
+            <title>Websocket</title>
+            <para>Since a REST-Response can only be send to the client, who sent the REST-Request,
+                Websockets are an usefull tool to send updates also to clients, which doesn't sent a
+                request. BaseX-STOMP offers these websockets. If a client opens a page he subscribes
+                to the websocket. This websocket-connection will not be closed. The server can then
+                send massages to all clients, which subscribed to the websocket. Also a client can
+                send a message to the server.</para>
+        </sect1>
     </chapter>
     <chapter>
         <title>Project Requirements</title>
