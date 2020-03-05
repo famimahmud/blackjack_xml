@@ -1,5 +1,14 @@
 xquery version "3.1";
-
+(:~
+ : "The controller is responsible for all HTTP request and interacts directly with the client.
+ : It abstracts the interface from the client and calls the responsible methods in the main
+ : game module for the Blackjack game. It furthermore handles redirects, creation of the
+ : database, and generation of the XSLT delivered to the clients view for display." (Philipp Ulrich)
+ :
+ : @author   Moritz Issig, Patryk Bazoza, Fami Mahmud
+ : @see      e.g. chapter controller in the documentation
+ : @version  1.0
+ :)
 module namespace blackjack-controller = "blackjack-controller.xqm";
 
 import module namespace request = "http://exquery.org/ns/request";
@@ -9,6 +18,10 @@ import module namespace blackjack-ws = "Blackjack/WS" at "blackjack-websocket.xq
 
 declare variable $blackjack-controller:staticPath := "../static/docbook_blackjack/";
 
+ (:~
+  : if the datacase doesn't exist -> create the databases "Lobby", "Deck"
+  : @return redirects User to the Lobby
+  :)
 declare
 %rest:path("docbook_blackjack/setup")
 %output:method("xhtml")
@@ -19,11 +32,20 @@ function blackjack-controller:setup() {
     let $deck_model := doc(concat($blackjack-controller:staticPath, "db/Deck.xml"))
     let $players_model := doc(concat($blackjack-controller:staticPath, "db/Players.xml"))
     let $redirectLink := "/docbook_blackjack"
-    return (db:create("DocBook_Lobby", $lobby_model), db:create("DocBook_Deck", $deck_model), db:create("DocBook_Players", $players_model),
+    return (
+        if (not(db:exists("DocBook_Lobby")))
+        then (db:create("DocBook_Lobby", $lobby_model), db:create("DocBook_Deck", $deck_model), db:create("DocBook_Players", $players_model)),
     update:output(web:redirect($redirectLink)))
 };
 
-
+ (:~
+  : return the Lobby-Page to the user
+  : if given playerName and playerId exist -> loggedIn-Lobby
+  : else: loggedOut-Lobby
+  : @playerName name of the logged in user
+  : @playerId id of the logged in user
+  : @return created Lobby-File
+  :)
 declare
 %rest:GET
 %output:method("html")
@@ -53,7 +75,13 @@ function blackjack-controller:start($playerName as xs:string?, $playerId as xs:s
         return blackjack-controller:generateLobby($lobby, $xslStylesheet, $parameters, $title)
 };
 
-
+ (:~
+  : creates a new game with the given player as first player
+  : @playerName name of user, who created the new game
+  : @playerId id of user, who created the new game
+  : @singlePlayer flag, which is set if the new game is a singlePlayer game
+  : @return model change with new game and redirects user to new game-page
+  :)
 declare
 %rest:path("/docbook_blackjack/newGame")
 %rest:query-param("playerName", "{$playerName}")
@@ -67,6 +95,12 @@ function blackjack-controller:newGame($playerName as xs:string, $playerId as xs:
                 update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/join?playerId=", $playerId))))
 };
 
+ (:~
+  : join an existing MultiPlayer-Game -> subscribe to Websocket on that page
+  : @gameId Id of the game, which the players joins
+  : @playerId id of the user, who joins the game
+  : @return redirects user to game-page
+  :)
 declare
 %rest:GET
 %output:method("html")
@@ -96,16 +130,9 @@ function blackjack-controller:join($gameId as xs:integer, $playerId as xs:string
     return $html
 };
 
-declare
-%rest:path("/docbook_blackjack/{$gameId}/newRound")
-%rest:GET
-%updating
-function blackjack-controller:newRound($gameId as xs:integer){
-    blackjack-main:newRound($gameId),
-    update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/pay")))
-};
-
-
+ (:~
+  : redirects user to Lobby
+  :)
 declare
 %rest:path("/docbook_blackjack")
 %rest:GET
@@ -114,6 +141,13 @@ function blackjack-controller:redirectLobby(){
     update:output(web:redirect("/docbook_blackjack/lobby"))
 };
 
+ (:~
+  : gives the HTML-View of the Lobby
+  : @lobby Lobby-Element, which should be generated
+  : @xslStylesheet name of the used xsl-Stylesheet
+  : @parameters parameters, which are used in the xsl-Stylesheet
+  : @return HTML-Text with the generated Lobby-View
+  :)
 declare function blackjack-controller:generateLobby($lobby as element(lobby), $xslStylesheet as xs:string, $parameters as item()*,
         $title as xs:string) {
     let $stylesheet := doc(concat($blackjack-controller:staticPath, "xsl/", $xslStylesheet))
@@ -131,6 +165,11 @@ declare function blackjack-controller:generateLobby($lobby as element(lobby), $x
         </html>
 };
 
+ (:~
+  : update game-views via websocket
+  : @gameId Id of the game, were all players get a websocket update
+  : @return empty HTML (for hiddenFrame)
+  :)
 declare
 %rest:path("/docbook_blackjack/{$gameId}")
 %rest:GET
@@ -151,6 +190,12 @@ function blackjack-controller:drawGame($gameId as xs:integer) {
     )
 };
 
+ (:~
+  : returns the HTML of the game
+  : @gameId Id of the game, which will be generated
+  : @playerId Id of the player, for whom the game is generated
+  : @return HTML of the game with specific player-View
+  :)
 declare
 %rest:path("/docbook_blackjack/{$gameId}/getGameLayout")
 %rest:query-param("playerId", "{$playerId}")
@@ -167,22 +212,13 @@ function blackjack-controller:getGameLayout($gameId as xs:integer, $playerId as 
     return ($transformed)
 };
 
-declare function blackjack-controller:generatePage($gameId as xs:integer, $playerId as xs:integer, $title as xs:string) {
-    let $transformed := blackjack-controller:getGameLayout($gameId, $playerId)
-    return
-        <html>
-            <head>
-                <title>{$title}</title>
-                <link rel="icon" type="image/svg+xml" href="/static/docbook_blackjack/assets/icons/Logo.svg" sizes="any"/>
-                <link rel="stylesheet" type="text/css" href="/static/docbook_blackjack/css/gameStyle.css"/>
-            </head>
-            <body style="background: url(/static/docbook_blackjack/assets/TableBackgroundCompressed.svg">
-                {$transformed}
-            </body>
-        </html>
-};
-
-
+ (:~
+  : place an chip into the player-pool
+  : @gameId Id of the game, where the player bets
+  : @playerId Id of the player, who bets
+  : @chipValue value of the bet chip
+  : @return model change and via websocket updated page
+  :)
 declare
 %rest:path("/docbook_blackjack/{$gameId}/bet")
 %rest:query-param("playerId", "{$playerId}")
@@ -199,7 +235,12 @@ function blackjack-controller:bet($gameId as xs:integer, $playerId as xs:string,
     )
 };
 
-
+ (:~
+  : confirms bet chips of the given player
+  : @gameId Id of the game, where the player confirms his bet
+  : @playerId Id of the player, who confirms his bet
+  : @return via websocket updated page
+  :)
 declare
 %rest:path("/docbook_blackjack/{$gameId}/confirmBet")
 %rest:query-param("playerId", "{$playerId}")
@@ -215,7 +256,12 @@ function blackjack-controller:confirmBet($gameId as xs:integer, $playerId as xs:
     )
 };
 
-
+ (:~
+  : reset bet chips of the given player
+  : @gameId Id of the game, where the player resets his bet
+  : @playerId Id of the player, who resets his bet
+  : @return model change and via websocket updated page
+  :)
 declare
 %rest:path("/docbook_blackjack/{$gameId}/resetBet")
 %rest:query-param("playerId", "{$playerId}")
@@ -235,7 +281,11 @@ function blackjack-controller:resetBet($gameId as xs:integer, $playerId as xs:st
     )
 };
 
-
+ (:~
+  : dealer gives two card to each
+  : @gameId Id of the game, where the dealer deals the cards
+  : @return model change
+  :)
 declare
 %rest:path("/docbook_blackjack/{$gameId}/dealPhase")
 %output:method("html")
@@ -249,7 +299,12 @@ function blackjack-controller:dealPhase($gameId as xs:integer){
         )
 };
 
-
+ (:~
+  : dealer gives one card to each
+  : @gameId Id of the game, where the dealer deals the cards
+  : @return model change and via websocket updated page
+  :         or if a leaving players triggered the dealPhase -> return this player to the Lobby
+  :)
 declare
 %rest:path("/docbook_blackjack/{$gameId}/handOutOneCardToEach")
 %output:method("html")
@@ -272,7 +327,12 @@ function blackjack-controller:handOutOneCardToEach($gameId as xs:integer){
             else update:output(web:redirect(concat("/docbook_blackjack/", $gameId)))
 };
 
-
+ (:~
+  : player hits (gets one card)
+  : @gameId Id of the game, where the player hits
+  : @playerId Id of the hitting player
+  : @return model change and via websocket updated page
+  :)
 declare
 %rest:path("/docbook_blackjack/{$gameId}/hit")
 %rest:query-param("playerId", "{$playerId}")
@@ -288,7 +348,12 @@ function blackjack-controller:hit($gameId as xs:integer, $playerId as xs:string)
     )
 };
 
-
+ (:~
+  : player stands (stops to get more cards)
+  : @gameId Id of the game, where the player stands
+  : @playerId Id of the stand player
+  : @return model change and via websocket updated page
+  :)
 declare
 %rest:path("/docbook_blackjack/{$gameId}/stand")
 %rest:query-param("playerId", "{$playerId}")
@@ -305,6 +370,16 @@ function blackjack-controller:stand($gameId as xs:integer, $playerId as xs:strin
     )
 };
 
+ (:~
+  : player exits the game:
+  :     if spectator -> direct to Lobby
+  :     if only player in game -> delete game and go to Lobby
+  :     if not last player in game -> mark player as left and go to Lobby
+                eventually trigger dealerPhase or dealerTurn
+  : @gameId Id of the game, where the player exits
+  : @playerId Id of the exiting player
+  : @return model change no update via websocket
+  :)
 declare
 %rest:path("/docbook_blackjack/{$gameId}/exit")
 %rest:query-param("playerId", "{$playerId}")
@@ -330,7 +405,11 @@ function blackjack-controller:exit($gameId as xs:integer, $playerId as xs:string
     )
 };
 
-
+ (:~
+  : dealer starts his turn
+  : @gameId Id of the game, where the dealerTurn starts
+  : @return model change and update via websocket
+  :)
 declare
 %rest:path("/docbook_blackjack/{$gameId}/dealerTurn")
 %output:method("html")
@@ -344,7 +423,11 @@ function blackjack-controller:dealerTurn($gameId as xs:integer){
         )
 };
 
-
+ (:~
+  : pay ot every player and remove chips and cards from table
+  : @gameId Id of the game, where the pay out starts
+  : @return model change and update via websocket
+  :)
 declare
 %rest:path("/docbook_blackjack/{$gameId}/pay")
 %output:method("html")
@@ -359,6 +442,12 @@ function blackjack-controller:pay($gameId as xs:integer){
     )
 };
 
+ (:~
+  : log in with an existing player
+  : @playerName name of the existing player
+  : @playerId Id of the existing player
+  : @return if player really exists: model change and lobby-page-update
+  :)
 declare
 %rest:path("/docbook_blackjack/restoreAccount")
 %rest:query-param("playerName", "{$playerName}")
@@ -372,7 +461,11 @@ function blackjack-controller:restoreAccount($playerName as xs:string, $playerId
     )
 };
 
-
+ (:~
+  : log in as a new player
+  : @playerName name for the new player
+  : @return model change and lobby-page-update
+  :)
 declare
 %rest:path("/docbook_blackjack/createAccount")
 %rest:query-param("playerName", "{$playerName}")
@@ -393,6 +486,12 @@ function blackjack-controller:createAccount($playerName as xs:string){
     )
 };
 
+ (:~
+  : add player to game and join Game
+  : @gameId id for the game, where the player joins
+  : @playerId id for the joining player
+  : @return model change and redirect to game-Page
+  :)
 declare
 %rest:path("/docbook_blackjack/{$gameId}/joinGame")
 %rest:query-param("playerId", "{$playerId}")
