@@ -213,28 +213,6 @@ function blackjack-controller:getGameLayout($gameId as xs:integer, $playerId as 
 };
 
  (:~
-  : generate the HTML of the game
-  : @gameId Id of the game, which will be generated
-  : @playerId Id of the player, for whom the game is generated
-  : @title title for the generated page
-  : @return generated HTML of the game with specific player-View
-  :)
-declare function blackjack-controller:generatePage($gameId as xs:integer, $playerId as xs:integer, $title as xs:string) {
-    let $transformed := blackjack-controller:getGameLayout($gameId, $playerId)
-    return
-        <html>
-            <head>
-                <title>{$title}</title>
-                <link rel="icon" type="image/svg+xml" href="/static/docbook_blackjack/assets/icons/Logo.svg" sizes="any"/>
-                <link rel="stylesheet" type="text/css" href="/static/docbook_blackjack/css/gameStyle.css"/>
-            </head>
-            <body style="background: url(/static/docbook_blackjack/assets/TableBackgroundCompressed.svg">
-                {$transformed}
-            </body>
-        </html>
-};
-
- (:~
   : place an chip into the player-pool
   : @gameId Id of the game, where the player bets
   : @playerId Id of the player, who bets

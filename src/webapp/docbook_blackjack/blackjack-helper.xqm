@@ -10,8 +10,27 @@ xquery version "3.1";
 
 module namespace blackjack-helper = "Blackjack/Helper";
 
+declare variable $blackjack-helper:deck := db:open("DocBook_Deck")/deck;
 declare variable $blackjack-helper:players := db:open("DocBook_Players")/players;
 declare variable $blackjack-helper:lobby := db:open("DocBook_Lobby")/lobby;
+
+(:~
+ : Builds a deck with 312 cards (6x 52-Decks)
+ : @return a deck with 312 cards
+ :)
+ declare function blackjack-helper:generateDeck() as element(deck) {
+    let $deck :=
+        <deck>
+            {$blackjack-helper:deck/card}
+            {$blackjack-helper:deck/card}
+            {$blackjack-helper:deck/card}
+            {$blackjack-helper:deck/card}
+            {$blackjack-helper:deck/card}
+            {$blackjack-helper:deck/card}
+        </deck>
+    return ($deck)
+ };
+
 
 (:~
  : Return random number from given interval [1, max]
