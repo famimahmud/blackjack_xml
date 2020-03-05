@@ -3,21 +3,8 @@ xquery version "3.1";
 module namespace blackjack-main = "Blackjack/Main";
 import module namespace blackjack-helper = "Blackjack/Helper" at "blackjack-helper.xqm";
 
-declare variable $blackjack-main:deck := db:open("DocBook_Deck")/deck;
 declare variable $blackjack-main:players := db:open("DocBook_Players")/players;
 declare variable $blackjack-main:lobby := db:open("DocBook_Lobby")/lobby;
-
-(:~
- : Deck gets shuffled
- : @return the shuffled deck
- :)
-declare
-%private
-function blackjack-main:shuffleDeck() {
-    let $ret := $blackjack-main:deck
-    return ($ret)
-};
-
 
 (:~
   : Initate a new Game by creating a new Game model
@@ -27,11 +14,10 @@ function blackjack-main:shuffleDeck() {
   : @singlePlayer flag: if true it's not possible to join the game
   : @return model change
   :)
-
 declare
 %updating
 function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string, $playerId as xs:string, $singlePlayer as xs:string) {
-      let $deck := blackjack-main:generateDeck()
+      let $deck := blackjack-helper:generateDeck()
       let $game :=
           <game id="{$gameId}" singlePlayer="{$singlePlayer}" onTurn="noOne" phase="bet">
               {$deck}
@@ -62,45 +48,13 @@ function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string,
   declare
   %updating
   function blackjack-main:newRound ($gameId as xs:integer) {
-      let $deck := blackjack-main:generateDeck()
+      let $deck := blackjack-helper:generateDeck()
       return(
               replace node $blackjack-main:lobby/game[@id = $gameId]/deck with $deck,
               replace value of node $blackjack-main:lobby/game[@id = $gameId]/@onTurn with "noOne",
               replace value of node $blackjack-main:lobby/game[@id = $gameId]/@phase with "bet"
       )
   };
-
-
-(:~
- : Builds a deck with 312 cards (6x 52-Decks)
- : @return a deck with 312 cards
- :)
- declare function blackjack-main:generateDeck() as element(deck) {
-
-    let $deck :=
-        <deck>
-            {$blackjack-main:deck/card}
-            {$blackjack-main:deck/card}
-            {$blackjack-main:deck/card}
-            {$blackjack-main:deck/card}
-            {$blackjack-main:deck/card}
-            {$blackjack-main:deck/card}
-        </deck>
-    return ($deck)
- };
-
-
-(:~
- : Remove given player from list of Players
- : @gameId ID of the game from which the player will be deleted
- : @playerId Id of player who will be deleted
- : @return model change to remove player
- :)
-declare
-%updating
-function blackjack-main:removePlayer($gameId as xs:integer, $playerId as xs:string){
-    delete node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id = $playerId]
-};
 
 
 (:~
@@ -418,22 +372,6 @@ function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string)
     )
 };
 
-
-declare function blackjack-main:getGame($gameId as xs:integer){
-    $blackjack-main:lobby/game[@id = $gameId]
-};
-
-
-declare function blackjack-main:getLobby(){
-    $blackjack-main:lobby
-};
-
-
-declare function blackjack-main:getPlayers(){
-    $blackjack-main:players
-};
-
-
 (:~
  : Inserts player score to score list to compute highscore board
  : @gameId Id of the game, where the player achived the score
@@ -501,4 +439,16 @@ function blackjack-main:leaveGame($gameId as xs:integer, $playerId as xs:string)
       delete node $blackjack-main:lobby/game[@id = $gameId]
   };
 
+declare function blackjack-main:getGame($gameId as xs:integer){
+    $blackjack-main:lobby/game[@id = $gameId]
+};
 
+
+declare function blackjack-main:getLobby(){
+    $blackjack-main:lobby
+};
+
+
+declare function blackjack-main:getPlayers(){
+    $blackjack-main:players
+};
