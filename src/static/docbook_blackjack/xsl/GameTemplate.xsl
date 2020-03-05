@@ -305,7 +305,7 @@
             </xsl:choose>
             <!--Bet Buttons or Hit & Stand-->
             <xsl:choose>
-                <xsl:when test="/*/@phase ='bet' and game/players/player[@id = $playerId]/pool/@locked = 'false'">
+                <xsl:when test="/*/@phase ='bet' and game/players/player[@id = $playerId]/pool/@locked = 'false' and count(game/players/player[@id = $playerId]/pool/*) != 0">
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/confirmBet"
                               method="post"
