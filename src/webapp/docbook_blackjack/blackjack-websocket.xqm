@@ -18,8 +18,8 @@ function blackjack-ws:stompconnect(){
 
  (:~
   : Triggered if a player disconnects from a websocket:
-  :     If the player leaft the game -> delete this player from game
-  : @return model changed game /if a player left the game
+  :     If the player leaves the game -> delete this player from game
+  : @return model changed game /if a player leaves the game
   :)
 declare
 %ws:close("/docbook_blackjack")
@@ -73,9 +73,9 @@ declare function blackjack-ws:send($data, $path){
 
  (:~
   : get information from a websocket-ID
-  : @key the websocket-Id
-  : @value asked information
+  : @wsId the websocket-Id
+  : @key asked information
   :)
-declare function blackjack-ws:get($key, $value){
-    websocket:get($key, $value)
+declare function blackjack-ws:get($wsId, $key){
+    websocket:get($wsId, $key)
 };

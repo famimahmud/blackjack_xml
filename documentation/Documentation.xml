@@ -94,8 +94,8 @@
                         dealer's total card value. A player wins and gets paid double of his bet
                         when the dealer has a lower hand or if the dealer goes bust. The dealer wins
                         if he has a higher hand or the player goes bust. In this case the player
-                        loses his bet. A tie is possible if both have the same total value or both
-                        go bust. Then the player gets back his bet.</para>
+                        loses his bet. A tie is possible if both have the same total value. Then the
+                        player gets back his bet.</para>
                 </sect3>
             </sect2>
         </sect1>

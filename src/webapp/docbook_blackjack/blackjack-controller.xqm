@@ -1,5 +1,14 @@
 xquery version "3.1";
-
+(:~
+ : "The controller is responsible for all HTTP request and interacts directly with the client.
+ : It abstracts the interface from the client and calls the responsible methods in the main
+ : game module for the Blackjack game. It furthermore handles redirects, creation of the
+ : database, and generation of the XSLT delivered to the clients view for display." (Philipp Ulrich)
+ :
+ : @author   Moritz Issig, Patryk Bazoza, Fami Mahmud
+ : @see      e.g. chapter controller in the documentation
+ : @version  1.0
+ :)
 module namespace blackjack-controller = "blackjack-controller.xqm";
 
 import module namespace request = "http://exquery.org/ns/request";

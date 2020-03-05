@@ -1,4 +1,12 @@
 xquery version "3.1";
+(:~
+ : This module is used for helper functions like generating a Deck or a random number.
+ : The generated random number determines Ids or draws random cards out of the deck.
+ :
+ : @author   Moritz Issig, Patryk Bazoza, Fami Mahmud
+ : @see      e.g. chapter helper in the documentation
+ : @version  1.0
+ :)
 
 module namespace blackjack-helper = "Blackjack/Helper";
 

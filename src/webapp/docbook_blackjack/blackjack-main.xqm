@@ -1,5 +1,11 @@
 xquery version "3.1";
-
+(:~
+ : The main module contains functions to implement the game logic of the blackjack game.
+ :
+ : @author   Moritz Issig, Patryk Bazoza, Fami Mahmud
+ : @see      e.g. chapter main game in the documentation
+ : @version  1.0
+ :)
 module namespace blackjack-main = "Blackjack/Main";
 import module namespace blackjack-helper = "Blackjack/Helper" at "blackjack-helper.xqm";
 
@@ -375,7 +381,6 @@ function blackjack-main:dealerTurn($gameId as xs:integer){
     if ($blackjack-main:lobby/game[@id = $gameId]/@onTurn = "dealer") then (
     let $dealerHandValue := blackjack-main:calculateHandValue($blackjack-main:lobby/game[@id = $gameId]/dealer/hand)
     return (
-(:            prof:sleep(1000),:)(: pause for 1000ms :)
             if ($dealerHandValue < 17)
             then (blackjack-main:drawCard($gameId, "dealer"),
             update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/dealerTurn"))))
