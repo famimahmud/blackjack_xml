@@ -19,13 +19,14 @@ Lobby logged in
     <id>UMLState</id>
     <coordinates>
       <x>510</x>
-      <y>110</y>
+      <y>90</y>
       <w>220</w>
-      <h>80</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>bet-phase
 --
 entry / generateDeck()
+        subscribe to websocket
 do / bet()
      resetBet()
 
@@ -166,8 +167,7 @@ valign=top
       <h>140</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-continue
-Button</panel_attributes>
+continue()</panel_attributes>
     <additional_attributes>10.0;120.0;10.0;70.0;240.0;70.0;240.0;10.0</additional_attributes>
   </element>
   <element>
@@ -199,12 +199,11 @@ leave()</panel_attributes>
     <coordinates>
       <x>240</x>
       <y>180</y>
-      <w>80</w>
+      <w>70</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-leave() /
-broke</panel_attributes>
+leave()</panel_attributes>
     <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>

@@ -134,8 +134,7 @@
             <para>"XSLT (Extensble Stylsheet Language Transformations) is a language for
                 transforming XML documents into other XML documents or other formats such as HTML
                 for web pages, plain text or XSL Formatting Objects, which may subsequently be
-                converted to other formats, such as PDF, PostScript and PNG.  "(Source: <ulink
-                    url="https://en.wikipedia.org/wiki/XSLT"/>). In our project it is used to
+                converted to other formats, such as PDF, PostScript and PNG.  "(Source: <ulink url="https://en.wikipedia.org/wiki/XSLT"/>). In our project it is used to
                 dynamically transform our game states encoded in XML into an XHTML document, which
                 can be used to graphically display the game state in the browser. Moreover, the
                 chips and cards are dynamically transformed using XSLT. The elements of the XML
@@ -245,6 +244,81 @@
         <sect1>
             <title>Phases</title>
             <para/>
+            <para>The Lobby as well as the Game have severale states. An user in the Lobby can be
+                either in the "not logged in"-state or in the "logged in"-state. To switch from the
+                "not logged in"-state to the "logged in"-state the user has to create a new Account
+                (via the createAccount()-function) or, if s*he knows the Id, restore an existing
+                Account (via the restoreAccount()-function).</para>
+            <para>There are two ways from the Lobby to a Game. First by creating a new game (either
+                a singleplayer or multiplayer game) with the newGame()-function or secondly by
+                joining an existing multplayer game with the joinGame()-function. In each phase of
+                the game a player can leave this game and return to the Lobby (with the
+                leave()-function). </para>
+            <figure>
+                <title>State-Diagram: Game-Phases</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="diagrams/Zustandsdiagramm%20Game.png"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
+            <para>A game has four phases:<orderedlist>
+                    <listitem>
+                        <para>The starting phase is the bet-phase. If an player enters this phase he
+                            will subscribe to the websocket of this game. Also the deck will be
+                            reseted  All players can bet chips for the netxt round at the same time.
+                            Also they can reset their bets to correct mistakes. If all players have
+                            confirmed their bets the game switches to the deal-phase.</para>
+                    </listitem>
+                    <listitem>
+                        <para>The deal-phase is completely processed be the backend-system. Firstly
+                            each player and the dealer gets one card from the deck. Since this is
+                            the frist card for the dealer his card will be hidden. After a database
+                            update, which is necessary because the dealer got a first card, each
+                            player and also the dealer gets a second card. Now the dealer gets a
+                            revealed card. In the next step the first player is set to the player,
+                            which is on turn. And then the phase is set to "play". If a leaving
+                            player triggered this phase he will be redirected to the Lobby. If not
+                            an update of the game-page will be send via the websocket
+                            connection.</para>
+                    </listitem>
+                    <listitem>
+                        <para>In the play-phase each player does his turn one after another. A
+                            player can hit or stand during his turn. After the last player finished
+                            his turn the dealerTurn starts. During the dealerTurn the delaer draw a
+                            card if his hand value is lower than 17, updates the databank and
+                            restarts the dealerTurn with the additional card. If the hand value is
+                            17 or higher he stands and the phase changes to "pay". As in the
+                            deal-Phase the dealerTurn can also be triggered by a leaving player. If
+                            so this player will be redireted also to the Lobby. If not an update of
+                            the game-page will be send via the websocket connection.</para>
+                    </listitem>
+                    <listitem>
+                        <para>The last phase is the pay-phase. At the start of this phase the result
+                            of the game is presented on the table. If any player decides to continue
+                            all players will be pay, if they win,  then their hands and their pools
+                            will be cleared. The dealer also clears his hand. Then the game switches
+                            to the bet-phase and an update of the game-page will be send via the
+                            websocket connection.</para>
+                    </listitem>
+                </orderedlist></para>
+            <figure>
+                <title>Activity-Diagram: Deal-Phase</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="diagrams/Aktivitaetsdiagramm%20Deal-Phase.png"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
+            <para/>
+            <figure>
+                <title>Activity-Diagram: Dealer-Turn</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="diagrams/Aktivitaetsdiagramm%20DealerTurn.png"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
         </sect1>
     </chapter>
     <chapter>
@@ -272,7 +346,7 @@
         </sect1>
     </chapter>
     <chapter>
-        <title>Game Play</title>
+        <title>Game Demo</title>
         <para/>
     </chapter>
     <chapter>
