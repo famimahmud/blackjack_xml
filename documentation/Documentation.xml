@@ -161,7 +161,59 @@
     </chapter>
     <chapter>
         <title>Project Requirements</title>
-        <para></para>
+        <para>The project requirements were initially specified in the project exercise and describe
+            the expected functionality of the Blackjack game while at the same time acting as the
+            project backlog for our development process. Based on the given aspects, we have
+            considered the following points for our final implementation:</para>
+        <itemizedlist>
+            <listitem>
+                <para>The game should follow the blackjack concept as introduced in Chapter
+                    1.</para>
+            </listitem>
+            <listitem>
+                <para>The project is to be implemented as a web application by purely making use of
+                    XML technologies described in the Chapter 2.</para>
+            </listitem>
+            <listitem>
+                <para>The game must be implemented using the multi-client principle, i.e. it should
+                    be possible for multiple persons to play one single game within their own client
+                    instance.</para>
+            </listitem>
+            <listitem>
+                <para>Apart from the game functionality itself, a Lobby must be implemented such
+                    that players are able to register themselves and to create or join games.
+                    Players are assigned a randomly generated ID which can be used to restore player
+                    accounts from previous sessions.</para>
+            </listitem>
+            <listitem>
+                <para>The Lobby should also include a highscore board keeping track of the highest
+                    player scores achieved throughout their finished games.</para>
+            </listitem>
+            <listitem>
+                <para>The system architecture must follow the Model-View-Controller (MVC) pattern.
+                    Each method should be included in its particular module, which is responsible
+                    for its area in the MVC model.</para>
+            </listitem>
+            <listitem>
+                <para>A high degree of parametrization and customizability should be given in order
+                    to guarantee a high reusability of system fragments. This encourages the general
+                    software engineering rule of low coupling and high cohesion between
+                    modules.</para>
+            </listitem>
+            <listitem>
+                <para>The design process is to be modelled and documented adequately, thus
+                    encouraging a model driven development process. For instance, the usage of
+                    low-fidelity prototypes such as sketches allows to describe the functionality of
+                    the user interface. Class diagrams should be used to model data and method
+                    relations, activity and state diagrams should model the system behavior.
+                    Additionally, a description of all REST requests and responses between the
+                    client and the server should be created.</para>
+            </listitem>
+            <listitem>
+                <para>Finally, the previous design models and decisions are to be included in this
+                    documentation, which should give an overview of the whole project.</para>
+            </listitem>
+        </itemizedlist>
     </chapter>
     <chapter>
         <title>Design and Implementation</title>
