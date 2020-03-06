@@ -491,15 +491,15 @@
                     wallet and one pool, where the bet chips will be saved. Aditionally all players
                     and also the dealer elements contain one hand, this hand then can hav up to 22
                     cards (21 aces and one additional card).</para>
+                <figure>
+                    <title>Data-Model: Lobby</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="diagrams/Lobby-Datenmodell.png" width="700px"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
             </sect2>
-            <figure>
-                <title>Data-Model: Lobby</title>
-                <mediaobject>
-                    <imageobject>
-                        <imagedata fileref="diagrams/Lobby-Datenmodell.png" width="700px"/>
-                    </imageobject>
-                </mediaobject>
-            </figure>
             <sect2>
                 <title>Card-Value-Model</title>
                 <para>To generate the number-cards dynamicly, we use a xslt-file, which creates the
@@ -507,15 +507,15 @@
                     a value-element with the character of that value (A - 10). Inside these
                     value-elements are a list of all points, where the card has a symbol (1 point
                     for ace, …, 10 points for 10) and also if this symbl will be rotated.</para>
+                <figure>
+                    <title>Data-Model: Card-Value</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="diagrams/Values-Datenmodell.png"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
             </sect2>
-            <figure>
-                <title>Data-Model: Card-Value</title>
-                <mediaobject>
-                    <imageobject>
-                        <imagedata fileref="diagrams/Values-Datenmodell.png"/>
-                    </imageobject>
-                </mediaobject>
-            </figure>
         </sect1>
     </chapter>
     <chapter>
