@@ -343,7 +343,8 @@ function blackjack-main:dealerTurn($gameId as xs:integer){
             if(exists($blackjack-main:lobby/game[@id = $gameId]/players/player/left) ) then (
                         let $parameters := map {
                                     "playerName": $blackjack-main:lobby/game[@id = $gameId]/players/player[exists(left)]/@name,
-                                    "playerId": $blackjack-main:lobby/game[@id = $gameId]/players/player[exists(left)]/@id
+                                    "playerId": $blackjack-main:lobby/game[@id = $gameId]/players/player[exists(left)]/@id,
+                                    "fromGameId": $gameId
                                 }
                                 return update:output(web:redirect("/docbook_blackjack/lobby", $parameters)))
                         else update:output(web:redirect(concat("/docbook_blackjack/", $gameId)))

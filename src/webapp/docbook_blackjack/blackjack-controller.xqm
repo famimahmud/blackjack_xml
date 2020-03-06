@@ -35,7 +35,11 @@ function blackjack-controller:setup() {
     let $redirectLink := "/docbook_blackjack"
     return (
         if (not(db:exists("DocBook_Lobby")))
-        then (db:create("DocBook_Lobby", $lobby_model), db:create("DocBook_Deck", $deck_model), db:create("DocBook_Players", $players_model)),
+        then (db:create("DocBook_Lobby", $lobby_model)),
+        if (not(db:exists("DocBook_Deck")))
+        then (db:create("DocBook_Deck", $deck_model)),
+        if (not(db:exists("DocBook_Players")))
+        then (db:create("DocBook_Players", $players_model)),
     update:output(web:redirect($redirectLink)))
 };
 
@@ -52,8 +56,9 @@ declare
 %output:method("html")
 %rest:query-param("playerName", "{$playerName}")
 %rest:query-param("playerId", "{$playerId}")
+%rest:query-param("fromGameId", "{$fromGameId}")
 %rest:path("/docbook_blackjack/lobby")
-function blackjack-controller:start($playerName as xs:string?, $playerId as xs:string?){
+function blackjack-controller:start($playerName as xs:string?, $playerId as xs:string?, $fromGameId as xs:integer?){
         let $lobby := blackjack-main:getLobby()
         let $xslStylesheet := "LobbyTemplate.xsl"
         let $title := "Blackjack | Lobby"
@@ -73,7 +78,9 @@ function blackjack-controller:start($playerName as xs:string?, $playerId as xs:s
         ) else (
             $emptyMap
         )
-        return blackjack-controller:generateLobby($lobby, $xslStylesheet, $parameters, $title)
+        return ( if (exists($lobby/game[@id = $fromGameId]) )
+                then (trace(blackjack-controller:drawGame($fromGameId))),
+                blackjack-controller:generateLobby($lobby, $xslStylesheet, $parameters, $title))
 };
 
  (:~
@@ -323,7 +330,8 @@ function blackjack-controller:handOutOneCardToEach($gameId as xs:integer){
         if(exists($blackjack-main:lobby/game[@id = $gameId]/players/player/left) ) then (
             let $parameters := map {
                         "playerName": $blackjack-main:lobby/game[@id = $gameId]/players/player[exists(left)]/@name,
-                        "playerId": $blackjack-main:lobby/game[@id = $gameId]/players/player[exists(left)]/@id
+                        "playerId": $blackjack-main:lobby/game[@id = $gameId]/players/player[exists(left)]/@id,
+                        "fromGameId": $gameId
                     }
                     return update:output(web:redirect("/docbook_blackjack/lobby", $parameters)))
             else update:output(web:redirect(concat("/docbook_blackjack/", $gameId)))
@@ -399,7 +407,7 @@ function blackjack-controller:exit($gameId as xs:integer, $playerId as xs:string
         else if (exists($game[@id=$gameId]/players/player[@id=$playerId])) then (
             insert node <left/> into $game/players/player[@id=$playerId],
             blackjack-main:leaveGame($gameId, $playerId)),
-            update:output(web:redirect("/docbook_blackjack/lobby", map {"playerName": $playerName,"playerId": $playerId})))
+            update:output(web:redirect("/docbook_blackjack/lobby", map {"playerName": $playerName,"playerId": $playerId, "fromGameId":$gameId})))
     )
 };
 
@@ -455,7 +463,7 @@ declare
 function blackjack-controller:restoreAccount($playerName as xs:string, $playerId as xs:string){
     let $playerExists := blackjack-helper:playerExists($playerName, $playerId)
     return if ($playerExists) then (
-        blackjack-controller:start($playerName, $playerId)
+        blackjack-controller:start($playerName, $playerId, "")
     )
 };
 

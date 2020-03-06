@@ -31,7 +31,7 @@
         <xsl:variable name="fontSize" select="4"/>
         <xsl:variable name="strokeColor" select="'white'"/>
         <xsl:variable name="fonts" select="'Raleway, sans-serif'"/>
-        <xsl:variable name="playerCount" select="count(/*/players/*)"/>
+        <xsl:variable name="playerCount" select="count(game/players/player[not(left)])"/>
         <xsl:variable name="rectHeight" select="5"/>
         <xsl:variable name="rectWidth" select="25"/>
         <xsl:variable name="playerName" select="game/players/player[@id=$playerId]/@name"/>
@@ -159,7 +159,7 @@
             <use xlink:href="#dealerBox" x="{$dealerX}" y="{$dealerY}"/>
 
             <!-- Generate player card boxes -->
-            <xsl:for-each select="*/players/player">
+            <xsl:for-each select="*/players/player[not(left)]">
                 <xsl:variable name="name" select="@name"/>
                 <xsl:variable name="locked" select="pool/@locked"/>
                 <xsl:variable name="wallet" select="wallet"/>
