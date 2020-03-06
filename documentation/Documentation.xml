@@ -531,7 +531,31 @@
             <para/>
             <sect2>
                 <title>SCRUM</title>
-                <para/>
+                <para>Due to the constant addition of new requirements and the rather small size of
+                    our team, we decided that an agile project management structure would fit best
+                    for our development process and chose SCRUM to be a suitable framework to apply
+                    it. The overall requirements defined at the beginning of the project are defined
+                    in the project backlog which acts as a guideline for the whole project life
+                    cycle. We have defined these requirements in Chapter 3. </para>
+                <mediaobject>
+                    <imageobject><imagedata fileref="img/Scrum.png" width="700px"/></imageobject>
+                    <caption>
+                        <para>The SCRUM development process [<ulink
+                                url="https://commons.wikimedia.org/w/index.php?curid=3526338"
+                            />]</para>
+                    </caption></mediaobject>
+                <para>The actual development process is subdivided into multiple iterations of a
+                    fixed length defined as <emphasis>sprints</emphasis>, which we chose to match
+                    the exercise sheet working time of one week. Each sprint consists of another
+                    sprint backlog, which includes the work to be done within one sprint and mostly
+                    matched the content of the given exercise sheet. We defined this during the
+                    weekly SCRUM meeting, which mostly took place before or after the weekly
+                    practical course lecture. Each team member then chose which sprint backlog item
+                    should be assigned to him and then proceeded to implement it during the sprint.
+                    One advantage of the SCRUM process is that each sprint terminates with a
+                    potenially deliverable product increment, which made the development process
+                    much easier for us as we could improve the functionality of our existing product
+                    each week.</para>
             </sect2>
         </sect1>
     </chapter>
