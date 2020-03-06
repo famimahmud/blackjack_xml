@@ -1,0 +1,173 @@
+<html xml:space="preserve"><head><title>xqDoc -- Module</title><script language="JavaScript"><!--
+        function popUp(URL) {
+                 day = new Date();
+                 id = day.getTime();
+                 eval("page = window.open(URL, 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');")
+                 page.focus();
+        }
+      --></script><script language="JavaScript"><!--
+	    function litePopUp(str) {    
+  		  OpenWindow=window.open('', 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');
+  		  OpenWindow.document.write('<html xmlspace="preserve">');
+  		  OpenWindow.document.write('<head>');
+  		  OpenWindow.document.write('<title>xqDoc - Code Sample</title>');
+  		  OpenWindow.document.write('</head>');  		    		    		  
+  		  OpenWindow.document.write('<body xml:space="preserve">');
+  		  OpenWindow.document.write('<pre>');
+ 		  OpenWindow.document.write(str);
+ 		  OpenWindow.document.write('</pre>');
+  		  OpenWindow.document.write('</body>');
+  		  OpenWindow.document.write('</html>');
+  		  OpenWindow.document.close();
+  		  page.focus();
+        }
+      --></script><style><!--
+body		{
+		font: 80% Verdana;
+		}
+table		{
+		font-size: 100%;
+		}
+h1, h2, h3, h4, h5, h6
+		{
+		clear: both;
+		float: none;
+		}
+h1		{
+		font-size: 100%;
+		margin: 0em;
+		}
+h2		{
+		font-size: 180%;
+		margin-bottom: -1em;
+		margin-top: .3em;
+		}
+h3		{
+		font-size: 150%;
+		}	
+h4		{
+		font-size: 140%;
+		background-color: #ccf;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		}
+h5		{
+		margin: 1em 0em 0em 0em;
+		font-size: 120%;
+		}
+h6		{
+		margin: 0em 0em 0em 3em;
+		font-style: italic;
+		font: bold italic;
+		font-size: 100%;
+		}
+#variables, #methods, #methoddetail
+		{
+		padding-left: 3em;
+		margin-bottom: 1.4em;
+		clear: both;
+		float: none;
+		}
+#methods ul.method, #variables ul.method
+		{
+		margin: 1em 0em 0em;
+		}
+#methoddetail ul.method
+		{
+		margin: 0em;
+		}
+div.inexternal
+		{
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail p
+		{
+		float: none;
+		clear: both;
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail{
+		padding-bottom: 1em;
+		}
+div.methoddetail li
+		{
+		list-style-type: none;
+		font-weight: bold;
+		}
+div.methoddetail li li
+		{
+		list-style-type: circle;
+		font-weight: normal;
+		}
+div.methoddetail li ul
+		{
+		padding-bottom: 0.5em;
+		font-weight: normal;
+		}
+table.inexternal{
+		clear: both;
+		float: none;
+		width: 80%;
+		margin-left: 3em;
+		padding: 0em;
+		
+		}
+table.inexternal th
+		{
+		background-color:#dedede;
+		width: 50%;
+		}			
+td		{
+		vertical-align: top;
+		}
+div.description {
+		margin-top: .5em;
+		font-weight: normal;
+		padding-left: 1em;
+		}
+ul.method	{
+		clear: both;
+		float: none;
+		width: 90%;
+		list-style-type: none;
+		border-top: 1px solid #ccc;
+		}
+ul.method li.left
+		{
+		float: left;
+		clear: none;
+		width: 40%;
+		font-weight: bold;
+		margin-bottom: 2em;
+		}
+ul.method li.right
+		{
+		position: relative;
+            top: 0em;
+		float: left;
+            width: 55%;
+		margin-bottom: 2em;
+		padding-left: 2em;
+		}
+div.home 	{
+		width: 60%;
+		float: left;
+		margin-right: 1%;
+		border: 1px
+		}
+div.home h4	{
+		font-size: 120%;
+		background-color: #fff;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		margin-bottom: -1em;
+		}
+div.overview p {
+               width: 60%;
+               }
+     
+ --></style></head><body><h4>Module URI</h4><h1>Blackjack/Helper</h1><h4>Module Description</h4><p>Module Name: Blackjack Helper
+This module is used for helper functions like generating a Deck or a random number.
+The generated random number determines Ids or draws random cards out of the deck.</p><ul><li><strong>Author: </strong>Moritz Issig, Patryk Brzoza, Fami Mahmud</li><li><strong>Version: </strong>1.0</li><li><strong>See: </strong>e.g. chapter helper in the documentation</li></ul><h4>Variables</h4><div id="variables"><div><a name="$"/><ul class="method"><li class="left">$</li><li class="right"/></ul><ul/></div><div><a name="$"/><ul class="method"><li class="left">$</li><li class="right"/></ul><ul/></div><div><a name="$"/><ul class="method"><li class="left">$</li><li class="right"/></ul><ul/></div></div>   <h4>Function Summary</h4><div id="methods"><a name="methods"/><ul class="method"><li class="left"><a href="#blackjack-helper:createGameId">blackjack-helper:createGameId</a><div class="description">Creates new random game ID</div></li><li class="right">( ) as xs:integer<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-helper:createPlayerId">blackjack-helper:createPlayerId</a><div class="description">Creates new random player ID</div></li><li class="right">( ) as xs:integer<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-helper:generateDeck">blackjack-helper:generateDeck</a><div class="description">Builds a deck with 312 cards (6x 52-Decks)</div></li><li class="right">( ) as element(deck)<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-helper:getPlayerHighscore">blackjack-helper:getPlayerHighscore</a><div class="description">Get player highscore from player database</div></li><li class="right">( $playerName as xs:string ,<br/>  $playerId as xs:string) as xs:integer<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-helper:getPlayerName">blackjack-helper:getPlayerName</a><div class="description">Get player name from id</div></li><li class="right">( $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-helper:getRandomInt">blackjack-helper:getRandomInt</a><div class="description">Return random number from given interval [1, max]</div></li><li class="right">( $max as xs:integer) as xs:integer<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-helper:getRandomIntFromRange">blackjack-helper:getRandomIntFromRange</a><div class="description">Return random number from given interval [min, max]</div></li><li class="right">( $min as xs:integer ,<br/>  $max as xs:integer) as xs:integer<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-helper:getScoreBoard">blackjack-helper:getScoreBoard</a><div class="description">Get player scores from lobby database</div></li><li class="right">( ) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-helper:playerExists">blackjack-helper:playerExists</a><div class="description">Check whether player exists in player database</div></li><li class="right">( $playerName as xs:string? ,<br/>  $playerId as xs:string?) as xs:boolean<br/><br/></li></ul></div> <h4>Function Detail</h4><div id="methoddetail"><div id="blackjack-helper:createGameId" class="methoddetail"><h5><a name="blackjack-helper:createGameId"/>blackjack-helper:createGameId</h5><ul class="method"><li class="left"/><li class="right">( ) as xs:integer<br/><br/></li></ul><p>Creates new random game ID</p><ul><li>Return:</li><ul><li>new game ID</li></ul></ul></div> <div id="blackjack-helper:createPlayerId" class="methoddetail"><h5><a name="blackjack-helper:createPlayerId"/>blackjack-helper:createPlayerId</h5><ul class="method"><li class="left"/><li class="right">( ) as xs:integer<br/><br/></li></ul><p>Creates new random player ID</p><ul><li>Return:</li><ul><li>new player ID</li></ul></ul></div> <div id="blackjack-helper:generateDeck" class="methoddetail"><h5><a name="blackjack-helper:generateDeck"/>blackjack-helper:generateDeck</h5><ul class="method"><li class="left"/><li class="right">( ) as element(deck)<br/><br/></li></ul><p>Builds a deck with 312 cards (6x 52-Decks)</p><ul><li>Return:</li><ul><li>a deck with 312 cards</li></ul></ul></div> <div id="blackjack-helper:getPlayerHighscore" class="methoddetail"><h5><a name="blackjack-helper:getPlayerHighscore"/>blackjack-helper:getPlayerHighscore</h5><ul class="method"><li class="left"/><li class="right">( $playerName as xs:string ,<br/>  $playerId as xs:string) as xs:integer<br/><br/></li></ul><p>Get player highscore from player database</p><ul><li>Return:</li><ul><li>player highscore</li></ul></ul></div> <div id="blackjack-helper:getPlayerName" class="methoddetail"><h5><a name="blackjack-helper:getPlayerName"/>blackjack-helper:getPlayerName</h5><ul class="method"><li class="left"/><li class="right">( $playerId as xs:string) as item()*<br/><br/></li></ul><p>Get player name from id</p><ul><li>Return:</li><ul><li>player name as string</li></ul></ul></div> <div id="blackjack-helper:getRandomInt" class="methoddetail"><h5><a name="blackjack-helper:getRandomInt"/>blackjack-helper:getRandomInt</h5><ul class="method"><li class="left"/><li class="right">( $max as xs:integer) as xs:integer<br/><br/></li></ul><p>Return random number from given interval [1, max]</p><ul><li>Return:</li><ul><li>the calculated random integer</li></ul></ul></div> <div id="blackjack-helper:getRandomIntFromRange" class="methoddetail"><h5><a name="blackjack-helper:getRandomIntFromRange"/>blackjack-helper:getRandomIntFromRange</h5><ul class="method"><li class="left"/><li class="right">( $min as xs:integer ,<br/>  $max as xs:integer) as xs:integer<br/><br/></li></ul><p>Return random number from given interval [min, max]</p><ul><li>Return:</li><ul><li>the calculated random integer</li></ul></ul></div> <div id="blackjack-helper:getScoreBoard" class="methoddetail"><h5><a name="blackjack-helper:getScoreBoard"/>blackjack-helper:getScoreBoard</h5><ul class="method"><li class="left"/><li class="right">( ) as item()*<br/><br/></li></ul><p>Get player scores from lobby database</p><ul><li>Return:</li><ul><li>player scores</li></ul></ul></div> <div id="blackjack-helper:playerExists" class="methoddetail"><h5><a name="blackjack-helper:playerExists"/>blackjack-helper:playerExists</h5><ul class="method"><li class="left"/><li class="right">( $playerName as xs:string? ,<br/>  $playerId as xs:string?) as xs:boolean<br/><br/></li></ul><p>Check whether player exists in player database</p><ul><li>Return:</li><ul><li>boolean returning existence</li></ul></ul></div> </div> <div align="left"><i>Created by xqDoc-Lite version 1.1 on 2020-03-06T16:34:41.589+01:00</i></div></body></html>

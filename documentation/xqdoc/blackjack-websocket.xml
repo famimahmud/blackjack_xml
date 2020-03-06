@@ -1,0 +1,161 @@
+<xqdoc:xqdoc xmlns:xqdoc="http://www.xqdoc.org/1.0">
+  <xqdoc:control>
+    <xqdoc:date>2020-03-06T16:47:29.121+01:00</xqdoc:date>
+    <xqdoc:version>1.1</xqdoc:version>
+  </xqdoc:control>
+  <xqdoc:module type="library">
+    <xqdoc:uri>Blackjack/WS</xqdoc:uri>
+    <xqdoc:name>blackjack-websocket.xqm</xqdoc:name>
+    <xqdoc:comment>
+      <xqdoc:description>Module Name: Blackjack Websocket
+Triggered if a player connects to a websocket:</xqdoc:description>
+      <xqdoc:return>console log with connected player and websocket-Id</xqdoc:return>
+    </xqdoc:comment>
+  </xqdoc:module>
+  <xqdoc:namespaces>
+    <xqdoc:namespace prefix="blackjack-ws" uri="Blackjack/WS"/>
+    <xqdoc:namespace prefix="blackjack-main" uri="Blackjack/Main"/>
+    <xqdoc:namespace prefix="ws-stomp" uri="http://basex.org/modules/ws-stomp"/>
+    <xqdoc:namespace prefix="ann" uri="http://www.w3.org/2012/xquery"/>
+    <xqdoc:namespace prefix="ws" uri="http://basex.org/modules/ws"/>
+  </xqdoc:namespaces>
+  <xqdoc:imports>
+    <xqdoc:import type="library">
+      <xqdoc:uri>Blackjack/Main</xqdoc:uri>
+    </xqdoc:import>
+  </xqdoc:imports>
+  <xqdoc:variables/>
+  <xqdoc:functions>
+    <xqdoc:function arity="0">
+      <xqdoc:comment>
+        <xqdoc:description>Module Name: Blackjack Websocket
+Triggered if a player connects to a websocket:</xqdoc:description>
+        <xqdoc:return>console log with connected player and websocket-Id</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-ws:stompconnect</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="ws-stomp:connect">
+          <xqdoc:literal type="xs:string">/docbook_blackjack</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %ws-stomp:connect("/docbook_blackjack") %updating function blackjack-ws:stompconnect() as item()*</xqdoc:signature>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="0">
+      <xqdoc:comment>
+        <xqdoc:description>Triggered if a player disconnects from a websocket:
+    If the player leaves the game -&gt; delete this player from game</xqdoc:description>
+        <xqdoc:return>model changed game /if a player leaves the game</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-ws:stompdisconnect</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="ws:close">
+          <xqdoc:literal type="xs:string">/docbook_blackjack</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %ws:close("/docbook_blackjack") %updating function blackjack-ws:stompdisconnect() as item()*</xqdoc:signature>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="3">
+      <xqdoc:comment>
+        <xqdoc:description>Triggered if a player subscribes to a websocket
+saves playerId, gameId and applicationId to the websocket-Id</xqdoc:description>
+        <xqdoc:return>console log with connected player and game Ids</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-ws:subscribe</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="ws-stomp:subscribe">
+          <xqdoc:literal type="xs:string">/docbook_blackjack</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="ws:header-param">
+          <xqdoc:literal type="xs:string">param0</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$game}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="ws:header-param">
+          <xqdoc:literal type="xs:string">param1</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$gameId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="ws:header-param">
+          <xqdoc:literal type="xs:string">param2</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %ws-stomp:subscribe("/docbook_blackjack") %ws:header-param("param0", "{$game}") %ws:header-param("param1", "{$gameId}") %ws:header-param("param2", "{$playerId}") %updating function blackjack-ws:subscribe($game as item()*, $playerId as item()*, $gameId as item()*) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>game</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="0">
+      <xqdoc:name>blackjack-ws:getIDs</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-ws:getIDs() as item()*</xqdoc:signature>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>send massage via websocket</xqdoc:description>
+        <xqdoc:custom tag="data">sended data</xqdoc:custom>
+        <xqdoc:custom tag="path">websocket-path, where to send the data</xqdoc:custom>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-ws:send</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-ws:send($data as item()*, $path as item()*) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>data</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>path</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>get information from a websocket-ID</xqdoc:description>
+        <xqdoc:custom tag="wsId">the websocket-Id</xqdoc:custom>
+        <xqdoc:custom tag="key">asked information</xqdoc:custom>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-ws:get</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-ws:get($wsId as item()*, $key as item()*) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>wsId</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>key</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+  </xqdoc:functions>
+</xqdoc:xqdoc>

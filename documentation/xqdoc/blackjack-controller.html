@@ -1,0 +1,188 @@
+<html xml:space="preserve"><head><title>xqDoc -- Module</title><script language="JavaScript"><!--
+        function popUp(URL) {
+                 day = new Date();
+                 id = day.getTime();
+                 eval("page = window.open(URL, 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');")
+                 page.focus();
+        }
+      --></script><script language="JavaScript"><!--
+	    function litePopUp(str) {    
+  		  OpenWindow=window.open('', 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');
+  		  OpenWindow.document.write('<html xmlspace="preserve">');
+  		  OpenWindow.document.write('<head>');
+  		  OpenWindow.document.write('<title>xqDoc - Code Sample</title>');
+  		  OpenWindow.document.write('</head>');  		    		    		  
+  		  OpenWindow.document.write('<body xml:space="preserve">');
+  		  OpenWindow.document.write('<pre>');
+ 		  OpenWindow.document.write(str);
+ 		  OpenWindow.document.write('</pre>');
+  		  OpenWindow.document.write('</body>');
+  		  OpenWindow.document.write('</html>');
+  		  OpenWindow.document.close();
+  		  page.focus();
+        }
+      --></script><style><!--
+body		{
+		font: 80% Verdana;
+		}
+table		{
+		font-size: 100%;
+		}
+h1, h2, h3, h4, h5, h6
+		{
+		clear: both;
+		float: none;
+		}
+h1		{
+		font-size: 100%;
+		margin: 0em;
+		}
+h2		{
+		font-size: 180%;
+		margin-bottom: -1em;
+		margin-top: .3em;
+		}
+h3		{
+		font-size: 150%;
+		}	
+h4		{
+		font-size: 140%;
+		background-color: #ccf;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		}
+h5		{
+		margin: 1em 0em 0em 0em;
+		font-size: 120%;
+		}
+h6		{
+		margin: 0em 0em 0em 3em;
+		font-style: italic;
+		font: bold italic;
+		font-size: 100%;
+		}
+#variables, #methods, #methoddetail
+		{
+		padding-left: 3em;
+		margin-bottom: 1.4em;
+		clear: both;
+		float: none;
+		}
+#methods ul.method, #variables ul.method
+		{
+		margin: 1em 0em 0em;
+		}
+#methoddetail ul.method
+		{
+		margin: 0em;
+		}
+div.inexternal
+		{
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail p
+		{
+		float: none;
+		clear: both;
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail{
+		padding-bottom: 1em;
+		}
+div.methoddetail li
+		{
+		list-style-type: none;
+		font-weight: bold;
+		}
+div.methoddetail li li
+		{
+		list-style-type: circle;
+		font-weight: normal;
+		}
+div.methoddetail li ul
+		{
+		padding-bottom: 0.5em;
+		font-weight: normal;
+		}
+table.inexternal{
+		clear: both;
+		float: none;
+		width: 80%;
+		margin-left: 3em;
+		padding: 0em;
+		
+		}
+table.inexternal th
+		{
+		background-color:#dedede;
+		width: 50%;
+		}			
+td		{
+		vertical-align: top;
+		}
+div.description {
+		margin-top: .5em;
+		font-weight: normal;
+		padding-left: 1em;
+		}
+ul.method	{
+		clear: both;
+		float: none;
+		width: 90%;
+		list-style-type: none;
+		border-top: 1px solid #ccc;
+		}
+ul.method li.left
+		{
+		float: left;
+		clear: none;
+		width: 40%;
+		font-weight: bold;
+		margin-bottom: 2em;
+		}
+ul.method li.right
+		{
+		position: relative;
+            top: 0em;
+		float: left;
+            width: 55%;
+		margin-bottom: 2em;
+		padding-left: 2em;
+		}
+div.home 	{
+		width: 60%;
+		float: left;
+		margin-right: 1%;
+		border: 1px
+		}
+div.home h4	{
+		font-size: 120%;
+		background-color: #fff;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		margin-bottom: -1em;
+		}
+div.overview p {
+               width: 60%;
+               }
+     
+ --></style></head><body><h4>Module URI</h4><h1>blackjack-controller.xqm</h1><h4>Module Description</h4><p>Module Name: Blackjack Controller
+"The controller is responsible for all HTTP request and interacts directly with the client.
+It abstracts the interface from the client and calls the responsible methods in the main
+game module for the Blackjack game. It furthermore handles redirects, creation of the
+database, and generation of the XSLT delivered to the clients view for display." (Philipp Ulrich)</p><ul><li><strong>Author: </strong>Moritz Issig, Patryk Brzoza, Fami Mahmud</li><li><strong>Version: </strong>1.0</li><li><strong>See: </strong>e.g. chapter controller in the documentation</li></ul><h4>Variables</h4><div id="variables"><div><a name="$"/><ul class="method"><li class="left">$</li><li class="right"/></ul><ul/></div></div>   <h4>Function Summary</h4><div id="methods"><a name="methods"/><ul class="method"><li class="left"><a href="#blackjack-controller:bet">blackjack-controller:bet</a><div class="description">place an chip into the player-pool</div></li><li class="right">( "/docbook_blackjack/{$gameId}/bet") %rest:query-param("playerId" ,<br/>  "{$playerId}") %rest:query-param("chipValue" ,<br/>  "{$chipValue}") %output:method("html") %rest:POST %updating function blackjack-controller:bet($gameId as xs:integer ,<br/>  $playerId as xs:string ,<br/>  $chipValue as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:confirmBet">blackjack-controller:confirmBet</a><div class="description">confirms bet chips of the given player</div></li><li class="right">( "/docbook_blackjack/{$gameId}/confirmBet") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:confirmBet($gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:createAccount">blackjack-controller:createAccount</a><div class="description">log in as a new player</div></li><li class="right">( "/docbook_blackjack/createAccount") %rest:query-param("playerName" ,<br/>  "{$playerName}") %output:method("html") %rest:POST %updating function blackjack-controller:createAccount($playerName as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:dealPhase">blackjack-controller:dealPhase</a><div class="description">dealer gives two card to each</div></li><li class="right">( "/docbook_blackjack/{$gameId}/dealPhase") %output:method("html") %rest:GET %updating function blackjack-controller:dealPhase($gameId as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:dealerTurn">blackjack-controller:dealerTurn</a><div class="description">dealer starts his turn</div></li><li class="right">( "/docbook_blackjack/{$gameId}/dealerTurn") %output:method("html") %rest:GET %updating function blackjack-controller:dealerTurn($gameId as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:drawGame">blackjack-controller:drawGame</a><div class="description">update game-views via websocket</div></li><li class="right">( "/docbook_blackjack/{$gameId}") %rest:GET function blackjack-controller:drawGame($gameId as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:exit">blackjack-controller:exit</a><div class="description">player exits the game:
+    if spectator -&gt; direct to Lobby
+    if only player in game -&gt; delete game and go to Lobby
+    if not last player in game -&gt; mark player as left and go to Lobby
+                eventually trigger dealerPhase or dealerTurn</div></li><li class="right">( "/docbook_blackjack/{$gameId}/exit") %rest:query-param("playerId" ,<br/>  "{$playerId}") %rest:query-param("playerName" ,<br/>  "{$playerName}") %output:method("html") %rest:POST %updating function blackjack-controller:exit($gameId as xs:integer ,<br/>  $playerId as xs:string ,<br/>  $playerName as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:generateLobby">blackjack-controller:generateLobby</a><div class="description">gives the HTML-View of the Lobby</div></li><li class="right">( $lobby as element(lobby) ,<br/>  $xslStylesheet as xs:string ,<br/>  $parameters as item()* ,<br/>  $title as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:getGameLayout">blackjack-controller:getGameLayout</a><div class="description">returns the HTML of the game</div></li><li class="right">( "/docbook_blackjack/{$gameId}/getGameLayout") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:GET function blackjack-controller:getGameLayout($gameId as xs:integer ,<br/>  $playerId as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:handOutOneCardToEach">blackjack-controller:handOutOneCardToEach</a><div class="description">dealer gives one card to each</div></li><li class="right">( "/docbook_blackjack/{$gameId}/handOutOneCardToEach") %output:method("html") %rest:GET %updating function blackjack-controller:handOutOneCardToEach($gameId as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:hit">blackjack-controller:hit</a><div class="description">player hits (gets one card)</div></li><li class="right">( "/docbook_blackjack/{$gameId}/hit") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:hit($gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:join">blackjack-controller:join</a><div class="description">join an existing MultiPlayer-Game -&gt; subscribe to Websocket on that page</div></li><li class="right">( "html") %rest:path("/docbook_blackjack/{$gameId}/join") %rest:query-param("playerId" ,<br/>  "{$playerId}") function blackjack-controller:join($gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:joinGame">blackjack-controller:joinGame</a><div class="description">add player to game and join Game</div></li><li class="right">( "/docbook_blackjack/{$gameId}/joinGame") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:joinGame($gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:newGame">blackjack-controller:newGame</a><div class="description">creates a new game with the given player as first player</div></li><li class="right">( "/docbook_blackjack/newGame") %rest:query-param("playerName" ,<br/>  "{$playerName}") %rest:query-param("playerId" ,<br/>  "{$playerId}") %rest:query-param("singlePlayer" ,<br/>  "{$singlePlayer}") %rest:GET %updating function blackjack-controller:newGame($playerName as xs:string ,<br/>  $playerId as xs:string ,<br/>  $singlePlayer as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:pay">blackjack-controller:pay</a><div class="description">pay ot every player and remove chips and cards from table</div></li><li class="right">( "/docbook_blackjack/{$gameId}/pay") %output:method("html") %rest:GET %updating function blackjack-controller:pay($gameId as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:redirectLobby">blackjack-controller:redirectLobby</a><div class="description">redirects user to Lobby</div></li><li class="right">( "/docbook_blackjack") %rest:GET %updating function blackjack-controller:redirectLobby() as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:resetBet">blackjack-controller:resetBet</a><div class="description">reset bet chips of the given player</div></li><li class="right">( "/docbook_blackjack/{$gameId}/resetBet") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:resetBet($gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:restoreAccount">blackjack-controller:restoreAccount</a><div class="description">log in with an existing player</div></li><li class="right">( "/docbook_blackjack/restoreAccount") %rest:query-param("playerName" ,<br/>  "{$playerName}") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:GET function blackjack-controller:restoreAccount($playerName as xs:string ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:setup">blackjack-controller:setup</a><div class="description">if the datacase doesn't exist -&gt; create the databases "Lobby", "Deck"</div></li><li class="right">( "docbook_blackjack/setup") %output:method("xhtml") %updating %rest:GET function blackjack-controller:setup() as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:stand">blackjack-controller:stand</a><div class="description">player stands (stops to get more cards)</div></li><li class="right">( "/docbook_blackjack/{$gameId}/stand") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:stand($gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-controller:start">blackjack-controller:start</a><div class="description">return the Lobby-Page to the user
+if given playerName and playerId exist -&gt; loggedIn-Lobby
+else: loggedOut-Lobby</div></li><li class="right">( "html") %rest:query-param("playerName" ,<br/>  "{$playerName}") %rest:query-param("playerId" ,<br/>  "{$playerId}") %rest:path("/docbook_blackjack/lobby") function blackjack-controller:start($playerName as xs:string? ,<br/>  $playerId as xs:string?) as item()*<br/><br/></li></ul></div> <h4>Function Detail</h4><div id="methoddetail"><div id="blackjack-controller:bet" class="methoddetail"><h5><a name="blackjack-controller:bet"/>blackjack-controller:bet</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/{$gameId}/bet") %rest:query-param("playerId" ,<br/>  "{$playerId}") %rest:query-param("chipValue" ,<br/>  "{$chipValue}") %output:method("html") %rest:POST %updating function blackjack-controller:bet($gameId as xs:integer ,<br/>  $playerId as xs:string ,<br/>  $chipValue as xs:integer) as item()*<br/><br/></li></ul><p>place an chip into the player-pool</p><ul><li>Return:</li><ul><li>model change and via websocket updated page</li></ul></ul></div> <div id="blackjack-controller:confirmBet" class="methoddetail"><h5><a name="blackjack-controller:confirmBet"/>blackjack-controller:confirmBet</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/{$gameId}/confirmBet") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:confirmBet($gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><p>confirms bet chips of the given player</p><ul><li>Return:</li><ul><li>via websocket updated page</li></ul></ul></div> <div id="blackjack-controller:createAccount" class="methoddetail"><h5><a name="blackjack-controller:createAccount"/>blackjack-controller:createAccount</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/createAccount") %rest:query-param("playerName" ,<br/>  "{$playerName}") %output:method("html") %rest:POST %updating function blackjack-controller:createAccount($playerName as xs:string) as item()*<br/><br/></li></ul><p>log in as a new player</p><ul><li>Return:</li><ul><li>model change and lobby-page-update</li></ul></ul></div> <div id="blackjack-controller:dealPhase" class="methoddetail"><h5><a name="blackjack-controller:dealPhase"/>blackjack-controller:dealPhase</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/{$gameId}/dealPhase") %output:method("html") %rest:GET %updating function blackjack-controller:dealPhase($gameId as xs:integer) as item()*<br/><br/></li></ul><p>dealer gives two card to each</p><ul><li>Return:</li><ul><li>model change</li></ul></ul></div> <div id="blackjack-controller:dealerTurn" class="methoddetail"><h5><a name="blackjack-controller:dealerTurn"/>blackjack-controller:dealerTurn</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/{$gameId}/dealerTurn") %output:method("html") %rest:GET %updating function blackjack-controller:dealerTurn($gameId as xs:integer) as item()*<br/><br/></li></ul><p>dealer starts his turn</p><ul><li>Return:</li><ul><li>model change and update via websocket</li></ul></ul></div> <div id="blackjack-controller:drawGame" class="methoddetail"><h5><a name="blackjack-controller:drawGame"/>blackjack-controller:drawGame</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/{$gameId}") %rest:GET function blackjack-controller:drawGame($gameId as xs:integer) as item()*<br/><br/></li></ul><p>update game-views via websocket</p><ul><li>Return:</li><ul><li>empty HTML (for hiddenFrame)</li></ul></ul></div> <div id="blackjack-controller:exit" class="methoddetail"><h5><a name="blackjack-controller:exit"/>blackjack-controller:exit</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/{$gameId}/exit") %rest:query-param("playerId" ,<br/>  "{$playerId}") %rest:query-param("playerName" ,<br/>  "{$playerName}") %output:method("html") %rest:POST %updating function blackjack-controller:exit($gameId as xs:integer ,<br/>  $playerId as xs:string ,<br/>  $playerName as xs:string) as item()*<br/><br/></li></ul><p>player exits the game:
+    if spectator -&gt; direct to Lobby
+    if only player in game -&gt; delete game and go to Lobby
+    if not last player in game -&gt; mark player as left and go to Lobby
+                eventually trigger dealerPhase or dealerTurn</p><ul><li>Return:</li><ul><li>model change no update via websocket</li></ul></ul></div> <div id="blackjack-controller:generateLobby" class="methoddetail"><h5><a name="blackjack-controller:generateLobby"/>blackjack-controller:generateLobby</h5><ul class="method"><li class="left"/><li class="right">( $lobby as element(lobby) ,<br/>  $xslStylesheet as xs:string ,<br/>  $parameters as item()* ,<br/>  $title as xs:string) as item()*<br/><br/></li></ul><p>gives the HTML-View of the Lobby</p><ul><li>Return:</li><ul><li>HTML-Text with the generated Lobby-View</li></ul></ul></div> <div id="blackjack-controller:getGameLayout" class="methoddetail"><h5><a name="blackjack-controller:getGameLayout"/>blackjack-controller:getGameLayout</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/{$gameId}/getGameLayout") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:GET function blackjack-controller:getGameLayout($gameId as xs:integer ,<br/>  $playerId as xs:integer) as item()*<br/><br/></li></ul><p>returns the HTML of the game</p><ul><li>Return:</li><ul><li>HTML of the game with specific player-View</li></ul></ul></div> <div id="blackjack-controller:handOutOneCardToEach" class="methoddetail"><h5><a name="blackjack-controller:handOutOneCardToEach"/>blackjack-controller:handOutOneCardToEach</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/{$gameId}/handOutOneCardToEach") %output:method("html") %rest:GET %updating function blackjack-controller:handOutOneCardToEach($gameId as xs:integer) as item()*<br/><br/></li></ul><p>dealer gives one card to each</p><ul><li>Return:</li><ul><li>model change and via websocket updated page
+        or if a leaving players triggered the dealPhase -&gt; return this player to the Lobby</li></ul></ul></div> <div id="blackjack-controller:hit" class="methoddetail"><h5><a name="blackjack-controller:hit"/>blackjack-controller:hit</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/{$gameId}/hit") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:hit($gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><p>player hits (gets one card)</p><ul><li>Return:</li><ul><li>model change and via websocket updated page</li></ul></ul></div> <div id="blackjack-controller:join" class="methoddetail"><h5><a name="blackjack-controller:join"/>blackjack-controller:join</h5><ul class="method"><li class="left"/><li class="right">( "html") %rest:path("/docbook_blackjack/{$gameId}/join") %rest:query-param("playerId" ,<br/>  "{$playerId}") function blackjack-controller:join($gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><p>join an existing MultiPlayer-Game -&gt; subscribe to Websocket on that page</p><ul><li>Return:</li><ul><li>redirects user to game-page</li></ul></ul></div> <div id="blackjack-controller:joinGame" class="methoddetail"><h5><a name="blackjack-controller:joinGame"/>blackjack-controller:joinGame</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/{$gameId}/joinGame") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:joinGame($gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><p>add player to game and join Game</p><ul><li>Return:</li><ul><li>model change and redirect to game-Page</li></ul></ul></div> <div id="blackjack-controller:newGame" class="methoddetail"><h5><a name="blackjack-controller:newGame"/>blackjack-controller:newGame</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/newGame") %rest:query-param("playerName" ,<br/>  "{$playerName}") %rest:query-param("playerId" ,<br/>  "{$playerId}") %rest:query-param("singlePlayer" ,<br/>  "{$singlePlayer}") %rest:GET %updating function blackjack-controller:newGame($playerName as xs:string ,<br/>  $playerId as xs:string ,<br/>  $singlePlayer as xs:string) as item()*<br/><br/></li></ul><p>creates a new game with the given player as first player</p><ul><li>Return:</li><ul><li>model change with new game and redirects user to new game-page</li></ul></ul></div> <div id="blackjack-controller:pay" class="methoddetail"><h5><a name="blackjack-controller:pay"/>blackjack-controller:pay</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/{$gameId}/pay") %output:method("html") %rest:GET %updating function blackjack-controller:pay($gameId as xs:integer) as item()*<br/><br/></li></ul><p>pay ot every player and remove chips and cards from table</p><ul><li>Return:</li><ul><li>model change and update via websocket</li></ul></ul></div> <div id="blackjack-controller:redirectLobby" class="methoddetail"><h5><a name="blackjack-controller:redirectLobby"/>blackjack-controller:redirectLobby</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack") %rest:GET %updating function blackjack-controller:redirectLobby() as item()*<br/><br/></li></ul><p>redirects user to Lobby</p><ul/></div> <div id="blackjack-controller:resetBet" class="methoddetail"><h5><a name="blackjack-controller:resetBet"/>blackjack-controller:resetBet</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/{$gameId}/resetBet") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:resetBet($gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><p>reset bet chips of the given player</p><ul><li>Return:</li><ul><li>model change and via websocket updated page</li></ul></ul></div> <div id="blackjack-controller:restoreAccount" class="methoddetail"><h5><a name="blackjack-controller:restoreAccount"/>blackjack-controller:restoreAccount</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/restoreAccount") %rest:query-param("playerName" ,<br/>  "{$playerName}") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:GET function blackjack-controller:restoreAccount($playerName as xs:string ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><p>log in with an existing player</p><ul><li>Return:</li><ul><li>if player really exists: model change and lobby-page-update</li></ul></ul></div> <div id="blackjack-controller:setup" class="methoddetail"><h5><a name="blackjack-controller:setup"/>blackjack-controller:setup</h5><ul class="method"><li class="left"/><li class="right">( "docbook_blackjack/setup") %output:method("xhtml") %updating %rest:GET function blackjack-controller:setup() as item()*<br/><br/></li></ul><p>if the datacase doesn't exist -&gt; create the databases "Lobby", "Deck"</p><ul><li>Return:</li><ul><li>redirects User to the Lobby</li></ul></ul></div> <div id="blackjack-controller:stand" class="methoddetail"><h5><a name="blackjack-controller:stand"/>blackjack-controller:stand</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack/{$gameId}/stand") %rest:query-param("playerId" ,<br/>  "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:stand($gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><p>player stands (stops to get more cards)</p><ul><li>Return:</li><ul><li>model change and via websocket updated page</li></ul></ul></div> <div id="blackjack-controller:start" class="methoddetail"><h5><a name="blackjack-controller:start"/>blackjack-controller:start</h5><ul class="method"><li class="left"/><li class="right">( "html") %rest:query-param("playerName" ,<br/>  "{$playerName}") %rest:query-param("playerId" ,<br/>  "{$playerId}") %rest:path("/docbook_blackjack/lobby") function blackjack-controller:start($playerName as xs:string? ,<br/>  $playerId as xs:string?) as item()*<br/><br/></li></ul><p>return the Lobby-Page to the user
+if given playerName and playerId exist -&gt; loggedIn-Lobby
+else: loggedOut-Lobby</p><ul><li>Return:</li><ul><li>created Lobby-File</li></ul></ul></div> </div> <div align="left"><i>Created by xqDoc-Lite version 1.1 on 2020-03-06T16:44:50.512+01:00</i></div></body></html>

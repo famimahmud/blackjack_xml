@@ -1,0 +1,755 @@
+<xqdoc:xqdoc xmlns:xqdoc="http://www.xqdoc.org/1.0">
+  <xqdoc:control>
+    <xqdoc:date>2020-03-06T16:44:50.512+01:00</xqdoc:date>
+    <xqdoc:version>1.1</xqdoc:version>
+  </xqdoc:control>
+  <xqdoc:module type="library">
+    <xqdoc:uri>blackjack-controller.xqm</xqdoc:uri>
+    <xqdoc:name>blackjack-controller.xqm</xqdoc:name>
+    <xqdoc:comment>
+      <xqdoc:description>Module Name: Blackjack Controller
+"The controller is responsible for all HTTP request and interacts directly with the client.
+It abstracts the interface from the client and calls the responsible methods in the main
+game module for the Blackjack game. It furthermore handles redirects, creation of the
+database, and generation of the XSLT delivered to the clients view for display." (Philipp Ulrich)</xqdoc:description>
+      <xqdoc:author>Moritz Issig, Patryk Brzoza, Fami Mahmud</xqdoc:author>
+      <xqdoc:see>e.g. chapter controller in the documentation</xqdoc:see>
+      <xqdoc:version>1.0</xqdoc:version>
+    </xqdoc:comment>
+  </xqdoc:module>
+  <xqdoc:namespaces>
+    <xqdoc:namespace prefix="blackjack-controller" uri="blackjack-controller.xqm"/>
+    <xqdoc:namespace prefix="rest" uri="http://exquery.org/ns/restxq"/>
+    <xqdoc:namespace prefix="output" uri="http://www.w3.org/2010/xslt-xquery-serialization"/>
+    <xqdoc:namespace prefix="ann" uri="http://www.w3.org/2012/xquery"/>
+  </xqdoc:namespaces>
+  <xqdoc:imports/>
+  <xqdoc:variables>
+    <xqdoc:variable>
+      <xqdoc:name>blackjack-controller:staticPath</xqdoc:name>
+      <xqdoc:type>xs:string</xqdoc:type>
+    </xqdoc:variable>
+  </xqdoc:variables>
+  <xqdoc:functions>
+    <xqdoc:function arity="0">
+      <xqdoc:comment>
+        <xqdoc:description>if the datacase doesn't exist -&gt; create the databases "Lobby", "Deck"</xqdoc:description>
+        <xqdoc:return>redirects User to the Lobby</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:setup</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">docbook_blackjack/setup</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">xhtml</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="updating"/>
+        <xqdoc:annotation name="rest:GET"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("docbook_blackjack/setup") %output:method("xhtml") %updating %rest:GET function blackjack-controller:setup() as item()*</xqdoc:signature>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>return the Lobby-Page to the user
+if given playerName and playerId exist -&gt; loggedIn-Lobby
+else: loggedOut-Lobby</xqdoc:description>
+        <xqdoc:custom tag="playerName">name of the logged in user</xqdoc:custom>
+        <xqdoc:custom tag="playerId">id of the logged in user</xqdoc:custom>
+        <xqdoc:return>created Lobby-File</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:start</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:GET"/>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerName</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerName}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerId</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/lobby</xqdoc:literal>
+        </xqdoc:annotation>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:GET %output:method("html") %rest:query-param("playerName", "{$playerName}") %rest:query-param("playerId", "{$playerId}") %rest:path("/docbook_blackjack/lobby") function blackjack-controller:start($playerName as xs:string?, $playerId as xs:string?) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>playerName</xqdoc:name>
+          <xqdoc:type occurrence="?">xs:string</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type occurrence="?">xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="3">
+      <xqdoc:comment>
+        <xqdoc:description>creates a new game with the given player as first player</xqdoc:description>
+        <xqdoc:custom tag="playerName">name of user, who created the new game</xqdoc:custom>
+        <xqdoc:custom tag="playerId">id of user, who created the new game</xqdoc:custom>
+        <xqdoc:custom tag="singlePlayer">flag, which is set if the new game is a singlePlayer game</xqdoc:custom>
+        <xqdoc:return>model change with new game and redirects user to new game-page</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:newGame</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/newGame</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerName</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerName}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerId</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">singlePlayer</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$singlePlayer}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:GET"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/newGame") %rest:query-param("playerName", "{$playerName}") %rest:query-param("playerId", "{$playerId}") %rest:query-param("singlePlayer", "{$singlePlayer}") %rest:GET %updating function blackjack-controller:newGame($playerName as xs:string, $playerId as xs:string, $singlePlayer as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>playerName</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>singlePlayer</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>join an existing MultiPlayer-Game -&gt; subscribe to Websocket on that page</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, which the players joins</xqdoc:custom>
+        <xqdoc:custom tag="playerId">id of the user, who joins the game</xqdoc:custom>
+        <xqdoc:return>redirects user to game-page</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:join</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:GET"/>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}/join</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerId</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerId}</xqdoc:literal>
+        </xqdoc:annotation>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:GET %output:method("html") %rest:path("/docbook_blackjack/{$gameId}/join") %rest:query-param("playerId", "{$playerId}") function blackjack-controller:join($gameId as xs:integer, $playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="0">
+      <xqdoc:comment>
+        <xqdoc:description>redirects user to Lobby</xqdoc:description>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:redirectLobby</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:GET"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack") %rest:GET %updating function blackjack-controller:redirectLobby() as item()*</xqdoc:signature>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="4">
+      <xqdoc:comment>
+        <xqdoc:description>gives the HTML-View of the Lobby</xqdoc:description>
+        <xqdoc:custom tag="lobby">Lobby-Element, which should be generated</xqdoc:custom>
+        <xqdoc:custom tag="xslStylesheet">name of the used xsl-Stylesheet</xqdoc:custom>
+        <xqdoc:custom tag="parameters">parameters, which are used in the xsl-Stylesheet</xqdoc:custom>
+        <xqdoc:return>HTML-Text with the generated Lobby-View</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:generateLobby</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-controller:generateLobby($lobby as element(lobby), $xslStylesheet as xs:string, $parameters as item()*, $title as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>lobby</xqdoc:name>
+          <xqdoc:type>element(lobby)</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>xslStylesheet</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>parameters</xqdoc:name>
+          <xqdoc:type occurrence="*">item()</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>title</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>update game-views via websocket</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, were all players get a websocket update</xqdoc:custom>
+        <xqdoc:return>empty HTML (for hiddenFrame)</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:drawGame</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:GET"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/{$gameId}") %rest:GET function blackjack-controller:drawGame($gameId as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>returns the HTML of the game</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, which will be generated</xqdoc:custom>
+        <xqdoc:custom tag="playerId">Id of the player, for whom the game is generated</xqdoc:custom>
+        <xqdoc:return>HTML of the game with specific player-View</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:getGameLayout</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}/getGameLayout</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerId</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:GET"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/{$gameId}/getGameLayout") %rest:query-param("playerId", "{$playerId}") %output:method("html") %rest:GET function blackjack-controller:getGameLayout($gameId as xs:integer, $playerId as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="3">
+      <xqdoc:comment>
+        <xqdoc:description>place an chip into the player-pool</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the player bets</xqdoc:custom>
+        <xqdoc:custom tag="playerId">Id of the player, who bets</xqdoc:custom>
+        <xqdoc:custom tag="chipValue">value of the bet chip</xqdoc:custom>
+        <xqdoc:return>model change and via websocket updated page</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:bet</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}/bet</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerId</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">chipValue</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$chipValue}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:POST"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/{$gameId}/bet") %rest:query-param("playerId", "{$playerId}") %rest:query-param("chipValue", "{$chipValue}") %output:method("html") %rest:POST %updating function blackjack-controller:bet($gameId as xs:integer, $playerId as xs:string, $chipValue as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>chipValue</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>confirms bet chips of the given player</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the player confirms his bet</xqdoc:custom>
+        <xqdoc:custom tag="playerId">Id of the player, who confirms his bet</xqdoc:custom>
+        <xqdoc:return>via websocket updated page</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:confirmBet</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}/confirmBet</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerId</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:POST"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/{$gameId}/confirmBet") %rest:query-param("playerId", "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:confirmBet($gameId as xs:integer, $playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>reset bet chips of the given player</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the player resets his bet</xqdoc:custom>
+        <xqdoc:custom tag="playerId">Id of the player, who resets his bet</xqdoc:custom>
+        <xqdoc:return>model change and via websocket updated page</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:resetBet</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}/resetBet</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerId</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:POST"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/{$gameId}/resetBet") %rest:query-param("playerId", "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:resetBet($gameId as xs:integer, $playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>dealer gives two card to each</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the dealer deals the cards</xqdoc:custom>
+        <xqdoc:return>model change</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:dealPhase</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}/dealPhase</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:GET"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/{$gameId}/dealPhase") %output:method("html") %rest:GET %updating function blackjack-controller:dealPhase($gameId as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>dealer gives one card to each</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the dealer deals the cards</xqdoc:custom>
+        <xqdoc:return>model change and via websocket updated page
+        or if a leaving players triggered the dealPhase -&gt; return this player to the Lobby</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:handOutOneCardToEach</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}/handOutOneCardToEach</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:GET"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/{$gameId}/handOutOneCardToEach") %output:method("html") %rest:GET %updating function blackjack-controller:handOutOneCardToEach($gameId as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>player hits (gets one card)</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the player hits</xqdoc:custom>
+        <xqdoc:custom tag="playerId">Id of the hitting player</xqdoc:custom>
+        <xqdoc:return>model change and via websocket updated page</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:hit</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}/hit</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerId</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:POST"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/{$gameId}/hit") %rest:query-param("playerId", "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:hit($gameId as xs:integer, $playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>player stands (stops to get more cards)</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the player stands</xqdoc:custom>
+        <xqdoc:custom tag="playerId">Id of the stand player</xqdoc:custom>
+        <xqdoc:return>model change and via websocket updated page</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:stand</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}/stand</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerId</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:POST"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/{$gameId}/stand") %rest:query-param("playerId", "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:stand($gameId as xs:integer, $playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="3">
+      <xqdoc:comment>
+        <xqdoc:description>player exits the game:
+    if spectator -&gt; direct to Lobby
+    if only player in game -&gt; delete game and go to Lobby
+    if not last player in game -&gt; mark player as left and go to Lobby
+                eventually trigger dealerPhase or dealerTurn</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the player exits</xqdoc:custom>
+        <xqdoc:custom tag="playerId">Id of the exiting player</xqdoc:custom>
+        <xqdoc:return>model change no update via websocket</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:exit</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}/exit</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerId</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerName</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerName}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:POST"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/{$gameId}/exit") %rest:query-param("playerId", "{$playerId}") %rest:query-param("playerName", "{$playerName}") %output:method("html") %rest:POST %updating function blackjack-controller:exit($gameId as xs:integer, $playerId as xs:string, $playerName as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerName</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>dealer starts his turn</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the dealerTurn starts</xqdoc:custom>
+        <xqdoc:return>model change and update via websocket</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:dealerTurn</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}/dealerTurn</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:GET"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/{$gameId}/dealerTurn") %output:method("html") %rest:GET %updating function blackjack-controller:dealerTurn($gameId as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>pay ot every player and remove chips and cards from table</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the pay out starts</xqdoc:custom>
+        <xqdoc:return>model change and update via websocket</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:pay</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}/pay</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:GET"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/{$gameId}/pay") %output:method("html") %rest:GET %updating function blackjack-controller:pay($gameId as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>log in with an existing player</xqdoc:description>
+        <xqdoc:custom tag="playerName">name of the existing player</xqdoc:custom>
+        <xqdoc:custom tag="playerId">Id of the existing player</xqdoc:custom>
+        <xqdoc:return>if player really exists: model change and lobby-page-update</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:restoreAccount</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/restoreAccount</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerName</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerName}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerId</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:GET"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/restoreAccount") %rest:query-param("playerName", "{$playerName}") %rest:query-param("playerId", "{$playerId}") %output:method("html") %rest:GET function blackjack-controller:restoreAccount($playerName as xs:string, $playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>playerName</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>log in as a new player</xqdoc:description>
+        <xqdoc:custom tag="playerName">name for the new player</xqdoc:custom>
+        <xqdoc:return>model change and lobby-page-update</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:createAccount</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/createAccount</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerName</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerName}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:POST"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/createAccount") %rest:query-param("playerName", "{$playerName}") %output:method("html") %rest:POST %updating function blackjack-controller:createAccount($playerName as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>playerName</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>add player to game and join Game</xqdoc:description>
+        <xqdoc:custom tag="gameId">id for the game, where the player joins</xqdoc:custom>
+        <xqdoc:custom tag="playerId">id for the joining player</xqdoc:custom>
+        <xqdoc:return>model change and redirect to game-Page</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-controller:joinGame</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="rest:path">
+          <xqdoc:literal type="xs:string">/docbook_blackjack/{$gameId}/joinGame</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:query-param">
+          <xqdoc:literal type="xs:string">playerId</xqdoc:literal>
+          <xqdoc:literal type="xs:string">{$playerId}</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="output:method">
+          <xqdoc:literal type="xs:string">html</xqdoc:literal>
+        </xqdoc:annotation>
+        <xqdoc:annotation name="rest:POST"/>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %rest:path("/docbook_blackjack/{$gameId}/joinGame") %rest:query-param("playerId", "{$playerId}") %output:method("html") %rest:POST %updating function blackjack-controller:joinGame($gameId as xs:integer, $playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>empty-sequence()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+  </xqdoc:functions>
+</xqdoc:xqdoc>

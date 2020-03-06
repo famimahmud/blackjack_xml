@@ -1,0 +1,186 @@
+<xqdoc:xqdoc xmlns:xqdoc="http://www.xqdoc.org/1.0">
+  <xqdoc:control>
+    <xqdoc:date>2020-03-06T16:34:41.589+01:00</xqdoc:date>
+    <xqdoc:version>1.1</xqdoc:version>
+  </xqdoc:control>
+  <xqdoc:module type="library">
+    <xqdoc:uri>Blackjack/Helper</xqdoc:uri>
+    <xqdoc:name>blackjack-helper.xqm</xqdoc:name>
+    <xqdoc:comment>
+      <xqdoc:description>Module Name: Blackjack Helper
+This module is used for helper functions like generating a Deck or a random number.
+The generated random number determines Ids or draws random cards out of the deck.</xqdoc:description>
+      <xqdoc:author>Moritz Issig, Patryk Brzoza, Fami Mahmud</xqdoc:author>
+      <xqdoc:see>e.g. chapter helper in the documentation</xqdoc:see>
+      <xqdoc:version>1.0</xqdoc:version>
+    </xqdoc:comment>
+  </xqdoc:module>
+  <xqdoc:namespaces>
+    <xqdoc:namespace prefix="blackjack-helper" uri="Blackjack/Helper"/>
+  </xqdoc:namespaces>
+  <xqdoc:imports/>
+  <xqdoc:variables>
+    <xqdoc:variable>
+      <xqdoc:name>blackjack-helper:deck</xqdoc:name>
+      <xqdoc:type occurrence="*">item()</xqdoc:type>
+    </xqdoc:variable>
+    <xqdoc:variable>
+      <xqdoc:name>blackjack-helper:players</xqdoc:name>
+      <xqdoc:type occurrence="*">item()</xqdoc:type>
+    </xqdoc:variable>
+    <xqdoc:variable>
+      <xqdoc:name>blackjack-helper:lobby</xqdoc:name>
+      <xqdoc:type occurrence="*">item()</xqdoc:type>
+    </xqdoc:variable>
+  </xqdoc:variables>
+  <xqdoc:functions>
+    <xqdoc:function arity="0">
+      <xqdoc:comment>
+        <xqdoc:description>Builds a deck with 312 cards (6x 52-Decks)</xqdoc:description>
+        <xqdoc:return>a deck with 312 cards</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-helper:generateDeck</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-helper:generateDeck() as element(deck)</xqdoc:signature>
+      <xqdoc:return>
+        <xqdoc:type>element(deck)</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>Return random number from given interval [1, max]</xqdoc:description>
+        <xqdoc:custom tag="max">the maximum for the ramdon integer</xqdoc:custom>
+        <xqdoc:return>the calculated random integer</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-helper:getRandomInt</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-helper:getRandomInt($max as xs:integer) as xs:integer</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>max</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>xs:integer</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>Return random number from given interval [min, max]</xqdoc:description>
+        <xqdoc:custom tag="min">the minimum for the ramdon integer</xqdoc:custom>
+        <xqdoc:custom tag="max">the maximum for the ramdon integer</xqdoc:custom>
+        <xqdoc:return>the calculated random integer</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-helper:getRandomIntFromRange</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-helper:getRandomIntFromRange($min as xs:integer, $max as xs:integer) as xs:integer</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>min</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>max</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>xs:integer</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="0">
+      <xqdoc:comment>
+        <xqdoc:description>Creates new random player ID</xqdoc:description>
+        <xqdoc:return>new player ID</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-helper:createPlayerId</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-helper:createPlayerId() as xs:integer</xqdoc:signature>
+      <xqdoc:return>
+        <xqdoc:type>xs:integer</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="0">
+      <xqdoc:comment>
+        <xqdoc:description>Creates new random game ID</xqdoc:description>
+        <xqdoc:return>new game ID</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-helper:createGameId</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-helper:createGameId() as xs:integer</xqdoc:signature>
+      <xqdoc:return>
+        <xqdoc:type>xs:integer</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>Check whether player exists in player database</xqdoc:description>
+        <xqdoc:custom tag="playerName">name of the searched player</xqdoc:custom>
+        <xqdoc:custom tag="playerId">Id of the searched player</xqdoc:custom>
+        <xqdoc:return>boolean returning existence</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-helper:playerExists</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-helper:playerExists($playerName as xs:string?, $playerId as xs:string?) as xs:boolean</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>playerName</xqdoc:name>
+          <xqdoc:type occurrence="?">xs:string</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type occurrence="?">xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>xs:boolean</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>Get player highscore from player database</xqdoc:description>
+        <xqdoc:custom tag="playerName">name of the player with the searched highscore</xqdoc:custom>
+        <xqdoc:custom tag="playerId">Id of the player with the searched highscore</xqdoc:custom>
+        <xqdoc:return>player highscore</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-helper:getPlayerHighscore</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-helper:getPlayerHighscore($playerName as xs:string, $playerId as xs:string) as xs:integer</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>playerName</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>xs:integer</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="0">
+      <xqdoc:comment>
+        <xqdoc:description>Get player scores from lobby database</xqdoc:description>
+        <xqdoc:return>player scores</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-helper:getScoreBoard</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-helper:getScoreBoard() as item()*</xqdoc:signature>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>Get player name from id</xqdoc:description>
+        <xqdoc:return>player name as string</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-helper:getPlayerName</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-helper:getPlayerName($playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+  </xqdoc:functions>
+</xqdoc:xqdoc>

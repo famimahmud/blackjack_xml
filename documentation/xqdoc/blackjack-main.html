@@ -1,0 +1,178 @@
+<html xml:space="preserve"><head><title>xqDoc -- Module</title><script language="JavaScript"><!--
+        function popUp(URL) {
+                 day = new Date();
+                 id = day.getTime();
+                 eval("page = window.open(URL, 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');")
+                 page.focus();
+        }
+      --></script><script language="JavaScript"><!--
+	    function litePopUp(str) {    
+  		  OpenWindow=window.open('', 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');
+  		  OpenWindow.document.write('<html xmlspace="preserve">');
+  		  OpenWindow.document.write('<head>');
+  		  OpenWindow.document.write('<title>xqDoc - Code Sample</title>');
+  		  OpenWindow.document.write('</head>');  		    		    		  
+  		  OpenWindow.document.write('<body xml:space="preserve">');
+  		  OpenWindow.document.write('<pre>');
+ 		  OpenWindow.document.write(str);
+ 		  OpenWindow.document.write('</pre>');
+  		  OpenWindow.document.write('</body>');
+  		  OpenWindow.document.write('</html>');
+  		  OpenWindow.document.close();
+  		  page.focus();
+        }
+      --></script><style><!--
+body		{
+		font: 80% Verdana;
+		}
+table		{
+		font-size: 100%;
+		}
+h1, h2, h3, h4, h5, h6
+		{
+		clear: both;
+		float: none;
+		}
+h1		{
+		font-size: 100%;
+		margin: 0em;
+		}
+h2		{
+		font-size: 180%;
+		margin-bottom: -1em;
+		margin-top: .3em;
+		}
+h3		{
+		font-size: 150%;
+		}	
+h4		{
+		font-size: 140%;
+		background-color: #ccf;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		}
+h5		{
+		margin: 1em 0em 0em 0em;
+		font-size: 120%;
+		}
+h6		{
+		margin: 0em 0em 0em 3em;
+		font-style: italic;
+		font: bold italic;
+		font-size: 100%;
+		}
+#variables, #methods, #methoddetail
+		{
+		padding-left: 3em;
+		margin-bottom: 1.4em;
+		clear: both;
+		float: none;
+		}
+#methods ul.method, #variables ul.method
+		{
+		margin: 1em 0em 0em;
+		}
+#methoddetail ul.method
+		{
+		margin: 0em;
+		}
+div.inexternal
+		{
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail p
+		{
+		float: none;
+		clear: both;
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail{
+		padding-bottom: 1em;
+		}
+div.methoddetail li
+		{
+		list-style-type: none;
+		font-weight: bold;
+		}
+div.methoddetail li li
+		{
+		list-style-type: circle;
+		font-weight: normal;
+		}
+div.methoddetail li ul
+		{
+		padding-bottom: 0.5em;
+		font-weight: normal;
+		}
+table.inexternal{
+		clear: both;
+		float: none;
+		width: 80%;
+		margin-left: 3em;
+		padding: 0em;
+		
+		}
+table.inexternal th
+		{
+		background-color:#dedede;
+		width: 50%;
+		}			
+td		{
+		vertical-align: top;
+		}
+div.description {
+		margin-top: .5em;
+		font-weight: normal;
+		padding-left: 1em;
+		}
+ul.method	{
+		clear: both;
+		float: none;
+		width: 90%;
+		list-style-type: none;
+		border-top: 1px solid #ccc;
+		}
+ul.method li.left
+		{
+		float: left;
+		clear: none;
+		width: 40%;
+		font-weight: bold;
+		margin-bottom: 2em;
+		}
+ul.method li.right
+		{
+		position: relative;
+            top: 0em;
+		float: left;
+            width: 55%;
+		margin-bottom: 2em;
+		padding-left: 2em;
+		}
+div.home 	{
+		width: 60%;
+		float: left;
+		margin-right: 1%;
+		border: 1px
+		}
+div.home h4	{
+		font-size: 120%;
+		background-color: #fff;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		margin-bottom: -1em;
+		}
+div.overview p {
+               width: 60%;
+               }
+     
+ --></style></head><body><h4>Module URI</h4><h1>Blackjack/Main</h1><h4>Module Description</h4><p>Module Name: Blackjack Main
+The main module contains functions to implement the game logic of the blackjack game.</p><ul><li><strong>Author: </strong>Moritz Issig, Patryk Brzoza, Fami Mahmud</li><li><strong>Version: </strong>1.0</li><li><strong>See: </strong>e.g. chapter main game in the documentation</li></ul><h4>Variables</h4><div id="variables"><div><a name="$"/><ul class="method"><li class="left">$</li><li class="right"/></ul><ul/></div><div><a name="$"/><ul class="method"><li class="left">$</li><li class="right"/></ul><ul/></div></div> <h4>Imported Modules</h4><div id="imports"><div><ul class="method"><li class="left">Blackjack/Helper</li><li class="right"/></ul><ul/></div></div> <h4>Function Summary</h4><div id="methods"><a name="methods"/><ul class="method"><li class="left"><a href="#blackjack-main:addHighscore">blackjack-main:addHighscore</a><div class="description">Inserts player score to score list to compute highscore board</div></li><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:addPlayer">blackjack-main:addPlayer</a><div class="description">adding a player to the game if player cant join -&gt; redirect him to lobby</div></li><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:bet">blackjack-main:bet</a><div class="description">put a chip into the pool of the player</div></li><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string ,<br/>  $chipValue as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:calculateHandValue">blackjack-main:calculateHandValue</a><div class="description">Calculates the maxValue of Hand</div></li><li class="right">( $hand as element()) as xs:integer<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:calculateHandValueHelper">blackjack-main:calculateHandValueHelper</a><div class="description">Rekursiv Helper-Function for calculating the maxValue of a given Hand</div></li><li class="right">( $hand as element()) as xs:integer<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:confirmBet">blackjack-main:confirmBet</a><div class="description">confirm the bet of the given player / if the player confirmed last -&gt; change to deal-phase</div></li><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:dealPhase">blackjack-main:dealPhase</a><div class="description">give every player and the dealer two cards (DB-update between first and second card)</div></li><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:dealerTurn">blackjack-main:dealerTurn</a><div class="description">dealer Turn: dealer draws cards recursivly untill he's over 16.</div></li><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:drawCard">blackjack-main:drawCard</a><div class="description">Draw one card from the deck, add the card to the player hand and calculate new HandValue
+If the new HandValue is over 21 -&gt; moveTurn to next Player (or to Dealer)</div></li><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:endGame">blackjack-main:endGame</a><div class="description">End game: save player highscores and remove game.</div></li><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:getGame">blackjack-main:getGame</a><div class="description"/></li><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:getLobby">blackjack-main:getLobby</a><div class="description"/></li><li class="right">( ) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:getPlayers">blackjack-main:getPlayers</a><div class="description"/></li><li class="right">( ) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:handOutOneCardToEach">blackjack-main:handOutOneCardToEach</a><div class="description">gives every player and the dealer one card</div></li><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:leaveGame">blackjack-main:leaveGame</a><div class="description">Leave game: save player highscore.</div></li><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:moveTurn">blackjack-main:moveTurn</a><div class="description">move Turn to next player or to dealer</div></li><li class="right">( $gameId as xs:integer ,<br/>  $playerOnTurn as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:moveTurnHelper">blackjack-main:moveTurnHelper</a><div class="description">Recursiv helper-function ,which moves Turn to next player with less than 22 or to dealer
+If the turn is moved to dealer -&gt; start DealerTurn</div></li><li class="right">( $gameId as xs:integer ,<br/>  $playerOnTurn as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:newGame">blackjack-main:newGame</a><div class="description">Initate a new Game by creating a new Game model</div></li><li class="right">( $gameId as xs:integer ,<br/>  $playerName as xs:string ,<br/>  $playerId as xs:string ,<br/>  $singlePlayer as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:newRound">blackjack-main:newRound</a><div class="description">Initate a new Round by refilling the deck and go to bet-phase</div></li><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:payPlayer">blackjack-main:payPlayer</a><div class="description">pays out given player and removes the cards form the hand
+if the player loses the game and his wallet is empty -&gt; remove him from the game</div></li><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:payPlayers">blackjack-main:payPlayers</a><div class="description">pay all players and start new round</div></li><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-main:reduceHandValueWithAces">blackjack-main:reduceHandValueWithAces</a><div class="description">Reduces the HandValue recursivly by 10 for each Ace untill the value is smaller than 22 or no Aces are left</div></li><li class="right">( $numberOfAces as xs:integer ,<br/>  $handValue as xs:integer) as xs:integer<br/><br/></li></ul></div> <h4>Function Detail</h4><div id="methoddetail"><div id="blackjack-main:addHighscore" class="methoddetail"><h5><a name="blackjack-main:addHighscore"/>blackjack-main:addHighscore</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><p>Inserts player score to score list to compute highscore board</p><ul><li>Return:</li><ul><li>New score board</li></ul></ul></div> <div id="blackjack-main:addPlayer" class="methoddetail"><h5><a name="blackjack-main:addPlayer"/>blackjack-main:addPlayer</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><p>adding a player to the game if player cant join -&gt; redirect him to lobby</p><ul><li>Return:</li><ul><li>model change to insert Player to the current game</li></ul></ul></div> <div id="blackjack-main:bet" class="methoddetail"><h5><a name="blackjack-main:bet"/>blackjack-main:bet</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string ,<br/>  $chipValue as xs:integer) as item()*<br/><br/></li></ul><p>put a chip into the pool of the player</p><ul><li>Return:</li><ul><li>model change with added chip in the player pool and reduced player wallet</li></ul></ul></div> <div id="blackjack-main:calculateHandValue" class="methoddetail"><h5><a name="blackjack-main:calculateHandValue"/>blackjack-main:calculateHandValue</h5><ul class="method"><li class="left"/><li class="right">( $hand as element()) as xs:integer<br/><br/></li></ul><p>Calculates the maxValue of Hand</p><ul><li>Return:</li><ul><li>interger with the closes value to 21</li></ul></ul></div> <div id="blackjack-main:calculateHandValueHelper" class="methoddetail"><h5><a name="blackjack-main:calculateHandValueHelper"/>blackjack-main:calculateHandValueHelper</h5><ul class="method"><li class="left"/><li class="right">( $hand as element()) as xs:integer<br/><br/></li></ul><p>Rekursiv Helper-Function for calculating the maxValue of a given Hand</p><ul><li>Return:</li><ul><li>the maximal Value of the Hand (all Aces count 11)</li></ul></ul></div> <div id="blackjack-main:confirmBet" class="methoddetail"><h5><a name="blackjack-main:confirmBet"/>blackjack-main:confirmBet</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><p>confirm the bet of the given player / if the player confirmed last -&gt; change to deal-phase</p><ul><li>Return:</li><ul><li>model change with locked player pool</li></ul></ul></div> <div id="blackjack-main:dealPhase" class="methoddetail"><h5><a name="blackjack-main:dealPhase"/>blackjack-main:dealPhase</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><p>give every player and the dealer two cards (DB-update between first and second card)</p><ul><li>Return:</li><ul><li>model change to move turn to next player</li></ul></ul></div> <div id="blackjack-main:dealerTurn" class="methoddetail"><h5><a name="blackjack-main:dealerTurn"/>blackjack-main:dealerTurn</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><p>dealer Turn: dealer draws cards recursivly untill he's over 16. When change to pay-phase</p><ul><li>Return:</li><ul><li>model change: dealer has drawn cards</li></ul></ul></div> <div id="blackjack-main:drawCard" class="methoddetail"><h5><a name="blackjack-main:drawCard"/>blackjack-main:drawCard</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><p>Draw one card from the deck, add the card to the player hand and calculate new HandValue
+If the new HandValue is over 21 -&gt; moveTurn to next Player (or to Dealer)</p><ul><li>Return:</li><ul><li>model changes: (removing random card from deck and add same card(revealed) to hand)</li></ul></ul></div> <div id="blackjack-main:endGame" class="methoddetail"><h5><a name="blackjack-main:endGame"/>blackjack-main:endGame</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><p>End game: save player highscores and remove game.</p><ul><li>Return:</li><ul><li>Model change in highscore and lobby database</li></ul></ul></div> <div id="blackjack-main:getGame" class="methoddetail"><h5><a name="blackjack-main:getGame"/>blackjack-main:getGame</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><ul/></div> <div id="blackjack-main:getLobby" class="methoddetail"><h5><a name="blackjack-main:getLobby"/>blackjack-main:getLobby</h5><ul class="method"><li class="left"/><li class="right">( ) as item()*<br/><br/></li></ul><ul/></div> <div id="blackjack-main:getPlayers" class="methoddetail"><h5><a name="blackjack-main:getPlayers"/>blackjack-main:getPlayers</h5><ul class="method"><li class="left"/><li class="right">( ) as item()*<br/><br/></li></ul><ul/></div> <div id="blackjack-main:handOutOneCardToEach" class="methoddetail"><h5><a name="blackjack-main:handOutOneCardToEach"/>blackjack-main:handOutOneCardToEach</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><p>gives every player and the dealer one card</p><ul><li>Return:</li><ul><li>model change with one card more in every hand</li></ul></ul></div> <div id="blackjack-main:leaveGame" class="methoddetail"><h5><a name="blackjack-main:leaveGame"/>blackjack-main:leaveGame</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><p>Leave game: save player highscore.</p><ul><li>Return:</li><ul><li>Model change in highscore and lobby database</li></ul></ul></div> <div id="blackjack-main:moveTurn" class="methoddetail"><h5><a name="blackjack-main:moveTurn"/>blackjack-main:moveTurn</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer ,<br/>  $playerOnTurn as xs:string) as item()*<br/><br/></li></ul><p>move Turn to next player or to dealer</p><ul><li>Return:</li><ul><li>model change to move turn to next player</li></ul></ul></div> <div id="blackjack-main:moveTurnHelper" class="methoddetail"><h5><a name="blackjack-main:moveTurnHelper"/>blackjack-main:moveTurnHelper</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer ,<br/>  $playerOnTurn as xs:string) as item()*<br/><br/></li></ul><p>Recursiv helper-function ,which moves Turn to next player with less than 22 or to dealer
+If the turn is moved to dealer -&gt; start DealerTurn</p><ul><li>Return:</li><ul><li>model change to move turn to next player</li></ul></ul></div> <div id="blackjack-main:newGame" class="methoddetail"><h5><a name="blackjack-main:newGame"/>blackjack-main:newGame</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer ,<br/>  $playerName as xs:string ,<br/>  $playerId as xs:string ,<br/>  $singlePlayer as xs:string) as item()*<br/><br/></li></ul><p>Initate a new Game by creating a new Game model</p><ul><li>Return:</li><ul><li>model change</li></ul></ul></div> <div id="blackjack-main:newRound" class="methoddetail"><h5><a name="blackjack-main:newRound"/>blackjack-main:newRound</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><p>Initate a new Round by refilling the deck and go to bet-phase</p><ul><li>Return:</li><ul><li>model change</li></ul></ul></div> <div id="blackjack-main:payPlayer" class="methoddetail"><h5><a name="blackjack-main:payPlayer"/>blackjack-main:payPlayer</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer ,<br/>  $playerId as xs:string) as item()*<br/><br/></li></ul><p>pays out given player and removes the cards form the hand
+if the player loses the game and his wallet is empty -&gt; remove him from the game</p><ul><li>Return:</li><ul><li>model change at player wallet, player pool and player hand</li></ul></ul></div> <div id="blackjack-main:payPlayers" class="methoddetail"><h5><a name="blackjack-main:payPlayers"/>blackjack-main:payPlayers</h5><ul class="method"><li class="left"/><li class="right">( $gameId as xs:integer) as item()*<br/><br/></li></ul><p>pay all players and start new round</p><ul><li>Return:</li><ul><li>model change at player-wallets and player-pools</li></ul></ul></div> <div id="blackjack-main:reduceHandValueWithAces" class="methoddetail"><h5><a name="blackjack-main:reduceHandValueWithAces"/>blackjack-main:reduceHandValueWithAces</h5><ul class="method"><li class="left"/><li class="right">( $numberOfAces as xs:integer ,<br/>  $handValue as xs:integer) as xs:integer<br/><br/></li></ul><p>Reduces the HandValue recursivly by 10 for each Ace untill the value is smaller than 22 or no Aces are left</p><ul><li>Return:</li><ul><li>interger with the closes value to 21</li></ul></ul></div> </div> <div align="left"><i>Created by xqDoc-Lite version 1.1 on 2020-03-06T16:34:07.867+01:00</i></div></body></html>

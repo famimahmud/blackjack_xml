@@ -1,0 +1,529 @@
+<xqdoc:xqdoc xmlns:xqdoc="http://www.xqdoc.org/1.0">
+  <xqdoc:control>
+    <xqdoc:date>2020-03-06T16:34:07.867+01:00</xqdoc:date>
+    <xqdoc:version>1.1</xqdoc:version>
+  </xqdoc:control>
+  <xqdoc:module type="library">
+    <xqdoc:uri>Blackjack/Main</xqdoc:uri>
+    <xqdoc:name>blackjack-main.xqm</xqdoc:name>
+    <xqdoc:comment>
+      <xqdoc:description>Module Name: Blackjack Main
+The main module contains functions to implement the game logic of the blackjack game.</xqdoc:description>
+      <xqdoc:author>Moritz Issig, Patryk Brzoza, Fami Mahmud</xqdoc:author>
+      <xqdoc:see>e.g. chapter main game in the documentation</xqdoc:see>
+      <xqdoc:version>1.0</xqdoc:version>
+    </xqdoc:comment>
+  </xqdoc:module>
+  <xqdoc:namespaces>
+    <xqdoc:namespace prefix="blackjack-main" uri="Blackjack/Main"/>
+    <xqdoc:namespace prefix="blackjack-helper" uri="Blackjack/Helper"/>
+    <xqdoc:namespace prefix="ann" uri="http://www.w3.org/2012/xquery"/>
+  </xqdoc:namespaces>
+  <xqdoc:imports>
+    <xqdoc:import type="library">
+      <xqdoc:uri>Blackjack/Helper</xqdoc:uri>
+    </xqdoc:import>
+  </xqdoc:imports>
+  <xqdoc:variables>
+    <xqdoc:variable>
+      <xqdoc:name>blackjack-main:players</xqdoc:name>
+      <xqdoc:type occurrence="*">item()</xqdoc:type>
+    </xqdoc:variable>
+    <xqdoc:variable>
+      <xqdoc:name>blackjack-main:lobby</xqdoc:name>
+      <xqdoc:type occurrence="*">item()</xqdoc:type>
+    </xqdoc:variable>
+  </xqdoc:variables>
+  <xqdoc:functions>
+    <xqdoc:function arity="4">
+      <xqdoc:comment>
+        <xqdoc:description>Initate a new Game by creating a new Game model</xqdoc:description>
+        <xqdoc:custom tag="gameId">ID for the stated Game</xqdoc:custom>
+        <xqdoc:custom tag="playerName">player who starts new Game</xqdoc:custom>
+        <xqdoc:custom tag="playerId">ID of player who starts new Game</xqdoc:custom>
+        <xqdoc:custom tag="singlePlayer">flag: if true it's not possible to join the game</xqdoc:custom>
+        <xqdoc:return>model change</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:newGame</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string, $playerId as xs:string, $singlePlayer as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerName</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>singlePlayer</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>Initate a new Round by refilling the deck and go to bet-phase</xqdoc:description>
+        <xqdoc:custom tag="gameId">ID of the game, which start the new Round</xqdoc:custom>
+        <xqdoc:return>model change</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:newRound</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:newRound($gameId as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>Draw one card from the deck, add the card to the player hand and calculate new HandValue
+If the new HandValue is over 21 -&gt; moveTurn to next Player (or to Dealer)</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the card is drawn</xqdoc:custom>
+        <xqdoc:custom tag="playerId">Id of player or "dealer", who gets the drawn card</xqdoc:custom>
+        <xqdoc:return>model changes: (removing random card from deck and add same card(revealed) to hand)</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:drawCard</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:drawCard($gameId as xs:integer, $playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>Calculates the maxValue of Hand</xqdoc:description>
+        <xqdoc:custom tag="player">, with the hand</xqdoc:custom>
+        <xqdoc:return>interger with the closes value to 21</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:calculateHandValue</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-main:calculateHandValue($hand as element()) as xs:integer</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>hand</xqdoc:name>
+          <xqdoc:type>element()</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>xs:integer</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>Rekursiv Helper-Function for calculating the maxValue of a given Hand</xqdoc:description>
+        <xqdoc:custom tag="hand">, a hand of cards / remove one card recursivly</xqdoc:custom>
+        <xqdoc:return>the maximal Value of the Hand (all Aces count 11)</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:calculateHandValueHelper</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-main:calculateHandValueHelper($hand as element()) as xs:integer</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>hand</xqdoc:name>
+          <xqdoc:type>element()</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>xs:integer</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>Reduces the HandValue recursivly by 10 for each Ace untill the value is smaller than 22 or no Aces are left</xqdoc:description>
+        <xqdoc:custom tag="numberOfAces">number of Aces, which will be used to reduce by 10</xqdoc:custom>
+        <xqdoc:custom tag="handValue">the value of a previously calculated Hand</xqdoc:custom>
+        <xqdoc:return>interger with the closes value to 21</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:reduceHandValueWithAces</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-main:reduceHandValueWithAces($numberOfAces as xs:integer, $handValue as xs:integer) as xs:integer</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>numberOfAces</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>handValue</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type>xs:integer</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>pay all players and start new round</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the players will be paid out</xqdoc:custom>
+        <xqdoc:return>model change at player-wallets and player-pools</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:payPlayers</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:payPlayers($gameId as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>pays out given player and removes the cards form the hand
+if the player loses the game and his wallet is empty -&gt; remove him from the game</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the player will be paid out</xqdoc:custom>
+        <xqdoc:custom tag="playerId">Id of the player, who will be paid</xqdoc:custom>
+        <xqdoc:return>model change at player wallet, player pool and player hand</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:payPlayer</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:payPlayer($gameId as xs:integer, $playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="3">
+      <xqdoc:comment>
+        <xqdoc:description>put a chip into the pool of the player</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the bet will be added</xqdoc:custom>
+        <xqdoc:custom tag="playerId">$playerId of the player, who bets</xqdoc:custom>
+        <xqdoc:custom tag="chipValue">$chipValue of the bet chip</xqdoc:custom>
+        <xqdoc:return>model change with added chip in the player pool and reduced player wallet</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:bet</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:bet($gameId as xs:integer, $playerId as xs:string, $chipValue as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>chipValue</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>confirm the bet of the given player / if the player confirmed last -&gt; change to deal-phase</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the player-bets will be confirmed</xqdoc:custom>
+        <xqdoc:custom tag="playerId">$playerId of the player, whos bets will be confirmed</xqdoc:custom>
+        <xqdoc:return>model change with locked player pool</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:confirmBet</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:confirmBet($gameId as xs:integer, $playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>gives every player and the dealer one card</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the cards will be handed out</xqdoc:custom>
+        <xqdoc:return>model change with one card more in every hand</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:handOutOneCardToEach</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:handOutOneCardToEach($gameId as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>give every player and the dealer two cards (DB-update between first and second card)</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the cards will be handed out</xqdoc:custom>
+        <xqdoc:return>model change to move turn to next player</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:dealPhase</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:dealPhase($gameId as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>move Turn to next player or to dealer</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the turn moves</xqdoc:custom>
+        <xqdoc:custom tag="playerOnTurn">$playerId whose turn it is next</xqdoc:custom>
+        <xqdoc:return>model change to move turn to next player</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:moveTurn</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:moveTurn($gameId as xs:integer, $playerOnTurn as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerOnTurn</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>Recursiv helper-function ,which moves Turn to next player with less than 22 or to dealer
+If the turn is moved to dealer -&gt; start DealerTurn</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the turn moves</xqdoc:custom>
+        <xqdoc:custom tag="playerOnTurn">$playerId whose turn it is now</xqdoc:custom>
+        <xqdoc:return>model change to move turn to next player</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:moveTurnHelper</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:moveTurnHelper($gameId as xs:integer, $playerOnTurn as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerOnTurn</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>dealer Turn: dealer draws cards recursivly untill he's over 16. When change to pay-phase</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the dealerTurn starts</xqdoc:custom>
+        <xqdoc:return>model change: dealer has drawn cards</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:dealerTurn</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:dealerTurn($gameId as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>adding a player to the game if player cant join -&gt; redirect him to lobby</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the player will be added</xqdoc:custom>
+        <xqdoc:custom tag="playerId">$playerId who will be added</xqdoc:custom>
+        <xqdoc:return>model change to insert Player to the current game</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:addPlayer</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>Inserts player score to score list to compute highscore board</xqdoc:description>
+        <xqdoc:custom tag="gameId">Id of the game, where the player achived the score</xqdoc:custom>
+        <xqdoc:custom tag="playerId">ID of the player to be inserted</xqdoc:custom>
+        <xqdoc:return>New score board</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:addHighscore</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:addHighscore($gameId as xs:integer, $playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="2">
+      <xqdoc:comment>
+        <xqdoc:description>Leave game: save player highscore.</xqdoc:description>
+        <xqdoc:custom tag="gameId">ID of the game to remove the player</xqdoc:custom>
+        <xqdoc:custom tag="playerId">ID of the player, who leaves the game</xqdoc:custom>
+        <xqdoc:return>Model change in highscore and lobby database</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:leaveGame</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:leaveGame($gameId as xs:integer, $playerId as xs:string) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+        <xqdoc:parameter>
+          <xqdoc:name>playerId</xqdoc:name>
+          <xqdoc:type>xs:string</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:comment>
+        <xqdoc:description>End game: save player highscores and remove game.</xqdoc:description>
+        <xqdoc:custom tag="gameId">ID of the game to remove the player</xqdoc:custom>
+        <xqdoc:return>Model change in highscore and lobby database</xqdoc:return>
+      </xqdoc:comment>
+      <xqdoc:name>blackjack-main:endGame</xqdoc:name>
+      <xqdoc:annotations>
+        <xqdoc:annotation name="updating"/>
+      </xqdoc:annotations>
+      <xqdoc:signature>declare %updating function blackjack-main:endGame($gameId as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="1">
+      <xqdoc:name>blackjack-main:getGame</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-main:getGame($gameId as xs:integer) as item()*</xqdoc:signature>
+      <xqdoc:parameters>
+        <xqdoc:parameter>
+          <xqdoc:name>gameId</xqdoc:name>
+          <xqdoc:type>xs:integer</xqdoc:type>
+        </xqdoc:parameter>
+      </xqdoc:parameters>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="0">
+      <xqdoc:name>blackjack-main:getLobby</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-main:getLobby() as item()*</xqdoc:signature>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+    <xqdoc:function arity="0">
+      <xqdoc:name>blackjack-main:getPlayers</xqdoc:name>
+      <xqdoc:signature>declare function blackjack-main:getPlayers() as item()*</xqdoc:signature>
+      <xqdoc:return>
+        <xqdoc:type occurrence="*">item()</xqdoc:type>
+      </xqdoc:return>
+    </xqdoc:function>
+  </xqdoc:functions>
+</xqdoc:xqdoc>

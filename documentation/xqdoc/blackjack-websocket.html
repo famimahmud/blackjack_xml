@@ -1,0 +1,178 @@
+<html xml:space="preserve"><head><title>xqDoc -- Module</title><script language="JavaScript"><!--
+        function popUp(URL) {
+                 day = new Date();
+                 id = day.getTime();
+                 eval("page = window.open(URL, 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');")
+                 page.focus();
+        }
+      --></script><script language="JavaScript"><!--
+	    function litePopUp(str) {    
+  		  OpenWindow=window.open('', 'xqdoccode', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=600,height=400,left = 412,top = 334');
+  		  OpenWindow.document.write('<html xmlspace="preserve">');
+  		  OpenWindow.document.write('<head>');
+  		  OpenWindow.document.write('<title>xqDoc - Code Sample</title>');
+  		  OpenWindow.document.write('</head>');  		    		    		  
+  		  OpenWindow.document.write('<body xml:space="preserve">');
+  		  OpenWindow.document.write('<pre>');
+ 		  OpenWindow.document.write(str);
+ 		  OpenWindow.document.write('</pre>');
+  		  OpenWindow.document.write('</body>');
+  		  OpenWindow.document.write('</html>');
+  		  OpenWindow.document.close();
+  		  page.focus();
+        }
+      --></script><style><!--
+body		{
+		font: 80% Verdana;
+		}
+table		{
+		font-size: 100%;
+		}
+h1, h2, h3, h4, h5, h6
+		{
+		clear: both;
+		float: none;
+		}
+h1		{
+		font-size: 100%;
+		margin: 0em;
+		}
+h2		{
+		font-size: 180%;
+		margin-bottom: -1em;
+		margin-top: .3em;
+		}
+h3		{
+		font-size: 150%;
+		}	
+h4		{
+		font-size: 140%;
+		background-color: #ccf;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		}
+h5		{
+		margin: 1em 0em 0em 0em;
+		font-size: 120%;
+		}
+h6		{
+		margin: 0em 0em 0em 3em;
+		font-style: italic;
+		font: bold italic;
+		font-size: 100%;
+		}
+#variables, #methods, #methoddetail
+		{
+		padding-left: 3em;
+		margin-bottom: 1.4em;
+		clear: both;
+		float: none;
+		}
+#methods ul.method, #variables ul.method
+		{
+		margin: 1em 0em 0em;
+		}
+#methoddetail ul.method
+		{
+		margin: 0em;
+		}
+div.inexternal
+		{
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail p
+		{
+		float: none;
+		clear: both;
+		padding-left: 2em;
+		margin-bottom: 1em;
+		}
+div.methoddetail{
+		padding-bottom: 1em;
+		}
+div.methoddetail li
+		{
+		list-style-type: none;
+		font-weight: bold;
+		}
+div.methoddetail li li
+		{
+		list-style-type: circle;
+		font-weight: normal;
+		}
+div.methoddetail li ul
+		{
+		padding-bottom: 0.5em;
+		font-weight: normal;
+		}
+table.inexternal{
+		clear: both;
+		float: none;
+		width: 80%;
+		margin-left: 3em;
+		padding: 0em;
+		
+		}
+table.inexternal th
+		{
+		background-color:#dedede;
+		width: 50%;
+		}			
+td		{
+		vertical-align: top;
+		}
+div.description {
+		margin-top: .5em;
+		font-weight: normal;
+		padding-left: 1em;
+		}
+ul.method	{
+		clear: both;
+		float: none;
+		width: 90%;
+		list-style-type: none;
+		border-top: 1px solid #ccc;
+		}
+ul.method li.left
+		{
+		float: left;
+		clear: none;
+		width: 40%;
+		font-weight: bold;
+		margin-bottom: 2em;
+		}
+ul.method li.right
+		{
+		position: relative;
+            top: 0em;
+		float: left;
+            width: 55%;
+		margin-bottom: 2em;
+		padding-left: 2em;
+		}
+div.home 	{
+		width: 60%;
+		float: left;
+		margin-right: 1%;
+		border: 1px
+		}
+div.home h4	{
+		font-size: 120%;
+		background-color: #fff;
+		border-bottom: 1px solid #99f;
+		width: 100%;
+		margin-bottom: -1em;
+		}
+div.overview p {
+               width: 60%;
+               }
+     
+ --></style></head><body><h4>Module URI</h4><h1>Blackjack/WS</h1><h4>Module Description</h4><p>Module Name: Blackjack Websocket
+Triggered if a player connects to a websocket:</p><ul/> <h4>Imported Modules</h4><div id="imports"><div><ul class="method"><li class="left">Blackjack/Main</li><li class="right"/></ul><ul/></div></div> <h4>Function Summary</h4><div id="methods"><a name="methods"/><ul class="method"><li class="left"><a href="#blackjack-ws:get">blackjack-ws:get</a><div class="description">get information from a websocket-ID</div></li><li class="right">( $wsId as item()* ,<br/>  $key as item()*) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-ws:getIDs">blackjack-ws:getIDs</a><div class="description"/></li><li class="right">( ) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-ws:send">blackjack-ws:send</a><div class="description">send massage via websocket</div></li><li class="right">( $data as item()* ,<br/>  $path as item()*) as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-ws:stompconnect">blackjack-ws:stompconnect</a><div class="description">Module Name: Blackjack Websocket
+Triggered if a player connects to a websocket:</div></li><li class="right">( "/docbook_blackjack") %updating function blackjack-ws:stompconnect() as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-ws:stompdisconnect">blackjack-ws:stompdisconnect</a><div class="description">Triggered if a player disconnects from a websocket:
+    If the player leaves the game -&gt; delete this player from game</div></li><li class="right">( "/docbook_blackjack") %updating function blackjack-ws:stompdisconnect() as item()*<br/><br/></li></ul><ul class="method"><li class="left"><a href="#blackjack-ws:subscribe">blackjack-ws:subscribe</a><div class="description">Triggered if a player subscribes to a websocket
+saves playerId, gameId and applicationId to the websocket-Id</div></li><li class="right">( "/docbook_blackjack") %ws:header-param("param0" ,<br/>  "{$game}") %ws:header-param("param1" ,<br/>  "{$gameId}") %ws:header-param("param2" ,<br/>  "{$playerId}") %updating function blackjack-ws:subscribe($game as item()* ,<br/>  $playerId as item()* ,<br/>  $gameId as item()*) as item()*<br/><br/></li></ul></div> <h4>Function Detail</h4><div id="methoddetail"><div id="blackjack-ws:get" class="methoddetail"><h5><a name="blackjack-ws:get"/>blackjack-ws:get</h5><ul class="method"><li class="left"/><li class="right">( $wsId as item()* ,<br/>  $key as item()*) as item()*<br/><br/></li></ul><p>get information from a websocket-ID</p><ul/></div> <div id="blackjack-ws:getIDs" class="methoddetail"><h5><a name="blackjack-ws:getIDs"/>blackjack-ws:getIDs</h5><ul class="method"><li class="left"/><li class="right">( ) as item()*<br/><br/></li></ul><ul/></div> <div id="blackjack-ws:send" class="methoddetail"><h5><a name="blackjack-ws:send"/>blackjack-ws:send</h5><ul class="method"><li class="left"/><li class="right">( $data as item()* ,<br/>  $path as item()*) as item()*<br/><br/></li></ul><p>send massage via websocket</p><ul/></div> <div id="blackjack-ws:stompconnect" class="methoddetail"><h5><a name="blackjack-ws:stompconnect"/>blackjack-ws:stompconnect</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack") %updating function blackjack-ws:stompconnect() as item()*<br/><br/></li></ul><p>Module Name: Blackjack Websocket
+Triggered if a player connects to a websocket:</p><ul><li>Return:</li><ul><li>console log with connected player and websocket-Id</li></ul></ul></div> <div id="blackjack-ws:stompdisconnect" class="methoddetail"><h5><a name="blackjack-ws:stompdisconnect"/>blackjack-ws:stompdisconnect</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack") %updating function blackjack-ws:stompdisconnect() as item()*<br/><br/></li></ul><p>Triggered if a player disconnects from a websocket:
+    If the player leaves the game -&gt; delete this player from game</p><ul><li>Return:</li><ul><li>model changed game /if a player leaves the game</li></ul></ul></div> <div id="blackjack-ws:subscribe" class="methoddetail"><h5><a name="blackjack-ws:subscribe"/>blackjack-ws:subscribe</h5><ul class="method"><li class="left"/><li class="right">( "/docbook_blackjack") %ws:header-param("param0" ,<br/>  "{$game}") %ws:header-param("param1" ,<br/>  "{$gameId}") %ws:header-param("param2" ,<br/>  "{$playerId}") %updating function blackjack-ws:subscribe($game as item()* ,<br/>  $playerId as item()* ,<br/>  $gameId as item()*) as item()*<br/><br/></li></ul><p>Triggered if a player subscribes to a websocket
+saves playerId, gameId and applicationId to the websocket-Id</p><ul><li>Return:</li><ul><li>console log with connected player and game Ids</li></ul></ul></div> </div> <div align="left"><i>Created by xqDoc-Lite version 1.1 on 2020-03-06T16:47:29.121+01:00</i></div></body></html>
