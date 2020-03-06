@@ -35,6 +35,15 @@
         <xsl:variable name="rectHeight" select="5"/>
         <xsl:variable name="rectWidth" select="25"/>
         <xsl:variable name="playerName" select="game/players/player[@id=$playerId]/@name"/>
+        <xsl:variable name="chipValueList">
+            <value>10</value>
+            <value>50</value>
+            <value>100</value>
+            <value>250</value>
+            <value>500</value>
+            <value>1000</value>
+        </xsl:variable>
+        <xsl:variable name="chipValues" select="document('')//xsl:variable[@name = 'chipValueList']/*"/>
 
 
         <xsl:variable name="currentPlayer">
@@ -346,95 +355,25 @@
             </xsl:choose>
 
             <!--Chips as Buttons-->
-            <foreignObject width="7" height="7" x="25%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/bet" method="post" id="Chip_10" target="hiddenFrame">
-                    <label>
-                        <svg width="7" height="7">
-                            <xsl:call-template name="ChipTemplate">
-                                <xsl:with-param name="chipValue" select="10"/>
-                                <xsl:with-param name="id" select="10"/>
-                            </xsl:call-template>
-                        </svg>
-                        <input class="chipButton" type="submit" name="chipValue" id="value10" value="10"/>
-                        <input type="hidden" name="playerId" id="playerId10" value="{$playerId}"/>
-                    </label>
-                </form>
-            </foreignObject>
+            <xsl:for-each select="$chipValues">
+                <xsl:variable name="index" select="position()"/>
+                <xsl:variable name="value" select="."/>
 
-            <foreignObject width="7" height="7" x="34%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/bet" method="post" id="Chip_50" target="hiddenFrame">
-                    <label>
-                        <svg width="7" height="7">
-                            <xsl:call-template name="ChipTemplate">
-                                <xsl:with-param name="chipValue" select="50"/>
-                                <xsl:with-param name="id" select="50"/>
-                            </xsl:call-template>
-                        </svg>
-                        <input class="chipButton" type="submit" name="chipValue" id="value50" value="50"/>
-                        <input type="hidden" name="playerId" id="playerId50" value="{$playerId}"/>
-                    </label>
-                </form>
-            </foreignObject>
-
-            <foreignObject width="7" height="7" x="43%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/bet" method="post" id="Chip_100" target="hiddenFrame">
-                    <label>
-                        <svg width="7" height="7">
-                            <xsl:call-template name="ChipTemplate">
-                                <xsl:with-param name="chipValue" select="100"/>
-                                <xsl:with-param name="id" select="100"/>
-                            </xsl:call-template>
-                        </svg>
-                        <input class="chipButton" type="submit" name="chipValue" id="value100" value="100"/>
-                        <input type="hidden" name="playerId" id="playerId100" value="{$playerId}"/>
-                    </label>
-                </form>
-            </foreignObject>
-
-            <foreignObject width="7" height="7" x="52%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/bet" method="post" id="Chip_250" target="hiddenFrame">
-                    <label>
-                        <svg width="7" height="7">
-                            <xsl:call-template name="ChipTemplate">
-                                <xsl:with-param name="chipValue" select="250"/>
-                                <xsl:with-param name="id" select="250"/>
-                            </xsl:call-template>
-                        </svg>
-                        <input class="chipButton" type="submit" name="chipValue" id="value250" value="250"/>
-                        <input type="hidden" name="playerId" id="playerId250" value="{$playerId}"/>
-                    </label>
-                </form>
-            </foreignObject>
-
-            <foreignObject width="7" height="7" x="61%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/bet" method="post" id="Chip_500" target="hiddenFrame">
-                    <label>
-                        <svg width="7" height="7">
-                            <xsl:call-template name="ChipTemplate">
-                                <xsl:with-param name="chipValue" select="500"/>
-                                <xsl:with-param name="id" select="500"/>
-                            </xsl:call-template>
-                        </svg>
-                        <input class="chipButton" type="submit" name="chipValue" id="value500" value="500"/>
-                        <input type="hidden" name="playerId" id="playerId500" value="{$playerId}"/>
-                    </label>
-                </form>
-            </foreignObject>
-
-            <foreignObject width="7" height="7" x="70%" y="93%">
-                <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/bet" method="post" id="Chip_1000" target="hiddenFrame">
-                    <label>
-                        <svg width="7" height="7">
-                            <xsl:call-template name="ChipTemplate">
-                                <xsl:with-param name="chipValue" select="1000"/>
-                                <xsl:with-param name="id" select="1000"/>
-                            </xsl:call-template>
-                        </svg>
-                        <input class="chipButton" type="submit" name="chipValue" id="value1000" value="1000"/>
-                        <input type="hidden" name="playerId" id="playerId1000" value="{$playerId}"/>
-                    </label>
-                </form>
-            </foreignObject>
+                <foreignObject width="7" height="7" x="{25 + 9 * ($index - 1)}%" y="93%">
+                    <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/bet" method="post" id="Chip_{$value}" target="hiddenFrame">
+                        <label>
+                            <svg width="7" height="7">
+                                <xsl:call-template name="ChipTemplate">
+                                    <xsl:with-param name="chipValue" select="$value"/>
+                                    <xsl:with-param name="id" select="$value"/>
+                                </xsl:call-template>
+                            </svg>
+                            <input class="chipButton" type="submit" name="chipValue" id="value{$value}" value="{$value}"/>
+                            <input type="hidden" name="playerId" id="playerId{$playerId}" value="{$playerId}"/>
+                        </label>
+                    </form>
+                </foreignObject>
+            </xsl:for-each>
 
             <!-- Invisible iframe to throw away results of POST request -->
             <foreignObject width="0" height="0">

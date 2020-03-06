@@ -101,12 +101,6 @@
                         </text>
                     </xsl:when>
                     <xsl:otherwise>
-                        <!--<xsl:variable name="disableButton">
-                            <xsl:choose>
-                                <xsl:when test="$isLoggedIn = 1">false</xsl:when>
-                                <xsl:otherwise>true</xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>-->
                         <text x="{$startX + 22}" y="{$startY + 30}" font-size="{$fontSize - 2}" font-style="oblique"
                               alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">players
                         </text>
@@ -121,7 +115,7 @@
                                       method="post" id="joinButton{$gameID}">
                                     <label>
                                         <input class="joinGameButton" type="submit" name="gameId" id="{$gameID}Button"
-                                               value="{concat('Game#', $gameID, '  -  ', $players)}"/> <!-- disabled="{$disableButton}"/>-->
+                                               value="{concat('Game#', $gameID, '  -  ', $players)}"/>
                                         <input type="hidden" name="playerId" id="{$gameID}playerId"
                                                value="{$playerId}"/>
                                     </label>
