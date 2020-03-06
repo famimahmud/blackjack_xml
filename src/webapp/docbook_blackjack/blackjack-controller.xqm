@@ -1,5 +1,6 @@
 xquery version "3.1";
 (:~
+ : Module Name: Blackjack Controller
  : "The controller is responsible for all HTTP request and interacts directly with the client.
  : It abstracts the interface from the client and calls the responsible methods in the main
  : game module for the Blackjack game. It furthermore handles redirects, creation of the

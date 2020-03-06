@@ -6,6 +6,7 @@ import module namespace websocket = "http://basex.org/modules/ws";
 import module namespace blackjack-main = "Blackjack/Main" at "blackjack-main.xqm";
 
  (:~
+  : Module Name: Blackjack Websocket
   : Triggered if a player connects to a websocket:
   : @return console log with connected player and websocket-Id
   :)

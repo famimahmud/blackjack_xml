@@ -94,8 +94,8 @@
                         dealer's total card value. A player wins and gets paid double of his bet
                         when the dealer has a lower hand or if the dealer goes bust. The dealer wins
                         if he has a higher hand or the player goes bust. In this case the player
-                        loses his bet. A tie is possible if both have the same total value.  Then
-                        the player gets back his bet.</para>
+                        loses his bet. A tie is possible if both have the same total value. Then the
+                        player gets back his bet.</para>
                 </sect3>
             </sect2>
         </sect1>
@@ -134,7 +134,8 @@
             <para>"XSLT (Extensble Stylsheet Language Transformations) is a language for
                 transforming XML documents into other XML documents or other formats such as HTML
                 for web pages, plain text or XSL Formatting Objects, which may subsequently be
-                converted to other formats, such as PDF, PostScript and PNG.  "(Source: <ulink url="https://en.wikipedia.org/wiki/XSLT"/>). In our project it is used to
+                converted to other formats, such as PDF, PostScript and PNG. "(Source: <ulink
+                    url="https://en.wikipedia.org/wiki/XSLT"/>). In our project it is used to
                 dynamically transform our game states encoded in XML into an XHTML document, which
                 can be used to graphically display the game state in the browser. Moreover, the
                 chips and cards are dynamically transformed using XSLT. The elements of the XML
@@ -145,10 +146,10 @@
             <title>XQuery</title>
             <para>Xquery is a very efficient querying language for XML databases. It enables the
                 interaction with the databases. Which makes it possible to delete, insert and
-                replace database nodes. Just like in XSLT nodes are addressed using XPath. The  game
+                replace database nodes. Just like in XSLT nodes are addressed using XPath. The game
                 actions are implemented using Xquery functions. The functions are initiated by
                 HTTP-Request which are mapped by RESTXQ-Annotations (for example:
-                "localhost:8984/docbook_blackjack/lobby").  </para>
+                "localhost:8984/docbook_blackjack/lobby"). </para>
         </sect1>
         <sect1>
             <title>BaseX</title>
@@ -233,7 +234,7 @@
                 current game state. </para>
             <sect2>
                 <title>Lobby Template</title>
-            <para>Once a user calls the link to the Lobby ("/docbook_blackjack/lobby") the
+                <para>Once a user calls the link to the Lobby ("/docbook_blackjack/lobby") the
                     parameters "isLoggedIn", "playerName", "playerId", "playerHighscore" are passed
                     to the template. It uses these parameters and the current lobby database to
                     generate the appropriate SVGs and HTML page. There are two different options how
@@ -249,8 +250,7 @@
                     </mediaobject>
                 </figure>
                 <para>The graphical user interface changes when the user creates an account or
-                    restores his account by typing in his name and id. <inlinegraphic
-                        fileref="img/Lobby/LobbyImplementation.png" width="700px"/></para>
+                    restores his account by typing in his name and id. </para>
                 <figure>
                     <title>Lobby Interface - logged in</title>
                     <mediaobject>
@@ -261,7 +261,7 @@
                 </figure>
                 <para>At the beginning of our project we started with creating basic prototypes. As
                     you can see in the following sketch, the implementation derived strongly out of
-                    the first prototype.</para>
+                    the first mockup.</para>
                 <figure>
                     <title>Lobby Prototype</title>
                     <mediaobject>
@@ -294,8 +294,8 @@
                         </imageobject>
                     </mediaobject>
                 </figure>
-                <para>Similar to the Lobby our implementation remained almost equivalent to the first
-                    prototype. </para>
+                <para>Similar to the Lobby our implementation remained almost equivalent to the
+                    first mockup. </para>
                 <figure>
                     <title>Table Prototype</title>
                     <mediaobject>
@@ -309,24 +309,40 @@
                 <title>Card Template</title>
                 <para>Cards are generated once they are needed. This happens through a
                     &lt;xsl:call-template> that is called in the game template, when ever someone
-                    draws a card. The value and type is passed as a parameter. First it is checked
-                    if the card is hidden, if so the templates just draws a pattern and returns.
-                    Otherwise the value is written in the top left and bottom right corner. The icon
-                    is loaded depending on the card type and placed in a number of positions
-                    according to the value. The position and rotation of the icon is saved in a
-                    different xml file. The icons were created in SVG using these schemes.</para>
+                    draws a card. The value and type is passed as a parameter. The first step is to
+                    check if the card is hidden, if so the templates just draws a pattern and
+                    returns. Otherwise the value is written in the top left and bottom right corner.
+                    Icons are loaded depending on the card type and placed in a number of positions
+                    according to the value. The positions and rotation of the icon are saved in a
+                    different xml file. We used these schemes to create the icons in SVG.</para>
                 <figure>
                     <title>Icons</title>
                     <mediaobject>
                         <imageobject>
-                            <imagedata fileref="img/Icons.png" width="250px" />
+                            <imagedata fileref="img/Icons.png" width="500px"/>
                         </imageobject>
                     </mediaobject>
                 </figure>
             </sect2>
             <sect2>
                 <title>Chip Template</title>
-                <para/>
+                <para>Just as the creation of cards, chips are generated by calling the chip
+                    template and passing the value as a parameter. Possible chip values are 10, 50,
+                    100, 250, 500 and 1000. Of course they determine the value as well as the
+                    color.</para>
+                <para>In the template we take advantage of &lt;symbol> and &lt;use> elements to
+                    create the chip in three steps. First the outercircle is filled with the chip
+                    color and thick white lines. Above the first cirle and lines another smaller
+                    circle is drawn in the color of the chip. The final step is to add the dotted
+                    circle wherein the value is written. </para>
+                <figure>
+                    <title>Icons</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="img/Chip.png" width="250px"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
             </sect2>
         </sect1>
         <sect1>
@@ -362,7 +378,7 @@
                     <listitem>
                         <para>The starting phase is the bet-phase. If an player enters this phase he
                             will subscribe to the websocket of this game. Also the deck will be
-                            reseted  All players can bet chips for the netxt round at the same time.
+                            reseted All players can bet chips for the netxt round at the same time.
                             Also they can reset their bets to correct mistakes. If all players have
                             confirmed their bets the game switches to the deal-phase.</para>
                     </listitem>
@@ -392,7 +408,7 @@
                     <listitem>
                         <para>The last phase is the pay-phase. At the start of this phase the result
                             of the game is presented on the table. If any player decides to continue
-                            all players will be pay, if they win,  then their hands and their pools
+                            all players will be pay, if they win, then their hands and their pools
                             will be cleared. The dealer also clears his hand. Then the game switches
                             to the bet-phase and an update of the game-page will be send via the
                             websocket connection.</para>
@@ -431,14 +447,76 @@
     </chapter>
     <chapter>
         <title>Game Installation</title>
-        <para/>
+        <para>Additional to the project requirements we deployed our project to a web server, hence
+            there are two ways of playing our Blackjack game: <orderedlist>
+                <listitem>
+                    <para>Online on the web server using this URL: <ulink
+                            url="http://blackjack.brzoza.me"/>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>Locally using a BaseX Server on your own Computer</para>
+                </listitem>
+            </orderedlist></para>
+        <para>We recommend the usage of Google Chrome as Browser. Our game is compatible with Google
+            Chrome and Firefox on Windows and MacOs, but it is optimized for Google Chrome only.
+            (Please don't use Internet Explorer or Safari). </para>
         <sect1>
             <title>Requirements</title>
-            <para/>
+            <orderedlist>
+                <listitem>
+                    <para>For the first option the only requirement is an IPv4 connection. The
+                        server can not be addressed through IPv6. </para>
+                </listitem>
+                <listitem>
+                    <para>The second option requieres a running BaseX STOMP HTTP server and running
+                        BaseX database Server. </para>
+                </listitem>
+            </orderedlist>
         </sect1>
         <sect1>
             <title>Installation</title>
-            <para/>
+            <orderedlist>
+                <listitem>
+                    <para>No installations have to be made to play the game on the web server.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>To install the BaseX STOMP HTTP sever a few steps have to be made <itemizedlist>
+                            <listitem>
+                                <para>Download the comlplete BaseX program (BaseX931.zip, status
+                                    march 2020) from their website <ulink
+                                        url="http://basex.org/download/"/>. </para>
+                            </listitem>
+                            <listitem>
+                                <para>Download and build the BaseX STOMP packet from the stomp
+                                    branch in the git repository (<ulink
+                                        url="https://github.com/BaseXdb/basex/tree/stomp"/>).</para>
+                            </listitem>
+                            <listitem>
+                                <para>Copy the webapp/docbook_blackjack folder into the webapp
+                                    folder of BaseX.</para>
+                            </listitem>
+                            <listitem>
+                                <para>Copy the static/docbook_blackjack folder into the
+                                    webapp/static folder of BaseX.</para>
+                            </listitem>
+                            <listitem>
+                                <para>Now you can start the BaseX HTTP server.</para>
+                            </listitem>
+                            <listitem>
+                                <para>The game can be played by calling this link: <ulink
+                                        url="http://localhost:8984/docbook_blackjack/setup"
+                                    />.</para>
+                            </listitem>
+                        </itemizedlist></para>
+                    <para>The databases are created the first you call the link with setup. Once all
+                        databases are created the setup link will use a redirect to directly get to the
+                        Lobby. To delete the databases you have to access them directly on the BaseX
+                        interface using this link: <ulink
+                            url="http://localhost:8984/dba"/></para>
+                </listitem>
+            </orderedlist>
         </sect1>
     </chapter>
     <chapter>
@@ -456,13 +534,17 @@
                 <para/>
             </sect2>
         </sect1>
+    </chapter>
+    <chapter>
+        <title>Conclusion</title>
         <sect1>
-            <title>Conclusion</title>
+            <title>Problems</title>
             <para/>
-            <sect2>
-                <title>Reflection</title>
-                <para/>
-            </sect2>
         </sect1>
+        <sect1>
+            <title>Reflection</title>
+            <para/>
+        </sect1>
+
     </chapter>
 </book>
