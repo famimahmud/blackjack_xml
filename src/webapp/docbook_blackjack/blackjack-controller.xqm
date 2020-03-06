@@ -124,7 +124,7 @@ function blackjack-controller:join($gameId as xs:integer, $playerId as xs:string
     let $html :=
         <html>
             <head>
-                <title>Blackjack</title>
+                <title>Blackjack | Game#{$gameId}</title>
                 <script src="/static/docbook_blackjack/JS/jquery-3.2.1.min.js"></script>
                 <script src="/static/docbook_blackjack/JS/stomp.js"></script>
                 <script src="/static/docbook_blackjack/JS/ws-element.js"></script>
