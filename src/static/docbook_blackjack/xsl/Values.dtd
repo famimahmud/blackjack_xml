@@ -10,4 +10,7 @@
 
 <!ELEMENT y (CDATA)>
 
+<!ATTLIST point
+    rotate (true | false) #REQUIRED>
+
 
