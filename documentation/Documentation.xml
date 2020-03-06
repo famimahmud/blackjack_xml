@@ -20,16 +20,16 @@
             <surname>Mahmud</surname>
         </author>
     </bookinfo>
-    <chapter>
+    <chapter id="introduction">
         <title>Introduction</title>
         <para>This DocBook documents the development and implementation of a multi-client Blackjack
-            game, which is only using XML-Technologies. We will present an overview over these
+            game, which is only using XML-Technologies. We present an overview over these
             Technologies and the way we used them. Furthermore, it describes the rules and
             strategies we agreed on for our Blackjack Game, the important phases with possible user
             actions, the interaction between client and server, as well as the design and
             implementation in detail. A complete walkthrough with the installation of the game and
-            an example of a game play will be shown. In addition, we will discuss the way we
-            organized our project and reflect on positive and negative aspects. </para>
+            an example of a game play is shown. In addition, we discuss the way we organized our
+            project and reflect on positive and negative aspects. </para>
 
         <sect1>
             <title>Project Overview</title>
@@ -104,7 +104,7 @@
         </sect1>
 
     </chapter>
-    <chapter>
+    <chapter id="technologies">
         <title>Technologies</title>
         <para>As a both mentioned we were introduced into powerful Tools which make it possible
             write a documentation, to save and encode data of a game state, to generate a GUI using
@@ -170,7 +170,7 @@
                 send a message to the server.</para>
         </sect1>
     </chapter>
-    <chapter>
+    <chapter id="requirements">
         <title>Project Requirements</title>
         <para>The project requirements were initially specified in the project exercise and describe
             the expected functionality of the Blackjack game while at the same time acting as the
@@ -178,12 +178,13 @@
             considered the following points for our final implementation:</para>
         <itemizedlist>
             <listitem>
-                <para>The game should follow the blackjack concept as introduced in Chapter
-                    1.</para>
+                <para>The game should follow the blackjack concept as introduced in <link
+                        linkend="introduction">Chapter 1</link>.</para>
             </listitem>
             <listitem>
                 <para>The project is to be implemented as a web application by purely making use of
-                    XML technologies described in the Chapter 2.</para>
+                    XML technologies described in the <link linkend="technologies">Chapter
+                    2</link>.</para>
             </listitem>
             <listitem>
                 <para>The game must be implemented using the multi-client principle, i.e. it should
@@ -230,10 +231,10 @@
             <para/>
         </sect1>
     </chapter>
-    <chapter>
+    <chapter id="design">
         <title>Design and Implementation</title>
-        <para>The Implementation is seperated in the different languages as above explained. Here we
-            will go more into the different components implemented. </para>
+        <para>The Implementation is seperated in the different languages as explained above. Here we
+            go more into detail regarding the different components of our architecture. </para>
         <sect1>
             <title>Templates</title>
             <para>The XSLT templates are used to dynamically generate a html output depending on the
@@ -282,7 +283,8 @@
                 <para>The Game Template is called to display the game state in the view of each
                     player who are differentiated using websockets. Different views, in which the
                     buttons vary, are presented depending on the phase and which actions are
-                    currently possible. Phases will be explained in detail in <link linkend="phases">section 4.4</link>. Every time a user performs an action, such as to bet or
+                    currently possible. All phases are explained in detail in <link linkend="phases"
+                        >Section 4.4</link>. Every time a user performs an action, such as to bet or
                     to take another card, the game state changes. Therefore the view has to be
                     refreshed by performing the game template and sending it to the related users. </para>
                 <para>The position of a players on the screen is dynamically calcuated using a
@@ -439,7 +441,7 @@
             </figure>
         </sect1>
     </chapter>
-    <chapter>
+    <chapter id="architecture">
         <title>Architecture</title>
         <para>This chapter discribes the connections between the different hardware-components,
             which are basing on a model-view-controller architectur. The second section present the
@@ -518,7 +520,7 @@
             </sect2>
         </sect1>
     </chapter>
-    <chapter>
+    <chapter id="installation">
         <title>Game Installation</title>
         <para>Additional to the project requirements we deployed our project to a web server, hence
             there are two ways of playing our Blackjack game: <orderedlist>
@@ -586,10 +588,10 @@
             </orderedlist>
         </sect1>
     </chapter>
-    <chapter>
+    <chapter id="demo">
         <title>Game Demo</title>
-        <para>In this chapter we will present a short demo of the gameplay with screenshots in
-            different user situations and from different points of view.</para>
+        <para>In this chapter we present a short demo of the gameplay with screenshots in different
+            user situations and from different points of view.</para>
         <para> </para>
     </chapter>
     <chapter>
@@ -614,11 +616,11 @@
             <sect1>
                 <title>SCRUM</title>
                 <para>Due to the constant addition of new requirements and the rather small size of
-                    our team, we decided that an agile project management structure would fit our
-                    development process best and chose SCRUM to be a suitable framework to apply it.
-                    The overall requirements defined at the beginning of the project are defined in
-                    the project backlog which acts as a guideline for the whole project life cycle.
-                    We have defined these requirements in Chapter 3. </para>
+                our team, we decided that an agile project management structure would fit our
+                development process best and chose SCRUM to be a suitable framework to apply it. The
+                overall requirements defined at the beginning of the project are defined in the
+                project backlog which acts as a guideline for the whole project life cycle. We have
+                defined these requirements in <link linkend="requirements">Chapter 3</link>. </para>
                 <figure>
                     <title>The SCRUM development process [<ulink
                         url="https://commons.wikimedia.org/w/index.php?curid=3526338"
@@ -650,7 +652,7 @@
                     system.</para>
             </sect1>
     </chapter>
-    <chapter>
+    <chapter id="conclusion">
         <title>Conclusion</title>
         <sect1>
             <title>Problems</title>
