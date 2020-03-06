@@ -390,7 +390,8 @@ declare
 function blackjack-controller:exit($gameId as xs:integer, $playerId as xs:string, $playerName as xs:string){
     let $game := blackjack-main:getGame($gameId)
     return (
-        (if (count($game[@id=$gameId]/players/player) <= 1)
+        (if ((count($game[@id=$gameId]/players/player) = 1 and exists($game[@id=$gameId]/players/player[@id = $playerId]))
+            or count($game[@id=$gameId]/players/player) = 0)
         then (blackjack-main:endGame($gameId),
             update:output(web:redirect("/docbook_blackjack/lobby", map {"playerName": blackjack-helper:getPlayerName($playerId), "playerId": $playerId})))
         else if (exists($game[@id=$gameId]/players/player[@id=$playerId])) then (
