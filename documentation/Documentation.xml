@@ -592,23 +592,38 @@
     </chapter>
     <chapter>
         <title>Team Organisation</title>
-        <para/>
+        <para>Our team was formed at the beginning of the practical course and consists of three
+            team members. To allow for asynchronous communication with each other, we created a
+            Telegram group, where we could discuss our project apart from our weekly
+            meetings.</para>
         <sect1>
             <title>Development Environment</title>
-            <para/>
+            <para>In order to manage and modify our codebase between all team members, we created a
+                Git repository hosted on the LRZ GitLab. This allowed us to fully make use of the
+                powerful functionality given by Git. We used separate branches to implement new
+                features, which we then merged to the master branch upon implementation.
+                Additionally, it is possible to keep track of and resolve known issues by using the
+                included issue tracker. The web interface allows to inspect files on-the-go without
+                having direct access to the Git repository. To resolve merge conflicts, we used the
+                Git CLI and SourceTree. For the development process itself we used IntelliJ IDEA, as
+                it allows for extensibility through numerous plug-ins, e.g. to allow syntax
+                highlighting of XQuery files or in order to transform documents using XSLT.</para>
             <sect2>
                 <title>SCRUM</title>
                 <para>Due to the constant addition of new requirements and the rather small size of
-                    our team, we decided that an agile project management structure would fit best
-                    for our development process and chose SCRUM to be a suitable framework to apply
-                    it. The overall requirements defined at the beginning of the project are defined
-                    in the project backlog which acts as a guideline for the whole project life
-                    cycle. We have defined these requirements in Chapter 3. </para>
+                    our team, we decided that an agile project management structure would fit our
+                    development process best and chose SCRUM to be a suitable framework to apply it.
+                    The overall requirements defined at the beginning of the project are defined in
+                    the project backlog which acts as a guideline for the whole project life cycle.
+                    We have defined these requirements in Chapter 3. </para>
+                <figure>
+                    <title>The SCRUM development process [<ulink
+                        url="https://commons.wikimedia.org/w/index.php?curid=3526338"
+                    />]</title>
                 <mediaobject>
                     <imageobject><imagedata fileref="img/Scrum.png" width="700px"/></imageobject>
-                    <caption>
-                        <para>The SCRUM development process [<ulink url="https://commons.wikimedia.org/w/index.php?curid=3526338"/>]</para>
-                    </caption></mediaobject>
+                </mediaobject>
+                </figure>
                 <para>The actual development process is subdivided into multiple iterations of a
                     fixed length defined as <emphasis>sprints</emphasis>, which we chose to match
                     the exercise sheet working time of one week. Each sprint consists of another
@@ -621,6 +636,15 @@
                     potenially deliverable product increment, which made the development process
                     much easier for us as we could improve the functionality of our existing product
                     each week.</para>
+            </sect2>
+            <sect2>
+                <title>Continuous Deployment</title>
+                <para>In addition to our code repository managed on GitLab, we implemented a script
+                    which automatically deploys the most recent commit version onto our web server
+                    which is running an instance of our project on a BaseX HTTP and database server.
+                    This allows us to perform tests which are not dependent on the operating system
+                    or the server instance that is running at the client of each operating
+                    system.</para>
             </sect2>
         </sect1>
     </chapter>
