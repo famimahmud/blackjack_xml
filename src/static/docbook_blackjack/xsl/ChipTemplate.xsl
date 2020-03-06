@@ -4,8 +4,7 @@
     <xsl:template name="ChipTemplate">
         <xsl:param name="chipValue"/>
         <xsl:param name="id"/>
-        <!-- <xsl:variable name="chipValue" select="/*/value"/> -->
-        
+
         <xsl:variable name="root2" select="1.4142"/>
         <xsl:variable name="root2Inv" select="0.7071"/>
         <xsl:variable name="r" select="1"/>
@@ -63,10 +62,6 @@
         </xsl:variable>
 
         <xsl:variable name="textY">
-            <!--<xsl:choose>
-                <xsl:when test="$chipValue = 1000">0.15</xsl:when>
-                <xsl:otherwise>-0.25</xsl:otherwise>
-            </xsl:choose>-->
             0
         </xsl:variable>
 

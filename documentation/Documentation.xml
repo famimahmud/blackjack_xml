@@ -239,34 +239,94 @@
                     generate the appropriate SVGs and HTML page. There are two different options how
                     a Lobby is presented. Either the "isLoggedIn" parameter is set to 0, which means
                     that no account is loaded yet. </para>
-                <para>This renders to a Lobby looking like this: <inlinegraphic
-                        fileref="img/Lobby/LobbyImplementation2.png" width="700px"/></para>
+                <para>This renders to a Lobby looking like this:</para>
+                <figure>
+                    <title>Lobby Interface - not logged in</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="img/Lobby/LobbyImplementation2.png" width="700px"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
                 <para>The graphical user interface changes when the user creates an account or
                     restores his account by typing in his name and id. <inlinegraphic
                         fileref="img/Lobby/LobbyImplementation.png" width="700px"/></para>
+                <figure>
+                    <title>Lobby Interface - logged in</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="img/Lobby/LobbyImplementation.png" width="700px"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
                 <para>At the beginning of our project we started with creating basic prototypes. As
                     you can see in the following sketch, the implementation derived strongly out of
-                    the first prototype. <inlinegraphic fileref="img/Lobby/LobbyPrototype.png" width="700px"/></para>
+                    the first prototype.</para>
+                <figure>
+                    <title>Lobby Prototype</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="img/Lobby/LobbyPrototype.png" width="700px"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
             </sect2>
             <sect2>
                 <title>Game Template</title>
                 <para>The Game Template is called to display the game state in the view of each
-                    player. The players are differentiated using websockets. Different views, in
-                    which the buttons vary, are presented depending on the phase and which actions
-                    are currently possible.  The phases will be explained in detail in <link
-                        linkend="phases">section 4.4</link>. Every time a user performs an action,
-                    such as to bet or to take another card, the game state changes. Therefore the
-                    view has to be refreshed by performing the game template and sending it to the
-                    related users. </para>
-                <para>Positions</para>
+                    player who are differentiated using websockets. Different views, in which the
+                    buttons vary, are presented depending on the phase and which actions are
+                    currently possible. Phases will be explained in detail in <link linkend="phases"
+                        >section 4.4</link>. Every time a user performs an action, such as to bet or
+                    to take another card, the game state changes. Therefore the view has to be
+                    refreshed by performing the game template and sending it to the related users. </para>
+                <para>The position of a players on the screen is dynamically calcuated using a
+                    function, that takes into consideration how many players are part of the game.
+                    For each player their respective Name and ID is shown in the top left corner.
+                    This can only be seen by the players themselves. On the other side name, wallet,
+                    bet and cards are always viewable for all players. </para>
                 <para/>
-                <informalfigure>
+                <figure>
+                    <title>Table Interface</title>
                     <mediaobject>
                         <imageobject>
                             <imagedata fileref="img/Table/TableImplementation.png" width="700px"/>
                         </imageobject>
                     </mediaobject>
-                </informalfigure>
+                </figure>
+                <para>Similar to the Lobby our implementation remained almost equivalent to the first
+                    prototype. </para>
+                <figure>
+                    <title>Table Prototype</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="img/Table/TablePrototype.png" width="700px"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
+            </sect2>
+            <sect2>
+                <title>Card Template</title>
+                <para>Cards are generated once they are needed. This happens through a
+                    &lt;xsl:call-template> that is called in the game template, when ever someone
+                    draws a card. The value and type is passed as a parameter. First it is checked
+                    if the card is hidden, if so the templates just draws a pattern and returns.
+                    Otherwise the value is written in the top left and bottom right corner. The icon
+                    is loaded depending on the card type and placed in a number of positions
+                    according to the value. The position and rotation of the icon is saved in a
+                    different xml file. The icons were created in SVG using these schemes.</para>
+                <figure>
+                    <title>Icons</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="img/Icons.png" width="250px" />
+                        </imageobject>
+                    </mediaobject>
+                </figure>
+            </sect2>
+            <sect2>
+                <title>Chip Template</title>
+                <para/>
             </sect2>
         </sect1>
         <sect1>

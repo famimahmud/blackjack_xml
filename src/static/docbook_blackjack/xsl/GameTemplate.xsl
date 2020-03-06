@@ -214,7 +214,6 @@
                             <svg width="{$chipSize}" height="{$chipSize}"
                                  x="{((position()) div (count(parent::pool/*) + 1)) * ($fieldWidth) - (0.5 * $chipSize)}"
                                  y="0.5">
-                                <!-- x="{((position()) div count(parent::pool/*)) * ($fieldWidth - $chipSize) - (0.5 * $chipSize)}" -->
                                 <xsl:call-template name="ChipTemplate">
                                     <xsl:with-param name="chipValue" select="value"/>
                                     <xsl:with-param name="id" select="concat($position, position())"/>
@@ -223,9 +222,7 @@
                         </xsl:if>
                     </xsl:for-each>
 
-
                     <!-- Insert cards -->
-
                     <xsl:for-each select="hand/*">
                         <svg width="{$cardWidth}" height="{$cardHeight}"
                              x="{((position()) div (count(parent::hand/*) + 1)) * ($fieldWidth - 5) - (0.5 * 5)}"

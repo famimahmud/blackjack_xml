@@ -112,8 +112,7 @@
                                 <xsl:variable name="players" select="count(players/player)"/>
 
                                 <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameID}/joinGame"
-                                      method="post"
-                                      id="joinButton{$gameID}">
+                                      method="post" id="joinButton{$gameID}">
                                     <label>
                                         <input class="joinGameButton" type="submit" name="gameId" id="{$gameID}Button"
                                                value="{concat('Game#', $gameID, '  -  ', $players)}"/>
