@@ -1,0 +1,14 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT deck (card*)>
+
+<!ELEMENT card (type, value)>
+
+<!ELEMENT type (#PCDATA)>
+
+<!ELEMENT value (#PCDATA)>
+
+<!ATTLIST card
+    hidden (true | false) #REQUIRED>
+
+

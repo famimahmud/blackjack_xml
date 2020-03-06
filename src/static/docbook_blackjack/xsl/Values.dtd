@@ -1,0 +1,13 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT values (value+)>
+
+<!ELEMENT value (point+)>
+
+<!ELEMENT point (x, y)>
+
+<!ELEMENT x (CDATA)>
+
+<!ELEMENT y (CDATA)>
+
+

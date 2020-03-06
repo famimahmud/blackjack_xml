@@ -11,7 +11,7 @@
         <xsl:variable name="edgeRadius" select="0.25"/>
         <xsl:variable name="strokeWidth" select="0.03"/>
         <xsl:variable name="fonts" select="'Raleway, sans-serif'"/>
-        <xsl:variable name="values" select="document('../assets/Values.xml')"/>
+        <xsl:variable name="values" select="document('Values.xml')"/>
 
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              font-family="{$fonts}" width="75%" height="100%" viewBox="0 0 {$cardWidth} {$cardHeight}">
