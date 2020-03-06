@@ -134,8 +134,7 @@
             <para>"XSLT (Extensble Stylsheet Language Transformations) is a language for
                 transforming XML documents into other XML documents or other formats such as HTML
                 for web pages, plain text or XSL Formatting Objects, which may subsequently be
-                converted to other formats, such as PDF, PostScript and PNG. "(Source: <ulink
-                    url="https://en.wikipedia.org/wiki/XSLT"/>). In our project it is used to
+                converted to other formats, such as PDF, PostScript and PNG. "(Source: <ulink url="https://en.wikipedia.org/wiki/XSLT"/>). In our project it is used to
                 dynamically transform our game states encoded in XML into an XHTML document, which
                 can be used to graphically display the game state in the browser. Moreover, the
                 chips and cards are dynamically transformed using XSLT. The elements of the XML
@@ -276,8 +275,7 @@
                 <para>The Game Template is called to display the game state in the view of each
                     player who are differentiated using websockets. Different views, in which the
                     buttons vary, are presented depending on the phase and which actions are
-                    currently possible. Phases will be explained in detail in <link linkend="phases"
-                        >section 4.4</link>. Every time a user performs an action, such as to bet or
+                    currently possible. Phases will be explained in detail in <link linkend="phases">section 4.4</link>. Every time a user performs an action, such as to bet or
                     to take another card, the game state changes. Therefore the view has to be
                     refreshed by performing the game template and sending it to the related users. </para>
                 <para>The position of a players on the screen is dynamically calcuated using a
@@ -348,6 +346,14 @@
         <sect1>
             <title>Modules</title>
             <para/>
+            <figure>
+                <title>Class-Diagram: Modules</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="diagrams/Klassendiagramm.png" width="700px"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
         </sect1>
         <sect1>
             <title>User Actions</title>
@@ -439,10 +445,36 @@
         <sect1>
             <title>MVC Architecture</title>
             <para/>
+            <figure>
+                <title>Model: Model-View-Controller</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="diagrams/MVC-Modell.PNG"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
         </sect1>
         <sect1>
             <title>Data Model</title>
             <para/>
+            <figure>
+                <title>Data-Model: Lobby</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="diagrams/Lobby-Datenmodell.png" width="700px"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
+            <para/>
+            <para/>
+            <figure>
+                <title>Data-Model: Card-Value</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="diagrams/Values-Datenmodell.png"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
         </sect1>
     </chapter>
     <chapter>
@@ -450,8 +482,7 @@
         <para>Additional to the project requirements we deployed our project to a web server, hence
             there are two ways of playing our Blackjack game: <orderedlist>
                 <listitem>
-                    <para>Online on the web server using this URL: <ulink
-                            url="http://blackjack.brzoza.me"/>
+                    <para>Online on the web server using this URL: <ulink url="http://blackjack.brzoza.me"/>
                     </para>
                 </listitem>
                 <listitem>
@@ -485,13 +516,11 @@
                     <para>To install the BaseX STOMP HTTP sever a few steps have to be made <itemizedlist>
                             <listitem>
                                 <para>Download the comlplete BaseX program (BaseX931.zip, status
-                                    march 2020) from their website <ulink
-                                        url="http://basex.org/download/"/>. </para>
+                                    march 2020) from their website <ulink url="http://basex.org/download/"/>. </para>
                             </listitem>
                             <listitem>
                                 <para>Download and build the BaseX STOMP packet from the stomp
-                                    branch in the git repository (<ulink
-                                        url="https://github.com/BaseXdb/basex/tree/stomp"/>).</para>
+                                    branch in the git repository (<ulink url="https://github.com/BaseXdb/basex/tree/stomp"/>).</para>
                             </listitem>
                             <listitem>
                                 <para>Copy the webapp/docbook_blackjack folder into the webapp
@@ -505,16 +534,13 @@
                                 <para>Now you can start the BaseX HTTP server.</para>
                             </listitem>
                             <listitem>
-                                <para>The game can be played by calling this link: <ulink
-                                        url="http://localhost:8984/docbook_blackjack/setup"
-                                    />.</para>
+                                <para>The game can be played by calling this link: <ulink url="http://localhost:8984/docbook_blackjack/setup"/>.</para>
                             </listitem>
                         </itemizedlist></para>
                     <para>The databases are created the first you call the link with setup. Once all
                         databases are created the setup link will use a redirect to directly get to the
                         Lobby. To delete the databases you have to access them directly on the BaseX
-                        interface using this link: <ulink
-                            url="http://localhost:8984/dba"/></para>
+                        interface using this link: <ulink url="http://localhost:8984/dba"/></para>
                 </listitem>
             </orderedlist>
         </sect1>
