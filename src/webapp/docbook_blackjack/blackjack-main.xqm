@@ -358,7 +358,7 @@ function blackjack-main:dealerTurn($gameId as xs:integer){
  :)
 declare
 %updating
-function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string) as empty-sequence(){
+function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string){
     if (exists($blackjack-main:players/player[@id = $playerId])
         and empty($blackjack-main:lobby/game[@id = $gameId]/players/player[@id = $playerId])
         and count($blackjack-main:lobby/game[@id = $gameId]/players/player) < 7

@@ -1,418 +1,179 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>90</x>
-      <y>20</y>
-      <w>170</w>
-      <h>60</h>
+      <x>77</x>
+      <y>42</y>
+      <w>462</w>
+      <h>273</h>
     </coordinates>
-    <panel_attributes>Lobby
+    <panel_attributes>Blackjack-Controller
 --
-- highscoreBoard: xml
-</panel_attributes>
+staticPath: String = "../static/docbook_blackjack/"
+--
+setup(): GET-Response
+start(playerName: String?, playerId: String?): GET-Response
+newGame(playerName: String, playerId: String, SinglePlayer: String): GET-Response
+join(gameId: String, playerId: String) GET-Response
+redirectLobby(): GET-Response
+generateLobby(lobby: Element, xslStylesheet: string, parameters: item*, title: string): GET-Response
+drawGame(gameId: integer):	GET-Response
+getGameLayout(gameId: integer, playerId: interger): GET-Response
+bet(gameId: integer, playerId: string, chipValue: integer): POST-Response
+confirmBet(gameId: integer, playerId: string): POST-Response
+resetBet(gameId: integer, playerId: string): POST-Response
+dealPhase(gameId: integer): GET-Response
+handOutOneCardToEach(gameId: integer): GET-Response
+hit(gameId: integer, playerId: string): POST-Response
+stand(gameId: integer, playerId: string): POST-Response
+exit(gameId: integer, playerId: string, playerName: string): POST-Response
+dealerTurn(gameId: integer): GET-Response
+pay(gameId: integer): GET-Response
+restoreAccount(playerName: string, playerId: string): GET-Response
+createAccount(playerName: string): 	POST-Response
+joinGame(gameId: integer, playerId: string) POST-Response</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>340</x>
-      <y>20</y>
-      <w>210</w>
-      <h>130</h>
+      <x>413</x>
+      <y>371</y>
+      <w>462</w>
+      <h>259</h>
     </coordinates>
-    <panel_attributes>Player
+    <panel_attributes>Blackjack-Main
 --
-- highscore: int
-- name: String
-- id: int
-- turn: boolean
+players: XML
+lobby: XML
 --
-+ stand()
-+ hit(): Card
-+ bet(chip: Chip)</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>90</x>
-      <y>130</y>
-      <w>140</w>
-      <h>130</h>
-    </coordinates>
-    <panel_attributes>Game
---
-round: int
-maxRounds: int
-id: int
---
-+ startGame()
-+ startNewRound()
-+ removePlayer()
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>330</x>
-      <y>230</y>
-      <w>140</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>Dealer
---
-- turn: boolean
---
-+ stand()
-+ hit(): Card
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>330</x>
-      <y>330</y>
-      <w>140</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>Deck
---
---
-+ draw(): Card
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>570</x>
-      <y>330</y>
-      <w>160</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>Card
---
-- hidden: boolean
---
-- turn()</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>630</x>
-      <y>470</y>
-      <w>140</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>Value
---
-- value: int
-- character: String
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>610</x>
-      <y>150</y>
-      <w>130</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>Hand
---
-
+newGame(gameId: integer, playerName: String, playerId: String, SinglePlayer: String)
+newRound(gameId: integer)
+drawCard(gameId: integer, playerId: string)
+calculateHandValue(hand: Element): integer
+calculateHandValueHelper(hand: Element): integer
+reduceNumberOfAces(numberOfAces: integer, handValue: integer): integer
+payPlayers(gameId: integer)
+payPlayer(gameId: integer, playerId: string)
+bet(gameId: integer, playerId: string, chipValue integer)
+confirmBet(gameId: integer, playerId: string)
+handOutOneCardToEach(gameId: integer)
+dealPhase(gameId: integer)
+moveTurn(gameId: integer, playerId: string)
+moveTurnHelper(gameId: integer, playerId: string)
+dealerTurn(gameId: integer)
+addPlayer(gameId: integer, playerId: string)
+addHighscore(gameId: integer, playerId: string)
+leaveGame(gameId: integer, playerId: string)
+endGame(gameId: integer)
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>250</x>
-      <y>40</y>
-      <w>110</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=0..n</panel_attributes>
-    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>120</x>
-      <y>70</y>
-      <w>50</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=0..n</panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>180</x>
-      <y>250</y>
-      <w>170</w>
-      <h>50</h>
+      <x>469</x>
+      <y>308</y>
+      <w>28</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1</panel_attributes>
-    <additional_attributes>150.0;20.0;10.0;20.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>220</x>
-      <y>140</y>
-      <w>230</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=1..3</panel_attributes>
-    <additional_attributes>190.0;10.0;190.0;50.0;10.0;50.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>540</x>
-      <y>50</y>
-      <w>130</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=0..1</panel_attributes>
-    <additional_attributes>90.0;100.0;90.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>460</x>
-      <y>170</y>
-      <w>230</w>
-      <h>130</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=0..1</panel_attributes>
-    <additional_attributes>190.0;10.0;190.0;110.0;10.0;110.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>690</x>
-      <y>170</y>
-      <w>60</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=2..11</panel_attributes>
-    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>120</x>
-      <y>250</y>
-      <w>230</w>
-      <h>150</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=1</panel_attributes>
-    <additional_attributes>210.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>460</x>
-      <y>370</y>
-      <w>130</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=0..52</panel_attributes>
-    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>480</x>
-      <y>450</y>
-      <w>140</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>Type
---
-- symbol: svg
-- color: red/black
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>670</x>
-      <y>390</y>
-      <w>40</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=1</panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>580</x>
-      <y>390</y>
-      <w>40</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=1</panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>680</x>
-      <y>600</y>
-      <w>140</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>CardPattern
---
-- picture: svg
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>400</x>
-      <y>570</y>
-      <w>140</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>Point
---
-- x: double
-- y: double
-- reverse: boolean
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>730</x>
-      <y>530</y>
-      <w>50</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=0..1</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>530</x>
-      <y>530</y>
-      <w>130</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=0..10</panel_attributes>
-    <additional_attributes>10.0;70.0;110.0;70.0;110.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>680</x>
-      <y>20</y>
-      <w>160</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>Pool
---
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>540</x>
-      <y>30</y>
-      <w>160</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=1</panel_attributes>
-    <additional_attributes>140.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>480</x>
-      <y>170</y>
-      <w>100</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>Wallet
---
-- amout: int
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>540</x>
-      <y>90</y>
-      <w>70</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=0..1</panel_attributes>
-    <additional_attributes>30.0;80.0;30.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>750</x>
-      <y>150</y>
-      <w>100</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>Chip
---
-- value: int
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>780</x>
-      <y>60</y>
-      <w>50</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=0..n</panel_attributes>
     <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>77</x>
+      <y>385</y>
+      <w>287</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>Blackjack-Helper
+--
+deck: XML
+players: XML
+lobby: XML
+--
+generateDeck(): Deck-Element
+getRandomInt(max: integer) integer
+getRandomIntFromRange(min: integer, max: integer) integer
+createPlayerId(): integer
+createGameId(): integer
+playerExists(playerName: string, playerId: string): boolean
+getPlayerHighscore(playerName: string, playerId: string): integer
+getScoreBoard(): Score-Element
+getPlayerName(playerId: string): string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>238</x>
+      <y>308</y>
+      <w>28</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>357</x>
+      <y>448</y>
+      <w>70</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>616</x>
+      <y>133</y>
+      <w>259</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Blackjack-Websocket
+--
+--
+stompconnect()
+stompdisconnect()
+subscribe(game: string, playerId: string, gameId: string)
+getIds(): Map
+send(data: string, path: URL)
+get(wsId: string, key: string) string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>672</x>
+      <y>231</y>
+      <w>28</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>203</y>
+      <w>98</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
