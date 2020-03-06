@@ -4,6 +4,9 @@
 <book>
     <bookinfo>
         <title>Blackjack-Implementation with XML-Technologies</title>
+        <subtitle>Documentation - XML-Technologies</subtitle>
+        <subtitle>Winter term 2020 - Group DocBook</subtitle>
+        
         <author>
             <firstname>Patryk</firstname>
             <surname>Brzoza</surname>
@@ -222,6 +225,10 @@
                     documentation, which should give an overview of the whole project.</para>
             </listitem>
         </itemizedlist>
+        <sect1>
+            <title>Additional Features</title>
+            <para/>
+        </sect1>
     </chapter>
     <chapter>
         <title>Design and Implementation</title>
@@ -292,6 +299,7 @@
                         </imageobject>
                     </mediaobject>
                 </figure>
+                
                 <para>Similar to the Lobby our implementation remained almost equivalent to the
                     first mockup. </para>
                 <figure>
@@ -329,18 +337,14 @@
                     100, 250, 500 and 1000. Of course they determine the value as well as the
                     color.</para>
                 <para>In the template we take advantage of &lt;symbol> and &lt;use> elements to
-                    create the chip in three steps. First the outercircle is filled with the chip
+                    create a chip in three steps. First the outercircle is filled with the chip
                     color and thick white lines. Above the first cirle and lines another smaller
                     circle is drawn in the color of the chip. The final step is to add the dotted
                     circle wherein the value is written. </para>
-                <figure>
-                    <title>Icons</title>
-                    <mediaobject>
-                        <imageobject>
-                            <imagedata fileref="img/Chip.png" width="250px"/>
-                        </imageobject>
-                    </mediaobject>
-                </figure>
+                <para><inlinegraphic fileref="img/Chip1.png" width="250px"/>
+                    <inlinegraphic fileref="img/Chip2.png" width="250px"/>
+                    <inlinegraphic fileref="img/Chip3.png" width="250px"/>
+                </para>
             </sect2>
         </sect1>
         <sect1>
@@ -354,10 +358,6 @@
                     </imageobject>
                 </mediaobject>
             </figure>
-        </sect1>
-        <sect1>
-            <title>User Actions</title>
-            <para/>
         </sect1>
         <sect1 id="phases">
             <title>Phases</title>
@@ -588,7 +588,9 @@
     </chapter>
     <chapter>
         <title>Game Demo</title>
-        <para/>
+        <para>In this chapter we will present a short demo of the gameplay with screenshots in
+            different user situations and from different points of view.</para>
+        <para> </para>
     </chapter>
     <chapter>
         <title>Team Organisation</title>
