@@ -351,7 +351,7 @@ function blackjack-main:dealerTurn($gameId as xs:integer){
 
 
 (:~
- : adding a player to the game
+ : adding a player to the game if player cant join -> redirect him to lobby
  : @gameId Id of the game, where the player will be added
  : @playerId $playerId who will be added
  : @return model change to insert Player to the current game
@@ -372,9 +372,12 @@ function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string)
                           <wallet>1000</wallet>
                           <pool locked="false"/>
                    </player>
-    return( insert node $newPlayer as last into $blackjack-main:lobby/game[@id = $gameId]/players,
+    return ( insert node $newPlayer as last into $blackjack-main:lobby/game[@id = $gameId]/players,
             update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/join?playerId=", $playerId))))
-    )
+    ) else (
+        let $parameters := map {"playerName": blackjack-helper:getPlayerName($playerId),
+                                "playerId": $playerId }
+        return update:output(web:redirect("/docbook_blackjack/lobby", $parameters)))
 };
 
 (:~
