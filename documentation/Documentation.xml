@@ -172,6 +172,9 @@
     </chapter>
     <chapter>
         <title>Project Requirements</title>
+        <sect1>
+            <title>Official Requirements</title>
+            <para></para>
         <para>The project requirements were initially specified in the project exercise and describe
             the expected functionality of the Blackjack game while at the same time acting as the
             project backlog for our development process. Based on the given aspects, we have
@@ -225,9 +228,20 @@
                     documentation, which should give an overview of the whole project.</para>
             </listitem>
         </itemizedlist>
+        </sect1>
         <sect1>
             <title>Additional Features</title>
-            <para/>
+            <para>In addition to the above stated required functionalities we decided to implement
+                extra features. <itemizedlist>
+                    <listitem>
+                        <para>Possibility to play multiple games administered by one server </para>
+                    </listitem>
+                    <listitem>
+                        <para>Deployment to a web server, which makes it possible to play the game
+                            without further requirements, installations and from distributed
+                            positions locations</para>
+                    </listitem>
+                </itemizedlist></para>
         </sect1>
     </chapter>
     <chapter>
@@ -590,7 +604,29 @@
         <title>Game Demo</title>
         <para>In this chapter we will present a short demo of the gameplay with screenshots in
             different user situations and from different points of view.</para>
-        <para> </para>
+        <para>On the left you can see the lobby which is shown, before you are logged in and on the right once you created or restored a account.</para> 
+        <para><inlinegraphic fileref="img/GameDemo.png" width="400px"/>
+             <inlinegraphic fileref="img/GameDemo2.png" width="400px"/></para>
+        <para>Mandela created a multiplayer game, that Obama can join by clicking the game button in
+            the scrollable games list. On the right side tha game is in the bet phase and Obama has
+            already confirmed his bet, what can be seen by the checkmark next to his name. Obama has
+            no buttons to press and is now waiting for Mandela to confirm his bet. </para>
+        <para><inlinegraphic fileref="img/GameDemo3.png" width="400px"/>
+            <inlinegraphic fileref="img/GameDemo4.png" width="400px"/>
+        </para>
+        <para>In these two pictures the view of Mandela during the play phase is shown. After two
+            cards are dealt to both players, Mandel can press the button hit or stand on the left
+            picture. Mandel is satisfied with his hand and presses stand. That leads to the right
+            situation in which Mandela is waiting for Obama to hit or stand. As you can see the box
+            of the player who is on turn is colored gold.</para>
+        <para><inlinegraphic fileref="img/GameDemo5.png" width="400px"/>
+            <inlinegraphic fileref="img/GameDemo6.png" width="400px"/>
+        </para>
+        <para>After players stand or go bust we are in the pay phase where the final hands of
+            dealer and players are shown. Through the button Continue the players have the
+            possibility to start a new round. The Exit button can be used to get back to the lobby. </para>
+        <para><inlinegraphic fileref="img/GameDemo7.png" width="400px"/>
+        </para>
     </chapter>
     <chapter>
         <title>Team Organisation</title>
