@@ -441,12 +441,37 @@
     </chapter>
     <chapter>
         <title>Architecture</title>
-        <para/>
+        <para>This chapter discribes the connections between the different hardware-components,
+            which are basing on a model-view-controller architectur. The second section present the
+            data-models of the lobby, containing the scores and the games, and the card-values,
+            which will be used to generate the card-svgs.</para>
         <sect1>
             <title>MVC Architecture</title>
-            <para/>
+            <para>The program is seperated in the components: Model, View and Controller:<itemizedlist>
+                    <listitem>
+                        <para><emphasis role="bold">The Model</emphasis>-component contains the
+                            stored data as XML in a database. This database process the updating
+                            constrains, which will be sent by the Controller-component. Also the
+                            Model-component send the requested data as XML-elements to the
+                            Controller.</para>
+                    </listitem>
+                    <listitem>
+                        <para><emphasis role="bold">The View</emphasis>-component is the graphical
+                            user interface for the user-client. This GUI will be sent from the
+                            Controller in a HTML and SVG format, either as an REST-response or via
+                            the websocket-connection. Also the Views can send REST-Requests to the
+                            Controller to perform changes on the Model and to get the Model.</para>
+                    </listitem>
+                    <listitem>
+                        <para><emphasis role="bold">The Controller</emphasis>-component is placed on
+                            the Server and processes the incoming REST-Requests. Therefore it uses
+                            XQuery as a functional programming-language. Additionally it uses XSLT
+                            to generate the HTML and SVG out of the model-data and send them to the
+                            View.</para>
+                    </listitem>
+                </itemizedlist></para>
             <figure>
-                <title>Model: Model-View-Controller</title>
+                <title>Modell: Model-View-Controller</title>
                 <mediaobject>
                     <imageobject>
                         <imagedata fileref="diagrams/MVC-Modell.PNG"/>
@@ -456,7 +481,17 @@
         </sect1>
         <sect1>
             <title>Data Model</title>
-            <para/>
+            <para>The datas are saves in XML on the BaseX database-Server.</para>
+            <sect2>
+                <title>Lobby-Model</title>
+                <para>The data-model of the lobby start with the lobby itselft as the root-element.
+                    Inside the lobby are a scores-element, which contains all scores, and several
+                    games. These games always contain one deck with up to 312 cards, one dealer and
+                    a element players, where all players are stored. The players also have one
+                    wallet and one pool, where the bet chips will be saved. Aditionally all players
+                    and also the dealer elements contain one hand, this hand then can hav up to 22
+                    cards (21 aces and one additional card).</para>
+            </sect2>
             <figure>
                 <title>Data-Model: Lobby</title>
                 <mediaobject>
@@ -465,8 +500,14 @@
                     </imageobject>
                 </mediaobject>
             </figure>
-            <para/>
-            <para/>
+            <sect2>
+                <title>Card-Value-Model</title>
+                <para>To generate the number-cards dynamicly, we use a xslt-file, which creates the
+                    svg of a card based on the values-xml. For each card-value (ace - 10), where is
+                    a value-element with the character of that value (A - 10). Inside these
+                    value-elements are a list of all points, where the card has a symbol (1 point
+                    for ace, …, 10 points for 10) and also if this symbl will be rotated.</para>
+            </sect2>
             <figure>
                 <title>Data-Model: Card-Value</title>
                 <mediaobject>
@@ -566,9 +607,7 @@
                 <mediaobject>
                     <imageobject><imagedata fileref="img/Scrum.png" width="700px"/></imageobject>
                     <caption>
-                        <para>The SCRUM development process [<ulink
-                                url="https://commons.wikimedia.org/w/index.php?curid=3526338"
-                            />]</para>
+                        <para>The SCRUM development process [<ulink url="https://commons.wikimedia.org/w/index.php?curid=3526338"/>]</para>
                     </caption></mediaobject>
                 <para>The actual development process is subdivided into multiple iterations of a
                     fixed length defined as <emphasis>sprints</emphasis>, which we chose to match
