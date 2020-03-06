@@ -1,0 +1,12 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT players (player*)>
+
+<!ELEMENT player EMPTY>
+
+<!ATTLIST player
+    id CDATA #REQUIRED
+    name CDATA #REQUIRED
+    highscore CDATA #REQUIRED>
+
+
