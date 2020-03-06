@@ -128,7 +128,8 @@ function blackjack-controller:join($gameId as xs:integer, $playerId as xs:string
                 <ws-stream id = "Blackjack" url="{$websocketURL}" subscription = "{$subscription}" geturl = "{$getURL}"/>
             </body>
         </html>
-    return $html
+    return (trace(blackjack-controller:drawGame($gameId)),
+            $html)
 };
 
  (:~
