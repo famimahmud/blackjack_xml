@@ -137,8 +137,7 @@
             <para>"XSLT (Extensble Stylsheet Language Transformations) is a language for
                 transforming XML documents into other XML documents or other formats such as HTML
                 for web pages, plain text or XSL Formatting Objects, which may subsequently be
-                converted to other formats, such as PDF, PostScript and PNG. "(Source: <ulink
-                    url="https://en.wikipedia.org/wiki/XSLT"/>). In our project it is used to
+                converted to other formats, such as PDF, PostScript and PNG. "(Source: <ulink url="https://en.wikipedia.org/wiki/XSLT"/>). In our project it is used to
                 dynamically transform our game states encoded in XML into an XHTML document, which
                 can be used to graphically display the game state in the browser. Moreover, the
                 chips and cards are dynamically transformed using XSLT. The elements of the XML
@@ -283,8 +282,7 @@
                 <para>The Game Template is called to display the game state in the view of each
                     player who are differentiated using websockets. Different views, in which the
                     buttons vary, are presented depending on the phase and which actions are
-                    currently possible. Phases will be explained in detail in <link linkend="phases"
-                        >section 4.4</link>. Every time a user performs an action, such as to bet or
+                    currently possible. Phases will be explained in detail in <link linkend="phases">section 4.4</link>. Every time a user performs an action, such as to bet or
                     to take another card, the game state changes. Therefore the view has to be
                     refreshed by performing the game template and sending it to the related users. </para>
                 <para>The position of a players on the screen is dynamically calcuated using a
@@ -352,6 +350,14 @@
         <sect1>
             <title>Modules</title>
             <para/>
+            <figure>
+                <title>Class-Diagram: Modules</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="diagrams/Klassendiagramm.png" width="700px"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
         </sect1>
         <sect1 id="phases">
             <title>Phases</title>
@@ -435,14 +441,81 @@
     </chapter>
     <chapter>
         <title>Architecture</title>
-        <para/>
+        <para>This chapter discribes the connections between the different hardware-components,
+            which are basing on a model-view-controller architectur. The second section present the
+            data-models of the lobby, containing the scores and the games, and the card-values,
+            which will be used to generate the card-svgs.</para>
         <sect1>
             <title>MVC Architecture</title>
-            <para/>
+            <para>The program is seperated in the components: Model, View and Controller:<itemizedlist>
+                    <listitem>
+                        <para><emphasis role="bold">The Model</emphasis>-component contains the
+                            stored data as XML in a database. This database process the updating
+                            constrains, which will be sent by the Controller-component. Also the
+                            Model-component send the requested data as XML-elements to the
+                            Controller.</para>
+                    </listitem>
+                    <listitem>
+                        <para><emphasis role="bold">The View</emphasis>-component is the graphical
+                            user interface for the user-client. This GUI will be sent from the
+                            Controller in a HTML and SVG format, either as an REST-response or via
+                            the websocket-connection. Also the Views can send REST-Requests to the
+                            Controller to perform changes on the Model and to get the Model.</para>
+                    </listitem>
+                    <listitem>
+                        <para><emphasis role="bold">The Controller</emphasis>-component is placed on
+                            the Server and processes the incoming REST-Requests. Therefore it uses
+                            XQuery as a functional programming-language. Additionally it uses XSLT
+                            to generate the HTML and SVG out of the model-data and send them to the
+                            View.</para>
+                    </listitem>
+                </itemizedlist></para>
+            <figure>
+                <title>Modell: Model-View-Controller</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="diagrams/MVC-Modell.PNG"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
         </sect1>
         <sect1>
             <title>Data Model</title>
-            <para/>
+            <para>The datas are saves in XML on the BaseX database-Server.</para>
+            <sect2>
+                <title>Lobby-Model</title>
+                <para>The data-model of the lobby start with the lobby itselft as the root-element.
+                    Inside the lobby are a scores-element, which contains all scores, and several
+                    games. These games always contain one deck with up to 312 cards, one dealer and
+                    a element players, where all players are stored. The players also have one
+                    wallet and one pool, where the bet chips will be saved. Aditionally all players
+                    and also the dealer elements contain one hand, this hand then can hav up to 22
+                    cards (21 aces and one additional card).</para>
+            </sect2>
+            <figure>
+                <title>Data-Model: Lobby</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="diagrams/Lobby-Datenmodell.png" width="700px"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
+            <sect2>
+                <title>Card-Value-Model</title>
+                <para>To generate the number-cards dynamicly, we use a xslt-file, which creates the
+                    svg of a card based on the values-xml. For each card-value (ace - 10), where is
+                    a value-element with the character of that value (A - 10). Inside these
+                    value-elements are a list of all points, where the card has a symbol (1 point
+                    for ace, …, 10 points for 10) and also if this symbl will be rotated.</para>
+            </sect2>
+            <figure>
+                <title>Data-Model: Card-Value</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="diagrams/Values-Datenmodell.png"/>
+                    </imageobject>
+                </mediaobject>
+            </figure>
         </sect1>
     </chapter>
     <chapter>
@@ -450,8 +523,7 @@
         <para>Additional to the project requirements we deployed our project to a web server, hence
             there are two ways of playing our Blackjack game: <orderedlist>
                 <listitem>
-                    <para>Online on the web server using this URL: <ulink
-                            url="http://blackjack.brzoza.me"/>
+                    <para>Online on the web server using this URL: <ulink url="http://blackjack.brzoza.me"/>
                     </para>
                 </listitem>
                 <listitem>
@@ -485,13 +557,11 @@
                     <para>To install the BaseX STOMP HTTP sever a few steps have to be made <itemizedlist>
                             <listitem>
                                 <para>Download the comlplete BaseX program (BaseX931.zip, status
-                                    march 2020) from their website <ulink
-                                        url="http://basex.org/download/"/>. </para>
+                                    march 2020) from their website <ulink url="http://basex.org/download/"/>. </para>
                             </listitem>
                             <listitem>
                                 <para>Download and build the BaseX STOMP packet from the stomp
-                                    branch in the git repository (<ulink
-                                        url="https://github.com/BaseXdb/basex/tree/stomp"/>).</para>
+                                    branch in the git repository (<ulink url="https://github.com/BaseXdb/basex/tree/stomp"/>).</para>
                             </listitem>
                             <listitem>
                                 <para>Copy the webapp/docbook_blackjack folder into the webapp
@@ -505,16 +575,13 @@
                                 <para>Now you can start the BaseX HTTP server.</para>
                             </listitem>
                             <listitem>
-                                <para>The game can be played by calling this link: <ulink
-                                        url="http://localhost:8984/docbook_blackjack/setup"
-                                    />.</para>
+                                <para>The game can be played by calling this link: <ulink url="http://localhost:8984/docbook_blackjack/setup"/>.</para>
                             </listitem>
                         </itemizedlist></para>
                     <para>The databases are created the first you call the link with setup. Once all
                         databases are created the setup link will use a redirect to directly get to the
                         Lobby. To delete the databases you have to access them directly on the BaseX
-                        interface using this link: <ulink
-                            url="http://localhost:8984/dba"/></para>
+                        interface using this link: <ulink url="http://localhost:8984/dba"/></para>
                 </listitem>
             </orderedlist>
         </sect1>
@@ -527,13 +594,59 @@
     </chapter>
     <chapter>
         <title>Team Organisation</title>
-        <para/>
+        <para>Our team was formed at the beginning of the practical course and consists of three
+            team members. To allow for asynchronous communication with each other, we created a
+            Telegram group, where we could discuss our project apart from our weekly
+            meetings.</para>
         <sect1>
             <title>Development Environment</title>
-            <para/>
+            <para>In order to manage and modify our codebase between all team members, we created a
+                Git repository hosted on the LRZ GitLab. This allowed us to fully make use of the
+                powerful functionality given by Git. We used separate branches to implement new
+                features, which we then merged to the master branch upon implementation.
+                Additionally, it is possible to keep track of and resolve known issues by using the
+                included issue tracker. The web interface allows to inspect files on-the-go without
+                having direct access to the Git repository. To resolve merge conflicts, we used the
+                Git CLI and SourceTree. For the development process itself we used IntelliJ IDEA, as
+                it allows for extensibility through numerous plug-ins, e.g. to allow syntax
+                highlighting of XQuery files or in order to transform documents using XSLT.</para>
             <sect2>
                 <title>SCRUM</title>
-                <para/>
+                <para>Due to the constant addition of new requirements and the rather small size of
+                    our team, we decided that an agile project management structure would fit our
+                    development process best and chose SCRUM to be a suitable framework to apply it.
+                    The overall requirements defined at the beginning of the project are defined in
+                    the project backlog which acts as a guideline for the whole project life cycle.
+                    We have defined these requirements in Chapter 3. </para>
+                <figure>
+                    <title>The SCRUM development process [<ulink
+                        url="https://commons.wikimedia.org/w/index.php?curid=3526338"
+                    />]</title>
+                <mediaobject>
+                    <imageobject><imagedata fileref="img/Scrum.png" width="700px"/></imageobject>
+                </mediaobject>
+                </figure>
+                <para>The actual development process is subdivided into multiple iterations of a
+                    fixed length defined as <emphasis>sprints</emphasis>, which we chose to match
+                    the exercise sheet working time of one week. Each sprint consists of another
+                    sprint backlog, which includes the work to be done within one sprint and mostly
+                    matched the content of the given exercise sheet. We defined this during the
+                    weekly SCRUM meeting, which mostly took place before or after the weekly
+                    practical course lecture. Each team member then chose which sprint backlog item
+                    should be assigned to him and then proceeded to implement it during the sprint.
+                    One advantage of the SCRUM process is that each sprint terminates with a
+                    potenially deliverable product increment, which made the development process
+                    much easier for us as we could improve the functionality of our existing product
+                    each week.</para>
+            </sect2>
+            <sect2>
+                <title>Continuous Deployment</title>
+                <para>In addition to our code repository managed on GitLab, we implemented a script
+                    which automatically deploys the most recent commit version onto our web server
+                    which is running an instance of our project on a BaseX HTTP and database server.
+                    This allows us to perform tests which are not dependent on the operating system
+                    or the server instance that is running at the client of each operating
+                    system.</para>
             </sect2>
         </sect1>
     </chapter>
