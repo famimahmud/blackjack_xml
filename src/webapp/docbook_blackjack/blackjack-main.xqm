@@ -27,12 +27,10 @@ function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string,
       let $deck := blackjack-helper:generateDeck()
       let $game :=
           <game id="{$gameId}" singlePlayer="{$singlePlayer}" onTurn="noOne" phase="bet">
-              {$deck}
               <dealer>
                   <hand>
                   </hand>
               </dealer>
-
               <players>
                   <player id="{$playerId}" name="{$playerName}">
                           <hand>
@@ -41,6 +39,7 @@ function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string,
                           <pool locked="false"></pool>
                    </player>
               </players>
+              {$deck}
           </game>
 
       return (insert node $game into $blackjack-main:lobby)
