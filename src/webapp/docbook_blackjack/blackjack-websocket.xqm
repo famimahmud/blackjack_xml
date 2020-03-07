@@ -33,7 +33,9 @@ function blackjack-ws:stompdisconnect(){
             let $game := blackjack-main:getGame($gameId)
             return (
                 if (exists($game/players/player[@id=$playerId]/left)) then (
-                    delete node $game/players/player[@id=$playerId]),
+                    delete node $game/players/player[@id=$playerId])
+                    else if (exists($game/players/player[@id=$playerId])) then
+                    insert node <disconnected/> into $game/players/player[@id=$playerId],
                 update:output(trace(concat("WS client " , $playerId , " disconnected from game: ", $gameId)))
             )
         )
@@ -55,7 +57,11 @@ function blackjack-ws:subscribe($game, $playerId, $gameId){
     websocket:set(websocket:id(), "playerId", $playerId),
     websocket:set(websocket:id(), "applicationId", "Blackjack"),
     websocket:set(websocket:id(), "gameId", $gameId),
-    update:output(trace(concat("WS client with id: ", ws:id(), " and PlayerID: ", $playerId ," subscribed to ", $gameId)))
+    let $game := blackjack-main:getGame($gameId)
+    return (if (exists($game/players/player[@id=$playerId]/disconnected))
+                then (delete node $game/players/player[@id=$playerId]/disconnected),
+            update:output(trace(concat("WS client with id: ", ws:id(), " and PlayerID: ", $playerId ," subscribed to ", $gameId)))
+    )
 };
 
 

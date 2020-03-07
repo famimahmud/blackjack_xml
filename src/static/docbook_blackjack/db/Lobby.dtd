@@ -20,9 +20,13 @@
 
 <!ELEMENT players (player+)>
 
-<!ELEMENT player (hand, wallet, pool)>
+<!ELEMENT player (hand, wallet, pool, left, disconnected)>
 
 <!ELEMENT wallet (#PCDATA)>
+
+<!ELEMENT left (EMPTY)>
+
+<!ELEMENT disconnected (EMPTY)>
 
 <!ELEMENT pool (chip*)>
 
