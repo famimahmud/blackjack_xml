@@ -108,6 +108,18 @@
                   alignment-baseline="hanging">
                 <xsl:value-of select="concat('ID: ', $playerId)"/>
             </text>
+
+            <!-- Current Game Info Box -->
+            <xsl:if test="(/*/@phase = 'bet') and (*/players/player[@id=$playerId]/pool/@locked='true') ">
+            <rect class="infoBox" x="0" y="0" rx="2" ry="2" height="15" width="30"/>
+            <text x="2" y="6" fill="{$textColor}" font-size="{$fontSize - 1.5}"
+                  font-family="{$fonts}"
+                  alignment-baseline="hanging">
+                Take your bet!
+            </text>
+            </xsl:if>
+            
+
             <!-- Generate Dealer card box -->
             <!-- Choose box color -->
             <symbol id="dealerBox">
