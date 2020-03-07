@@ -35,6 +35,8 @@
         <xsl:variable name="rectHeight" select="5"/>
         <xsl:variable name="rectWidth" select="25"/>
         <xsl:variable name="playerName" select="game/players/player[@id=$playerId]/@name"/>
+
+        <!-- Chip value list for loop -->
         <xsl:variable name="chipValueList">
             <value>10</value>
             <value>50</value>
@@ -45,7 +47,7 @@
         </xsl:variable>
         <xsl:variable name="chipValues" select="document('')//xsl:variable[@name = 'chipValueList']/*"/>
 
-
+        <!-- Get current player that is on turn -->
         <xsl:variable name="currentPlayer">
             <xsl:if test="/*/@onTurn = 'dealer'">
                 the Dealer
@@ -66,15 +68,16 @@
                 <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Raleway');</style>
             </defs>
 
+            <!-- Information bow in middle of screen, currently disabled
             <text x="{$width div 2}" y="{$height - 4}" stroke="none" text-anchor="middle" alignment-baseline="middle"
                   fill="white">
-                <!--<textPath xlink:href="#infoBow" fill="{$textColor}" startOffset="45">-->
+                <textPath xlink:href="#infoBow" fill="{$textColor}" startOffset="45">-->
                 <!--<xsl:value-of select="concat('It''s ', $currentPlayer, '''s turn!')"/>-->
-                <!--</textPath>-->
-            </text>
+                <!--</textPath>
+            </text> -->
 
             <!-- Generate card deck -->
-            <!-- Print Box -->
+            <!-- Print Deck Box -->
             <rect x="{$deckX}" y="{$deckY}" width="{$cardWidth}" height="{$cardHeight}" rx="{$cornerRadius}"
                   ry="{$cornerRadius}" fill="none" stroke="{$strokeColor}" stroke-width="{$strokeWidth}"/>
             <!-- Print Cards -->
@@ -82,6 +85,7 @@
                 <svg width="{$cardWidth}" height="{$cardHeight}"
                      x="{$deckX + 1.6}"
                      y="{$deckY}" viewBox="0 0 5 7">
+                    <!-- Call card template -->
                     <xsl:call-template name="CardTemplate">
                         <xsl:with-param name="cardType" select="type"/>
                         <xsl:with-param name="cardValue" select="value"/>
@@ -90,27 +94,31 @@
                 </svg>
             </xsl:for-each>
 
-            <!-- Name and ID in the top left corner -->
+            <!-- Game and player information in the top left corner -->
             <rect class="infoBox" x="0" y="0" rx="2" ry="2" height="15" width="30"/>
             <text x="2" y="2" fill="{$textColor}" font-size="{$fontSize - 1.5}" text-decoration="underline"
                   font-family="{$fonts}"
                   alignment-baseline="hanging">
+                <!-- Show game ID -->
                 <xsl:value-of select="concat('Game#', $gameId)"/>
             </text>
 
             <text x="2" y="6" fill="{$textColor}" font-size="{$fontSize - 1.5}"
                   font-family="{$fonts}"
                   alignment-baseline="hanging">
-                <xsl:value-of select="concat('Name: ', /*/players/player[@id = $playerId]/@name)"/>
+                <!-- Show player name -->
+                <xsl:value-of select="concat('Name: ', $playerName)"/>
             </text>
             <text x="2" y="10" fill="{$textColor}" font-size="{$fontSize - 1.5}"
                   font-family="{$fonts}"
                   alignment-baseline="hanging">
+                <!-- Show player ID -->
                 <xsl:value-of select="concat('ID: ', $playerId)"/>
             </text>
+
             <!-- Generate Dealer card box -->
-            <!-- Choose box color -->
             <symbol id="dealerBox">
+                <!-- Choose box color -->
                 <xsl:variable name="color">
                     <xsl:choose>
                         <xsl:when test="(/*/@onTurn = 'dealer') and (/*/@phase = 'play')">
@@ -121,7 +129,8 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
-                <!-- Generate box -->
+
+                <!-- Generate dealer box -->
                 <text x="{$fieldWidth div 2}" y="{$dealerY - 4}" text-anchor="middle"
                       alignment-baseline="central"
                       fill="{$color}" stroke="none">
@@ -143,10 +152,11 @@
                     </svg>
                 </xsl:for-each>
 
-                <!-- Show hand sum -->
+                <!-- Show dealer hand sum -->
                 <xsl:variable name="handSum" select="*/dealer/hand/@sum"/>
 
                 <xsl:if test="$handSum > 0">
+                    <!-- Choose sum color depending on hand value -->
                     <xsl:variable name="counterBackground">
                         <xsl:choose>
                             <xsl:when test="$handSum > 21">red</xsl:when>
@@ -159,15 +169,17 @@
                               style="fill: {$counterBackground}; opacity:0.75"/>
                         <text x="2" y="1.5" fill="white" text-anchor="middle"
                               alignment-baseline="central" font-size="2.5">
+                            <!-- Show calculated sum -->
                             <xsl:value-of select="$handSum"/>
                         </text>
                     </svg>
                 </xsl:if>
             </symbol>
-            <!-- Print box -->
+
+            <!-- Print dealer box -->
             <use xlink:href="#dealerBox" x="{$dealerX}" y="{$dealerY}"/>
 
-            <!-- Generate player card boxes -->
+            <!-- Generate player card boxes for each player still in game -->
             <xsl:for-each select="*/players/player[not(left)]">
                 <xsl:variable name="name" select="@name"/>
                 <xsl:variable name="locked" select="pool/@locked"/>
@@ -176,6 +188,7 @@
                 <xsl:variable name="fieldPos"
                               select="(($width * ($position div ($playerCount + 1))) - ($fieldWidth div 2))"/>
                 <xsl:variable name="playerColor">
+                    <!-- Color player's box gold it on turn -->
                     <xsl:choose>
                         <xsl:when test="@id = /*/@onTurn">
                             <xsl:value-of select="$onTurnColor"/>
@@ -244,17 +257,20 @@
                         </svg>
                     </xsl:for-each>
 
-                    <!-- Show hand sum -->
+                    <!-- Get calculated hand sum -->
                     <xsl:variable name="handSum" select="hand/@sum"/>
 
+                    <!-- Show hand some information field -->
                     <xsl:if test="$handSum > 0">
                         <xsl:variable name="counterBackground">
+                            <!-- Choose color depending on hand value -->
                             <xsl:choose>
                                 <xsl:when test="$handSum > 21">red</xsl:when>
                                 <xsl:when test="$handSum = 21">goldenrod</xsl:when>
                                 <xsl:otherwise>#134900</xsl:otherwise>
                             </xsl:choose>
                         </xsl:variable>
+                        <!-- Insert information box -->
                         <svg width="4" height="3" x="{$fieldWidth - 5}" y="7">
                             <rect x="0" y="0" rx="0.75" ry="0.75" width="100%" height="100%"
                                   style="fill: {$counterBackground}; opacity:0.75"/>
@@ -266,6 +282,7 @@
                     </xsl:if>
                 </symbol>
 
+                <!-- Curve player box depending on total player count and position -->
                 <!-- Curve function: 10 * (count - 2*pos + 1) / (count - 1) -->
                 <xsl:variable name="curveFactor">
                     <xsl:choose>
@@ -276,6 +293,7 @@
                     </xsl:choose>
                 </xsl:variable>
 
+                <!-- Get shift of box depending on total player count and position -->
                 <!-- Shift function: 10 * (pos - count + (count - 1) / 2) -->
                 <xsl:variable name="shiftFactor"
                               select="7 div $playerCount * ($position - $playerCount + ($playerCount - 1) div 2) * ($position - $playerCount + ($playerCount - 1) div 2)"/>
@@ -285,7 +303,8 @@
                      y="{$playerY - $shiftFactor - 10}"
                      transform="rotate({$curveFactor} {$fieldPos + $fieldWidth div 2} {$playerY + $fieldHeight div 2})"/>
             </xsl:for-each>
-            <!--Exit Button-->
+
+            <!--Show exit Button-->
             <foreignObject width="20%" height="10%" x="90%" y="0%">
                 <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/exit" method="post" id="Exit">
                     <button class="gameButton" form="Exit" value="Submit">
@@ -295,6 +314,7 @@
                     <input type="hidden" name="playerName" id="playerNameExit" value="{$playerName}"/>
                 </form>
             </foreignObject>
+
             <!--New Round Button for result phase-->
             <xsl:choose>
                 <xsl:when test="/game/@phase = 'pay' and game/players/player[@id = $playerId]">
@@ -309,8 +329,10 @@
                     </foreignObject>
                 </xsl:when>
             </xsl:choose>
+
             <!--Bet Buttons or Hit & Stand-->
             <xsl:choose>
+                <!-- Player has yet to bet and has not confirmed yet: Show confirm and reset buttons -->
                 <xsl:when test="/*/@phase ='bet' and game/players/player[@id = $playerId]/pool/@locked = 'false' and count(game/players/player[@id = $playerId]/pool/*) != 0">
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/confirmBet"
@@ -332,6 +354,7 @@
                         </form>
                     </foreignObject>
                 </xsl:when>
+                <!-- Player in play phase: show hit and stand buttons -->
                 <xsl:when test="( /*/@phase ='play') and (/*/@onTurn = $playerId)">
                     <foreignObject width="100%" height="100%" x="0%" y="93%">
                         <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/{$gameId}/hit" method="post"
@@ -354,7 +377,7 @@
                 </xsl:when>
             </xsl:choose>
 
-            <!--Chips as Buttons-->
+            <!--Use chips as Buttons-->
             <xsl:for-each select="$chipValues">
                 <xsl:variable name="index" select="position()"/>
                 <xsl:variable name="value" select="."/>
@@ -377,7 +400,7 @@
 
             <!-- Invisible iframe to throw away results of POST request -->
             <foreignObject width="0" height="0">
-                <iframe class = "hiddenFrame" xmlns = "http://www.w3.org/1999/xhtml" name="hiddenFrame"></iframe>
+                <iframe class = "hiddenFrame" xmlns = "http://www.w3.org/1999/xhtml" name="hiddenFrame"/>
             </foreignObject>
         </svg>
 
