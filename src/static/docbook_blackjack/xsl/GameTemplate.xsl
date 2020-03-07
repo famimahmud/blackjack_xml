@@ -2,6 +2,7 @@
                 xmlns:xls="http://www.w3.org/1999/XSL/Transform" xmlns:xslt="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes"/>
 
+    <!-- XSLT template parameters -->
     <xsl:param name="gameId"/>
     <xsl:param name="playerId"/>
 
