@@ -1,0 +1,662 @@
+<html xmlns:ng="http://docbook.org/docbook-ng"><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Blackjack-Implementation with XML-Technologies</title><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book"><div class="titlepage"><div><div><h1 class="title"><a name="d6e1"></a>Blackjack-Implementation with XML-Technologies</h1></div><div><h2 class="subtitle">Documentation - XML-Technologies</h2></div><div><h2 class="subtitle">Winter term 2020 - Group DocBook</h2></div><div><div class="author"><h3 class="author"><span class="firstname">Patryk</span> <span class="surname">Brzoza</span></h3></div></div><div><div class="author"><h3 class="author"><span class="firstname">Moritz</span> <span class="surname">Issig</span></h3></div></div><div><div class="author"><h3 class="author"><span class="firstname">Fami</span> <span class="surname">Mahmud</span></h3></div></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="chapter"><a href="#introduction">1. Introduction</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e18">Project Overview</a></span></dt><dt><span class="sect1"><a href="#d6e23">Blackjack Concept</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e27">Game Rules</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#technologies">2. Technologies</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e52">XML</a></span></dt><dt><span class="sect1"><a href="#d6e56">DocBook</a></span></dt><dt><span class="sect1"><a href="#d6e59">SVG</a></span></dt><dt><span class="sect1"><a href="#d6e62">XSLT</a></span></dt><dt><span class="sect1"><a href="#d6e67">XQuery</a></span></dt><dt><span class="sect1"><a href="#d6e71">BaseX</a></span></dt><dt><span class="sect1"><a href="#d6e74">Websocket</a></span></dt></dl></dd><dt><span class="chapter"><a href="#requirements">3. Project Requirements</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e79">Official Requirements</a></span></dt><dt><span class="sect1"><a href="#d6e104">Additional Features</a></span></dt></dl></dd><dt><span class="chapter"><a href="#design">4. Design and Implementation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e116">Templates</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e119">Lobby Template</a></span></dt><dt><span class="sect2"><a href="#d6e146">Game Template</a></span></dt><dt><span class="sect2"><a href="#d6e162">Card Template</a></span></dt><dt><span class="sect2"><a href="#d6e182">Chip Template</a></span></dt></dl></dd><dt><span class="sect1"><a href="#d6e192">Modules</a></span></dt><dt><span class="sect1"><a href="#phases">Phases</a></span></dt></dl></dd><dt><span class="chapter"><a href="#architecture">5. Architecture</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e240">MVC Architecture</a></span></dt><dt><span class="sect1"><a href="#d6e258">Data Model</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e261">Lobby-Model</a></span></dt><dt><span class="sect2"><a href="#d6e278">Card-Value-Model</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#installation">6. Game Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e299">Requirements</a></span></dt><dt><span class="sect1"><a href="#d6e306">Installation</a></span></dt></dl></dd><dt><span class="chapter"><a href="#demo">7. Game Demo</a></span></dt><dt><span class="chapter"><a href="#d6e349">8. Team Organization</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e352">Development Environment</a></span></dt><dt><span class="sect1"><a href="#d6e355">SCRUM</a></span></dt><dt><span class="sect1"><a href="#d6e367">Continuous Deployment</a></span></dt></dl></dd><dt><span class="chapter"><a href="#conclusion">9. Conclusion</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e373">Challenges</a></span></dt><dt><span class="sect1"><a href="#d6e377">Reflection</a></span></dt></dl></dd></dl></div><div class="list-of-figures"><p><b>List of Figures</b></p><dl><dt>4.1. <a href="#d6e129">Lobby Interface - not logged in</a></dt><dt>4.2. <a href="#d6e135">Lobby Interface - logged in</a></dt><dt>4.3. <a href="#d6e141">Lobby Prototype</a></dt><dt>4.4. <a href="#d6e151">Table Interface</a></dt><dt>4.5. <a href="#d6e157">Table Prototype</a></dt><dt>4.6. <a href="#d6e165">Icons</a></dt><dt>4.7. <a href="#d6e172">Card Sketch</a></dt><dt>4.8. <a href="#d6e177">Card Example</a></dt><dt>4.9. <a href="#d6e196">Class-Diagram: Modules</a></dt><dt>4.10. <a href="#d6e211">State-Diagram: Game-Phases</a></dt><dt>4.11. <a href="#d6e226">Activity-Diagram: Deal-Phase</a></dt><dt>4.12. <a href="#d6e232">Activity-Diagram: Dealer-Turn</a></dt><dt>5.1. <a href="#d6e253">Model: Model-View-Controller</a></dt><dt>5.2. <a href="#d6e273">Data-Model: Lobby</a></dt><dt>5.3. <a href="#d6e284">Data-Model: Card-Value</a></dt><dt>8.1. <a href="#d6e359">The SCRUM development process [https://commons.wikimedia.org/w/index.php?curid=3526338]</a></dt></dl></div>
+    
+    <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="introduction"></a>Chapter&nbsp;1.&nbsp;Introduction</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="sect1"><a href="#d6e18">Project Overview</a></span></dt><dt><span class="sect1"><a href="#d6e23">Blackjack Concept</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e27">Game Rules</a></span></dt></dl></dd></dl></div>
+        
+        <p>This DocBook documents the development and implementation of a multi-client Blackjack
+            game which is only using XML technologies. We present an overview over these
+            technologies and the way we used them. Furthermore, it describes the rules and
+            strategies we agreed on for our Blackjack game, the important phases with possible user
+            actions, the interaction between client and server, as well as the design and
+            implementation in detail. A complete walkthrough with the installation of the game and
+            an example of a game play is shown. In addition, we discuss the way we organized our
+            project and reflect on positive and negative aspects. </p>
+
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e18"></a>Project Overview</h2></div></div></div>
+            
+            <p>The project is part of the practical course XML-Technologies (IN0012, IN2106,
+                IN4013) in the winter term 2019/2020. Throughout the lecture Prof. Anne
+                Br&uuml;ggemann-Klein and Phillip Ulrich introduced us to the XML technologies such as
+                SVG, XHTML, XSLT, XQuery and XPath. The objective of this project is to implement a
+                multi-client browser game of Blackjack by making use of XML technologies
+                exclusively. </p>
+            <p>During the first part of the lab we received tasks every week which we were able
+                to complete with the newly introduced technology. In this manner we were able to get
+                to know and to practice the use of the important technologies step by step. </p>
+            <p>The second part, the actual development project, began after the last meeting in
+                the second week of January. We had to organize ourselves within the group and decide
+                on methodologies on how to implement, design and document the requirements stated in
+                the project assignment. The project ends with the completed game, documentation and
+                a final presentation. </p>
+        </div>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e23"></a>Blackjack Concept</h2></div></div></div>
+            
+            <p>We decided to implement a general Blackjack game according the basic rules defined
+                by Bicycle [<a class="ulink" href="https://bicyclecards.com/how-to-play/blackjack/" target="_top">https://bicyclecards.com/how-to-play/blackjack/</a>]. We did
+                not implement additional rules like 'splitting pairs' or 'doubling down'. </p>
+            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e27"></a>Game Rules</h3></div></div></div>
+                
+                <p>The target of each player is to reach a combined card value as close to 21 as
+                    possible, without going over 21 yet still beating the dealer. </p>
+                <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="d6e30"></a>Players</h4></div></div></div>
+                    
+                    <p>To start a round at least one player has to be in the game, but in one
+                        game a maximum of 7 players is allowed. Nevertheless, every player is
+                        playing each for himself against the dealer, which is represented by the
+                        computer. </p>
+                </div>
+                <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="d6e33"></a>Betting</h4></div></div></div>
+                    
+                    <p>Every player bets an amount of chips which will be placed in the pool.
+                        Obviously it is not possible to bet more chips than the participant has in
+                        his wallet. </p>
+                </div>
+                <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="d6e36"></a>Cards</h4></div></div></div>
+                    
+                    <p>We use a six-deck game, which means that six decks with 52-cards are
+                        combined to 312-cards. In the dealing phase two cards face up will be
+                        distributed to each player after the betting phase. The Dealer takes one
+                        card face up and the second card face down. Each card takes its pip value
+                        and face cards are 10. Aces can take the value of 11 or 1 depending on the
+                        total card count. If the count is over 21 the value of ace switches to 1. </p>
+                </div>
+                <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="d6e39"></a>The Play</h4></div></div></div>
+                    
+                    <p>As a player you must decide whether you want to draw another card ("hit")
+                        or you don't want another card ("stand"). You can repeat this until you
+                        reach a count over 21. </p>
+                </div>
+                <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="d6e42"></a>Dealer's Play</h4></div></div></div>
+                    
+                    <p>Once all players stand on their Cards the dealer's second card gets turned
+                        up. Now the dealer draws cards until he has a count of 17 or more, at which
+                        point the dealer must stand. </p>
+                </div>
+                <div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="d6e45"></a>Pay Phase</h4></div></div></div>
+                    
+                    <p>The winner gets determined by comparing the count of the player with the
+                        dealer's total card value. A player wins and gets paid double of his bet
+                        when the dealer has a lower hand or if the dealer goes bust. If the player
+                        count equals 21, the player scored a blackjack and is paid 2.5x the original
+                        bet. The dealer wins if he has a higher hand or the player goes bust. In
+                        this case the player loses his bet. A tie is possible if both have the same
+                        total value. Then the player gets back his bet.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="technologies"></a>Chapter&nbsp;2.&nbsp;Technologies</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="sect1"><a href="#d6e52">XML</a></span></dt><dt><span class="sect1"><a href="#d6e56">DocBook</a></span></dt><dt><span class="sect1"><a href="#d6e59">SVG</a></span></dt><dt><span class="sect1"><a href="#d6e62">XSLT</a></span></dt><dt><span class="sect1"><a href="#d6e67">XQuery</a></span></dt><dt><span class="sect1"><a href="#d6e71">BaseX</a></span></dt><dt><span class="sect1"><a href="#d6e74">Websocket</a></span></dt></dl></div>
+        
+        <p>As mentioned in <a class="link" href="#introduction" title="Chapter&nbsp;1.&nbsp;Introduction">Chapter 1</a>, we were introduced to
+            powerful tools which make it possible to write a documentation, to save and encode data
+            of a game state, to generate a GUI using the saved data, as well as to interact with
+            data. In the following these tools are addressed and briefly introduced.</p>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e52"></a>XML</h2></div></div></div>
+            
+            <p>XML is the basis for this project. It stands for <span class="emphasis"><em>Extensible Markup
+                    Language</em></span> and defines a set of rules in which documents get encoded in
+                a platform independent format that is readable for humans and computers due to its
+                clear and simple structure. The data of game states is encoded in XML and therefore
+                can easily be transformed and transferred to the web. </p>
+        </div>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e56"></a>DocBook</h2></div></div></div>
+            
+            <p>DocBook is a semantic markup language which we use to write our documentation. It
+                simplifies the creation of documents with a clear logical structure. In addition,
+                the data is saved in a neutral format which makes it possible to easily transform it
+                to a variety of formats, including HTML, XHTML, PDF, etc. Furthermore, the content
+                quality can be improved by automatic validation through a DTD file.</p>
+        </div>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e59"></a>SVG</h2></div></div></div>
+            
+            <p>SVG (Scalable Vector Graphics) is a language to define vector based 2-dimensional
+                graphical objects, meaning that they can be scaled efficiently for any size. SVG
+                images are defined in XML-format. We used it to create all our graphical components
+                like cards, chips, buttons, etc. </p>
+        </div>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e62"></a>XSLT</h2></div></div></div>
+            
+            <p>"XSLT (<span class="emphasis"><em>Extensble Stylsheet Language Transformations</em></span>) is a
+                language for transforming XML documents into other XML documents or other formats
+                such as HTML for web pages, plain text or XSL Formatting Objects, which may
+                subsequently be converted to other formats, such as PDF, PostScript and PNG.
+                "(Source: <a class="ulink" href="https://en.wikipedia.org/wiki/XSLT" target="_top">https://en.wikipedia.org/wiki/XSLT</a>). In our project it is
+                used to dynamically transform our game states encoded in XML into an XHTML document,
+                which can be used to graphically display the game state in the browser. Moreover,
+                the chips and cards are dynamically transformed using XSLT. The elements of the XML
+                documents are selected with a query language called XPath. XPath is a big a part of
+                XSLT and widely used to navigate through elements and attributes. </p>
+        </div>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e67"></a>XQuery</h2></div></div></div>
+            
+            <p>XQuery is a very efficient querying language for XML databases. It enables the
+                interaction with the databases. Which makes it possible to delete, insert and
+                replace database nodes. Just like in XSLT nodes are addressed using XPath. The game
+                actions are implemented using XQuery functions. The functions are initiated by
+                HTTP-Request which are mapped by RESTXQ-Annotations (for example:
+                "<code class="code">localhost:8984/docbook_blackjack/lobby</code>"). </p>
+        </div>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e71"></a>BaseX</h2></div></div></div>
+            
+            <p>BaseX is a management system for XML databases and a XQuery processor. BaseX
+                represents the server side of our implementation to store the databases. This makes
+                it possible to query big XML documents as well as transfer the transformed data to
+                the clients using Websockets. </p>
+        </div>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e74"></a>Websocket</h2></div></div></div>
+            
+            <p>Since a REST-Response can only be sent to the client, who sent the REST-Request,
+                Websockets are an useful tool to also send updates to clients which did not sent a
+                request. BaseX-STOMP offers these websockets. If a client opens a page he subscribes
+                to the websocket. This websocket-connection will not be closed. The server can then
+                send messages to all clients which subscribed to the websocket. Additionally, a
+                client can also send a message to the server.</p>
+        </div>
+    </div>
+    <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="requirements"></a>Chapter&nbsp;3.&nbsp;Project Requirements</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="sect1"><a href="#d6e79">Official Requirements</a></span></dt><dt><span class="sect1"><a href="#d6e104">Additional Features</a></span></dt></dl></div>
+        
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e79"></a>Official Requirements</h2></div></div></div>
+            
+            <p></p>
+        <p>The project requirements were initially specified in the project exercise and describe
+            the expected functionality of the Blackjack game while at the same time acting as the
+            project backlog for our development process. Based on the given aspects, we have
+            considered the following points for our final implementation:</p>
+        <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p>The game should follow the blackjack concept as introduced in <a class="link" href="#introduction" title="Chapter&nbsp;1.&nbsp;Introduction">Chapter 1</a>.</p>
+            </li><li class="listitem">
+                <p>The project is to be implemented as a web application by purely making use of
+                    XML technologies described in the <a class="link" href="#technologies" title="Chapter&nbsp;2.&nbsp;Technologies">Chapter
+                    2</a>.</p>
+            </li><li class="listitem">
+                <p>The game must be implemented using the multi-client principle, i.e. it should
+                    be possible for multiple persons to play one single game within their own client
+                    instance.</p>
+            </li><li class="listitem">
+                <p>Apart from the game functionality itself, a Lobby must be implemented such
+                    that players are able to register themselves and to create or join games.
+                    Players are assigned a randomly generated ID which can be used to restore player
+                    accounts from previous sessions.</p>
+            </li><li class="listitem">
+                <p>The Lobby should also include a high score board keeping track of the highest
+                        player scores achieved throughout their finished games.</p>
+            </li><li class="listitem">
+                <p>The system architecture must follow the Model-View-Controller (MVC) pattern.
+                    Each method should be included in its particular module, which is responsible
+                    for its area in the MVC model.</p>
+            </li><li class="listitem">
+                <p>A high degree of parametrization and customizability should be given in order
+                    to guarantee a high reusability of system fragments. This encourages the general
+                    software engineering rule of low coupling and high cohesion between
+                    modules.</p>
+            </li><li class="listitem">
+                <p>The design process is to be modelled and documented adequately, thus
+                    encouraging a model driven development process. For instance, the usage of
+                    low-fidelity prototypes such as sketches allows to describe the functionality of
+                    the user interface. Class diagrams should be used to model data and method
+                    relations, activity and state diagrams should model the system behavior.
+                    Additionally, a description of all REST requests and responses between the
+                    client and the server should be created.</p>
+            </li><li class="listitem">
+                <p>Finally, the previous design models and decisions are to be included in this
+                    documentation, which should give an overview of the whole project.</p>
+            </li></ul></div>
+        </div>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e104"></a>Additional Features</h2></div></div></div>
+            
+            <p>In addition to the above stated required functionalities we decided to implement
+                extra features:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                        <p>Possibility to play multiple games administered by one server </p>
+                    </li><li class="listitem">
+                        <p>Deployment to a web server, which makes it possible to play the game
+                            without further requirements, installations and from distributed
+                            positions locations</p>
+                    </li></ul></div>
+        </div>
+    </div>
+    <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="design"></a>Chapter&nbsp;4.&nbsp;Design and Implementation</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="sect1"><a href="#d6e116">Templates</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e119">Lobby Template</a></span></dt><dt><span class="sect2"><a href="#d6e146">Game Template</a></span></dt><dt><span class="sect2"><a href="#d6e162">Card Template</a></span></dt><dt><span class="sect2"><a href="#d6e182">Chip Template</a></span></dt></dl></dd><dt><span class="sect1"><a href="#d6e192">Modules</a></span></dt><dt><span class="sect1"><a href="#phases">Phases</a></span></dt></dl></div>
+        
+        <p>The implementation is separated in the different languages as explained in <a class="link" href="#technologies" title="Chapter&nbsp;2.&nbsp;Technologies">Chapter 2</a>. Here we go more into detail regarding the
+            different components of our architecture. </p>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e116"></a>Templates</h2></div></div></div>
+            
+            <p>The XSLT templates are used to dynamically generate a HTML output depending on the
+                current game state. </p>
+            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e119"></a>Lobby Template</h3></div></div></div>
+                
+                <p>Once a user calls the link to the Lobby
+                    (<code class="code">/docbook_blackjack/lobby</code>), the parameters <code class="code">isLoggedIn</code>,
+                        <code class="code">playerName</code>, <code class="code">playerId</code>, <code class="code">playerHighscore</code>
+                    are passed to the template. It uses these parameters and the current lobby
+                    database to generate the appropriate SVGs and HTML page. There are two different
+                    options how a Lobby is presented. Either the <code class="code">isLoggedIn</code> parameter
+                    is set to 0, which means that no account is loaded yet, or to 1 in case there is
+                    a registered account. </p>
+                <p>This renders to a Lobby looking like this:</p>
+                <div class="figure"><a name="d6e129"></a><p class="title"><b>Figure&nbsp;4.1.&nbsp;Lobby Interface - not logged in</b></p><div class="figure-contents">
+                    
+                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="650"><tr><td><img src="../../img/Lobby/LobbyImplementation2.png" width="650" alt="Lobby Interface - not logged in"></td></tr></table></div>
+                </div></div><br class="figure-break">
+                <p>The graphical user interface changes when the user creates an account or
+                    restores his account by typing in his name and id. </p>
+                <div class="figure"><a name="d6e135"></a><p class="title"><b>Figure&nbsp;4.2.&nbsp;Lobby Interface - logged in</b></p><div class="figure-contents">
+                    
+                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="650"><tr><td><img src="../../img/Lobby/LobbyImplementation.png" width="650" alt="Lobby Interface - logged in"></td></tr></table></div>
+                </div></div><br class="figure-break">
+                <p>At the beginning of our project we started with creating basic low-fidelity
+                    prototypes in form of sketches. As you can see in the following sketch, the
+                    implementation was strongly derived out of the first mockup, by then
+                    incrementally adding functionality.</p>
+                <div class="figure"><a name="d6e141"></a><p class="title"><b>Figure&nbsp;4.3.&nbsp;Lobby Prototype</b></p><div class="figure-contents">
+                    
+                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="650"><tr><td><img src="../../img/Lobby/LobbyPrototype.png" width="650" alt="Lobby Prototype"></td></tr></table></div>
+                </div></div><br class="figure-break">
+            </div>
+            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e146"></a>Game Template</h3></div></div></div>
+                
+                <p>The Game Template is called to display the game state in the view of each
+                    player who are differentiated using websockets. Different views in which the
+                    buttons vary are presented depending on the phase and which actions are
+                    currently possible. All phases are explained in detail in <a class="link" href="#phases" title="Phases">Section 4.4</a>. Every time a user performs an action, such as to bet or
+                    to take another card, the game state changes. Therefore, the view has to be
+                    refreshed by transforming the game model using the game template and sending it
+                    to the related users. </p>
+                <p>The position of the players on the screen is dynamically calculated using a
+                    mathematical function that takes into consideration how many players are part of
+                    the game. For each player their respective Name and ID, as well as general game
+                    information are shown in the top left corner. This can only be seen by the
+                    players themselves respectively. On the other side name, wallet, bet and cards
+                    are always visible for other players. </p>
+                <div class="figure"><a name="d6e151"></a><p class="title"><b>Figure&nbsp;4.4.&nbsp;Table Interface</b></p><div class="figure-contents">
+                    
+                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="650"><tr><td><img src="../../img/Table/TableImplementation.png" width="650" alt="Table Interface"></td></tr></table></div>
+                </div></div><br class="figure-break">
+                
+                <p>Similar to the Lobby our implementation remained almost equivalent to the
+                    first mockup. </p>
+                <div class="figure"><a name="d6e157"></a><p class="title"><b>Figure&nbsp;4.5.&nbsp;Table Prototype</b></p><div class="figure-contents">
+                    
+                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="650"><tr><td><img src="../../img/Table/TablePrototype.png" width="650" alt="Table Prototype"></td></tr></table></div>
+                </div></div><br class="figure-break">
+            </div>
+            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e162"></a>Card Template</h3></div></div></div>
+                
+                <p>Cards are generated once they are needed. This happens through a XSL template
+                    call that is called in the game template, whenever someone draws a card. The
+                    value and type are passed as a parameter. The icons of the card types were
+                    pre-defined using SVG graphics. </p>
+                <div class="figure"><a name="d6e165"></a><p class="title"><b>Figure&nbsp;4.6.&nbsp;Icons</b></p><div class="figure-contents">
+                    
+                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="500"><tr><td><img src="../../img/Icons.png" width="500" alt="Icons"></td></tr></table></div>
+                </div></div><br class="figure-break">
+                <p>The first step is to check if the card is hidden. If so, the template just
+                    draws a pattern and returns. Otherwise, the value is written in the top left and
+                    bottom right corner. Icons are loaded or rotated depending on the card type and
+                    placed in a number of positions according to the value using a loop iterating
+                    through the card center. The positions and rotation of the icon are saved in a
+                    different xml file. We used these schemes to create the icons in SVG.</p>
+                <p></p>
+                <div class="figure"><a name="d6e172"></a><p class="title"><b>Figure&nbsp;4.7.&nbsp;Card Sketch</b></p><div class="figure-contents">
+                    
+                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="450"><tr><td><img src="../../img/CardSketch.png" width="450" alt="Card Sketch"></td></tr></table></div>
+                </div></div><br class="figure-break">
+                <div class="figure"><a name="d6e177"></a><p class="title"><b>Figure&nbsp;4.8.&nbsp;Card Example</b></p><div class="figure-contents">
+                    
+                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="200"><tr><td><img src="../../img/Card.png" width="200" alt="Card Example"></td></tr></table></div>
+                </div></div><br class="figure-break">
+            </div>
+            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e182"></a>Chip Template</h3></div></div></div>
+                
+                <p>Just as the creation of cards, chips are generated by calling the chip
+                    template and passing the value as a parameter. Possible chip values are 10, 50,
+                    100, 250, 500 and 1000. Of course, they determine the value as well as the
+                    color.</p>
+                <p>In the template we take advantage of <code class="code">&lt;symbol&gt;</code> and
+                        <code class="code">&lt;use&gt;</code> elements to create a chip in three steps. First, the
+                    outer circle is filled with the chip color and thick white lines. Above the
+                    first circle and lines another smaller circle is drawn in the color of the chip.
+                    The final step is to add the dotted circle wherein the value is written. </p>
+                <p><img src="../../img/Chip1.png" width="200">
+                    <img src="../../img/Chip2.png" width="200">
+                    <img src="../../img/Chip3.png" width="200">
+                </p>
+            </div>
+        </div>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e192"></a>Modules</h2></div></div></div>
+            
+            <p>Our programm is logically divided into 4 modules: Blackjack-Controller,
+                Blackjack-Main, Blackjack-Websocket and Blackjack-Helper. </p>
+            <p>A representation as a UML-class diagram is provided below. A comprehensive
+                documentation generated with xquerydoc and transformed to XHTML can be found in the
+                directory documentation/xqdoc.</p>
+            <div class="figure"><a name="d6e196"></a><p class="title"><b>Figure&nbsp;4.9.&nbsp;Class-Diagram: Modules</b></p><div class="figure-contents">
+                
+                <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="650"><tr><td><img src="../../diagrams/Klassendiagramm.png" width="650" alt="Class-Diagram: Modules"></td></tr></table></div>
+            </div></div><br class="figure-break">
+        </div>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="phases"></a>Phases</h2></div></div></div>
+            
+            <p></p>
+            <p>The Lobby as well as the Game have several states. A user in the Lobby can be
+                either in the "not logged in"-state or in the "logged in"-state. To switch from the
+                "not logged in"-state to the "logged in"-state the user has to create a new account
+                (via the <code class="code">createAccount()</code>) or, if she knows the ID, restore an existing
+                Account (via the <code class="code">restoreAccount()</code>-function).</p>
+            <p>There are two ways to join a Game from the Lobby. The first one is by creating a
+                new game (either a singleplayer or multiplayer game) with the
+                <code class="code">newGame()</code>-function. Alternatively, it is possible to join an existing
+                multiplayer game with the <code class="code">joinGame()</code>-function. In each phase of the
+                game a player can leave this game and return to the Lobby (with the
+                    <code class="code">leave()</code>-function). </p>
+            <div class="figure"><a name="d6e211"></a><p class="title"><b>Figure&nbsp;4.10.&nbsp;State-Diagram: Game-Phases</b></p><div class="figure-contents">
+                
+                <div class="mediaobject"><img src="../../diagrams/Zustandsdiagramm%20Game.png" alt="State-Diagram: Game-Phases"></div>
+            </div></div><br class="figure-break">
+            <p>A game has four phases:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+                        <p>The starting phase is the bet-phase. If an player enters this phase,
+                            he will subscribe to the websocket of this game. Additionally the deck
+                            will be reset. All players can bet chips for the next round at the same
+                            time. They can also reset their bets to correct mistakes. If all players
+                            have confirmed their bets, the game switches to the deal-phase.</p>
+                    </li><li class="listitem">
+                        <p>The deal-phase is completely processed by the backend-system. First
+                            each player and the dealer draw one card from the deck. Since this is
+                            the first card for the dealer his card will be hidden. After a database
+                            update, which is necessary because the dealer received his first card,
+                            each player and also the dealer draw a second card. Now the dealer gets
+                            a revealed card. In the next step the first player is set to the player,
+                            which is on turn. This is necessary for the next phase to begin. If a
+                            player decides to leave during this phase he will be redirected to the
+                            Lobby. If not, an update of the game-page will be send via the websocket
+                            connection.</p>
+                    </li><li class="listitem">
+                        <p>In the play-phase each player does his turn one after another. A
+                            player can either hit or stand during his turn. After the last player
+                            finished his turn the dealerTurn starts. During the dealerTurn the
+                            dealer draws a card if his hand value is lower than 17, updates the
+                            database and restarts the dealerTurn with the additional card. If the
+                            hand value is 17 or higher, he stands and the phase changes to "pay". As
+                            in the deal-Phase, the dealerTurn can also be triggered by a leaving
+                            player. If so, this player will be redirected directly to the Lobby. If
+                            not, an update of the game-page will be sent via the websocket
+                            connection.</p>
+                    </li><li class="listitem">
+                        <p>The last phase is the pay-phase. At the start of this phase the result
+                            of the game is presented on the table. If any player decides to continue
+                            all players will be paid out in case they won win, then their hands and their pools
+                            will be cleared. The dealer hand is also cleared. Then the game switches
+                            to the bet-phase again and an update of the game-page will be sent via the
+                            websocket connection.</p>
+                    </li></ol></div>
+            <div class="figure"><a name="d6e226"></a><p class="title"><b>Figure&nbsp;4.11.&nbsp;Activity-Diagram: Deal-Phase</b></p><div class="figure-contents">
+                
+                <div class="mediaobject"><img src="../../diagrams/Aktivitaetsdiagramm%20Deal-Phase.png" alt="Activity-Diagram: Deal-Phase"></div>
+            </div></div><br class="figure-break">
+            <p></p>
+            <div class="figure"><a name="d6e232"></a><p class="title"><b>Figure&nbsp;4.12.&nbsp;Activity-Diagram: Dealer-Turn</b></p><div class="figure-contents">
+                
+                <div class="mediaobject"><img src="../../diagrams/Aktivitaetsdiagramm%20DealerTurn.png" alt="Activity-Diagram: Dealer-Turn"></div>
+            </div></div><br class="figure-break">
+        </div>
+    </div>
+    <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="architecture"></a>Chapter&nbsp;5.&nbsp;Architecture</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="sect1"><a href="#d6e240">MVC Architecture</a></span></dt><dt><span class="sect1"><a href="#d6e258">Data Model</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e261">Lobby-Model</a></span></dt><dt><span class="sect2"><a href="#d6e278">Card-Value-Model</a></span></dt></dl></dd></dl></div>
+        
+        <p>This chapter describes the connections between the different hardware-components which
+            are basing on a Model-View-Controller architecture pattern. The second section presents
+            the data-models of the lobby, containing the scores and the games, and the card-values,
+            which will be used to generate the card-svgs.</p>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e240"></a>MVC Architecture</h2></div></div></div>
+            
+            <p>The program is separated in the separate sub-components: the Model, View and Controller:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                        <p><span class="bold"><strong>The Model</strong></span>-component contains the data
+                            stored in a database as XML. This database processes the updating
+                            constraints, which will be sent by the Controller-component.
+                            Additionally, the Model-component sends the requested data as
+                            XML-elements to the Controller.</p>
+                    </li><li class="listitem">
+                        <p><span class="bold"><strong>The View</strong></span>-component is the graphical
+                            user interface for the user-client. The GUI will be sent from the
+                            Controller in an HTML and SVG format, either as an REST-response or via
+                            the websocket-connection. Also, the Views can send REST-Requests to the
+                            Controller to perform changes on the Model and to get the Model.</p>
+                    </li><li class="listitem">
+                        <p><span class="bold"><strong>The Controller</strong></span>-component is placed on
+                            the Server and processes the incoming REST-Requests. Therefore, it uses
+                            XQuery as a functional programming-language. Additionally, it uses XSLT
+                            to generate the HTML and SVG out of the model-data and send them to the
+                            View.</p>
+                    </li></ul></div>
+            <div class="figure"><a name="d6e253"></a><p class="title"><b>Figure&nbsp;5.1.&nbsp;Model: Model-View-Controller</b></p><div class="figure-contents">
+                
+                <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="650"><tr><td><img src="../../diagrams/MVC-Modell.PNG" width="650" alt="Model: Model-View-Controller"></td></tr></table></div>
+            </div></div><br class="figure-break">
+        </div>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e258"></a>Data Model</h2></div></div></div>
+            
+            <p>The data is saved using XML on the BaseX database-Server.</p>
+            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e261"></a>Lobby-Model</h3></div></div></div>
+                
+                <p>The data-model of the lobby starts with the <code class="code">lobby</code> itself as the
+                    root-element. Inside the <code class="code">lobby</code> there is a
+                    <code class="code">scores</code>-element which contains all scores and several games. These
+                    games always contains one <code class="code">deck</code> with up to 312 cards, one
+                        <code class="code">dealer</code> and a <code class="code">players</code> element, where all players
+                    participating in the game are stored. The players also have one
+                        <code class="code">wallet</code> and one <code class="code">pool</code>, where the bet chips are
+                    stored. All players and the dealer elements contain one <code class="code">hand</code>
+                    element which can contain up to 22 cards (21 aces and one additional
+                    card).</p>
+                <div class="figure"><a name="d6e273"></a><p class="title"><b>Figure&nbsp;5.2.&nbsp;Data-Model: Lobby</b></p><div class="figure-contents">
+                    
+                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="650"><tr><td><img src="../../diagrams/Lobby-Datenmodell.png" width="650" alt="Data-Model: Lobby"></td></tr></table></div>
+                </div></div><br class="figure-break">
+            </div>
+            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e278"></a>Card-Value-Model</h3></div></div></div>
+                
+                <p>To generate the number-cards dynamically, we use an XSLT-file which creates
+                    the SVG image of a card based on the values-xml. For each possible card value
+                    from Ace to 10, there is a <code class="code">value</code>-element with the character of that
+                    value. Inside these <code class="code">value</code>-elements there is a list of all
+                        <code class="code">points</code>, where the card has a symbol to be drawn (e.g. one point
+                    for ace, &#8230;, ten points for 10). It also includes information whether this symbol
+                    should be rotated.</p>
+                <div class="figure"><a name="d6e284"></a><p class="title"><b>Figure&nbsp;5.3.&nbsp;Data-Model: Card-Value</b></p><div class="figure-contents">
+                    
+                    <div class="mediaobject"><img src="../../diagrams/Values-Datenmodell.png" alt="Data-Model: Card-Value"></div>
+                </div></div><br class="figure-break">
+            </div>
+        </div>
+    </div>
+    <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="installation"></a>Chapter&nbsp;6.&nbsp;Game Installation</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="sect1"><a href="#d6e299">Requirements</a></span></dt><dt><span class="sect1"><a href="#d6e306">Installation</a></span></dt></dl></div>
+        
+        <p>Additional to the project requirements we deployed our project to a web server, hence
+            there are two ways of playing our Blackjack game: </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+                    <p>Online on the web server using this URL: <a class="ulink" href="http://blackjack.brzoza.me" target="_top">http://blackjack.brzoza.me</a>
+                    </p>
+                </li><li class="listitem">
+                    <p>Locally using a BaseX Server on your own Computer</p>
+                </li></ol></div>
+        <p>We recommend the usage of Google Chrome as Browser. Our game is compatible with Google
+            Chrome and Firefox on Windows and macOS, but it is optimized for Google Chrome only.
+            (Please do not use Internet Explorer or Safari as it can result to rendering issues). </p>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e299"></a>Requirements</h2></div></div></div>
+            
+            <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+                    <p>For the first option the only requirement is an IPv4 connection. The
+                        server cannot be addressed through IPv6. </p>
+                </li><li class="listitem">
+                    <p>The second option requires a running BaseX STOMP HTTP server and running
+                        BaseX database Server. </p>
+                </li></ol></div>
+        </div>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e306"></a>Installation</h2></div></div></div>
+            
+            <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+                    <p>No installation has to be performed to play the game on the web server.
+                    </p>
+                </li><li class="listitem">
+                    <p>To install the BaseX STOMP HTTP sever a few steps have to be made </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                                <p>Download the complete BaseX program (BaseX931.zip, status
+                                    March 2020) from their website <a class="ulink" href="http://basex.org/download/" target="_top">http://basex.org/download/</a>. </p>
+                            </li><li class="listitem">
+                                <p>Download and build the BaseX STOMP packet from the stomp
+                                    branch in the git repository (<a class="ulink" href="https://github.com/BaseXdb/basex/tree/stomp" target="_top">https://github.com/BaseXdb/basex/tree/stomp</a>) using Maven.</p>
+                            </li><li class="listitem">
+                                <p>Copy the webapp/docbook_blackjack folder into the webapp
+                                    folder of BaseX.</p>
+                            </li><li class="listitem">
+                                <p>Copy the static/docbook_blackjack folder into the
+                                    webapp/static folder of BaseX.</p>
+                            </li><li class="listitem">
+                                <p>Now you can start the BaseX HTTP server.</p>
+                            </li><li class="listitem">
+                                <p>The game can be played by calling this link: <a class="ulink" href="http://localhost:8984/docbook_blackjack/setup" target="_top">http://localhost:8984/docbook_blackjack/setup</a>.</p>
+                            </li></ul></div>
+                    <p>The databases are created upon first calling the setup link. Once all
+                        databases are created, the setup link will directly redirect to the Lobby.
+                        To delete the databases, you have to access them directly on the BaseX
+                        database administration interface using this link: <a class="ulink" href="http://localhost:8984/dba" target="_top">http://localhost:8984/dba</a></p>
+                </li></ol></div>
+        </div>
+    </div>
+    <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="demo"></a>Chapter&nbsp;7.&nbsp;Game Demo</h1></div></div></div>
+        
+        <p>In this chapter we will present a short demo of the gameplay with screenshots in
+            different user situations and from different points of view.</p>
+        <p>On the left you can see the lobby which is shown before you are logged in and on the
+            right once you created or restored an account.</p> 
+        <p><img src="../../img/GameDemo.png" width="300">
+             <img src="../../img/GameDemo2.png" width="300"></p>
+        <p>Mandela created a multiplayer game, that Obama can join by clicking on the game button
+            in the scrollable games list. On the right-hand side the game is in the bet phase and
+            Obama has already confirmed his bet, what can be seen by the check mark next to his
+            name. Obama has no buttons to press and is now waiting for Mandela to confirm his bet. </p>
+        <p><img src="../../img/GameDemo3.png" width="300">
+            <img src="../../img/GameDemo4.png" width="300">
+        </p>
+        <p>In these two pictures the view of Mandela during the play phase is shown. After two
+            cards are dealt to both players, Mandela can press the button hit or stand on the left
+            picture. Mandel is satisfied with his hand and chooses to stand. That leads to the right
+            situation in which Mandela is waiting for Obama to hit or stand. As you can see the box
+            of the player who is on turn is colored in gold.</p>
+        <p><img src="../../img/GameDemo5.png" width="300">
+            <img src="../../img/GameDemo6.png" width="300">
+        </p>
+        <p>After all players stand or go bust we are in the pay phase where the final hands of
+            dealer and players are shown. Through the button Continue the players have the
+            possibility to start a new round. The Exit button can be used to get back to the lobby. </p>
+        <p><img src="../../img/GameDemo7.png" width="300">
+        </p>
+    </div>
+    <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="d6e349"></a>Chapter&nbsp;8.&nbsp;Team Organization</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="sect1"><a href="#d6e352">Development Environment</a></span></dt><dt><span class="sect1"><a href="#d6e355">SCRUM</a></span></dt><dt><span class="sect1"><a href="#d6e367">Continuous Deployment</a></span></dt></dl></div>
+        
+        <p>Our team was formed at the beginning of the practical course and consists of three
+            team members, namely Patryk Brzoza, Moritz Issig and Fami Mahmud. To allow for
+            asynchronous communication with each other, we created a Telegram group, where we could
+            discuss our project apart from our weekly meetings.</p>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e352"></a>Development Environment</h2></div></div></div>
+            
+            <p>In order to manage and modify our codebase between all team members, we created a
+                Git repository hosted on the LRZ GitLab. This allowed us to fully make use of the
+                powerful functionality given by Git. We used separate branches to implement new
+                features, which we then merged to the master branch upon implementation.
+                Additionally, it is possible to keep track of and resolve known issues by using the
+                included issue tracker. The web interface allows inspecting files on-the-go without
+                having direct access to the Git repository. To resolve merge conflicts, we used the
+                Git CLI and SourceTree. For the development process itself we used IntelliJ IDEA, as
+                it allows for extensibility through numerous plug-ins, e.g. to allow syntax
+                highlighting of XQuery files or in order to transform documents using XSLT.</p>
+            </div>
+            <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e355"></a>SCRUM</h2></div></div></div>
+                
+                <p>Due to the constant addition of new requirements and the rather small size of
+                our team, we decided that an agile project management structure would fit our
+                development process best and chose SCRUM to be a suitable framework to apply it. The
+                overall requirements defined at the beginning of the project are defined in the
+                project backlog which acts as a guideline for the whole project life cycle. We have
+                defined these requirements in <a class="link" href="#requirements" title="Chapter&nbsp;3.&nbsp;Project Requirements">Chapter 3</a>. </p>
+                <div class="figure"><a name="d6e359"></a><p class="title"><b>Figure&nbsp;8.1.&nbsp;The SCRUM development process [<a class="ulink" href="https://commons.wikimedia.org/w/index.php?curid=3526338" target="_top">https://commons.wikimedia.org/w/index.php?curid=3526338</a>]</b></p><div class="figure-contents">
+                    
+                <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="700"><tr><td><img src="../../img/Scrum.png" width="700" alt="The SCRUM development process [https://commons.wikimedia.org/w/index.php?curid=3526338]"></td></tr></table></div>
+                </div></div><br class="figure-break">
+                <p>The actual development process is subdivided into multiple iterations of a
+                fixed length defined as <span class="emphasis"><em>sprints</em></span>, which we chose to match the
+                exercise sheet working time of one week. Each sprint consists of another sprint
+                backlog, which includes the work to be done within one sprint and mostly matched the
+                content of the given exercise sheet. We defined this during the weekly SCRUM
+                meeting, which mostly took place before or after the weekly practical course
+                lecture. Each team member then chose which sprint backlog item should be assigned to
+                him and then proceeded to implement it during the sprint. One advantage of the SCRUM
+                process is that each sprint terminates with a potentially deliverable product
+                increment, which made the development process much easier for us as we could improve
+                the functionality of our existing product each week.</p>
+            </div>
+            <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e367"></a>Continuous Deployment</h2></div></div></div>
+                
+                <p>In addition to our code repository managed on GitLab, we implemented a script
+                    which automatically deploys the most recent commit version onto our web server
+                    which is running an instance of our project on a BaseX HTTP and database server.
+                    This allows us to perform tests which are not dependent on the operating system
+                    or the server instance that is running at the client of each operating
+                    system.</p>
+            </div>
+    </div>
+    <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="conclusion"></a>Chapter&nbsp;9.&nbsp;Conclusion</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="sect1"><a href="#d6e373">Challenges</a></span></dt><dt><span class="sect1"><a href="#d6e377">Reflection</a></span></dt></dl></div>
+        
+        <p>Summarizing the previous chapters, we implemented a fully functional instance of the
+            game Blackjack by solely applying XML technologies, which includes SVG, XSLT, XQuery and
+            BaseX. Our development process was based on official and personal requirements which
+            were set at the beginning of the project. All parts of the graphical user interface were
+            derived from low-fidelity prototype sketches, which were then incrementally given more
+            functionality. To support a model-driven development process, we based our architecture
+            on the Model-View-Controller (MVC) pattern and implemented all game modules according to
+            it. The main game process was subdivided into four phases, each of which defined a
+            certain step of the Blackjack game according to its rule set. Additionally, we defined
+            data models for each part of the database in order to allow for complex yet efficient
+            data structures. We applied an agile development process based on SCRUM in order to
+            handle with ongoing requirement change and made use of continuous deployment for
+            extensive testing between all team members.</p>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e373"></a>Challenges</h2></div></div></div>
+            
+            <p>There were numerous challenges that we needed to deal with throughout the
+                development phase. At first, most of us were familiar with XML as a markup language
+                itself, however most of the introduced technologies were new to us. Due to the good
+                organization structure of the practical course, we were able to progressively get
+                known to each technology by applying it on a real use case. For example, one
+                challenge which was thoroughly analyzed by us was how the card generation could be
+                implemented in SVG without introducing redundancy. With the introduction of XSLT
+                this task was greatly facilitated, as we could use predefined functions and loops
+                for an efficient card generation. Another problem we had to cope with were the
+                differences between our systems during the development process. It turned out that
+                many components behaved differently depending on where they were deployed. For
+                example, UI elements were often rendered differently on macOS and Windows, which led
+                to numerous adaptations in the CSS stylesheets. On the other hand, function
+                parameters were also often treated differently depending on the XSLT processor, as
+                the <code class="code">isLoggedIn</code> parameter inside the lobby template was not recognized
+                at all for one team member. We were able to resolve this problem by implementing
+                continuous deployment, where we pushed the most recent version of our game onto a
+                web server which could be then accessed independently by each member. One complex
+                challenge was the application of Websockets, as the technology is not yet fully
+                supported by the official release of BaseX and the technology was fairly new to us.
+                However, upon gaining more knowledge and supporting each other we were able to
+                resolve this problem together. Finally, there were some problems with the automatic
+                generation of our XQuery documentation files by xqDoc. Due to a bug in Oxygen, no
+                output could be created even though the files themselves were valid. Thanks to the
+                kind help of Prof. Br&uuml;ggemann-Klein and Philipp Ulrich we were eventually able to
+                successfully create the documentation files.</p>
+        </div>
+        <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e377"></a>Reflection</h2></div></div></div>
+            
+            <p>During the practical course we have learned incredibly lot about the wide range of
+                XML technologies and the possibilities that can be achieved through applying them,
+                which is why we fully recommend it, especially as there are not many courses, that
+                introduce informatics students into them, inside the obligatory study curriculum. We
+                also earned a lot of valuable knowledge about teamwork and software engineering
+                within software projects, as we got along with each other very well and supported
+                each other during the implementation phase.</p>
+        </div>
+
+    </div>
+</div></body></html>
