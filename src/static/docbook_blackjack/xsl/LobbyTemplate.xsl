@@ -94,7 +94,7 @@
                 </text>
 
                 <xsl:choose>
-                    <xsl:when test="count(lobby/game[@singlePlayer = 'false' and @phase = 'bet']) = 0">
+                    <xsl:when test="count(lobby/game[@singlePlayer = 'false' and (@phase = 'bet' or players/player/@id = $playerId)]) = 0">
                         <text x="{$startX + 4}" y="45" font-size="{$fontSize - 2}"
                               font-style="oblique"
                               alignment-baseline="hanging" fill="{$textColor}" font-family="{$fonts}">No active games
@@ -106,7 +106,7 @@
                         </text>
                         <foreignObject id="gameContainer" x="{$startX}" y="39" width="49" height="20"
                                        font-family="{$fonts}" font-size="{$fontSize - 1}">
-                            <xsl:for-each select="lobby/game[@singlePlayer = 'false' and @phase = 'bet']">
+                            <xsl:for-each select="lobby/game[@singlePlayer = 'false' and (@phase = 'bet' or players/player/@id = $playerId)]">
                                 <xsl:variable name="currentRectY" select="0 + ((position() - 1) * 6)"/>
                                 <xsl:variable name="gameID" select="@id"/>
                                 <xsl:variable name="players" select="count(players/player)"/>
