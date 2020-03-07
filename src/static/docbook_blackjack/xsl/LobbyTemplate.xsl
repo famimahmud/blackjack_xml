@@ -117,7 +117,7 @@
                                         <input class="joinGameButton" type="submit" name="gameId" id="{$gameID}Button"
                                                value="{concat('Game#', $gameID, '  -  ', $players)}"/>
                                         <input type="hidden" name="playerId" id="{$gameID}playerId"
-                                               value="{$playerId}"/>
+                                               value="{$playerId}" spellcheck="false"/>
                                     </label>
                                 </form>
                             </xsl:for-each>
@@ -165,7 +165,7 @@
                             <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/createAccount" method="post"
                                   id="createAccount">
                                 <input class="inputBox" size="18" type="text" name="playerName" id="playerName1"
-                                       placeholder="Name"/>
+                                       placeholder="Name" spellcheck="false"/>
                                 <br/>
                                 <button class="accountButton" form="createAccount" value="Submit">
                                     Create account
@@ -184,8 +184,8 @@
                     <form xmlns="http://www.w3.org/1999/xhtml" action="/docbook_blackjack/lobby" method="get"
                           id="restoreAccount">
                         <input size="12" class="inputBox" type="text" name="playerName" id="playerName"
-                               placeholder="Name"/>
-                        <input size="4" class="inputBox" type="text" name="playerId" id="playerId" placeholder="ID"/>
+                               placeholder="Name" spellcheck="false"/>
+                        <input size="4" class="inputBox" type="text" name="playerId" id="playerId" placeholder="ID" spellcheck="false"/>
                         <br/>
                         <button class="accountButton" form="restoreAccount" value="Submit">
                             Restore account
