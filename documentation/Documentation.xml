@@ -425,41 +425,41 @@
             </figure>
             <para>A game has four phases:<orderedlist>
                     <listitem>
-                        <para>The starting phase is the bet-phase. If an player enters this phase he
-                            will subscribe to the websocket of this game. Also the deck will be
-                            reseted All players can bet chips for the netxt round at the same time.
-                            Also they can reset their bets to correct mistakes. If all players have
-                            confirmed their bets the game switches to the deal-phase.</para>
+                        <para>The starting phase is the bet-phase. If an player enters this phase, he
+                            will subscribe to the websocket of this game. Additionally the deck will be
+                            reset. All players can bet chips for the netx round at the same time.
+                            They can also reset their bets to correct mistakes. If all players have
+                            confirmed their bets, the game switches to the deal-phase.</para>
                     </listitem>
                     <listitem>
-                        <para>The deal-phase is completely processed be the backend-system. Firstly
-                            each player and the dealer gets one card from the deck. Since this is
-                            the frist card for the dealer his card will be hidden. After a database
-                            update, which is necessary because the dealer got a first card, each
-                            player and also the dealer gets a second card. Now the dealer gets a
+                        <para>The deal-phase is completely processed be the backend-system. First 
+                            each player and the dealer draw one card from the deck. Since this is
+                            the first card for the dealer his card will be hidden. After a database
+                            update, which is necessary because the dealer received his first card, each
+                            player and also the dealer draw a second card. Now the dealer gets a
                             revealed card. In the next step the first player is set to the player,
-                            which is on turn. And then the phase is set to "play". If a leaving
-                            player triggered this phase he will be redirected to the Lobby. If not
+                            which is on turn. This is necessary for the next phase to begin. If a 
+                            player decides to leave during this phase he will be redirected to the Lobby. If not, 
                             an update of the game-page will be send via the websocket
                             connection.</para>
                     </listitem>
                     <listitem>
                         <para>In the play-phase each player does his turn one after another. A
-                            player can hit or stand during his turn. After the last player finished
-                            his turn the dealerTurn starts. During the dealerTurn the delaer draw a
+                            player can either hit or stand during his turn. After the last player finished
+                            his turn the dealerTurn starts. During the dealerTurn the dealer draws a
                             card if his hand value is lower than 17, updates the databank and
                             restarts the dealerTurn with the additional card. If the hand value is
-                            17 or higher he stands and the phase changes to "pay". As in the
-                            deal-Phase the dealerTurn can also be triggered by a leaving player. If
-                            so this player will be redireted also to the Lobby. If not an update of
-                            the game-page will be send via the websocket connection.</para>
+                            17 or higher, he stands and the phase changes to "pay". As in the
+                            deal-Phase, the dealerTurn can also be triggered by a leaving player. If
+                            so, this player will be redireted directly to the Lobby. If not, an update of
+                            the game-page will be sent via the websocket connection.</para>
                     </listitem>
                     <listitem>
                         <para>The last phase is the pay-phase. At the start of this phase the result
                             of the game is presented on the table. If any player decides to continue
-                            all players will be pay, if they win, then their hands and their pools
-                            will be cleared. The dealer also clears his hand. Then the game switches
-                            to the bet-phase and an update of the game-page will be send via the
+                            all players will be paid out in case they won win, then their hands and their pools
+                            will be cleared. The dealer hand is also cleared. Then the game switches
+                            to the bet-phase again and an update of the game-page will be sent via the
                             websocket connection.</para>
                     </listitem>
                 </orderedlist></para>
@@ -484,23 +484,23 @@
     </chapter>
     <chapter id="architecture">
         <title>Architecture</title>
-        <para>This chapter discribes the connections between the different hardware-components,
-            which are basing on a model-view-controller architectur. The second section present the
+        <para>This chapter discribes the connections between the different hardware-components 
+            which are basing on a Model-View-Controller architecture pattern. The second section presents the
             data-models of the lobby, containing the scores and the games, and the card-values,
             which will be used to generate the card-svgs.</para>
         <sect1>
             <title>MVC Architecture</title>
-            <para>The program is seperated in the components: Model, View and Controller:<itemizedlist>
+            <para>The program is seperated in the separate sub-components: the Model, View and Controller:<itemizedlist>
                     <listitem>
                         <para><emphasis role="bold">The Model</emphasis>-component contains the
-                            stored data as XML in a database. This database process the updating
-                            constrains, which will be sent by the Controller-component. Also the
-                            Model-component send the requested data as XML-elements to the
+                            data stored in a database as XML. This database processes the updating
+                            constraints, which will be sent by the Controller-component. Additionally the
+                            Model-component sends the requested data as XML-elements to the
                             Controller.</para>
                     </listitem>
                     <listitem>
                         <para><emphasis role="bold">The View</emphasis>-component is the graphical
-                            user interface for the user-client. This GUI will be sent from the
+                            user interface for the user-client. The GUI will be sent from the
                             Controller in a HTML and SVG format, either as an REST-response or via
                             the websocket-connection. Also the Views can send REST-Requests to the
                             Controller to perform changes on the Model and to get the Model.</para>
@@ -514,7 +514,7 @@
                     </listitem>
                 </itemizedlist></para>
             <figure>
-                <title>Modell: Model-View-Controller</title>
+                <title>Model: Model-View-Controller</title>
                 <mediaobject>
                     <imageobject>
                         <imagedata fileref="diagrams/MVC-Modell.PNG"/>
@@ -524,15 +524,15 @@
         </sect1>
         <sect1>
             <title>Data Model</title>
-            <para>The datas are saves in XML on the BaseX database-Server.</para>
+            <para>The data is saved using XML on the BaseX database-Server.</para>
             <sect2>
                 <title>Lobby-Model</title>
-                <para>The data-model of the lobby start with the lobby itselft as the root-element.
-                    Inside the lobby are a scores-element, which contains all scores, and several
-                    games. These games always contain one deck with up to 312 cards, one dealer and
-                    a element players, where all players are stored. The players also have one
-                    wallet and one pool, where the bet chips will be saved. Aditionally all players
-                    and also the dealer elements contain one hand, this hand then can hav up to 22
+                <para>The data-model of the lobby starts with the <code>lobby</code> itselft as the root-element.
+                    Inside the <code>lobby</code> there is a <code>scores</code>-element which contains all scores and several
+                    games. These games always contains one <code>deck</code> with up to 312 cards, one <code>dealer</code> and
+                    a <code>players</code> element, where all players participating in the game are stored. The players also have one
+                    <code>wallet</code> and one <code>pool</code>, where the bet chips are stored. All players
+                    and the dealer elements contain one <code>hand</code> element which can contain up to 22
                     cards (21 aces and one additional card).</para>
                 <figure>
                     <title>Data-Model: Lobby</title>
@@ -545,11 +545,11 @@
             </sect2>
             <sect2>
                 <title>Card-Value-Model</title>
-                <para>To generate the number-cards dynamicly, we use a xslt-file, which creates the
-                    svg of a card based on the values-xml. For each card-value (ace - 10), where is
-                    a value-element with the character of that value (A - 10). Inside these
-                    value-elements are a list of all points, where the card has a symbol (1 point
-                    for ace, …, 10 points for 10) and also if this symbl will be rotated.</para>
+                <para>To generate the number-cards dynamically, we use a XSLT-file which creates the
+                    SVG image of a card based on the values-xml. For each possible card value from Ace to 10, there is
+                    a <code>value</code>-element with the character of that value. Inside these
+                    <code>value</code>-elements there is a list of all <code>points</code>, where the card has a symbol to be drawn (e.g. one point
+                    for ace, …, ten points for 10). It also includes information whether this symbol should be rotated.</para>
                 <figure>
                     <title>Data-Model: Card-Value</title>
                     <mediaobject>
@@ -574,14 +574,14 @@
                 </listitem>
             </orderedlist></para>
         <para>We recommend the usage of Google Chrome as Browser. Our game is compatible with Google
-            Chrome and Firefox on Windows and MacOs, but it is optimized for Google Chrome only.
-            (Please don't use Internet Explorer or Safari). </para>
+            Chrome and Firefox on Windows and macOS, but it is optimized for Google Chrome only.
+            (Please do not use Internet Explorer or Safari as it can result to rendering issues). </para>
         <sect1>
             <title>Requirements</title>
             <orderedlist>
                 <listitem>
                     <para>For the first option the only requirement is an IPv4 connection. The
-                        server can not be addressed through IPv6. </para>
+                        server cannot be addressed through IPv6. </para>
                 </listitem>
                 <listitem>
                     <para>The second option requieres a running BaseX STOMP HTTP server and running
@@ -593,7 +593,7 @@
             <title>Installation</title>
             <orderedlist>
                 <listitem>
-                    <para>No installations have to be made to play the game on the web server.
+                    <para>No installation has to be performed to play the game on the web server.
                     </para>
                 </listitem>
                 <listitem>
@@ -604,7 +604,7 @@
                             </listitem>
                             <listitem>
                                 <para>Download and build the BaseX STOMP packet from the stomp
-                                    branch in the git repository (<ulink url="https://github.com/BaseXdb/basex/tree/stomp"/>).</para>
+                                    branch in the git repository (<ulink url="https://github.com/BaseXdb/basex/tree/stomp"/>) using Maven.</para>
                             </listitem>
                             <listitem>
                                 <para>Copy the webapp/docbook_blackjack folder into the webapp
@@ -634,21 +634,21 @@
         <title>Game Demo</title>
         <para>In this chapter we will present a short demo of the gameplay with screenshots in
             different user situations and from different points of view.</para>
-        <para>On the left you can see the lobby which is shown, before you are logged in and on the right once you created or restored a account.</para> 
+        <para>On the left you can see the lobby which is shown before you are logged in and on the right once you created or restored a account.</para> 
         <para><inlinegraphic fileref="img/GameDemo.png" width="400px"/>
              <inlinegraphic fileref="img/GameDemo2.png" width="400px"/></para>
-        <para>Mandela created a multiplayer game, that Obama can join by clicking the game button in
-            the scrollable games list. On the right side tha game is in the bet phase and Obama has
+        <para>Mandela created a multiplayer game, that Obama can join by clicking on the game button in
+            the scrollable games list. On the right hand side the game is in the bet phase and Obama has
             already confirmed his bet, what can be seen by the checkmark next to his name. Obama has
             no buttons to press and is now waiting for Mandela to confirm his bet. </para>
         <para><inlinegraphic fileref="img/GameDemo3.png" width="400px"/>
             <inlinegraphic fileref="img/GameDemo4.png" width="400px"/>
         </para>
         <para>In these two pictures the view of Mandela during the play phase is shown. After two
-            cards are dealt to both players, Mandel can press the button hit or stand on the left
-            picture. Mandel is satisfied with his hand and presses stand. That leads to the right
+            cards are dealt to both players, Mandela can press the button hit or stand on the left
+            picture. Mandel is satisfied with his hand and chooses to stand. That leads to the right
             situation in which Mandela is waiting for Obama to hit or stand. As you can see the box
-            of the player who is on turn is colored gold.</para>
+            of the player who is on turn is colored in gold.</para>
         <para><inlinegraphic fileref="img/GameDemo5.png" width="400px"/>
             <inlinegraphic fileref="img/GameDemo6.png" width="400px"/>
         </para>
