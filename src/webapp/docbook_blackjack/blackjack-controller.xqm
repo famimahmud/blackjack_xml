@@ -49,6 +49,7 @@ function blackjack-controller:setup() {
   : else: loggedOut-Lobby
   : @playerName name of the logged in user
   : @playerId id of the logged in user
+  : @fromGameId Id of the game, where the Websocket will be triggered
   : @return created Lobby-File
   :)
 declare
