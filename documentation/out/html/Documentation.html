@@ -1,6 +1,6 @@
 <html xmlns:ng="http://docbook.org/docbook-ng"><head>
       <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-   <title>Blackjack-Implementation with XML-Technologies</title><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book"><div class="titlepage"><div><div><h1 class="title"><a name="d6e1"></a>Blackjack-Implementation with XML-Technologies</h1></div><div><h2 class="subtitle">Documentation - XML-Technologies</h2></div><div><h2 class="subtitle">Winter term 2020 - Group DocBook</h2></div><div><div class="author"><h3 class="author"><span class="firstname">Patryk</span> <span class="surname">Brzoza</span></h3></div></div><div><div class="author"><h3 class="author"><span class="firstname">Moritz</span> <span class="surname">Issig</span></h3></div></div><div><div class="author"><h3 class="author"><span class="firstname">Fami</span> <span class="surname">Mahmud</span></h3></div></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="chapter"><a href="#introduction">1. Introduction</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e18">Project Overview</a></span></dt><dt><span class="sect1"><a href="#d6e23">Blackjack Concept</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e27">Game Rules</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#technologies">2. Technologies</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e52">XML</a></span></dt><dt><span class="sect1"><a href="#d6e56">DocBook</a></span></dt><dt><span class="sect1"><a href="#d6e59">SVG</a></span></dt><dt><span class="sect1"><a href="#d6e62">XSLT</a></span></dt><dt><span class="sect1"><a href="#d6e67">XQuery</a></span></dt><dt><span class="sect1"><a href="#d6e71">BaseX</a></span></dt><dt><span class="sect1"><a href="#d6e74">Websocket</a></span></dt></dl></dd><dt><span class="chapter"><a href="#requirements">3. Project Requirements</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e79">Official Requirements</a></span></dt><dt><span class="sect1"><a href="#d6e104">Additional Features</a></span></dt></dl></dd><dt><span class="chapter"><a href="#design">4. Design and Implementation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e116">Templates</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e119">Lobby Template</a></span></dt><dt><span class="sect2"><a href="#d6e146">Game Template</a></span></dt><dt><span class="sect2"><a href="#d6e162">Card Template</a></span></dt><dt><span class="sect2"><a href="#d6e182">Chip Template</a></span></dt></dl></dd><dt><span class="sect1"><a href="#d6e192">Modules</a></span></dt><dt><span class="sect1"><a href="#phases">Phases</a></span></dt></dl></dd><dt><span class="chapter"><a href="#architecture">5. Architecture</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e240">MVC Architecture</a></span></dt><dt><span class="sect1"><a href="#d6e258">Data Model</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e261">Lobby-Model</a></span></dt><dt><span class="sect2"><a href="#d6e278">Card-Value-Model</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#installation">6. Game Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e299">Requirements</a></span></dt><dt><span class="sect1"><a href="#d6e306">Installation</a></span></dt></dl></dd><dt><span class="chapter"><a href="#demo">7. Game Demo</a></span></dt><dt><span class="chapter"><a href="#d6e349">8. Team Organization</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e352">Development Environment</a></span></dt><dt><span class="sect1"><a href="#d6e355">SCRUM</a></span></dt><dt><span class="sect1"><a href="#d6e367">Continuous Deployment</a></span></dt></dl></dd><dt><span class="chapter"><a href="#conclusion">9. Conclusion</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e373">Challenges</a></span></dt><dt><span class="sect1"><a href="#d6e377">Reflection</a></span></dt></dl></dd></dl></div><div class="list-of-figures"><p><b>List of Figures</b></p><dl><dt>4.1. <a href="#d6e129">Lobby Interface - not logged in</a></dt><dt>4.2. <a href="#d6e135">Lobby Interface - logged in</a></dt><dt>4.3. <a href="#d6e141">Lobby Prototype</a></dt><dt>4.4. <a href="#d6e151">Table Interface</a></dt><dt>4.5. <a href="#d6e157">Table Prototype</a></dt><dt>4.6. <a href="#d6e165">Icons</a></dt><dt>4.7. <a href="#d6e172">Card Sketch</a></dt><dt>4.8. <a href="#d6e177">Card Example</a></dt><dt>4.9. <a href="#d6e196">Class-Diagram: Modules</a></dt><dt>4.10. <a href="#d6e211">State-Diagram: Game-Phases</a></dt><dt>4.11. <a href="#d6e226">Activity-Diagram: Deal-Phase</a></dt><dt>4.12. <a href="#d6e232">Activity-Diagram: Dealer-Turn</a></dt><dt>5.1. <a href="#d6e253">Model: Model-View-Controller</a></dt><dt>5.2. <a href="#d6e273">Data-Model: Lobby</a></dt><dt>5.3. <a href="#d6e284">Data-Model: Card-Value</a></dt><dt>8.1. <a href="#d6e359">The SCRUM development process [https://commons.wikimedia.org/w/index.php?curid=3526338]</a></dt></dl></div>
+   <title>Blackjack-Implementation with XML-Technologies</title><meta name="generator" content="DocBook XSL Stylesheets V1.79.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book"><div class="titlepage"><div><div><h1 class="title"><a name="d6e1"></a>Blackjack-Implementation with XML-Technologies</h1></div><div><h2 class="subtitle">Documentation - XML-Technologies</h2></div><div><h2 class="subtitle">Winter term 2020 - Group DocBook</h2></div><div><div class="author"><h3 class="author"><span class="firstname">Patryk</span> <span class="surname">Brzoza</span></h3></div></div><div><div class="author"><h3 class="author"><span class="firstname">Moritz</span> <span class="surname">Issig</span></h3></div></div><div><div class="author"><h3 class="author"><span class="firstname">Fami</span> <span class="surname">Mahmud</span></h3></div></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="chapter"><a href="#introduction">1. Introduction</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e18">Project Overview</a></span></dt><dt><span class="sect1"><a href="#d6e23">Blackjack Concept</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e27">Game Rules</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#technologies">2. Technologies</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e52">XML</a></span></dt><dt><span class="sect1"><a href="#d6e56">DocBook</a></span></dt><dt><span class="sect1"><a href="#d6e59">SVG</a></span></dt><dt><span class="sect1"><a href="#d6e62">XSLT</a></span></dt><dt><span class="sect1"><a href="#d6e67">XQuery</a></span></dt><dt><span class="sect1"><a href="#d6e71">BaseX</a></span></dt><dt><span class="sect1"><a href="#d6e74">Websocket</a></span></dt></dl></dd><dt><span class="chapter"><a href="#requirements">3. Project Requirements</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e79">Official Requirements</a></span></dt><dt><span class="sect1"><a href="#d6e104">Additional Features</a></span></dt></dl></dd><dt><span class="chapter"><a href="#design">4. Design and Implementation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e116">Templates</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e119">Card Template</a></span></dt><dt><span class="sect2"><a href="#d6e139">Chip Template</a></span></dt><dt><span class="sect2"><a href="#d6e149">Lobby Template</a></span></dt><dt><span class="sect2"><a href="#d6e176">Game Template</a></span></dt></dl></dd><dt><span class="sect1"><a href="#d6e192">Modules</a></span></dt><dt><span class="sect1"><a href="#phases">Phases</a></span></dt></dl></dd><dt><span class="chapter"><a href="#architecture">5. Architecture</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e240">MVC Architecture</a></span></dt><dt><span class="sect1"><a href="#d6e258">Data Model</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e261">Lobby-Model</a></span></dt><dt><span class="sect2"><a href="#d6e278">Card-Value-Model</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#installation">6. Game Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e299">Requirements</a></span></dt><dt><span class="sect1"><a href="#d6e306">Installation</a></span></dt></dl></dd><dt><span class="chapter"><a href="#demo">7. Game Demo</a></span></dt><dt><span class="chapter"><a href="#d6e349">8. Team Organization</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e352">Development Environment</a></span></dt><dt><span class="sect1"><a href="#d6e355">SCRUM</a></span></dt><dt><span class="sect1"><a href="#d6e367">Continuous Deployment</a></span></dt></dl></dd><dt><span class="chapter"><a href="#conclusion">9. Conclusion</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d6e373">Challenges</a></span></dt><dt><span class="sect1"><a href="#d6e377">Reflection</a></span></dt></dl></dd></dl></div><div class="list-of-figures"><p><b>List of Figures</b></p><dl><dt>4.1. <a href="#d6e122">Icons</a></dt><dt>4.2. <a href="#d6e129">Card Sketch</a></dt><dt>4.3. <a href="#d6e134">Card Example</a></dt><dt>4.4. <a href="#d6e159">Lobby Interface - not logged in</a></dt><dt>4.5. <a href="#d6e165">Lobby Interface - logged in</a></dt><dt>4.6. <a href="#d6e171">Lobby Prototype</a></dt><dt>4.7. <a href="#d6e181">Table Interface</a></dt><dt>4.8. <a href="#d6e187">Table Prototype</a></dt><dt>4.9. <a href="#d6e196">Class-Diagram: Modules</a></dt><dt>4.10. <a href="#d6e211">State-Diagram: Game-Phases</a></dt><dt>4.11. <a href="#d6e226">Activity-Diagram: Deal-Phase</a></dt><dt>4.12. <a href="#d6e232">Activity-Diagram: Dealer-Turn</a></dt><dt>5.1. <a href="#d6e253">Model: Model-View-Controller</a></dt><dt>5.2. <a href="#d6e273">Data-Model: Lobby</a></dt><dt>5.3. <a href="#d6e284">Data-Model: Card-Value</a></dt><dt>8.1. <a href="#d6e359">The SCRUM development process [https://commons.wikimedia.org/w/index.php?curid=3526338]</a></dt></dl></div>
     
     <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="introduction"></a>Chapter&nbsp;1.&nbsp;Introduction</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="sect1"><a href="#d6e18">Project Overview</a></span></dt><dt><span class="sect1"><a href="#d6e23">Blackjack Concept</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e27">Game Rules</a></span></dt></dl></dd></dl></div>
         
@@ -216,7 +216,7 @@
                     </li></ul></div>
         </div>
     </div>
-    <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="design"></a>Chapter&nbsp;4.&nbsp;Design and Implementation</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="sect1"><a href="#d6e116">Templates</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e119">Lobby Template</a></span></dt><dt><span class="sect2"><a href="#d6e146">Game Template</a></span></dt><dt><span class="sect2"><a href="#d6e162">Card Template</a></span></dt><dt><span class="sect2"><a href="#d6e182">Chip Template</a></span></dt></dl></dd><dt><span class="sect1"><a href="#d6e192">Modules</a></span></dt><dt><span class="sect1"><a href="#phases">Phases</a></span></dt></dl></div>
+    <div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="design"></a>Chapter&nbsp;4.&nbsp;Design and Implementation</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="sect1"><a href="#d6e116">Templates</a></span></dt><dd><dl><dt><span class="sect2"><a href="#d6e119">Card Template</a></span></dt><dt><span class="sect2"><a href="#d6e139">Chip Template</a></span></dt><dt><span class="sect2"><a href="#d6e149">Lobby Template</a></span></dt><dt><span class="sect2"><a href="#d6e176">Game Template</a></span></dt></dl></dd><dt><span class="sect1"><a href="#d6e192">Modules</a></span></dt><dt><span class="sect1"><a href="#phases">Phases</a></span></dt></dl></div>
         
         <p>The implementation is separated in the different languages as explained in <a class="link" href="#technologies" title="Chapter&nbsp;2.&nbsp;Technologies">Chapter 2</a>. Here we go more into detail regarding the
             different components of our architecture. </p>
@@ -224,7 +224,49 @@
             
             <p>The XSLT templates are used to dynamically generate a HTML output depending on the
                 current game state. </p>
-            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e119"></a>Lobby Template</h3></div></div></div>
+            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e119"></a>Card Template</h3></div></div></div>
+                
+                <p>Cards are generated once they are needed. This happens through a XSL template
+                    call that is called in the game template, whenever someone draws a card. The
+                    value and type are passed as a parameter. The icons of the card types were
+                    pre-defined using SVG graphics. </p>
+                <div class="figure"><a name="d6e122"></a><p class="title"><b>Figure&nbsp;4.1.&nbsp;Icons</b></p><div class="figure-contents">
+                    
+                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="500"><tr><td><img src="../../img/Icons.png" width="500" alt="Icons"></td></tr></table></div>
+                </div></div><br class="figure-break">
+                <p>The first step is to check if the card is hidden. If so, the template just
+                    draws a pattern and returns. Otherwise, the value is written in the top left and
+                    bottom right corner. Icons are loaded or rotated depending on the card type and
+                    placed in a number of positions according to the value using a loop iterating
+                    through the card center. The positions and rotation of the icon are saved in a
+                    different xml file. We used these schemes to create the icons in SVG.</p>
+                <p></p>
+                <div class="figure"><a name="d6e129"></a><p class="title"><b>Figure&nbsp;4.2.&nbsp;Card Sketch</b></p><div class="figure-contents">
+                    
+                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="450"><tr><td><img src="../../img/CardSketch.png" width="450" alt="Card Sketch"></td></tr></table></div>
+                </div></div><br class="figure-break">
+                <div class="figure"><a name="d6e134"></a><p class="title"><b>Figure&nbsp;4.3.&nbsp;Card Example</b></p><div class="figure-contents">
+                    
+                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="200"><tr><td><img src="../../img/Card.png" width="200" alt="Card Example"></td></tr></table></div>
+                </div></div><br class="figure-break">
+            </div>
+            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e139"></a>Chip Template</h3></div></div></div>
+                
+                <p>Just as the creation of cards, chips are generated by calling the chip
+                    template and passing the value as a parameter. Possible chip values are 10, 50,
+                    100, 250, 500 and 1000. Of course, they determine the value as well as the
+                    color.</p>
+                <p>In the template we take advantage of <code class="code">&lt;symbol&gt;</code> and
+                    <code class="code">&lt;use&gt;</code> elements to create a chip in three steps. First, the
+                    outer circle is filled with the chip color and thick white lines. Above the
+                    first circle and lines another smaller circle is drawn in the color of the chip.
+                    The final step is to add the dotted circle wherein the value is written. </p>
+                <p><img src="../../img/Chip1.png" width="200">
+                    <img src="../../img/Chip2.png" width="200">
+                    <img src="../../img/Chip3.png" width="200">
+                </p>
+            </div>
+            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e149"></a>Lobby Template</h3></div></div></div>
                 
                 <p>Once a user calls the link to the Lobby
                     (<code class="code">/docbook_blackjack/lobby</code>), the parameters <code class="code">isLoggedIn</code>,
@@ -235,13 +277,13 @@
                     is set to 0, which means that no account is loaded yet, or to 1 in case there is
                     a registered account. </p>
                 <p>This renders to a Lobby looking like this:</p>
-                <div class="figure"><a name="d6e129"></a><p class="title"><b>Figure&nbsp;4.1.&nbsp;Lobby Interface - not logged in</b></p><div class="figure-contents">
+                <div class="figure"><a name="d6e159"></a><p class="title"><b>Figure&nbsp;4.4.&nbsp;Lobby Interface - not logged in</b></p><div class="figure-contents">
                     
                     <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="650"><tr><td><img src="../../img/Lobby/LobbyImplementation2.png" width="650" alt="Lobby Interface - not logged in"></td></tr></table></div>
                 </div></div><br class="figure-break">
                 <p>The graphical user interface changes when the user creates an account or
                     restores his account by typing in his name and id. </p>
-                <div class="figure"><a name="d6e135"></a><p class="title"><b>Figure&nbsp;4.2.&nbsp;Lobby Interface - logged in</b></p><div class="figure-contents">
+                <div class="figure"><a name="d6e165"></a><p class="title"><b>Figure&nbsp;4.5.&nbsp;Lobby Interface - logged in</b></p><div class="figure-contents">
                     
                     <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="650"><tr><td><img src="../../img/Lobby/LobbyImplementation.png" width="650" alt="Lobby Interface - logged in"></td></tr></table></div>
                 </div></div><br class="figure-break">
@@ -249,12 +291,12 @@
                     prototypes in form of sketches. As you can see in the following sketch, the
                     implementation was strongly derived out of the first mockup, by then
                     incrementally adding functionality.</p>
-                <div class="figure"><a name="d6e141"></a><p class="title"><b>Figure&nbsp;4.3.&nbsp;Lobby Prototype</b></p><div class="figure-contents">
+                <div class="figure"><a name="d6e171"></a><p class="title"><b>Figure&nbsp;4.6.&nbsp;Lobby Prototype</b></p><div class="figure-contents">
                     
                     <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="650"><tr><td><img src="../../img/Lobby/LobbyPrototype.png" width="650" alt="Lobby Prototype"></td></tr></table></div>
                 </div></div><br class="figure-break">
             </div>
-            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e146"></a>Game Template</h3></div></div></div>
+            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e176"></a>Game Template</h3></div></div></div>
                 
                 <p>The Game Template is called to display the game state in the view of each
                     player who are differentiated using websockets. Different views in which the
@@ -269,59 +311,17 @@
                     information are shown in the top left corner. This can only be seen by the
                     players themselves respectively. On the other side name, wallet, bet and cards
                     are always visible for other players. </p>
-                <div class="figure"><a name="d6e151"></a><p class="title"><b>Figure&nbsp;4.4.&nbsp;Table Interface</b></p><div class="figure-contents">
+                <div class="figure"><a name="d6e181"></a><p class="title"><b>Figure&nbsp;4.7.&nbsp;Table Interface</b></p><div class="figure-contents">
                     
                     <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="650"><tr><td><img src="../../img/Table/TableImplementation.png" width="650" alt="Table Interface"></td></tr></table></div>
                 </div></div><br class="figure-break">
                 
                 <p>Similar to the Lobby our implementation remained almost equivalent to the
                     first mockup. </p>
-                <div class="figure"><a name="d6e157"></a><p class="title"><b>Figure&nbsp;4.5.&nbsp;Table Prototype</b></p><div class="figure-contents">
+                <div class="figure"><a name="d6e187"></a><p class="title"><b>Figure&nbsp;4.8.&nbsp;Table Prototype</b></p><div class="figure-contents">
                     
                     <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="650"><tr><td><img src="../../img/Table/TablePrototype.png" width="650" alt="Table Prototype"></td></tr></table></div>
                 </div></div><br class="figure-break">
-            </div>
-            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e162"></a>Card Template</h3></div></div></div>
-                
-                <p>Cards are generated once they are needed. This happens through a XSL template
-                    call that is called in the game template, whenever someone draws a card. The
-                    value and type are passed as a parameter. The icons of the card types were
-                    pre-defined using SVG graphics. </p>
-                <div class="figure"><a name="d6e165"></a><p class="title"><b>Figure&nbsp;4.6.&nbsp;Icons</b></p><div class="figure-contents">
-                    
-                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="500"><tr><td><img src="../../img/Icons.png" width="500" alt="Icons"></td></tr></table></div>
-                </div></div><br class="figure-break">
-                <p>The first step is to check if the card is hidden. If so, the template just
-                    draws a pattern and returns. Otherwise, the value is written in the top left and
-                    bottom right corner. Icons are loaded or rotated depending on the card type and
-                    placed in a number of positions according to the value using a loop iterating
-                    through the card center. The positions and rotation of the icon are saved in a
-                    different xml file. We used these schemes to create the icons in SVG.</p>
-                <p></p>
-                <div class="figure"><a name="d6e172"></a><p class="title"><b>Figure&nbsp;4.7.&nbsp;Card Sketch</b></p><div class="figure-contents">
-                    
-                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="450"><tr><td><img src="../../img/CardSketch.png" width="450" alt="Card Sketch"></td></tr></table></div>
-                </div></div><br class="figure-break">
-                <div class="figure"><a name="d6e177"></a><p class="title"><b>Figure&nbsp;4.8.&nbsp;Card Example</b></p><div class="figure-contents">
-                    
-                    <div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="200"><tr><td><img src="../../img/Card.png" width="200" alt="Card Example"></td></tr></table></div>
-                </div></div><br class="figure-break">
-            </div>
-            <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d6e182"></a>Chip Template</h3></div></div></div>
-                
-                <p>Just as the creation of cards, chips are generated by calling the chip
-                    template and passing the value as a parameter. Possible chip values are 10, 50,
-                    100, 250, 500 and 1000. Of course, they determine the value as well as the
-                    color.</p>
-                <p>In the template we take advantage of <code class="code">&lt;symbol&gt;</code> and
-                        <code class="code">&lt;use&gt;</code> elements to create a chip in three steps. First, the
-                    outer circle is filled with the chip color and thick white lines. Above the
-                    first circle and lines another smaller circle is drawn in the color of the chip.
-                    The final step is to add the dotted circle wherein the value is written. </p>
-                <p><img src="../../img/Chip1.png" width="200">
-                    <img src="../../img/Chip2.png" width="200">
-                    <img src="../../img/Chip3.png" width="200">
-                </p>
             </div>
         </div>
         <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e192"></a>Modules</h2></div></div></div>
@@ -405,8 +405,8 @@
         
         <p>This chapter describes the connections between the different hardware-components which
             are basing on a Model-View-Controller architecture pattern. The second section presents
-            the data-models of the lobby, containing the scores and the games, and the card-values,
-            which will be used to generate the card-svgs.</p>
+            the data-models of the lobby, containing scores, games, and card-values, which will be
+            used to generate the card-svgs.</p>
         <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d6e240"></a>MVC Architecture</h2></div></div></div>
             
             <p>The program is separated in the separate sub-components: the Model, View and Controller:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
