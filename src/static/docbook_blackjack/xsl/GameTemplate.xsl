@@ -117,15 +117,53 @@
             </text>
             
             <!-- Current Game Info Box -->
-            <xsl:if test="(/*/@phase = 'bet') and (*/players/player[@id=$playerId]/pool/@locked='true') ">
-            <rect class="infoBox" x="0" y="0" rx="2" ry="2" height="15" width="30"/>
-            <text x="2" y="6" fill="{$textColor}" font-size="{$fontSize - 1.5}"
-                  font-family="{$fonts}"
-                  alignment-baseline="hanging">
-                Take your bet!
-            </text>
-            </xsl:if>
-
+            <xsl:choose>
+                <xsl:when test="/*/@phase ='bet' and game/players/player[@id = $playerId]/pool/@locked = 'false'">
+                    <rect class="infoBox" x="0" y="17" rx="2" ry="2" height="10" width="30"/>
+                    <text x="2" y="19" fill="{$textColor}" font-size="{$fontSize - 1.5}"
+                          font-family="{$fonts}"
+                          alignment-baseline="hanging">
+                        <tspan x="2" y="21">Take your bet!</tspan>
+                        <tspan x="2" y="24.5">Press desired chip!</tspan>
+                    </text>
+                </xsl:when>
+                <xsl:when test="/*/@phase ='bet' and game/players/player[@id = $playerId]/pool/@locked = 'true'">
+                    <rect class="infoBox" x="0" y="17" rx="2" ry="2" height="10" width="30"/>
+                    <text x="2" y="19" fill="{$textColor}" font-size="{$fontSize - 1.5}"
+                          font-family="{$fonts}"
+                          alignment-baseline="hanging">
+                        <tspan x="2" y="21">Waiting for other</tspan>
+                        <tspan x="2" y="24.5">players to confirm</tspan>
+                    </text>
+                </xsl:when>
+                <xsl:when test="/*/@phase ='play' and game/@onTurn = $playerId">
+                    <rect class="infoBox" x="0" y="17" rx="2" ry="2" height="10" width="30"/>
+                    <text x="2" y="19" fill="{$textColor}" font-size="{$fontSize - 1.5}"
+                          font-family="{$fonts}"
+                          alignment-baseline="hanging">
+                        <tspan x="2" y="21">It's your Turn!</tspan>
+                        <tspan x="2" y="24.5">Press Hit or Stand!</tspan>
+                    </text>
+                </xsl:when>
+                <xsl:when test="/*/@phase ='play' and not(game/@onTurn = $playerId)">
+                    <rect class="infoBox" x="0" y="17" rx="2" ry="2" height="10" width="30"/>
+                    <text x="2" y="19" fill="{$textColor}" font-size="{$fontSize - 1.5}"
+                          font-family="{$fonts}"
+                          alignment-baseline="hanging">
+                        <tspan x="2" y="21">Waiting for</tspan>
+                        <tspan x="2" y="24.5">other player</tspan>
+                    </text>
+                </xsl:when>
+                <xsl:when test="/*/@phase ='pay' and count(game/players/player[@id = $playerId]) = 1">
+                    <rect class="infoBox" x="0" y="17" rx="2" ry="2" height="10" width="30"/>
+                    <text x="2" y="19" fill="{$textColor}" font-size="{$fontSize - 1.5}"
+                          font-family="{$fonts}"
+                          alignment-baseline="hanging">
+                        <tspan x="2" y="21">Press Continue to</tspan>
+                        <tspan x="2" y="24.5">start a new Round!</tspan>
+                    </text>
+                </xsl:when>
+            </xsl:choose>
             <!-- Generate Dealer card box -->
             <symbol id="dealerBox">
                 <!-- Choose box color -->
