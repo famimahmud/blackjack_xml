@@ -23,9 +23,9 @@
     <chapter id="introduction">
         <title>Introduction</title>
         <para>This DocBook documents the development and implementation of a multi-client Blackjack
-            game, which is only using XML-Technologies. We present an overview over these
-            Technologies and the way we used them. Furthermore, it describes the rules and
-            strategies we agreed on for our Blackjack Game, the important phases with possible user
+            game which is only using XML technologies. We present an overview over these
+            technologies and the way we used them. Furthermore, it describes the rules and
+            strategies we agreed on for our Blackjack game, the important phases with possible user
             actions, the interaction between client and server, as well as the design and
             implementation in detail. A complete walkthrough with the installation of the game and
             an example of a game play is shown. In addition, we discuss the way we organized our
@@ -33,11 +33,11 @@
 
         <sect1>
             <title>Project Overview</title>
-            <para>The Project is part of the practical course XML-Technologies (IN0012, IN2106,
+            <para>The project is part of the practical course XML-Technologies (IN0012, IN2106,
                 IN4013) in the winter term 2019/2020. Throughout the lecture Prof. Anne
-                Brüggemann-Klein and Phillip Ulrich introduced us to the XML-Technologies such as
+                Brüggemann-Klein and Phillip Ulrich introduced us to the XML technologies such as
                 SVG, XHTML, XSLT, XQuery and XPath. The objective of this project is to implement a
-                multi-client browser game of Blackjack by making use of XML-Technologies
+                multi-client browser game of Blackjack by making use of XML technologies
                 exclusively. </para>
             <para>During the first part of the lab we received tasks every week which we were able
                 to complete with the newly introduced technology. In this manner we were able to get
@@ -56,19 +56,19 @@
             <sect2>
                 <title>Game Rules</title>
                 <para>The target of each player is to reach a combined card value as close to 21 as
-                    possible, without going over 21 but beating the dealer. </para>
+                    possible, without going over 21 yet still beating the dealer. </para>
                 <sect3>
                     <title>Players</title>
                     <para>To start a round at least one player has to be in the game, but in one
-                        game a maximum of 7 players are allowed. Nevertheless, every player is
+                        game a maximum of 7 players is allowed. Nevertheless, every player is
                         playing each for himself against the dealer, which is represented by the
                         computer. </para>
                 </sect3>
                 <sect3>
                     <title>Betting</title>
-                    <para>Every player bets an amount of chips, which will be placed in the pool.
+                    <para>Every player bets an amount of chips which will be placed in the pool.
                         Obviously it is not possible to bet more chips than the participant has in
-                        its wallet. </para>
+                        his wallet. </para>
                 </sect3>
                 <sect3>
                     <title>Cards</title>
@@ -76,29 +76,30 @@
                         combined to 312-cards. In the dealing phase two cards face up will be
                         distributed to each player after the betting phase. The Dealer takes one
                         card face up and the second card face down. Each card takes its pip value
-                        and face cards are 10. Aces can take the value of 11 or 1, this depends on
-                        the count. If the count is over 21 the value of ace switches to 1. </para>
+                        and face cards are 10. Aces can take the value of 11 or 1 depending on the
+                        total card count. If the count is over 21 the value of ace switches to 1. </para>
                 </sect3>
                 <sect3>
                     <title>The Play</title>
-                    <para>As a player you must decide if you want to get another card ("hit") or if
-                        you don't want another card ("stand"). You can repeat this until you reach a
-                        count over 21. </para>
+                    <para>As a player you must decide whether you want to draw another card ("hit")
+                        or you don't want another card ("stand"). You can repeat this until you
+                        reach a count over 21. </para>
                 </sect3>
                 <sect3>
                     <title>Dealer's Play</title>
                     <para>Once all players stand on their Cards the dealer's second card gets turned
-                        up. Now the dealer takes cards until he has a count of 17 or more, at which
+                        up. Now the dealer draws cards until he has a count of 17 or more, at which
                         point the dealer must stand. </para>
                 </sect3>
                 <sect3>
                     <title>Pay Phase</title>
                     <para>The winner gets determined by comparing the count of the player with the
                         dealer's total card value. A player wins and gets paid double of his bet
-                        when the dealer has a lower hand or if the dealer goes bust. The dealer wins
-                        if he has a higher hand or the player goes bust. In this case the player
-                        loses his bet. A tie is possible if both have the same total value. Then the
-                        player gets back his bet.</para>
+                        when the dealer has a lower hand or if the dealer goes bust. If the player
+                        count equals 21, the player scored a blackjack and is paid 2.5x the original
+                        bet. The dealer wins if he has a higher hand or the player goes bust. In
+                        this case the player loses his bet. A tie is possible if both have the same
+                        total value. Then the player gets back his bet.</para>
                 </sect3>
             </sect2>
         </sect1>
@@ -106,21 +107,21 @@
     </chapter>
     <chapter id="technologies">
         <title>Technologies</title>
-        <para>As a both mentioned we were introduced into powerful Tools which make it possible
-            write a documentation, to save and encode data of a game state, to generate a GUI using
-            the saved data, as well as interact with data. In the following these Tools are
-            addressed and briefly introduced.</para>
+        <para>As mentioned in <link linkend="introduction">Chapter 1</link>, we were introduced to
+            powerful tools which make it possible to write a documentation, to save and encode data
+            of a game state, to generate a GUI using the saved data, as well as to interact with
+            data. In the following these tools are addressed and briefly introduced.</para>
         <sect1>
             <title>XML</title>
-            <para>XML is the basis for this project. It stands for Extensible Markup Language and
-                defines a set of rules in which documents get encoded in a platform independent
-                format that is readable for humans and computers due to its clear and simple
-                structure. The data of game states are encoded in XML and therefore can easily be
-                transformed and transferred to the web. </para>
+            <para>XML is the basis for this project. It stands for <emphasis>Extensible Markup
+                    Language</emphasis> and defines a set of rules in which documents get encoded in
+                a platform independent format that is readable for humans and computers due to its
+                clear and simple structure. The data of game states is encoded in XML and therefore
+                can easily be transformed and transferred to the web. </para>
         </sect1>
         <sect1>
             <title>DocBook</title>
-            <para>DocBook is a semantic markup language which we use for our documentation. It
+            <para>DocBook is a semantic markup language which we use to write our documentation. It
                 simplifies the creation of documents with a clear logical structure. In addition,
                 the data is saved in a neutral format which makes it possible to easily transform it
                 to a variety of formats, including HTML, XHTML, PDF, etc. Furthermore, the content
@@ -129,45 +130,47 @@
         <sect1>
             <title>SVG</title>
             <para>SVG (Scalable Vector Graphics) is a language to define vector based 2-dimensional
-                graphical objects. SVG images are defined in XML-format. We used it to create all
-                our graphical components like cards, chips, buttons, etc. </para>
+                graphical objects, meaning that they can be scaled efficiently for any size. SVG
+                images are defined in XML-format. We used it to create all our graphical components
+                like cards, chips, buttons, etc. </para>
         </sect1>
         <sect1>
             <title>XSLT</title>
-            <para>"XSLT (Extensble Stylsheet Language Transformations) is a language for
-                transforming XML documents into other XML documents or other formats such as HTML
-                for web pages, plain text or XSL Formatting Objects, which may subsequently be
-                converted to other formats, such as PDF, PostScript and PNG. "(Source: <ulink url="https://en.wikipedia.org/wiki/XSLT"/>). In our project it is used to
-                dynamically transform our game states encoded in XML into an XHTML document, which
-                can be used to graphically display the game state in the browser. Moreover, the
-                chips and cards are dynamically transformed using XSLT. The elements of the XML
+            <para>"XSLT (<emphasis>Extensble Stylsheet Language Transformations</emphasis>) is a
+                language for transforming XML documents into other XML documents or other formats
+                such as HTML for web pages, plain text or XSL Formatting Objects, which may
+                subsequently be converted to other formats, such as PDF, PostScript and PNG.
+                "(Source: <ulink url="https://en.wikipedia.org/wiki/XSLT"/>). In our project it is
+                used to dynamically transform our game states encoded in XML into an XHTML document,
+                which can be used to graphically display the game state in the browser. Moreover,
+                the chips and cards are dynamically transformed using XSLT. The elements of the XML
                 documents are selected with a query language called XPath. XPath is a big a part of
                 XSLT and widely used to navigate through elements and attributes. </para>
         </sect1>
         <sect1>
             <title>XQuery</title>
-            <para>Xquery is a very efficient querying language for XML databases. It enables the
+            <para>XQuery is a very efficient querying language for XML databases. It enables the
                 interaction with the databases. Which makes it possible to delete, insert and
                 replace database nodes. Just like in XSLT nodes are addressed using XPath. The game
-                actions are implemented using Xquery functions. The functions are initiated by
+                actions are implemented using XQuery functions. The functions are initiated by
                 HTTP-Request which are mapped by RESTXQ-Annotations (for example:
-                "localhost:8984/docbook_blackjack/lobby"). </para>
+                "<code>localhost:8984/docbook_blackjack/lobby</code>"). </para>
         </sect1>
         <sect1>
             <title>BaseX</title>
-            <para>BaseX is a management system for XML databases and a Xquery processor. BaseX
-                represents the server side of our implementation to store the databases. It makes it
-                possible to query big XML documents as well as transfer the transformed data to the
-                clients using Websockets. </para>
+            <para>BaseX is a management system for XML databases and a XQuery processor. BaseX
+                represents the server side of our implementation to store the databases. This makes
+                it possible to query big XML documents as well as transfer the transformed data to
+                the clients using Websockets. </para>
         </sect1>
         <sect1>
             <title>Websocket</title>
-            <para>Since a REST-Response can only be send to the client, who sent the REST-Request,
-                Websockets are an usefull tool to send updates also to clients, which doesn't sent a
+            <para>Since a REST-Response can only be sent to the client, who sent the REST-Request,
+                Websockets are an usefull tool to also send updates to clients which did not sent a
                 request. BaseX-STOMP offers these websockets. If a client opens a page he subscribes
                 to the websocket. This websocket-connection will not be closed. The server can then
-                send massages to all clients, which subscribed to the websocket. Also a client can
-                send a message to the server.</para>
+                send messages to all clients which subscribed to the websocket. Additionally, a
+                client can also send a message to the server.</para>
         </sect1>
     </chapter>
     <chapter id="requirements">
@@ -233,7 +236,7 @@
         <sect1>
             <title>Additional Features</title>
             <para>In addition to the above stated required functionalities we decided to implement
-                extra features. <itemizedlist>
+                extra features:<itemizedlist>
                     <listitem>
                         <para>Possibility to play multiple games administered by one server </para>
                     </listitem>
@@ -247,20 +250,23 @@
     </chapter>
     <chapter id="design">
         <title>Design and Implementation</title>
-        <para>The Implementation is seperated in the different languages as explained above. Here we
-            go more into detail regarding the different components of our architecture. </para>
+        <para>The implementation is separated in the different languages as explained in <link
+                linkend="technologies">Chapter 2</link>. Here we go more into detail regarding the
+            different components of our architecture. </para>
         <sect1>
             <title>Templates</title>
             <para>The XSLT templates are used to dynamically generate a html output depending on the
                 current game state. </para>
             <sect2>
                 <title>Lobby Template</title>
-                <para>Once a user calls the link to the Lobby ("/docbook_blackjack/lobby") the
-                    parameters "isLoggedIn", "playerName", "playerId", "playerHighscore" are passed
-                    to the template. It uses these parameters and the current lobby database to
-                    generate the appropriate SVGs and HTML page. There are two different options how
-                    a Lobby is presented. Either the "isLoggedIn" parameter is set to 0, which means
-                    that no account is loaded yet. </para>
+                <para>Once a user calls the link to the Lobby
+                    (<code>/docbook_blackjack/lobby</code>), the parameters <code>isLoggedIn</code>,
+                        <code>playerName</code>, <code>playerId</code>, <code>playerHighscore</code>
+                    are passed to the template. It uses these parameters and the current lobby
+                    database to generate the appropriate SVGs and HTML page. There are two different
+                    options how a Lobby is presented. Either the <code>isLoggedIn</code> parameter
+                    is set to 0, which means that no account is loaded yet, or to 1 in case there is
+                    an registered account. </para>
                 <para>This renders to a Lobby looking like this:</para>
                 <figure>
                     <title>Lobby Interface - not logged in</title>
@@ -280,9 +286,10 @@
                         </imageobject>
                     </mediaobject>
                 </figure>
-                <para>At the beginning of our project we started with creating basic prototypes. As
-                    you can see in the following sketch, the implementation derived strongly out of
-                    the first mockup.</para>
+                <para>At the beginning of our project we started with creating basic low-fidelity
+                    prototypes in form of sketches. As you can see in the following sketch, the
+                    implementation was strongly derived out of the first mockup, by then
+                    incrementally adding functionality.</para>
                 <figure>
                     <title>Lobby Prototype</title>
                     <mediaobject>
@@ -295,18 +302,19 @@
             <sect2>
                 <title>Game Template</title>
                 <para>The Game Template is called to display the game state in the view of each
-                    player who are differentiated using websockets. Different views, in which the
-                    buttons vary, are presented depending on the phase and which actions are
+                    player who are differentiated using websockets. Different views in which the
+                    buttons vary are presented depending on the phase and which actions are
                     currently possible. All phases are explained in detail in <link linkend="phases"
                         >Section 4.4</link>. Every time a user performs an action, such as to bet or
                     to take another card, the game state changes. Therefore the view has to be
-                    refreshed by performing the game template and sending it to the related users. </para>
-                <para>The position of a players on the screen is dynamically calcuated using a
-                    function, that takes into consideration how many players are part of the game.
-                    For each player their respective Name and ID is shown in the top left corner.
-                    This can only be seen by the players themselves. On the other side name, wallet,
-                    bet and cards are always viewable for all players. </para>
-                <para/>
+                    refreshed by transforming the game model using the game template and sending it
+                    to the related users. </para>
+                <para>The position of the players on the screen is dynamically calcuated using a
+                    mathematical function that takes into consideration how many players are part of
+                    the game. For each player their respective Name and ID, as well as general game
+                    information are shown in the top left corner. This can only be seen by the
+                    players themselves respectively. On the other side name, wallet, bet and cards
+                    are always visible for other players. </para>
                 <figure>
                     <title>Table Interface</title>
                     <mediaobject>
@@ -329,19 +337,38 @@
             </sect2>
             <sect2>
                 <title>Card Template</title>
-                <para>Cards are generated once they are needed. This happens through a
-                    &lt;xsl:call-template> that is called in the game template, when ever someone
-                    draws a card. The value and type is passed as a parameter. The first step is to
-                    check if the card is hidden, if so the templates just draws a pattern and
-                    returns. Otherwise the value is written in the top left and bottom right corner.
-                    Icons are loaded depending on the card type and placed in a number of positions
-                    according to the value. The positions and rotation of the icon are saved in a
-                    different xml file. We used these schemes to create the icons in SVG.</para>
+                <para>Cards are generated once they are needed. This happens through a XSL template
+                    call that is called in the game template, whenever someone draws a card. The
+                    value and type are passed as a parameter. The icons of the card types were
+                    pre-defined using SVG graphics. </para>
                 <figure>
                     <title>Icons</title>
                     <mediaobject>
                         <imageobject>
                             <imagedata fileref="img/Icons.png" width="500px"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
+                <para>The first step is to check if the card is hidden. If so, the template just
+                    draws a pattern and returns. Otherwise the value is written in the top left and
+                    bottom right corner. Icons are loaded or rotated depending on the card type and
+                    placed in a number of positions according to the value using a loop iterating
+                    through the card center. The positions and rotation of the icon are saved in a
+                    different xml file. We used these schemes to create the icons in SVG.</para>
+                <para/>
+                <figure>
+                    <title>Card Sketch</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="img/CardSketch.png" width="500px"/>
+                        </imageobject>
+                    </mediaobject>
+                </figure>
+                <figure>
+                    <title>Card Example</title>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="img/Card.png" width="250px"/>
                         </imageobject>
                     </mediaobject>
                 </figure>
@@ -352,14 +379,14 @@
                     template and passing the value as a parameter. Possible chip values are 10, 50,
                     100, 250, 500 and 1000. Of course they determine the value as well as the
                     color.</para>
-                <para>In the template we take advantage of &lt;symbol> and &lt;use> elements to
-                    create a chip in three steps. First the outercircle is filled with the chip
-                    color and thick white lines. Above the first cirle and lines another smaller
-                    circle is drawn in the color of the chip. The final step is to add the dotted
-                    circle wherein the value is written. </para>
-                <para><inlinegraphic fileref="img/Chip1.png" width="250px"/>
-                    <inlinegraphic fileref="img/Chip2.png" width="250px"/>
-                    <inlinegraphic fileref="img/Chip3.png" width="250px"/>
+                <para>In the template we take advantage of <code>&lt;symbol></code> and
+                        <code>&lt;use></code> elements to create a chip in three steps. First, the
+                    outer circle is filled with the chip color and thick white lines. Above the
+                    first cirle and lines another smaller circle is drawn in the color of the chip.
+                    The final step is to add the dotted circle wherein the value is written. </para>
+                <para><inlinegraphic fileref="img/Chip1.png" width="200px"/>
+                    <inlinegraphic fileref="img/Chip2.png" width="200px"/>
+                    <inlinegraphic fileref="img/Chip3.png" width="200px"/>
                 </para>
             </sect2>
         </sect1>
@@ -378,16 +405,16 @@
         <sect1 id="phases">
             <title>Phases</title>
             <para/>
-            <para>The Lobby as well as the Game have severale states. An user in the Lobby can be
+            <para>The Lobby as well as the Game have several states. An user in the Lobby can be
                 either in the "not logged in"-state or in the "logged in"-state. To switch from the
-                "not logged in"-state to the "logged in"-state the user has to create a new Account
-                (via the createAccount()-function) or, if s*he knows the Id, restore an existing
-                Account (via the restoreAccount()-function).</para>
-            <para>There are two ways from the Lobby to a Game. First by creating a new game (either
-                a singleplayer or multiplayer game) with the newGame()-function or secondly by
-                joining an existing multplayer game with the joinGame()-function. In each phase of
+                "not logged in"-state to the "logged in"-state the user has to create a new account
+                (via the <code>createAccount()</code>) or, if she knows the Id, restore an existing Account (via
+                the <code>restoreAccount()</code>-function).</para>
+            <para>There are two ways to join a Game from the Lobby. The first one is by creating a new game (either
+                a singleplayer or multiplayer game) with the <code>newGame()</code>-function. Alternatively, it is possible to 
+                join an existing multplayer game with the <code>joinGame()</code>-function. In each phase of
                 the game a player can leave this game and return to the Lobby (with the
-                leave()-function). </para>
+                <code>leave()</code>-function). </para>
             <figure>
                 <title>State-Diagram: Game-Phases</title>
                 <mediaobject>
