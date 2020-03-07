@@ -79,7 +79,8 @@ function blackjack-controller:start($playerName as xs:string?, $playerId as xs:s
             $emptyMap
         )
         return ( if (exists($lobby/game[@id = $fromGameId]) )
-                then (trace(blackjack-controller:drawGame($fromGameId))),
+                then (trace(blackjack-controller:drawGame($fromGameId)),
+                    web:redirect("/docbook_blackjack/lobby", map {"playerName": $playerName, "playerId": $playerId})),
                 blackjack-controller:generateLobby($lobby, $xslStylesheet, $parameters, $title))
 };
 

@@ -59,7 +59,9 @@ function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string,
       return(
               replace node $blackjack-main:lobby/game[@id = $gameId]/deck with $deck,
               replace value of node $blackjack-main:lobby/game[@id = $gameId]/@onTurn with "noOne",
-              replace value of node $blackjack-main:lobby/game[@id = $gameId]/@phase with "bet"
+              replace value of node $blackjack-main:lobby/game[@id = $gameId]/@phase with "bet",
+              for $disconnectedPlayer in $blackjack-main:lobby/game[@id = $gameId]/players/player[exists(disconnected)]
+              return (delete node $disconnectedPlayer)
       )
   };
 
@@ -238,7 +240,7 @@ function blackjack-main:confirmBet($gameId as xs:integer, $playerId as xs:string
         replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id = $playerId]/pool
             with <pool locked="true">{$blackjack-main:lobby/game[@id = $gameId]/players/player[@id = $playerId]/pool/chip}</pool>,
         (:check if all players confirmed their bets -> if true: change to deal-Phase and hand out Cards:)
-        if (count($blackjack-main:lobby/game[@id = $gameId]/players/player/pool[@locked="true"]/@locked) >= (count($blackjack-main:lobby/game[@id = $gameId]/players/player) - 1))
+        if (count($blackjack-main:lobby/game[@id = $gameId]/players/player[not(exists(disconnected))]/pool[@locked="true"]/@locked) >= (count($blackjack-main:lobby/game[@id = $gameId]/players/player[not(exists(disconnected))]) - 1))
         then (
             replace value of node $blackjack-main:lobby/game[@id = $gameId]/@phase with "deal",
             update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/dealPhase")))
@@ -306,8 +308,9 @@ function blackjack-main:moveTurnHelper($gameId as xs:integer, $playerOnTurn as x
             then "dealer"
             else if ($playerOnTurn = "dealer") then $blackjack-main:lobby/game[@id = $gameId]/players/player[position() = 1]/@id
                  else $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerOnTurn]/following-sibling::*[1]/@id
-                 (: checks if the hand of the next player is "dealer" or if the player left the game -> if false: move Turn again :)
-        return ( if ($newPlayerTurn = "dealer" or not(exists($blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$newPlayerTurn]/left)))
+                 (: checks if the hand of the next player is "dealer" or if the player left or disconnected from the game -> if false: move Turn again :)
+        return ( if ($newPlayerTurn = "dealer" or (not(exists($blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$newPlayerTurn]/left))
+                                                    and not(exists($blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$newPlayerTurn]/disconnected))))
             then (
                 replace value of node $blackjack-main:lobby/game[@id = $gameId]/@onTurn with $newPlayerTurn,
                 if ($newPlayerTurn = "dealer")
@@ -362,9 +365,10 @@ declare
 %updating
 function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string){
     if (exists($blackjack-main:players/player[@id = $playerId])
-        and empty($blackjack-main:lobby/game[@id = $gameId]/players/player[@id = $playerId])
-        and count($blackjack-main:lobby/game[@id = $gameId]/players/player) < 7
-        and $blackjack-main:lobby/game[@id = $gameId]/@phase = "bet"
+        and (exists($blackjack-main:lobby/game[@id = $gameId]/players/player[@id = $playerId])
+            or count($blackjack-main:lobby/game[@id = $gameId]/players/player) < 7)
+        and (exists($blackjack-main:lobby/game[@id = $gameId]/players/player[@id = $playerId])
+            or $blackjack-main:lobby/game[@id = $gameId]/@phase = "bet")
         and $blackjack-main:lobby/game[@id = $gameId]/@singlePlayer = "false")
         then(
             let $playerName := $blackjack-main:players/player[@id = $playerId]/@name
@@ -374,7 +378,8 @@ function blackjack-main:addPlayer($gameId as xs:integer, $playerId as xs:string)
                           <wallet>1000</wallet>
                           <pool locked="false"/>
                    </player>
-    return ( insert node $newPlayer as last into $blackjack-main:lobby/game[@id = $gameId]/players,
+    return ( (if (empty($blackjack-main:lobby/game[@id = $gameId]/players/player[@id = $playerId])) then
+                insert node $newPlayer as last into $blackjack-main:lobby/game[@id = $gameId]/players),
             update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/join?playerId=", $playerId))))
     ) else (
         let $parameters := map {"playerName": blackjack-helper:getPlayerName($playerId),
@@ -423,7 +428,7 @@ function blackjack-main:leaveGame($gameId as xs:integer, $playerId as xs:string)
             return if(($pool/@locked = "false"))
             then (
                 (:check if all players confirmed their bets -> if true: change to deal-Phase and hand out Cards:)
-                if (count($blackjack-main:lobby/game[@id = $gameId]/players/player/pool[@locked="true"]/@locked) >= (count($blackjack-main:lobby/game[@id = $gameId]/players/player) - 1))
+                if (count($blackjack-main:lobby/game[@id = $gameId]/players/player[not(exists(disconnected))]/pool[@locked="true"]/@locked) >= (count($blackjack-main:lobby/game[@id = $gameId]/players/player[not(exists(disconnected))]) - 1))
                 then (
                     replace value of node $blackjack-main:lobby/game[@id = $gameId]/@phase with "deal",
                     update:output(web:redirect(concat("/docbook_blackjack/", $gameId, "/dealPhase")))
