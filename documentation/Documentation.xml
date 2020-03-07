@@ -594,10 +594,11 @@
                                 <para>The game can be played by calling this link: <ulink url="http://localhost:8984/docbook_blackjack/setup"/>.</para>
                             </listitem>
                         </itemizedlist></para>
-                    <para>The databases are created the first you call the link with setup. Once all
-                        databases are created the setup link will use a redirect to directly get to the
-                        Lobby. To delete the databases you have to access them directly on the BaseX
-                        interface using this link: <ulink url="http://localhost:8984/dba"/></para>
+                    <para>The databases are created upon first calling the setup link. Once all
+                        databases are created, the setup link will directly redirect to the Lobby.
+                        To delete the databases, you have to access them directly on the BaseX
+                        database administration interface using this link: <ulink
+                            url="http://localhost:8984/dba"/></para>
                 </listitem>
             </orderedlist>
         </sect1>
@@ -633,9 +634,9 @@
     <chapter>
         <title>Team Organisation</title>
         <para>Our team was formed at the beginning of the practical course and consists of three
-            team members. To allow for asynchronous communication with each other, we created a
-            Telegram group, where we could discuss our project apart from our weekly
-            meetings.</para>
+            team members, namely Patryk Brzoza, Moritz Issig and Fami Mahmud. To allow for
+            asynchronous communication with each other, we created a Telegram group, where we could
+            discuss our project apart from our weekly meetings.</para>
         <sect1>
             <title>Development Environment</title>
             <para>In order to manage and modify our codebase between all team members, we created a
@@ -666,17 +667,16 @@
                 </mediaobject>
                 </figure>
                 <para>The actual development process is subdivided into multiple iterations of a
-                    fixed length defined as <emphasis>sprints</emphasis>, which we chose to match
-                    the exercise sheet working time of one week. Each sprint consists of another
-                    sprint backlog, which includes the work to be done within one sprint and mostly
-                    matched the content of the given exercise sheet. We defined this during the
-                    weekly SCRUM meeting, which mostly took place before or after the weekly
-                    practical course lecture. Each team member then chose which sprint backlog item
-                    should be assigned to him and then proceeded to implement it during the sprint.
-                    One advantage of the SCRUM process is that each sprint terminates with a
-                    potenially deliverable product increment, which made the development process
-                    much easier for us as we could improve the functionality of our existing product
-                    each week.</para>
+                fixed length defined as <emphasis>sprints</emphasis>, which we chose to match the
+                exercise sheet working time of one week. Each sprint consists of another sprint
+                backlog, which includes the work to be done within one sprint and mostly matched the
+                content of the given exercise sheet. We defined this during the weekly SCRUM
+                meeting, which mostly took place before or after the weekly practical course
+                lecture. Each team member then chose which sprint backlog item should be assigned to
+                him and then proceeded to implement it during the sprint. One advantage of the SCRUM
+                process is that each sprint terminates with a potenially deliverable product
+                increment, which made the development process much easier for us as we could improve
+                the functionality of our existing product each week.</para>
             </sect1>
             <sect1>
                 <title>Continuous Deployment</title>
@@ -690,13 +690,57 @@
     </chapter>
     <chapter id="conclusion">
         <title>Conclusion</title>
+        <para>Summarizing the previous chapters, we implemented a fully functional instance of the
+            game Blackjack by solely applying XML technologies, which includes SVG, XSLT, XQuery and
+            BaseX. Our development process was based on official and personal requirements which
+            were set at the beginning of the project. All parts of the graphical user interface were
+            derived from low-fidelity prototype sketches, which were then incrementally given more
+            functionality. To support a model-driven development process, we based our architecture
+            on the Model-View-Controller (MVC) pattern and implemented all game modules according to
+            it. The main game process was subdivided into four phases, each of which defined a
+            certain step of the Blackjack game according to its ruleset. Additionally, we defined
+            data models for each part of the database in order to allow for complex yet efficient
+            data structures. We applied an agile development process based on SCRUM in order to
+            handle with ongoing requirement change and made use of contionuous deployment for
+            extensive testing between all team members.</para>
         <sect1>
-            <title>Problems</title>
-            <para/>
+            <title>Challenges</title>
+            <para>There were numerous challenges that we needed to dealt with throughout the
+                development phase. At first, most of us were familiar with XML as a markup language
+                itself, however most of the introduced technologies were new to us. Due to the good
+                organization structure of the practical course, we were able to progressively get
+                known to each technology by applying it on a real use case. For example, one
+                challenge which was thoroughly analyzed by us was how the card generation could be
+                implemented in SVG without introducing redundancy. With the introduction of XSLT
+                this task was greatly faciliated, as we could use pre-defined functions and loops
+                for a efficient card generation. Another problem we hat to cope with were the
+                differences between our systems during the development process. It turned out that
+                many components behaved differently depending on where they were deployed. For
+                example, UI elements were often rendered differently on macOS and Windows, which led
+                to numerous adaptations in the CSS stylesheets. On the other hand, function
+                parameters were also often treated differently depending on the XSLT processor, as
+                the isLoggedIn parameter inside the lobby template was not recognized at all for one
+                team member. We were able to resolve this problem by implementing continuous
+                deployment, where we pushed the most recent version of our game onto a web server
+                which could be then accessed independently by each member. One complex challenge was
+                theapplication of Websockets, as the technology is not yet fully supported by the
+                official release of BaseX and the technology was fairly new to us. However, upon
+                gaining more knowledge and supporting each other we were able to resolve this
+                problem together. Finally, there were some problems with the automatic generation of
+                our XQuery documentation files by xqDoc. Due to a bug in Oxygen, no output could be
+                created even though the files themselves were valid. Thanks to the kind help of
+                Prof. Brüggemann-Klein and Philipp Ulrich we eventually able to successfully create
+                the documentation files.</para>
         </sect1>
         <sect1>
             <title>Reflection</title>
-            <para/>
+            <para>During the practical course we have learned incredibly lot about the wide range of
+                XML technologies and the possibilities that can be achieved through applying them,
+                which if why we fully recommend it, especially as there are not many courses that
+                introduce informatics students into them inside the obligatory study curriculum. We
+                also earned a lot of valuable knowledge about teamwork and software engineering
+                within software projects, as we got along with each other very well and supported
+                each other during the implementation phase.</para>
         </sect1>
 
     </chapter>
