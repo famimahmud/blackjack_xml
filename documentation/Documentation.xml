@@ -166,7 +166,7 @@
         <sect1>
             <title>Websocket</title>
             <para>Since a REST-Response can only be sent to the client, who sent the REST-Request,
-                Websockets are an usefull tool to also send updates to clients which did not sent a
+                Websockets are an useful tool to also send updates to clients which did not sent a
                 request. BaseX-STOMP offers these websockets. If a client opens a page he subscribes
                 to the websocket. This websocket-connection will not be closed. The server can then
                 send messages to all clients which subscribed to the websocket. Additionally, a
@@ -204,8 +204,8 @@
                     accounts from previous sessions.</para>
             </listitem>
             <listitem>
-                <para>The Lobby should also include a highscore board keeping track of the highest
-                    player scores achieved throughout their finished games.</para>
+                <para>The Lobby should also include a high score board keeping track of the highest
+                        player scores achieved throughout their finished games.</para>
             </listitem>
             <listitem>
                 <para>The system architecture must follow the Model-View-Controller (MVC) pattern.
@@ -255,7 +255,7 @@
             different components of our architecture. </para>
         <sect1>
             <title>Templates</title>
-            <para>The XSLT templates are used to dynamically generate a html output depending on the
+            <para>The XSLT templates are used to dynamically generate a HTML output depending on the
                 current game state. </para>
             <sect2>
                 <title>Lobby Template</title>
@@ -266,13 +266,13 @@
                     database to generate the appropriate SVGs and HTML page. There are two different
                     options how a Lobby is presented. Either the <code>isLoggedIn</code> parameter
                     is set to 0, which means that no account is loaded yet, or to 1 in case there is
-                    an registered account. </para>
+                    a registered account. </para>
                 <para>This renders to a Lobby looking like this:</para>
                 <figure>
                     <title>Lobby Interface - not logged in</title>
                     <mediaobject>
                         <imageobject>
-                            <imagedata fileref="img/Lobby/LobbyImplementation2.png" width="700px"/>
+                            <imagedata fileref="img/Lobby/LobbyImplementation2.png" width="650px"/>
                         </imageobject>
                     </mediaobject>
                 </figure>
@@ -282,7 +282,7 @@
                     <title>Lobby Interface - logged in</title>
                     <mediaobject>
                         <imageobject>
-                            <imagedata fileref="img/Lobby/LobbyImplementation.png" width="700px"/>
+                            <imagedata fileref="img/Lobby/LobbyImplementation.png" width="650px"/>
                         </imageobject>
                     </mediaobject>
                 </figure>
@@ -294,7 +294,7 @@
                     <title>Lobby Prototype</title>
                     <mediaobject>
                         <imageobject>
-                            <imagedata fileref="img/Lobby/LobbyPrototype.png" width="700px"/>
+                            <imagedata fileref="img/Lobby/LobbyPrototype.png" width="650px"/>
                         </imageobject>
                     </mediaobject>
                 </figure>
@@ -306,10 +306,10 @@
                     buttons vary are presented depending on the phase and which actions are
                     currently possible. All phases are explained in detail in <link linkend="phases"
                         >Section 4.4</link>. Every time a user performs an action, such as to bet or
-                    to take another card, the game state changes. Therefore the view has to be
+                    to take another card, the game state changes. Therefore, the view has to be
                     refreshed by transforming the game model using the game template and sending it
                     to the related users. </para>
-                <para>The position of the players on the screen is dynamically calcuated using a
+                <para>The position of the players on the screen is dynamically calculated using a
                     mathematical function that takes into consideration how many players are part of
                     the game. For each player their respective Name and ID, as well as general game
                     information are shown in the top left corner. This can only be seen by the
@@ -319,7 +319,7 @@
                     <title>Table Interface</title>
                     <mediaobject>
                         <imageobject>
-                            <imagedata fileref="img/Table/TableImplementation.png" width="700px"/>
+                            <imagedata fileref="img/Table/TableImplementation.png" width="650px"/>
                         </imageobject>
                     </mediaobject>
                 </figure>
@@ -330,7 +330,7 @@
                     <title>Table Prototype</title>
                     <mediaobject>
                         <imageobject>
-                            <imagedata fileref="img/Table/TablePrototype.png" width="700px"/>
+                            <imagedata fileref="img/Table/TablePrototype.png" width="650px"/>
                         </imageobject>
                     </mediaobject>
                 </figure>
@@ -350,7 +350,7 @@
                     </mediaobject>
                 </figure>
                 <para>The first step is to check if the card is hidden. If so, the template just
-                    draws a pattern and returns. Otherwise the value is written in the top left and
+                    draws a pattern and returns. Otherwise, the value is written in the top left and
                     bottom right corner. Icons are loaded or rotated depending on the card type and
                     placed in a number of positions according to the value using a loop iterating
                     through the card center. The positions and rotation of the icon are saved in a
@@ -360,7 +360,7 @@
                     <title>Card Sketch</title>
                     <mediaobject>
                         <imageobject>
-                            <imagedata fileref="img/CardSketch.png" width="500px"/>
+                            <imagedata fileref="img/CardSketch.png" width="450px"/>
                         </imageobject>
                     </mediaobject>
                 </figure>
@@ -368,7 +368,7 @@
                     <title>Card Example</title>
                     <mediaobject>
                         <imageobject>
-                            <imagedata fileref="img/Card.png" width="250px"/>
+                            <imagedata fileref="img/Card.png" width="200px"/>
                         </imageobject>
                     </mediaobject>
                 </figure>
@@ -377,12 +377,12 @@
                 <title>Chip Template</title>
                 <para>Just as the creation of cards, chips are generated by calling the chip
                     template and passing the value as a parameter. Possible chip values are 10, 50,
-                    100, 250, 500 and 1000. Of course they determine the value as well as the
+                    100, 250, 500 and 1000. Of course, they determine the value as well as the
                     color.</para>
                 <para>In the template we take advantage of <code>&lt;symbol></code> and
                         <code>&lt;use></code> elements to create a chip in three steps. First, the
                     outer circle is filled with the chip color and thick white lines. Above the
-                    first cirle and lines another smaller circle is drawn in the color of the chip.
+                    first circle and lines another smaller circle is drawn in the color of the chip.
                     The final step is to add the dotted circle wherein the value is written. </para>
                 <para><inlinegraphic fileref="img/Chip1.png" width="200px"/>
                     <inlinegraphic fileref="img/Chip2.png" width="200px"/>
@@ -392,12 +392,16 @@
         </sect1>
         <sect1>
             <title>Modules</title>
-            <para/>
+            <para>Our programm is logically divided into 4 modules: Blackjack-Controller,
+                Blackjack-Main, Blackjack-Websocket and Blackjack-Helper. </para>
+            <para>A representation as a UML-class diagram is provided below. A comprehensive
+                documentation generated with xquerydoc and transformed to XHTML can be found in the
+                directory documentation/xqdoc.</para>
             <figure>
                 <title>Class-Diagram: Modules</title>
                 <mediaobject>
                     <imageobject>
-                        <imagedata fileref="diagrams/Klassendiagramm.png" width="700px"/>
+                        <imagedata fileref="diagrams/Klassendiagramm.png" width="650px"/>
                     </imageobject>
                 </mediaobject>
             </figure>
@@ -405,16 +409,17 @@
         <sect1 id="phases">
             <title>Phases</title>
             <para/>
-            <para>The Lobby as well as the Game have several states. An user in the Lobby can be
+            <para>The Lobby as well as the Game have several states. A user in the Lobby can be
                 either in the "not logged in"-state or in the "logged in"-state. To switch from the
                 "not logged in"-state to the "logged in"-state the user has to create a new account
-                (via the <code>createAccount()</code>) or, if she knows the Id, restore an existing Account (via
-                the <code>restoreAccount()</code>-function).</para>
-            <para>There are two ways to join a Game from the Lobby. The first one is by creating a new game (either
-                a singleplayer or multiplayer game) with the <code>newGame()</code>-function. Alternatively, it is possible to 
-                join an existing multplayer game with the <code>joinGame()</code>-function. In each phase of
-                the game a player can leave this game and return to the Lobby (with the
-                <code>leave()</code>-function). </para>
+                (via the <code>createAccount()</code>) or, if she knows the ID, restore an existing
+                Account (via the <code>restoreAccount()</code>-function).</para>
+            <para>There are two ways to join a Game from the Lobby. The first one is by creating a
+                new game (either a singleplayer or multiplayer game) with the
+                <code>newGame()</code>-function. Alternatively, it is possible to join an existing
+                multiplayer game with the <code>joinGame()</code>-function. In each phase of the
+                game a player can leave this game and return to the Lobby (with the
+                    <code>leave()</code>-function). </para>
             <figure>
                 <title>State-Diagram: Game-Phases</title>
                 <mediaobject>
@@ -425,34 +430,35 @@
             </figure>
             <para>A game has four phases:<orderedlist>
                     <listitem>
-                        <para>The starting phase is the bet-phase. If an player enters this phase, he
-                            will subscribe to the websocket of this game. Additionally the deck will be
-                            reset. All players can bet chips for the netx round at the same time.
-                            They can also reset their bets to correct mistakes. If all players have
-                            confirmed their bets, the game switches to the deal-phase.</para>
+                        <para>The starting phase is the bet-phase. If an player enters this phase,
+                            he will subscribe to the websocket of this game. Additionally the deck
+                            will be reset. All players can bet chips for the next round at the same
+                            time. They can also reset their bets to correct mistakes. If all players
+                            have confirmed their bets, the game switches to the deal-phase.</para>
                     </listitem>
                     <listitem>
-                        <para>The deal-phase is completely processed be the backend-system. First 
+                        <para>The deal-phase is completely processed by the backend-system. First
                             each player and the dealer draw one card from the deck. Since this is
                             the first card for the dealer his card will be hidden. After a database
-                            update, which is necessary because the dealer received his first card, each
-                            player and also the dealer draw a second card. Now the dealer gets a
-                            revealed card. In the next step the first player is set to the player,
-                            which is on turn. This is necessary for the next phase to begin. If a 
-                            player decides to leave during this phase he will be redirected to the Lobby. If not, 
-                            an update of the game-page will be send via the websocket
+                            update, which is necessary because the dealer received his first card,
+                            each player and also the dealer draw a second card. Now the dealer gets
+                            a revealed card. In the next step the first player is set to the player,
+                            which is on turn. This is necessary for the next phase to begin. If a
+                            player decides to leave during this phase he will be redirected to the
+                            Lobby. If not, an update of the game-page will be send via the websocket
                             connection.</para>
                     </listitem>
                     <listitem>
                         <para>In the play-phase each player does his turn one after another. A
-                            player can either hit or stand during his turn. After the last player finished
-                            his turn the dealerTurn starts. During the dealerTurn the dealer draws a
-                            card if his hand value is lower than 17, updates the databank and
-                            restarts the dealerTurn with the additional card. If the hand value is
-                            17 or higher, he stands and the phase changes to "pay". As in the
-                            deal-Phase, the dealerTurn can also be triggered by a leaving player. If
-                            so, this player will be redireted directly to the Lobby. If not, an update of
-                            the game-page will be sent via the websocket connection.</para>
+                            player can either hit or stand during his turn. After the last player
+                            finished his turn the dealerTurn starts. During the dealerTurn the
+                            dealer draws a card if his hand value is lower than 17, updates the
+                            database and restarts the dealerTurn with the additional card. If the
+                            hand value is 17 or higher, he stands and the phase changes to "pay". As
+                            in the deal-Phase, the dealerTurn can also be triggered by a leaving
+                            player. If so, this player will be redirected directly to the Lobby. If
+                            not, an update of the game-page will be sent via the websocket
+                            connection.</para>
                     </listitem>
                     <listitem>
                         <para>The last phase is the pay-phase. At the start of this phase the result
@@ -484,31 +490,31 @@
     </chapter>
     <chapter id="architecture">
         <title>Architecture</title>
-        <para>This chapter discribes the connections between the different hardware-components 
-            which are basing on a Model-View-Controller architecture pattern. The second section presents the
-            data-models of the lobby, containing the scores and the games, and the card-values,
+        <para>This chapter describes the connections between the different hardware-components which
+            are basing on a Model-View-Controller architecture pattern. The second section presents
+            the data-models of the lobby, containing the scores and the games, and the card-values,
             which will be used to generate the card-svgs.</para>
         <sect1>
             <title>MVC Architecture</title>
-            <para>The program is seperated in the separate sub-components: the Model, View and Controller:<itemizedlist>
+            <para>The program is separated in the separate sub-components: the Model, View and Controller:<itemizedlist>
                     <listitem>
-                        <para><emphasis role="bold">The Model</emphasis>-component contains the
-                            data stored in a database as XML. This database processes the updating
-                            constraints, which will be sent by the Controller-component. Additionally the
-                            Model-component sends the requested data as XML-elements to the
-                            Controller.</para>
+                        <para><emphasis role="bold">The Model</emphasis>-component contains the data
+                            stored in a database as XML. This database processes the updating
+                            constraints, which will be sent by the Controller-component.
+                            Additionally, the Model-component sends the requested data as
+                            XML-elements to the Controller.</para>
                     </listitem>
                     <listitem>
                         <para><emphasis role="bold">The View</emphasis>-component is the graphical
                             user interface for the user-client. The GUI will be sent from the
-                            Controller in a HTML and SVG format, either as an REST-response or via
-                            the websocket-connection. Also the Views can send REST-Requests to the
+                            Controller in an HTML and SVG format, either as an REST-response or via
+                            the websocket-connection. Also, the Views can send REST-Requests to the
                             Controller to perform changes on the Model and to get the Model.</para>
                     </listitem>
                     <listitem>
                         <para><emphasis role="bold">The Controller</emphasis>-component is placed on
-                            the Server and processes the incoming REST-Requests. Therefore it uses
-                            XQuery as a functional programming-language. Additionally it uses XSLT
+                            the Server and processes the incoming REST-Requests. Therefore, it uses
+                            XQuery as a functional programming-language. Additionally, it uses XSLT
                             to generate the HTML and SVG out of the model-data and send them to the
                             View.</para>
                     </listitem>
@@ -517,7 +523,7 @@
                 <title>Model: Model-View-Controller</title>
                 <mediaobject>
                     <imageobject>
-                        <imagedata fileref="diagrams/MVC-Modell.PNG"/>
+                        <imagedata fileref="diagrams/MVC-Modell.PNG" width="650"/>
                     </imageobject>
                 </mediaobject>
             </figure>
@@ -527,29 +533,34 @@
             <para>The data is saved using XML on the BaseX database-Server.</para>
             <sect2>
                 <title>Lobby-Model</title>
-                <para>The data-model of the lobby starts with the <code>lobby</code> itselft as the root-element.
-                    Inside the <code>lobby</code> there is a <code>scores</code>-element which contains all scores and several
-                    games. These games always contains one <code>deck</code> with up to 312 cards, one <code>dealer</code> and
-                    a <code>players</code> element, where all players participating in the game are stored. The players also have one
-                    <code>wallet</code> and one <code>pool</code>, where the bet chips are stored. All players
-                    and the dealer elements contain one <code>hand</code> element which can contain up to 22
-                    cards (21 aces and one additional card).</para>
+                <para>The data-model of the lobby starts with the <code>lobby</code> itself as the
+                    root-element. Inside the <code>lobby</code> there is a
+                    <code>scores</code>-element which contains all scores and several games. These
+                    games always contains one <code>deck</code> with up to 312 cards, one
+                        <code>dealer</code> and a <code>players</code> element, where all players
+                    participating in the game are stored. The players also have one
+                        <code>wallet</code> and one <code>pool</code>, where the bet chips are
+                    stored. All players and the dealer elements contain one <code>hand</code>
+                    element which can contain up to 22 cards (21 aces and one additional
+                    card).</para>
                 <figure>
                     <title>Data-Model: Lobby</title>
                     <mediaobject>
                         <imageobject>
-                            <imagedata fileref="diagrams/Lobby-Datenmodell.png" width="700px"/>
+                            <imagedata fileref="diagrams/Lobby-Datenmodell.png" width="650px"/>
                         </imageobject>
                     </mediaobject>
                 </figure>
             </sect2>
             <sect2>
                 <title>Card-Value-Model</title>
-                <para>To generate the number-cards dynamically, we use a XSLT-file which creates the
-                    SVG image of a card based on the values-xml. For each possible card value from Ace to 10, there is
-                    a <code>value</code>-element with the character of that value. Inside these
-                    <code>value</code>-elements there is a list of all <code>points</code>, where the card has a symbol to be drawn (e.g. one point
-                    for ace, …, ten points for 10). It also includes information whether this symbol should be rotated.</para>
+                <para>To generate the number-cards dynamically, we use an XSLT-file which creates
+                    the SVG image of a card based on the values-xml. For each possible card value
+                    from Ace to 10, there is a <code>value</code>-element with the character of that
+                    value. Inside these <code>value</code>-elements there is a list of all
+                        <code>points</code>, where the card has a symbol to be drawn (e.g. one point
+                    for ace, …, ten points for 10). It also includes information whether this symbol
+                    should be rotated.</para>
                 <figure>
                     <title>Data-Model: Card-Value</title>
                     <mediaobject>
@@ -584,7 +595,7 @@
                         server cannot be addressed through IPv6. </para>
                 </listitem>
                 <listitem>
-                    <para>The second option requieres a running BaseX STOMP HTTP server and running
+                    <para>The second option requires a running BaseX STOMP HTTP server and running
                         BaseX database Server. </para>
                 </listitem>
             </orderedlist>
@@ -599,8 +610,9 @@
                 <listitem>
                     <para>To install the BaseX STOMP HTTP sever a few steps have to be made <itemizedlist>
                             <listitem>
-                                <para>Download the comlplete BaseX program (BaseX931.zip, status
-                                    march 2020) from their website <ulink url="http://basex.org/download/"/>. </para>
+                                <para>Download the complete BaseX program (BaseX931.zip, status
+                                    March 2020) from their website <ulink
+                                        url="http://basex.org/download/"/>. </para>
                             </listitem>
                             <listitem>
                                 <para>Download and build the BaseX STOMP packet from the stomp
@@ -634,32 +646,33 @@
         <title>Game Demo</title>
         <para>In this chapter we will present a short demo of the gameplay with screenshots in
             different user situations and from different points of view.</para>
-        <para>On the left you can see the lobby which is shown before you are logged in and on the right once you created or restored a account.</para> 
-        <para><inlinegraphic fileref="img/GameDemo.png" width="400px"/>
-             <inlinegraphic fileref="img/GameDemo2.png" width="400px"/></para>
-        <para>Mandela created a multiplayer game, that Obama can join by clicking on the game button in
-            the scrollable games list. On the right hand side the game is in the bet phase and Obama has
-            already confirmed his bet, what can be seen by the checkmark next to his name. Obama has
-            no buttons to press and is now waiting for Mandela to confirm his bet. </para>
-        <para><inlinegraphic fileref="img/GameDemo3.png" width="400px"/>
-            <inlinegraphic fileref="img/GameDemo4.png" width="400px"/>
+        <para>On the left you can see the lobby which is shown before you are logged in and on the
+            right once you created or restored an account.</para> 
+        <para><inlinegraphic fileref="img/GameDemo.png" width="300px"/>
+             <inlinegraphic fileref="img/GameDemo2.png" width="300px"/></para>
+        <para>Mandela created a multiplayer game, that Obama can join by clicking on the game button
+            in the scrollable games list. On the right-hand side the game is in the bet phase and
+            Obama has already confirmed his bet, what can be seen by the check mark next to his
+            name. Obama has no buttons to press and is now waiting for Mandela to confirm his bet. </para>
+        <para><inlinegraphic fileref="img/GameDemo3.png" width="300px"/>
+            <inlinegraphic fileref="img/GameDemo4.png" width="300px"/>
         </para>
         <para>In these two pictures the view of Mandela during the play phase is shown. After two
             cards are dealt to both players, Mandela can press the button hit or stand on the left
             picture. Mandel is satisfied with his hand and chooses to stand. That leads to the right
             situation in which Mandela is waiting for Obama to hit or stand. As you can see the box
             of the player who is on turn is colored in gold.</para>
-        <para><inlinegraphic fileref="img/GameDemo5.png" width="400px"/>
-            <inlinegraphic fileref="img/GameDemo6.png" width="400px"/>
+        <para><inlinegraphic fileref="img/GameDemo5.png" width="300px"/>
+            <inlinegraphic fileref="img/GameDemo6.png" width="300pxx"/>
         </para>
-        <para>After players stand or go bust we are in the pay phase where the final hands of
+        <para>After all players stand or go bust we are in the pay phase where the final hands of
             dealer and players are shown. Through the button Continue the players have the
             possibility to start a new round. The Exit button can be used to get back to the lobby. </para>
-        <para><inlinegraphic fileref="img/GameDemo7.png" width="400px"/>
+        <para><inlinegraphic fileref="img/GameDemo7.png" width="300px"/>
         </para>
     </chapter>
     <chapter>
-        <title>Team Organisation</title>
+        <title>Team Organization</title>
         <para>Our team was formed at the beginning of the practical course and consists of three
             team members, namely Patryk Brzoza, Moritz Issig and Fami Mahmud. To allow for
             asynchronous communication with each other, we created a Telegram group, where we could
@@ -671,7 +684,7 @@
                 powerful functionality given by Git. We used separate branches to implement new
                 features, which we then merged to the master branch upon implementation.
                 Additionally, it is possible to keep track of and resolve known issues by using the
-                included issue tracker. The web interface allows to inspect files on-the-go without
+                included issue tracker. The web interface allows inspecting files on-the-go without
                 having direct access to the Git repository. To resolve merge conflicts, we used the
                 Git CLI and SourceTree. For the development process itself we used IntelliJ IDEA, as
                 it allows for extensibility through numerous plug-ins, e.g. to allow syntax
@@ -701,7 +714,7 @@
                 meeting, which mostly took place before or after the weekly practical course
                 lecture. Each team member then chose which sprint backlog item should be assigned to
                 him and then proceeded to implement it during the sprint. One advantage of the SCRUM
-                process is that each sprint terminates with a potenially deliverable product
+                process is that each sprint terminates with a potentially deliverable product
                 increment, which made the development process much easier for us as we could improve
                 the functionality of our existing product each week.</para>
             </sect1>
@@ -725,46 +738,46 @@
             functionality. To support a model-driven development process, we based our architecture
             on the Model-View-Controller (MVC) pattern and implemented all game modules according to
             it. The main game process was subdivided into four phases, each of which defined a
-            certain step of the Blackjack game according to its ruleset. Additionally, we defined
+            certain step of the Blackjack game according to its rule set. Additionally, we defined
             data models for each part of the database in order to allow for complex yet efficient
             data structures. We applied an agile development process based on SCRUM in order to
-            handle with ongoing requirement change and made use of contionuous deployment for
+            handle with ongoing requirement change and made use of continuous deployment for
             extensive testing between all team members.</para>
         <sect1>
             <title>Challenges</title>
-            <para>There were numerous challenges that we needed to dealt with throughout the
+            <para>There were numerous challenges that we needed to deal with throughout the
                 development phase. At first, most of us were familiar with XML as a markup language
                 itself, however most of the introduced technologies were new to us. Due to the good
                 organization structure of the practical course, we were able to progressively get
                 known to each technology by applying it on a real use case. For example, one
                 challenge which was thoroughly analyzed by us was how the card generation could be
                 implemented in SVG without introducing redundancy. With the introduction of XSLT
-                this task was greatly faciliated, as we could use pre-defined functions and loops
-                for a efficient card generation. Another problem we hat to cope with were the
+                this task was greatly facilitated, as we could use predefined functions and loops
+                for an efficient card generation. Another problem we had to cope with were the
                 differences between our systems during the development process. It turned out that
                 many components behaved differently depending on where they were deployed. For
                 example, UI elements were often rendered differently on macOS and Windows, which led
                 to numerous adaptations in the CSS stylesheets. On the other hand, function
                 parameters were also often treated differently depending on the XSLT processor, as
-                the isLoggedIn parameter inside the lobby template was not recognized at all for one
-                team member. We were able to resolve this problem by implementing continuous
-                deployment, where we pushed the most recent version of our game onto a web server
-                which could be then accessed independently by each member. One complex challenge was
-                theapplication of Websockets, as the technology is not yet fully supported by the
-                official release of BaseX and the technology was fairly new to us. However, upon
-                gaining more knowledge and supporting each other we were able to resolve this
-                problem together. Finally, there were some problems with the automatic generation of
-                our XQuery documentation files by xqDoc. Due to a bug in Oxygen, no output could be
-                created even though the files themselves were valid. Thanks to the kind help of
-                Prof. Brüggemann-Klein and Philipp Ulrich we eventually able to successfully create
-                the documentation files.</para>
+                the <code>isLoggedIn</code> parameter inside the lobby template was not recognized
+                at all for one team member. We were able to resolve this problem by implementing
+                continuous deployment, where we pushed the most recent version of our game onto a
+                web server which could be then accessed independently by each member. One complex
+                challenge was the application of Websockets, as the technology is not yet fully
+                supported by the official release of BaseX and the technology was fairly new to us.
+                However, upon gaining more knowledge and supporting each other we were able to
+                resolve this problem together. Finally, there were some problems with the automatic
+                generation of our XQuery documentation files by xqDoc. Due to a bug in Oxygen, no
+                output could be created even though the files themselves were valid. Thanks to the
+                kind help of Prof. Brüggemann-Klein and Philipp Ulrich we were eventually able to
+                successfully create the documentation files.</para>
         </sect1>
         <sect1>
             <title>Reflection</title>
             <para>During the practical course we have learned incredibly lot about the wide range of
                 XML technologies and the possibilities that can be achieved through applying them,
-                which if why we fully recommend it, especially as there are not many courses that
-                introduce informatics students into them inside the obligatory study curriculum. We
+                which is why we fully recommend it, especially as there are not many courses, that
+                introduce informatics students into them, inside the obligatory study curriculum. We
                 also earned a lot of valuable knowledge about teamwork and software engineering
                 within software projects, as we got along with each other very well and supported
                 each other during the implementation phase.</para>
