@@ -28,12 +28,12 @@ function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string,
       let $game :=
           <game id="{$gameId}" singlePlayer="{$singlePlayer}" onTurn="noOne" phase="bet">
               <dealer>
-                  <hand>
+                  <hand sum="0">
                   </hand>
               </dealer>
               <players>
                   <player id="{$playerId}" name="{$playerName}">
-                          <hand>
+                          <hand sum="0">
                           </hand>
                           <wallet>1000</wallet>
                           <pool locked="false"></pool>
@@ -155,8 +155,16 @@ declare
 function blackjack-main:payPlayers($gameId as xs:integer){
     (: remove dealer hand:)
     for $playerId in $blackjack-main:lobby/game[@id = $gameId]/players/player/@id
+        let $newPlayerWallet := blackjack-main:getNewPlayerWallet($gameId, $playerId)
         return (
-            blackjack-main:payPlayer($gameId, $playerId)
+            if ($newPlayerWallet > 9) then (
+                replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/pool with <pool locked="false"/>,
+                replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/hand with <hand sum="0"/>,
+                replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/wallet/node() with $newPlayerWallet
+            )
+            else (
+                delete node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]
+            )
         ),
     replace node $blackjack-main:lobby/game[@id = $gameId]/dealer/hand with <hand sum="0"/>,
     blackjack-main:newRound($gameId)
@@ -168,36 +176,29 @@ function blackjack-main:payPlayers($gameId as xs:integer){
  : if the player loses the game and his wallet is empty -> remove him from the game
  : @gameId Id of the game, where the player will be paid out
  : @playerId Id of the player, who will be paid
- : @return model change at player wallet, player pool and player hand
+ : @return new wallet value after payment
  :)
 declare
-%updating
-function blackjack-main:payPlayer($gameId as xs:integer, $playerId as xs:string){
+function blackjack-main:getNewPlayerWallet($gameId as xs:integer, $playerId as xs:string) as xs:integer{
     let $wallet := xs:integer($blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/wallet/node())
     let $poolBet := sum($blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/pool/chip/value)
     let $playerValue := $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/hand/@sum
     let $dealerValue := $blackjack-main:lobby/game[@id = $gameId]/dealer/hand/@sum
-    return (
-        if (($playerValue > 21 or ($playerValue < $dealerValue and $dealerValue < 22 ))
-            and $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/wallet < 10)
-            then delete node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]
-            else (
-                replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/pool with <pool locked="false"/>,
-                replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/hand with <hand sum="0"/>,
-                (: check if playerhand is below 22 -> if not -> loss :)
-                if ($playerValue < 22) then (
-                    (: check if playerhand = dealerhand  -> no gain :)
+    return (    (: check if playerhand is below 22 -> if not -> loss :)
+        if ($playerValue > 21 or ($playerValue < $dealerValue and $dealerValue < 22 ))
+            then $wallet
+            else ((: check if playerhand = dealerhand  -> no gain :)
                     if ( $playerValue = $dealerValue)
-                        then (replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/wallet/node() with ($wallet + $poolBet) )
+                        then xs:integer($wallet + $poolBet)
                                 (: check if playerhand > dealerhand or dealerhand > 21 -> profit :)
                         else (if ($playerValue > $dealerValue or $dealerValue > 21)
                                 then ( if ($playerValue = 21 )
                                         (: blackjack pays 3:2 :)
-                                    then replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/wallet/node() with ($wallet + (2.5*$poolBet))
-                                    else replace node $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/wallet/node() with ($wallet + (2*$poolBet))))
+                                    then xs:integer($wallet + (2.5*$poolBet))
+                                    else xs:integer($wallet + (2*$poolBet)))
+                        )
                 )
         )
-    )
 };
 
 
@@ -396,7 +397,9 @@ declare
 %updating
 function blackjack-main:addHighscore($gameId as xs:integer, $playerId as xs:string){
     let $playerName := string($blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/@name)
-    let $playerScore := $blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/wallet/text() -1000
+    let $playerScore := if ($blackjack-main:lobby/game[@id = $gameId]/@phase = 'bet' or $blackjack-main:lobby/game[@id = $gameId]/@phase = 'pay')
+                            then (blackjack-main:getNewPlayerWallet($gameId, $playerId) - 1000)
+                            else ($blackjack-main:lobby/game[@id = $gameId]/players/player[@id=$playerId]/wallet/text() -1000)
     let $currentHighscore := $blackjack-main:players/player[@id=$playerId]/@highscore
     let $newEntry :=
     <score name="{$playerName}">{$playerScore}</score>
