@@ -60,7 +60,8 @@ function blackjack-main:newGame($gameId as xs:integer, $playerName as xs:string,
               replace value of node $blackjack-main:lobby/game[@id = $gameId]/@onTurn with "noOne",
               replace value of node $blackjack-main:lobby/game[@id = $gameId]/@phase with "bet",
               for $disconnectedPlayer in $blackjack-main:lobby/game[@id = $gameId]/players/player[exists(disconnected)]
-              return (delete node $disconnectedPlayer)
+              return (blackjack-main:addHighscore($gameId, $disconnectedPlayer/@id),
+                delete node $disconnectedPlayer)
       )
   };
 
